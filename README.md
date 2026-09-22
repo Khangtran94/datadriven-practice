@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Third Largest Batch Job](./practice/sql/third-largest-batch-job) | SQL | Easy | 2026-07-13 |
 | [Latest Version Per Service](./practice/sql/latest-version-per-service) | SQL | Easy | 2026-07-13 |
 | [Morning Warning Logs](./practice/sql/morning-warning-logs) | SQL | Easy | 2026-07-13 |
 | [Most Common Monday Outcome](./practice/sql/most-common-monday-outcome) | SQL | Medium | 2026-07-13 |
