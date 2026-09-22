@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Bookends](./practice/sql/bookends) | SQL | Easy | 2026-06-06 |
 | [Running Node Pairs](./practice/sql/running-node-pairs) | SQL | Easy | 2026-06-06 |
 | [Progress Milestones](./practice/python/progress-milestones) | Python | Easy | 2026-06-06 |
 | [The Threshold](./practice/sql/the-threshold) | SQL | Medium | 2026-06-06 |
