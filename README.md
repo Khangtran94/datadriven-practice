@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest Rooms](./practice/sql/the-loudest-rooms) | SQL | Medium | 2026-09-21 |
 | [The Phantom Readers](./practice/sql/the-phantom-readers) | SQL | Medium | 2026-09-21 |
 | [Impressions by Search Keyword](./practice/sql/impressions-by-search-keyword) | SQL | Hard | 2026-09-21 |
 | [Even the Silent Ones](./practice/sql/even-the-silent-ones) | SQL | Medium | 2026-09-21 |
