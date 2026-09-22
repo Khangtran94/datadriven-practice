@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Spending by Account Status](./practice/sql/spending-by-account-status) | SQL | Medium | 2026-05-25 |
 | [Where Quality Breaks](./practice/sql/where-quality-breaks) | SQL | Easy | 2026-05-25 |
 | [Double Vision](./practice/sql/double-vision) | SQL | Easy | 2026-05-25 |
 | [Error Severity Buckets](./practice/sql/error-severity-buckets) | SQL | Easy | 2026-05-25 |
