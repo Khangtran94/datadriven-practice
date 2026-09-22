@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Shipped to Prod](./practice/sql/shipped-to-prod) | SQL | Easy | 2026-07-14 |
 | [Price Check](./practice/sql/price-check) | SQL | Easy | 2026-07-14 |
 | [Power Users](./practice/sql/power-users) | SQL | Medium | 2026-07-14 |
 | [The Stable and the Restless](./practice/sql/the-stable-and-the-restless) | SQL | Easy | 2026-07-14 |
