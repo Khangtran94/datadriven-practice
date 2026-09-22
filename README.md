@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest Machines](./practice/sql/the-loudest-machines) | SQL | Medium | 2026-07-14 |
 | [The Spending Rhythm](./practice/sql/the-spending-rhythm) | SQL | Easy | 2026-07-14 |
 | [Monthly Signup Counts](./practice/sql/monthly-signup-counts) | SQL | Easy | 2026-07-14 |
 | [The Shape of the Year](./practice/sql/the-shape-of-the-year) | SQL | Medium | 2026-07-14 |
