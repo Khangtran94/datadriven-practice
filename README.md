@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top 100 Batch Jobs Total Output](./practice/sql/top-100-batch-jobs-total-output) | SQL | Easy | 2026-07-03 |
 | [The Publishing Audit](./practice/sql/the-publishing-audit) | SQL | Easy | 2026-07-03 |
 | [Low Throughput Pipelines](./practice/sql/low-throughput-pipelines) | SQL | Easy | 2026-07-03 |
 | [Service Alert Frequency](./practice/sql/service-alert-frequency) | SQL | Easy | 2026-07-03 |
