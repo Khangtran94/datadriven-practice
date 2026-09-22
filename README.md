@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [What the Shelf Never Sold](./practice/sql/what-the-shelf-never-sold) | SQL | Medium | 2026-07-13 |
 | [Memory-Heavy Pods](./practice/sql/memory-heavy-pods) | SQL | Easy | 2026-07-09 |
 | [Active Token Owners in 2026](./practice/sql/active-token-owners-in-year) | SQL | Easy | 2026-07-09 |
 | [High-Spend 2025 Campaigns](./practice/sql/high-spend-year-1-campaigns) | SQL | Easy | 2026-07-09 |
