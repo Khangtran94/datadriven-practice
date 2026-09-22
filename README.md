@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Priciest Item in Each Category](./practice/sql/priciest-item-in-each-category) | SQL | Medium | 2026-07-02 |
 | [Long Searches Containing 'er'](./practice/sql/long-searches-containing-er) | SQL | Easy | 2026-07-02 |
 | [After the Cutoff](./practice/sql/after-the-cutoff) | SQL | Easy | 2026-07-02 |
 | [First Half of Page Views](./practice/sql/first-half-of-page-views) | SQL | Medium | 2026-07-02 |
