@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Mobile vs Desktop Session Duration](./practice/sql/mobile-vs-desktop-session-duration) | SQL | Medium | 2026-08-27 |
 | [Kings of the Aisle](./practice/sql/kings-of-the-aisle) | SQL | Medium | 2026-08-27 |
 | [Best in Class](./practice/sql/best-in-class) | SQL | Medium | 2026-08-27 |
 | [Top Users by Recent Spend](./practice/sql/top-users-by-recent-spend) | SQL | Medium | 2026-08-27 |
