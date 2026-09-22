@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Above the Curve](./practice/sql/above-the-curve) | SQL | Medium | 2026-08-05 |
 | [Keyword-Based User Search](./practice/sql/keyword-based-user-search) | SQL | Medium | 2026-08-04 |
 | [Repeat Purchases Within a Week](./practice/sql/repeat-purchases-within-a-week) | SQL | Medium | 2026-07-28 |
 | [Same-Day Session and Transaction Correlation](./practice/sql/same-day-session-and-transaction-correlation) | SQL | Hard | 2026-07-27 |
