@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Forward Fill](./practice/python/the-forward-fill) | Python | Easy | 2026-06-22 |
 | [The Dominant Signal](./practice/python/the-dominant-signal) | Python | Easy | 2026-06-22 |
 | [Top Accuracy Model](./practice/sql/top-accuracy-model) | SQL | Medium | 2026-06-21 |
 | [Views by Content Type](./practice/sql/views-by-content-type) | SQL | Medium | 2026-06-21 |
