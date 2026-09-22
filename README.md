@@ -30,6 +30,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [Average Sessions Per User](./practice/sql/average-sessions-per-user) | SQL | Hard | 2026-07-02 |
 | [Where the Heat Pools](./practice/sql/where-the-heat-pools) | SQL | Easy | 2026-07-02 |
 | [Cloud Cost by Team](./practice/sql/cloud-cost-by-team) | SQL | Easy | 2026-07-02 |
+| [Low-Engagement Sessions](./practice/sql/low-engagement-sessions) | SQL | Medium | 2026-07-02 |
 | [Normalization Tradeoffs in Practice](./practice/sql/normalization-tradeoffs-in-practice) | SQL | Hard | 2026-07-02 |
 | [Alert Count by Severity Tier](./practice/sql/alert-count-by-severity-tier) | SQL | Medium | 2026-07-02 |
 | [Full Funnel](./practice/sql/full-funnel) | SQL | Hard | 2026-07-02 |
