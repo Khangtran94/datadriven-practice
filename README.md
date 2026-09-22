@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Ones Who Hold Attention](./practice/sql/the-ones-who-hold-attention) | SQL | Medium | 2026-07-02 |
 | [Daily Session and User Counts](./practice/sql/daily-session-and-user-counts) | SQL | Medium | 2026-07-02 |
 | [Average Review Comments by Author](./practice/sql/average-review-comments-by-author) | SQL | Medium | 2026-07-02 |
 | [Daily and Weekly Active Users](./practice/sql/daily-and-weekly-active-users) | SQL | Easy | 2026-07-02 |
