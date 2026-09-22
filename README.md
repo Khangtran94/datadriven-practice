@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [What's in a Name](./practice/sql/what-s-in-a-name) | SQL | Easy | 2026-07-02 |
 | [Twice Over](./practice/sql/twice-over) | SQL | Medium | 2026-07-02 |
 | [Heavy Hitters](./practice/sql/heavy-hitters) | SQL | Medium | 2026-07-02 |
 | [Double Take](./practice/sql/double-take) | SQL | Medium | 2026-07-02 |
