@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Servers Returning to Origin](./practice/sql/servers-returning-to-origin) | SQL | Medium | 2026-07-21 |
 | [Revoked Tokens by Scope](./practice/sql/revoked-tokens-by-scope) | SQL | Medium | 2026-07-21 |
 | [Buried Digits](./practice/sql/buried-digits) | SQL | Medium | 2026-07-21 |
 | [API Call Distribution Fraction](./practice/sql/api-call-distribution-fraction) | SQL | Hard | 2026-07-21 |
