@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Metric Per Department](./practice/sql/peak-metric-per-department) | SQL | Easy | 2026-07-16 |
 | [Net Lines](./practice/sql/net-lines) | SQL | Medium | 2026-07-16 |
 | [Campaign Cost Effectiveness](./practice/sql/campaign-cost-effectiveness) | SQL | Medium | 2026-07-16 |
 | [Non-Trivial Fatal Errors](./practice/sql/non-trivial-fatal-errors) | SQL | Medium | 2026-07-16 |
