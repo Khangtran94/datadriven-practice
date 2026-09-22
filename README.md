@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Losing Altitude](./practice/sql/losing-altitude) | SQL | Hard | 2026-09-07 |
 | [Cache Efficiency](./practice/sql/cache-efficiency) | SQL | Hard | 2026-09-07 |
 | [Where the Minutes Go](./practice/sql/where-the-minutes-go) | SQL | Hard | 2026-09-07 |
 | [The Usual Suspects](./practice/sql/the-usual-suspects) | SQL | Hard | 2026-09-07 |
