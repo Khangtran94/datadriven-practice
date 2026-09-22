@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Spend and Rank](./practice/sql/spend-and-rank) | SQL | Hard | 2026-07-21 |
 | [Session Count Distribution](./practice/sql/session-count-distribution) | SQL | Hard | 2026-07-21 |
 | [Endpoint Ranking](./practice/sql/endpoint-ranking) | SQL | Hard | 2026-07-21 |
 | [Best Accuracy to Training Time Ratio](./practice/sql/best-accuracy-to-training-time-ratio) | SQL | Medium | 2026-07-21 |
