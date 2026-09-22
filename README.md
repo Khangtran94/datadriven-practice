@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Even-ID February Signups](./practice/sql/even-id-february-signups) | SQL | Easy | 2026-07-02 |
 | [The Perennials](./practice/sql/the-perennials) | SQL | Easy | 2026-07-02 |
 | [Who's Holding Up Traffic](./practice/sql/who-s-holding-up-traffic) | SQL | Medium | 2026-07-02 |
 | [Splitting the Load](./practice/sql/splitting-the-load) | SQL | Medium | 2026-07-02 |
