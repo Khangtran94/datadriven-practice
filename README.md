@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Seen and Unseen](./practice/sql/seen-and-unseen) | SQL | Medium | 2026-06-30 |
 | [Metric Value Quarter Complement](./practice/sql/metric-value-quarter-complement) | SQL | Easy | 2026-06-30 |
 | [The Roads In](./practice/sql/the-roads-in) | SQL | Easy | 2026-06-30 |
 | [Successful Production Deploys](./practice/sql/successful-production-deploys) | SQL | Easy | 2026-06-30 |
