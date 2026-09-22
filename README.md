@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Radio Silence](./practice/sql/radio-silence) | SQL | Hard | 2026-09-15 |
 | [The Log Pulse](./practice/python/the-log-pulse) | Python | Easy | 2026-09-15 |
 | [Symmetric Reply Network](./practice/sql/symmetric-reply-network) | SQL | Medium | 2026-09-14 |
 | [First and Last Peak Accuracy Dates](./practice/sql/first-and-last-peak-accuracy-dates) | SQL | Medium | 2026-09-14 |
