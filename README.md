@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Slow Failures](./practice/sql/slow-failures) | SQL | Easy | 2026-07-07 |
 | [The Ad Ledger](./practice/sql/the-ad-ledger) | SQL | Easy | 2026-07-07 |
 | [Top Deployed Model](./practice/sql/top-deployed-model) | SQL | Easy | 2026-07-07 |
 | [Timeout Status Records](./practice/sql/timeout-status-records) | SQL | Easy | 2026-07-07 |
