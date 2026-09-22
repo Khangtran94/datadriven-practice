@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unmatched Deploy Services](./practice/sql/unmatched-deploy-services) | SQL | Medium | 2026-07-16 |
 | [Views by Specific Users](./practice/sql/views-by-specific-users) | SQL | Easy | 2026-07-16 |
 | [Top Batch Job Under Priority 1](./practice/sql/top-batch-job-under-priority-1) | SQL | Medium | 2026-07-16 |
 | [Users With Admin Tokens](./practice/sql/users-with-admin-tokens) | SQL | Medium | 2026-07-16 |
