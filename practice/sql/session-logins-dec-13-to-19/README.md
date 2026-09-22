@@ -4,15 +4,9 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/session_logins_dec_13_to_19)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-06-20 |
-| Accepted | on the first submission |
-| Time | under a minute |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Range Filtering, Deduplication, Query Basics, Filtering |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
