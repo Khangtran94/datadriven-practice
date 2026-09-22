@@ -4,15 +4,9 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/where_the_money_sits)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-07-02 |
-| Accepted | on the first submission |
-| Time | 1 min |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Conditional Logic, Conditional Aggregation, Grouping, Query Basics, Sums & Averages |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
