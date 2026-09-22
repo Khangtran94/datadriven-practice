@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Zero Propagator](./practice/python/the-zero-propagator) | Python | Medium | 2026-09-16 |
 | [Radio Silence](./practice/sql/radio-silence) | SQL | Hard | 2026-09-15 |
 | [The Log Pulse](./practice/python/the-log-pulse) | Python | Easy | 2026-09-15 |
 | [Symmetric Reply Network](./practice/sql/symmetric-reply-network) | SQL | Medium | 2026-09-14 |
