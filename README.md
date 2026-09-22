@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top 10 Batch Jobs](./practice/sql/top-10-batch-jobs) | SQL | Easy | 2026-07-05 |
 | [The Multiplier Rush](./practice/python/the-multiplier-rush) | Python | Medium | 2026-07-04 |
 | [The Severity Matrix](./practice/sql/the-severity-matrix) | SQL | Medium | 2026-07-04 |
 | [The Holdouts](./practice/sql/the-holdouts) | SQL | Medium | 2026-07-03 |
