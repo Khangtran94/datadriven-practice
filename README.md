@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Double or Nothing](./practice/sql/double-or-nothing) | SQL | Hard | 2026-08-24 |
 | [Users Who Churned in February](./practice/sql/users-who-churned-in-february) | SQL | Hard | 2026-08-24 |
 | [Above Their Station](./practice/sql/above-their-station) | SQL | Medium | 2026-08-24 |
 | [Behind the Fleet](./practice/sql/behind-the-fleet) | SQL | Medium | 2026-08-24 |
