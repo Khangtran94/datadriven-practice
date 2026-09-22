@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [DQ Score Spread](./practice/sql/dq-score-spread) | SQL | Medium | 2026-08-05 |
 | [The Slow Build](./practice/sql/the-slow-build) | SQL | Medium | 2026-08-05 |
 | [Cost Share Within Category](./practice/sql/cost-share-within-category) | SQL | Medium | 2026-08-05 |
 | [Creator Favorite Content Type](./practice/sql/creator-favorite-content-type) | SQL | Hard | 2026-08-05 |
