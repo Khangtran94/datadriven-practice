@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unsold Product Categories](./practice/sql/unsold-product-categories) | SQL | Medium | 2026-08-26 |
 | [Top Spender](./practice/sql/top-spender) | SQL | Medium | 2026-08-26 |
 | [Unique Reporters per Content](./practice/sql/unique-reporters-per-content) | SQL | Medium | 2026-08-26 |
 | [Where the Lines Break](./practice/python/where-the-lines-break) | Python | Easy | 2026-08-25 |
