@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Holdouts](./practice/sql/the-holdouts) | SQL | Medium | 2026-07-03 |
 | [First Arrivals](./practice/sql/first-arrivals) | SQL | Medium | 2026-07-03 |
 | [First Time Learners Per Day](./practice/sql/first-time-learners-per-day) | SQL | Medium | 2026-07-03 |
 | [High Volume Batch Jobs](./practice/sql/high-volume-batch-jobs) | SQL | Easy | 2026-07-03 |
