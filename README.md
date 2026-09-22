@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Where the Money Pools](./practice/sql/where-the-money-pools) | SQL | Medium | 2026-07-16 |
 | [Stock Status](./practice/sql/stock-status) | SQL | Easy | 2026-07-16 |
 | [Split Metric Sums](./practice/sql/split-metric-sums) | SQL | Medium | 2026-07-16 |
 | [Resolved vs Unresolved Alerts](./practice/sql/resolved-vs-unresolved-alerts) | SQL | Hard | 2026-07-16 |
