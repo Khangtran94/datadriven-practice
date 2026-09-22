@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Repository Commit Ranking](./practice/sql/repository-commit-ranking) | SQL | Medium | 2026-06-22 |
 | [Most Active Chat Users](./practice/sql/most-active-chat-users) | SQL | Medium | 2026-06-22 |
 | [One Year to the Next](./practice/sql/one-year-to-the-next) | SQL | Hard | 2026-06-22 |
 | [The Loudest in the Room](./practice/sql/the-loudest-in-the-room) | SQL | Medium | 2026-06-22 |
