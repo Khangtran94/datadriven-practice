@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [First Among Equals](./practice/sql/first-among-equals) | SQL | Medium | 2026-07-02 |
 | [Past the Threshold](./practice/sql/past-the-threshold) | SQL | Medium | 2026-07-02 |
 | [Max Value Per Location](./practice/sql/max-value-per-location) | SQL | Easy | 2026-07-02 |
 | [Most Frequent Error Types](./practice/sql/most-frequent-error-types) | SQL | Medium | 2026-07-02 |
