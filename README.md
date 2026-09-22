@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Satisfaction](./practice/sql/peak-satisfaction) | SQL | Easy | 2026-07-14 |
 | [Seen or Ignored](./practice/sql/seen-or-ignored) | SQL | Medium | 2026-07-14 |
 | [The Spender Leaderboard](./practice/sql/the-spender-leaderboard) | SQL | Easy | 2026-07-13 |
 | [Third Largest Batch Job](./practice/sql/third-largest-batch-job) | SQL | Easy | 2026-07-13 |
