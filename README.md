@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The One That Flew](./practice/sql/the-one-that-flew) | SQL | Medium | 2026-06-22 |
 | [Trend Spotter](./practice/sql/trend-spotter) | SQL | Medium | 2026-06-22 |
 | [Longest Deploy With Full Identifier](./practice/sql/longest-deploy-with-full-identifier) | SQL | Easy | 2026-06-22 |
 | [Between the Spaces](./practice/sql/between-the-spaces) | SQL | Medium | 2026-06-22 |
