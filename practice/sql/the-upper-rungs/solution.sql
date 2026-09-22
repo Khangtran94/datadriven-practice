@@ -1,0 +1,4 @@
+SELECT DISTINCT metric_value
+FROM employee_metrics
+ORDER BY 1 DESC
+OFFSET 1 LIMIT 1
