@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unique Visitors](./practice/sql/unique-visitors) | SQL | Easy | 2026-06-19 |
 | [The Standing Fleet](./practice/sql/the-standing-fleet) | SQL | Easy | 2026-06-19 |
 | [The Crowd Pleaser](./practice/python/the-crowd-pleaser) | Python | Easy | 2026-06-19 |
 | [Merge Counters](./practice/python/merge-counters) | Python | Medium | 2026-06-19 |
