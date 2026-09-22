@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Deployed Model](./practice/sql/top-deployed-model) | SQL | Easy | 2026-07-07 |
 | [Timeout Status Records](./practice/sql/timeout-status-records) | SQL | Easy | 2026-07-07 |
 | [Top Performing Models](./practice/sql/top-performing-models) | SQL | Easy | 2026-07-07 |
 | [Total Compute Cloud Cost](./practice/sql/total-compute-cloud-cost) | SQL | Easy | 2026-07-07 |
