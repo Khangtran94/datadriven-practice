@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Early 2026 Data Pipelines](./practice/sql/early-year-data-pipelines) | SQL | Easy | 2026-08-17 |
 | [Members Only](./practice/python/members-only) | Python | Easy | 2026-08-10 |
 | [Duplicated User Event Messages](./practice/sql/duplicated-user-event-messages) | SQL | Medium | 2026-08-06 |
 | [High-Traffic Endpoints in February](./practice/sql/high-traffic-endpoints-in-february) | SQL | Easy | 2026-08-05 |
