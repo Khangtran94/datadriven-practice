@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Slow Creep](./practice/sql/the-slow-creep) | SQL | Medium | 2026-07-16 |
 | [User Sessions on Specific Days](./practice/sql/user-sessions-on-specific-days) | SQL | Easy | 2026-07-16 |
 | [The Loudest Failures](./practice/sql/the-loudest-failures) | SQL | Medium | 2026-07-16 |
 | [Still Standing](./practice/sql/still-standing) | SQL | Medium | 2026-07-16 |
