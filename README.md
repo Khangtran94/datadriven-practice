@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Creator Favorite Content Type](./practice/sql/creator-favorite-content-type) | SQL | Hard | 2026-08-05 |
 | [Bottom 2% Services by Spend](./practice/sql/bottom-2-services-by-spend) | SQL | Hard | 2026-08-05 |
 | [The Space Between](./practice/sql/the-space-between) | SQL | Hard | 2026-08-05 |
 | [Mutual Channel Connections](./practice/sql/mutual-channel-connections) | SQL | Medium | 2026-08-05 |
