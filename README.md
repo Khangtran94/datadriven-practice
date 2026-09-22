@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unique Reporters per Content](./practice/sql/unique-reporters-per-content) | SQL | Medium | 2026-08-26 |
 | [Where the Lines Break](./practice/python/where-the-lines-break) | Python | Easy | 2026-08-25 |
 | [The Address That Changed](./practice/sql/the-address-that-changed) | SQL | Hard | 2026-08-24 |
 | [Double or Nothing](./practice/sql/double-or-nothing) | SQL | Hard | 2026-08-24 |
