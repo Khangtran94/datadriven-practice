@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Daily Cross-Platform Users](./practice/sql/daily-cross-platform-users) | SQL | Easy | 2026-07-09 |
 | [Content Types by Creator](./practice/sql/content-types-by-creator) | SQL | Easy | 2026-07-09 |
 | [Where the Fleet Lives](./practice/sql/where-the-fleet-lives) | SQL | Medium | 2026-07-09 |
 | [What Fills the Feed](./practice/sql/what-fills-the-feed) | SQL | Medium | 2026-07-09 |
