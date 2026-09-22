@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Low Severity DQ Checks](./practice/sql/low-severity-dq-checks) | SQL | Easy | 2026-07-14 |
 | [The Proving Ground](./practice/sql/the-proving-ground) | SQL | Medium | 2026-07-14 |
 | [Highest Throughput Pipelines](./practice/sql/highest-throughput-pipelines) | SQL | Medium | 2026-07-14 |
 | [The Ones That Woke Us](./practice/sql/the-ones-that-woke-us) | SQL | Easy | 2026-07-14 |
