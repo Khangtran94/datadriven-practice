@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Repeat Offenders](./practice/python/the-repeat-offenders) | Python | Easy | 2026-07-02 |
 | [Second Highest Salary](./practice/sql/second-highest-salary) | SQL | Easy | 2026-07-02 |
 | [Everyone Counts](./practice/sql/everyone-counts) | SQL | Easy | 2026-06-30 |
 | [Health Checks per Service](./practice/sql/health-checks-per-service) | SQL | Easy | 2026-06-30 |
