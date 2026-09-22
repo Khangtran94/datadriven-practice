@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Open Wounds](./practice/sql/open-wounds) | SQL | Hard | 2026-09-07 |
 | [Below the Peaks](./practice/sql/below-the-peaks) | SQL | Hard | 2026-09-07 |
 | [The Shape of Waiting](./practice/sql/the-shape-of-waiting) | SQL | Hard | 2026-09-07 |
 | [Lowest CPU Pods per Namespace](./practice/sql/lowest-cpu-pods-per-namespace) | SQL | Hard | 2026-09-07 |
