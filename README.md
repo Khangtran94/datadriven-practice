@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Net Lines](./practice/sql/net-lines) | SQL | Medium | 2026-07-16 |
 | [Campaign Cost Effectiveness](./practice/sql/campaign-cost-effectiveness) | SQL | Medium | 2026-07-16 |
 | [Non-Trivial Fatal Errors](./practice/sql/non-trivial-fatal-errors) | SQL | Medium | 2026-07-16 |
 | [Both Arms of the Trial](./practice/sql/both-arms-of-the-trial) | SQL | Easy | 2026-07-16 |
