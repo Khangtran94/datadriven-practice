@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Zero-Retry Job Ratio by Priority](./practice/sql/zero-retry-job-ratio-by-priority) | SQL | Hard | 2026-09-07 |
 | [First Among Results](./practice/sql/first-among-results) | SQL | Hard | 2026-09-07 |
 | [The Comfortable Middle](./practice/sql/the-comfortable-middle) | SQL | Hard | 2026-09-07 |
 | [Quarterly Peak Cloud Costs](./practice/sql/quarterly-peak-cloud-costs) | SQL | Hard | 2026-09-07 |
