@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Accumulator](./practice/sql/the-accumulator) | SQL | Hard | 2026-09-07 |
 | [Service Scorecard](./practice/sql/service-scorecard) | SQL | Hard | 2026-09-07 |
 | [Node Utilization](./practice/sql/node-utilization) | SQL | Hard | 2026-09-07 |
 | [Open Wounds](./practice/sql/open-wounds) | SQL | Hard | 2026-09-07 |
