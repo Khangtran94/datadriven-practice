@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Roads In](./practice/sql/the-roads-in) | SQL | Easy | 2026-06-30 |
 | [Successful Production Deploys](./practice/sql/successful-production-deploys) | SQL | Easy | 2026-06-30 |
 | [The Engagement Curve](./practice/sql/the-engagement-curve) | SQL | Medium | 2026-06-30 |
 | [Noisiest Tables by DQ Failures](./practice/sql/noisiest-tables-by-dq-failures) | SQL | Medium | 2026-06-30 |
