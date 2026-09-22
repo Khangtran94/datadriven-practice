@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Batch Job Under Priority 1](./practice/sql/top-batch-job-under-priority-1) | SQL | Medium | 2026-07-16 |
 | [Users With Admin Tokens](./practice/sql/users-with-admin-tokens) | SQL | Medium | 2026-07-16 |
 | [The Slow Creep](./practice/sql/the-slow-creep) | SQL | Medium | 2026-07-16 |
 | [User Sessions on Specific Days](./practice/sql/user-sessions-on-specific-days) | SQL | Easy | 2026-07-16 |
