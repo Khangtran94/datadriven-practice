@@ -4,15 +4,9 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/present_and_accounted_for)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-06-10 |
-| Accepted | on the first submission |
-| Time | 4 min |
-| Hints | none |
-| Query complexity | O(n log n), optimal |
-| Concepts | Null Defaulting, Grouping, Outer Joins, Sorting Results, Query Basics, Sums & Averages |
+| Query complexity | O(n log n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
