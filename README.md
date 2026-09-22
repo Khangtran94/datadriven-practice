@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Three-Value Sum Combinations](./practice/sql/three-value-sum-combinations) | SQL | Medium | 2026-08-24 |
 | [Once and Only Once](./practice/sql/once-and-only-once) | SQL | Hard | 2026-08-24 |
 | [The Lion's Share](./practice/sql/the-lion-s-share) | SQL | Medium | 2026-08-24 |
 | [Workers Earning Above Department Average](./practice/sql/workers-earning-above-department-average) | SQL | Medium | 2026-08-24 |
