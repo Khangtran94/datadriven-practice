@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Percentile Spenders](./practice/sql/top-percentile-spenders) | SQL | Medium | 2026-08-26 |
 | [Where the Signal Drops](./practice/sql/where-the-signal-drops) | SQL | Medium | 2026-08-26 |
 | [Top 2 Busiest API Slots](./practice/sql/top-2-busiest-api-slots) | SQL | Medium | 2026-08-26 |
 | [Tokens With Non-Read Scope Prefix](./practice/sql/tokens-with-non-read-scope-prefix) | SQL | Medium | 2026-08-26 |
