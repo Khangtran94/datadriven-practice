@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Best Accuracy to Training Time Ratio](./practice/sql/best-accuracy-to-training-time-ratio) | SQL | Medium | 2026-07-21 |
 | [Not All Fires Are Equal](./practice/sql/not-all-fires-are-equal) | SQL | Medium | 2026-07-21 |
 | [Largest CDN Response](./practice/sql/largest-cdn-response) | SQL | Hard | 2026-07-21 |
 | [The Shape of a Day](./practice/sql/the-shape-of-a-day) | SQL | Medium | 2026-07-21 |
