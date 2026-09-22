@@ -4,15 +4,9 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/kings_for_a_day)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-08-26 |
-| Accepted | on the 2nd submission |
-| Time | under a minute |
-| Hints | none |
-| Query complexity | O(n log n), optimal |
-| Concepts | Date vs Timestamp, Null Handling, Row Limiting, Sorting Results, Window Partitioning, Ranking, Query Basics, Storage Optimization, Filtering |
+| Query complexity | O(n log n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
