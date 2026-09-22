@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Nodes in Target Regions](./practice/sql/nodes-in-target-regions) | SQL | Easy | 2026-07-07 |
 | [The Scorched Earth Reviews](./practice/sql/the-scorched-earth-reviews) | SQL | Easy | 2026-07-07 |
 | [Platform Team Feature Flags](./practice/sql/platform-team-feature-flags) | SQL | Easy | 2026-07-07 |
 | [Average GPU Node CPU Usage](./practice/sql/average-gpu-node-cpu-usage) | SQL | Easy | 2026-07-07 |
