@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Content by Specific Users](./practice/sql/content-by-specific-users) | SQL | Easy | 2026-07-16 |
 | [Best Day for Ad Revenue](./practice/sql/best-day-for-ad-revenue) | SQL | Medium | 2026-07-16 |
 | [Successful Pipeline Runs](./practice/sql/successful-pipeline-runs) | SQL | Easy | 2026-07-14 |
 | [Green Lights on the Order Line](./practice/sql/green-lights-on-the-order-line) | SQL | Easy | 2026-07-14 |
