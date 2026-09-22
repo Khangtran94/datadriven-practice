@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Services With Most Error Occurrences](./practice/sql/services-with-most-error-occurrences) | SQL | Easy | 2026-07-16 |
 | [The Price of a Tap](./practice/sql/the-price-of-a-tap) | SQL | Easy | 2026-07-16 |
 | [The Ides of March](./practice/sql/the-ides-of-march) | SQL | Medium | 2026-07-16 |
 | [When They Opened](./practice/sql/when-they-opened) | SQL | Medium | 2026-07-16 |
