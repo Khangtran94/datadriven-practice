@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Above Category Average](./practice/sql/above-category-average) | SQL | Easy | 2026-08-17 |
 | [Provider Cost Change H1](./practice/sql/provider-cost-change-h1) | SQL | Easy | 2026-08-17 |
 | [Follow the Money](./practice/sql/follow-the-money) | SQL | Easy | 2026-08-17 |
 | [Who Comes Early](./practice/sql/who-comes-early) | SQL | Easy | 2026-08-17 |
