@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Fresh Ink](./practice/sql/fresh-ink) | SQL | Medium | 2026-09-21 |
 | [CDN Traffic by Day and Hour](./practice/sql/cdn-traffic-by-day-and-hour) | SQL | Medium | 2026-09-21 |
 | [The Ones Who Finish](./practice/sql/the-ones-who-finish) | SQL | Medium | 2026-09-21 |
 | [The Merge Counter](./practice/sql/the-merge-counter) | SQL | Easy | 2026-09-21 |
