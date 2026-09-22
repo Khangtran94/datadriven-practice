@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Buyers Who Never Browsed](./practice/sql/buyers-who-never-browsed) | SQL | Easy | 2026-06-09 |
 | [Activity Histogram](./practice/sql/activity-histogram) | SQL | Easy | 2026-06-09 |
 | [Long Messages](./practice/sql/long-messages) | SQL | Medium | 2026-06-09 |
 | [Against the Clock](./practice/sql/against-the-clock) | SQL | Easy | 2026-06-09 |
