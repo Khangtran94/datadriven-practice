@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Threads Excluding User](./practice/sql/threads-excluding-user) | SQL | Easy | 2026-07-08 |
 | [The Shape of a User](./practice/sql/the-shape-of-a-user) | SQL | Medium | 2026-07-07 |
 | [Ghosts in the Campaign](./practice/sql/ghosts-in-the-campaign) | SQL | Easy | 2026-07-07 |
 | [The Waiting Room](./practice/sql/the-waiting-room) | SQL | Easy | 2026-07-07 |
