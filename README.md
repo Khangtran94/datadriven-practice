@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Most Common Monday Outcome](./practice/sql/most-common-monday-outcome) | SQL | Medium | 2026-07-13 |
 | [Allocations in Top Spending Region](./practice/sql/allocations-in-top-spending-region) | SQL | Hard | 2026-07-13 |
 | [Cloud Cost Stats by Provider](./practice/sql/cloud-cost-stats-by-provider) | SQL | Medium | 2026-07-13 |
 | [What the Shelf Never Sold](./practice/sql/what-the-shelf-never-sold) | SQL | Medium | 2026-07-13 |
