@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Provinces](./practice/sql/the-provinces) | SQL | Easy | 2026-08-17 |
 | [Between Worlds](./practice/sql/between-worlds) | SQL | Easy | 2026-08-17 |
 | [On Their Way Out](./practice/sql/on-their-way-out) | SQL | Easy | 2026-08-17 |
 | [Early 2026 Data Pipelines](./practice/sql/early-year-data-pipelines) | SQL | Easy | 2026-08-17 |
