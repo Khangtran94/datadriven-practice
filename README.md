@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Ones Who Carry Us](./practice/sql/the-ones-who-carry-us) | SQL | Easy | 2026-07-16 |
 | [The Well-Defended Borders](./practice/sql/the-well-defended-borders) | SQL | Easy | 2026-07-16 |
 | [Services With Most Error Occurrences](./practice/sql/services-with-most-error-occurrences) | SQL | Easy | 2026-07-16 |
 | [The Price of a Tap](./practice/sql/the-price-of-a-tap) | SQL | Easy | 2026-07-16 |
