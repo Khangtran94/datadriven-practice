@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Under the Same Name](./practice/sql/under-the-same-name) | SQL | Easy | 2026-07-14 |
 | [Ad Revenue 2026](./practice/sql/ad-revenue-year) | SQL | Easy | 2026-07-14 |
 | [Regional Status](./practice/sql/regional-status) | SQL | Easy | 2026-07-14 |
 | [Lines on the Map](./practice/sql/lines-on-the-map) | SQL | Medium | 2026-07-14 |
