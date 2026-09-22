@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Log Levels](./practice/sql/log-levels) | SQL | Easy | 2026-07-02 |
 | [Category Revenue](./practice/sql/category-revenue) | SQL | Medium | 2026-07-02 |
 | [Average Rating by Category](./practice/sql/average-rating-by-category) | SQL | Easy | 2026-07-02 |
 | [Top Product Categories by Sales](./practice/sql/top-product-categories-by-sales) | SQL | Easy | 2026-07-02 |
