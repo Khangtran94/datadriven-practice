@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Largest CDN Response](./practice/sql/largest-cdn-response) | SQL | Hard | 2026-07-21 |
 | [The Shape of a Day](./practice/sql/the-shape-of-a-day) | SQL | Medium | 2026-07-21 |
 | [The Slow Lane](./practice/sql/the-slow-lane) | SQL | Medium | 2026-07-21 |
 | [Top Recent Sellers](./practice/sql/top-recent-sellers) | SQL | Easy | 2026-07-21 |
