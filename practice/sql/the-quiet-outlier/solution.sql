@@ -1,0 +1,7 @@
+SELECT latency 
+FROM api_calls 
+WHERE latency IS NOT NULL
+GROUP BY latency 
+HAVING COUNT(*) <= 2
+ORDER BY 1 DESC
+LIMIT 1
