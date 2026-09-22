@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Only Difference](./practice/python/the-only-difference) | Python | Easy | 2026-06-22 |
 | [The Original Keeper](./practice/python/the-original-keeper) | Python | Easy | 2026-06-22 |
 | [The Forward Fill](./practice/python/the-forward-fill) | Python | Easy | 2026-06-22 |
 | [The Dominant Signal](./practice/python/the-dominant-signal) | Python | Easy | 2026-06-22 |
