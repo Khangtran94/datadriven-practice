@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Open Question](./practice/sql/the-open-question) | SQL | Medium | 2026-08-27 |
 | [Cost Density Extremes](./practice/sql/cost-density-extremes) | SQL | Medium | 2026-08-27 |
 | [Many Eyes](./practice/sql/many-eyes) | SQL | Medium | 2026-08-27 |
 | [The Faithful Few](./practice/sql/the-faithful-few) | SQL | Medium | 2026-08-27 |
