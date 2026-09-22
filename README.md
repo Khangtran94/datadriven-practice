@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Average Response Time by Hour](./practice/sql/average-response-time-by-hour) | SQL | Easy | 2026-07-07 |
 | [Turned Away](./practice/sql/turned-away) | SQL | Medium | 2026-07-07 |
 | [The Tag Order](./practice/sql/the-tag-order) | SQL | Hard | 2026-07-07 |
 | [Auth Endpoints](./practice/sql/auth-endpoints) | SQL | Easy | 2026-07-07 |
