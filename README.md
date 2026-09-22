@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Second to One](./practice/sql/second-to-one) | SQL | Medium | 2026-08-26 |
 | [Live Wire](./practice/sql/live-wire) | SQL | Medium | 2026-08-26 |
 | [The Middle of the Missing](./practice/sql/the-middle-of-the-missing) | SQL | Medium | 2026-08-26 |
 | [Top Frameworks by Accuracy](./practice/sql/top-frameworks-by-accuracy) | SQL | Medium | 2026-08-26 |
