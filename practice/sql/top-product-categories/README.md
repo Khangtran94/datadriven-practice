@@ -1,0 +1,18 @@
+# Top Product Categories
+
+*Top three categories by page views.*
+
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/top_product_categories)
+
+## How it went
+
+| | |
+|---|---|
+| Solved | 2026-08-31 |
+| Accepted | on the first submission |
+| Time | 1 min |
+| Hints | none |
+| Query complexity | O(n log n), optimal |
+| Concepts | Counting, Grouping, Inner Joins, Row Limiting, Sorting Results, Ranking, Query Basics |
+
+The accepted solution is in [`solution.sql`](./solution.sql).
