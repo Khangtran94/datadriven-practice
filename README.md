@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Nodes by Region and Type](./practice/sql/nodes-by-region-and-type) | SQL | Medium | 2026-07-02 |
 | [Third Highest Spender](./practice/sql/third-highest-spender) | SQL | Medium | 2026-07-02 |
 | [The Weight of Between](./practice/sql/the-weight-of-between) | SQL | Easy | 2026-07-02 |
 | [The February Cohort](./practice/sql/the-february-cohort) | SQL | Easy | 2026-07-02 |
