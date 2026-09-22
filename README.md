@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Everything Said Twice](./practice/python/everything-said-twice) | Python | Easy | 2026-07-17 |
 | [The Ones Nobody Calls](./practice/sql/the-ones-nobody-calls) | SQL | Medium | 2026-07-16 |
 | [Yearly Output](./practice/sql/yearly-output) | SQL | Easy | 2026-07-16 |
 | [Deep Pockets](./practice/sql/deep-pockets) | SQL | Medium | 2026-07-16 |
