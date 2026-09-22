@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Recurring Error Types](./practice/sql/recurring-error-types) | SQL | Easy | 2026-07-14 |
 | [Peak Hour Power Callers](./practice/sql/peak-hour-power-callers) | SQL | Medium | 2026-07-14 |
 | [Overloaded Infrastructure Nodes](./practice/sql/overloaded-infrastructure-nodes) | SQL | Medium | 2026-07-14 |
 | [Noisy Endpoints](./practice/sql/noisy-endpoints) | SQL | Medium | 2026-07-14 |
