@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Character Map](./practice/python/the-character-map) | Python | Easy | 2026-08-23 |
 | [Infant Mortality](./practice/sql/infant-mortality) | SQL | Hard | 2026-08-20 |
 | [The Overwritten Hour](./practice/python/the-overwritten-hour) | Python | Medium | 2026-08-20 |
 | [Price Rank](./practice/sql/price-rank) | SQL | Medium | 2026-08-18 |
