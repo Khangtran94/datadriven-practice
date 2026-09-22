@@ -4,15 +4,9 @@
 
 [SQL · Hard · on DataDriven](https://datadriven.io/problems/allocations_in_top_spending_region)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-07-13 |
-| Accepted | on the first submission |
-| Time | 9 min |
-| Hints | none |
-| Query complexity | O(n²), optimal |
-| Concepts | Common Table Expressions, Grouping, Row Limiting, Sorting Results, Query Basics, Scalar Subquery, Sums & Averages, Filtering |
+| Query complexity | O(n²) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
