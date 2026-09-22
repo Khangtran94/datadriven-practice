@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Inactive Users in Date Range](./practice/sql/inactive-users-in-date-range) | SQL | Medium | 2026-08-05 |
 | [Poles Apart](./practice/sql/poles-apart) | SQL | Medium | 2026-08-05 |
 | [Days with More Edited Than Unedited Messages](./practice/sql/days-with-more-edited-than-unedited-messages) | SQL | Medium | 2026-08-05 |
 | [Two Names, One Campaign](./practice/sql/two-names-one-campaign) | SQL | Easy | 2026-08-05 |
