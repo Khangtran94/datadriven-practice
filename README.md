@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Sweet Spot](./practice/sql/the-sweet-spot) | SQL | Medium | 2026-06-30 |
 | [Most Popular Signup Day](./practice/sql/most-popular-signup-day) | SQL | Medium | 2026-06-30 |
 | [The Vital Signs](./practice/sql/the-vital-signs) | SQL | Easy | 2026-06-30 |
 | [Features With Missing Values](./practice/sql/features-with-missing-values) | SQL | Easy | 2026-06-30 |
