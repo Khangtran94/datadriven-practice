@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Weight of a Click](./practice/sql/the-weight-of-a-click) | SQL | Hard | 2026-09-07 |
 | [Services With Multi-Quarter Uptime](./practice/sql/services-with-multi-quarter-uptime) | SQL | Hard | 2026-09-07 |
 | [Across the Aisles](./practice/sql/across-the-aisles) | SQL | Hard | 2026-09-07 |
 | [Experiment Impact](./practice/sql/experiment-impact) | SQL | Hard | 2026-09-07 |
