@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Category Sales Summary](./practice/sql/category-sales-summary) | SQL | Easy | 2026-06-09 |
 | [Weekend Warriors](./practice/sql/weekend-warriors) | SQL | Easy | 2026-06-09 |
 | [Buyers Who Never Browsed](./practice/sql/buyers-who-never-browsed) | SQL | Easy | 2026-06-09 |
 | [Activity Histogram](./practice/sql/activity-histogram) | SQL | Easy | 2026-06-09 |
