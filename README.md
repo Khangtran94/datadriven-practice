@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Product Ratings vs Sales](./practice/sql/product-ratings-vs-sales) | SQL | Medium | 2026-07-16 |
 | [Platform Check](./practice/sql/platform-check) | SQL | Easy | 2026-07-16 |
 | [Pairwise Latency Maximum](./practice/sql/pairwise-latency-maximum) | SQL | Medium | 2026-07-16 |
 | [Top Products by Quantity Sold](./practice/sql/top-products-by-quantity-sold) | SQL | Medium | 2026-07-16 |
