@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Apprentices Still in the Forge](./practice/sql/the-apprentices-still-in-the-forge) | SQL | Easy | 2026-07-09 |
 | [Daily Cross-Platform Users](./practice/sql/daily-cross-platform-users) | SQL | Easy | 2026-07-09 |
 | [Content Types by Creator](./practice/sql/content-types-by-creator) | SQL | Easy | 2026-07-09 |
 | [Where the Fleet Lives](./practice/sql/where-the-fleet-lives) | SQL | Medium | 2026-07-09 |
