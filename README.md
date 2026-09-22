@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Extremes](./practice/sql/the-extremes) | SQL | Hard | 2026-09-07 |
 | [The Streak Breaker](./practice/python/the-streak-breaker) | Python | Easy | 2026-09-07 |
 | [The Weight of a Click](./practice/sql/the-weight-of-a-click) | SQL | Hard | 2026-09-07 |
 | [Services With Multi-Quarter Uptime](./practice/sql/services-with-multi-quarter-uptime) | SQL | Hard | 2026-09-07 |
