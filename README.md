@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Roll Call](./practice/sql/roll-call) | SQL | Easy | 2026-07-07 |
 | [High Price Products](./practice/sql/high-price-products) | SQL | Easy | 2026-07-07 |
 | [Low Uptime Services](./practice/sql/low-uptime-services) | SQL | Easy | 2026-07-07 |
 | [The Loudest Threads](./practice/sql/the-loudest-threads) | SQL | Medium | 2026-07-07 |
