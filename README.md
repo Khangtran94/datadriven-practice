@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Largest A/B Test by Participants](./practice/sql/largest-a-b-test-by-participants) | SQL | Medium | 2026-07-02 |
 | [Average Sessions Per User](./practice/sql/average-sessions-per-user) | SQL | Hard | 2026-07-02 |
 | [Where the Heat Pools](./practice/sql/where-the-heat-pools) | SQL | Easy | 2026-07-02 |
 | [Cloud Cost by Team](./practice/sql/cloud-cost-by-team) | SQL | Easy | 2026-07-02 |
