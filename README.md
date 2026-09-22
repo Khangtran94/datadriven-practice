@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Blast Radius](./practice/sql/the-blast-radius) | SQL | Medium | 2026-07-02 |
 | [Diverse Shoppers](./practice/sql/diverse-shoppers) | SQL | Medium | 2026-07-02 |
 | [The Standings](./practice/sql/the-standings) | SQL | Hard | 2026-07-02 |
 | [Consistent High-Quantity Revenue](./practice/sql/consistent-high-quantity-revenue) | SQL | Medium | 2026-07-02 |
