@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Monthly Signup Counts](./practice/sql/monthly-signup-counts) | SQL | Easy | 2026-07-14 |
 | [The Shape of the Year](./practice/sql/the-shape-of-the-year) | SQL | Medium | 2026-07-14 |
 | [Lowest Latency per Service](./practice/sql/lowest-latency-per-service) | SQL | Medium | 2026-07-14 |
 | [Holiday Promo Campaign Click Year](./practice/sql/holiday-promo-campaign-click-year) | SQL | Easy | 2026-07-14 |
