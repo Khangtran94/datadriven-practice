@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Two-Way Street](./practice/sql/two-way-street) | SQL | Medium | 2026-09-22 |
 | [The Widest Net](./practice/sql/the-widest-net) | SQL | Medium | 2026-09-22 |
 | [Every Door They Opened](./practice/sql/every-door-they-opened) | SQL | Easy | 2026-09-22 |
 | [The Conversion Story](./practice/sql/the-conversion-story) | SQL | Medium | 2026-09-22 |
