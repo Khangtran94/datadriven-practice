@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Department Snapshot](./practice/sql/department-snapshot) | SQL | Medium | 2026-06-12 |
 | [Heavy Namespaces](./practice/sql/heavy-namespaces) | SQL | Medium | 2026-06-12 |
 | [Click Revenue](./practice/sql/click-revenue) | SQL | Easy | 2026-06-12 |
 | [Clean Cache CDN Edges](./practice/sql/clean-cache-cdn-edges) | SQL | Easy | 2026-06-12 |
