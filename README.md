@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Deploy Velocity Swings](./practice/sql/deploy-velocity-swings) | SQL | Medium | 2026-07-03 |
 | [Server With Most Errors](./practice/sql/server-with-most-errors) | SQL | Medium | 2026-07-03 |
 | [Top Ad Campaigns by Revenue](./practice/sql/top-ad-campaigns-by-revenue) | SQL | Easy | 2026-07-03 |
 | [Top 100 Batch Jobs Total Output](./practice/sql/top-100-batch-jobs-total-output) | SQL | Easy | 2026-07-03 |
