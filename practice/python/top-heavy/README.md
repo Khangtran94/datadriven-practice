@@ -4,14 +4,8 @@
 
 [Python · Medium · on DataDriven](https://datadriven.io/problems/top_heavy)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-09-14 |
-| Accepted | on the first submission |
-| Time | under a minute |
-| Hints | none |
-| Concepts | Arithmetic, List Comprehension, Lists, Strings |
 
 The accepted solution is in [`solution.py`](./solution.py).
