@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Users With Purchase Events](./practice/sql/users-with-purchase-events) | SQL | Easy | 2026-07-16 |
 | [Users With API Errors](./practice/sql/users-with-api-errors) | SQL | Medium | 2026-07-16 |
 | [Users Who Clicked Ads](./practice/sql/users-who-clicked-ads) | SQL | Easy | 2026-07-16 |
 | [Behavioral Range](./practice/sql/behavioral-range) | SQL | Easy | 2026-07-16 |
