@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Average Session Duration by Device](./practice/sql/average-session-duration-by-device) | SQL | Easy | 2026-06-25 |
 | [Low Latency API Calls](./practice/sql/low-latency-api-calls) | SQL | Easy | 2026-06-25 |
 | [Hottest Regions by CPU](./practice/sql/hottest-regions-by-cpu) | SQL | Medium | 2026-06-23 |
 | [Satisfaction by Platform](./practice/sql/satisfaction-by-platform) | SQL | Medium | 2026-06-23 |
