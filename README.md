@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Everyone Counts](./practice/sql/everyone-counts) | SQL | Easy | 2026-06-30 |
 | [Health Checks per Service](./practice/sql/health-checks-per-service) | SQL | Easy | 2026-06-30 |
 | [Mid-CPU Nodes](./practice/sql/mid-cpu-nodes) | SQL | Easy | 2026-06-30 |
 | [US-East KV Store Entries](./practice/sql/us-east-kv-store-entries) | SQL | Easy | 2026-06-30 |
