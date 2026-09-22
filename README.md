@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Keep Most Recent Record](./practice/sql/keep-most-recent-record) | SQL | Medium | 2026-06-15 |
 | [Both Ends of the Pipe](./practice/sql/both-ends-of-the-pipe) | SQL | Medium | 2026-06-15 |
 | [Category Buyers](./practice/sql/category-buyers) | SQL | Medium | 2026-06-14 |
 | [Average Build Duration by Repo](./practice/sql/average-build-duration-by-repo) | SQL | Easy | 2026-06-14 |
