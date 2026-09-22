@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Error Severity Buckets](./practice/sql/error-severity-buckets) | SQL | Easy | 2026-05-25 |
 | [Top Shelf](./practice/sql/top-shelf) | SQL | Easy | 2026-05-23 |
 | [The Freshest Record](./practice/sql/the-freshest-record) | SQL | Medium | 2026-05-22 |
 | [Daily Error Count Change](./practice/sql/daily-error-count-change) | SQL | Medium | 2026-05-22 |
