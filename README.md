@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Session Duration by Account Status](./practice/sql/session-duration-by-account-status) | SQL | Medium | 2026-09-14 |
 | [Average Spending by Account Status](./practice/sql/average-spending-by-account-status) | SQL | Medium | 2026-09-14 |
 | [Metric Value Pairs Over Threshold](./practice/sql/metric-value-pairs-over-threshold) | SQL | Medium | 2026-09-14 |
 | [Top-Heavy](./practice/python/top-heavy) | Python | Medium | 2026-09-14 |
