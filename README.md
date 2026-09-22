@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Ones Nobody Calls](./practice/sql/the-ones-nobody-calls) | SQL | Medium | 2026-07-16 |
 | [Yearly Output](./practice/sql/yearly-output) | SQL | Easy | 2026-07-16 |
 | [Deep Pockets](./practice/sql/deep-pockets) | SQL | Medium | 2026-07-16 |
 | [Total Cost by Category](./practice/sql/total-cost-by-category) | SQL | Easy | 2026-07-16 |
