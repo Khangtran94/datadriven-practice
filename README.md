@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Node Summary Per Region](./practice/sql/node-summary-per-region) | SQL | Easy | 2026-06-20 |
 | [Session Logins Dec 13 to 19](./practice/sql/session-logins-dec-13-to-19) | SQL | Easy | 2026-06-20 |
 | [Deploy Cadence](./practice/sql/deploy-cadence) | SQL | Easy | 2026-06-20 |
 | [Push Opens by Platform and Campaign](./practice/sql/push-opens-by-platform-and-campaign) | SQL | Medium | 2026-06-20 |
