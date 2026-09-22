@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Active User Revenue for April](./practice/sql/active-user-revenue-for-april) | SQL | Easy | 2026-07-14 |
 | [Shipped to Prod](./practice/sql/shipped-to-prod) | SQL | Easy | 2026-07-14 |
 | [Price Check](./practice/sql/price-check) | SQL | Easy | 2026-07-14 |
 | [Power Users](./practice/sql/power-users) | SQL | Medium | 2026-07-14 |
