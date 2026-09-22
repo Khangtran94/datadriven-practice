@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Heaviest Hitters](./practice/sql/the-heaviest-hitters) | SQL | Easy | 2026-06-22 |
 | [The Tiebreaker](./practice/sql/the-tiebreaker) | SQL | Easy | 2026-06-22 |
 | [Longest Running Pipeline](./practice/sql/longest-running-pipeline) | SQL | Medium | 2026-06-22 |
 | [Last Five Batch Jobs](./practice/sql/last-five-batch-jobs) | SQL | Easy | 2026-06-22 |
