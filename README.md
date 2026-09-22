@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top 2 Callers per Endpoint](./practice/sql/top-2-callers-per-endpoint) | SQL | Medium | 2026-08-31 |
 | [Top Earner Per Campaign](./practice/sql/top-earner-per-campaign) | SQL | Medium | 2026-08-31 |
 | [Below the Line](./practice/sql/below-the-line) | SQL | Medium | 2026-08-27 |
 | [Peak Retargeting Revenue Month](./practice/sql/peak-retargeting-revenue-month) | SQL | Medium | 2026-08-27 |
