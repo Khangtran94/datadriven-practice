@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Point of Entry](./practice/sql/point-of-entry) | SQL | Hard | 2026-06-09 |
 | [User Engagement Summary](./practice/sql/user-engagement-summary) | SQL | Medium | 2026-06-08 |
 | [All Known Endpoints](./practice/sql/all-known-endpoints) | SQL | Medium | 2026-06-08 |
 | [Where the Money Burns](./practice/sql/where-the-money-burns) | SQL | Medium | 2026-06-08 |
