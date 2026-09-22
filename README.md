@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Low Throughput Pipelines](./practice/sql/low-throughput-pipelines) | SQL | Easy | 2026-07-03 |
 | [Service Alert Frequency](./practice/sql/service-alert-frequency) | SQL | Easy | 2026-07-03 |
 | [The Floor Price](./practice/sql/the-floor-price) | SQL | Medium | 2026-07-02 |
 | [First Among Equals](./practice/sql/first-among-equals) | SQL | Medium | 2026-07-02 |
