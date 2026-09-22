@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Cloud Bill](./practice/sql/cloud-bill) | SQL | Easy | 2026-05-19 |
 | [Titles Ending With S](./practice/sql/titles-ending-with-s) | SQL | Easy | 2026-05-19 |
 | [Ad Clickers](./practice/sql/ad-clickers) | SQL | Easy | 2026-05-18 |
 | [The Above Average](./practice/sql/the-above-average) | SQL | Medium | 2026-05-18 |
