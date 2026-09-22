@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Tables With Many DQ Failures](./practice/sql/tables-with-many-dq-failures) | SQL | Medium | 2026-07-16 |
 | [Status Report](./practice/sql/status-report) | SQL | Easy | 2026-07-16 |
 | [Single Service Owners](./practice/sql/single-service-owners) | SQL | Medium | 2026-07-16 |
 | [Shared Endpoints](./practice/sql/shared-endpoints) | SQL | Medium | 2026-07-16 |
