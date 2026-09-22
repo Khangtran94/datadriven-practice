@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Overloaded Infrastructure Nodes](./practice/sql/overloaded-infrastructure-nodes) | SQL | Medium | 2026-07-14 |
 | [Noisy Endpoints](./practice/sql/noisy-endpoints) | SQL | Medium | 2026-07-14 |
 | [Multi-Host Regions by Node Type](./practice/sql/multi-host-regions-by-node-type) | SQL | Medium | 2026-07-14 |
 | [Months in Motion](./practice/sql/months-in-motion) | SQL | Medium | 2026-07-14 |
