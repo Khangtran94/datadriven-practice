@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Retargeting Campaign Impressions](./practice/sql/retargeting-campaign-impressions) | SQL | Easy | 2026-07-07 |
 | [Search Terms Starting With G](./practice/sql/search-terms-starting-with-g) | SQL | Easy | 2026-07-07 |
 | [Storage Node Lookup](./practice/sql/storage-node-lookup) | SQL | Easy | 2026-07-07 |
 | [Timeout Warning Logs](./practice/sql/timeout-warning-logs) | SQL | Easy | 2026-07-07 |
