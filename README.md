@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Tables With Most DQ Failures](./practice/sql/tables-with-most-dq-failures) | SQL | Medium | 2026-07-16 |
 | [The First Half](./practice/sql/the-first-half) | SQL | Easy | 2026-07-16 |
 | [Between Two Extremes](./practice/sql/between-two-extremes) | SQL | Medium | 2026-07-16 |
 | [Purchase Log](./practice/sql/purchase-log) | SQL | Easy | 2026-07-16 |
