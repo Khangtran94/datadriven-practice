@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Concurrent Batch Jobs](./practice/sql/peak-concurrent-batch-jobs) | SQL | Medium | 2026-09-21 |
 | [Same First and Last Reply Target](./practice/sql/same-first-and-last-reply-target) | SQL | Medium | 2026-09-21 |
 | [Fastest Page View to Click](./practice/sql/fastest-page-view-to-click) | SQL | Hard | 2026-09-21 |
 | [The Path Not Taken](./practice/sql/the-path-not-taken) | SQL | Hard | 2026-09-21 |
