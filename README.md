@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Metric Volatility Gap](./practice/sql/metric-volatility-gap) | SQL | Easy | 2026-06-25 |
 | [Metric Range Per Group](./practice/sql/metric-range-per-group) | SQL | Easy | 2026-06-25 |
 | [The Weight of Giants](./practice/sql/the-weight-of-giants) | SQL | Medium | 2026-06-25 |
 | [Users Without Purchases](./practice/sql/users-without-purchases) | SQL | Medium | 2026-06-25 |
