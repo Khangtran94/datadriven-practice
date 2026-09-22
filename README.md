@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Deployments per Environment](./practice/sql/deployments-per-environment) | SQL | Medium | 2026-07-02 |
 | [Campaign Revenue Totals](./practice/sql/campaign-revenue-totals) | SQL | Easy | 2026-07-02 |
 | [The Crown Jewels](./practice/sql/the-crown-jewels) | SQL | Easy | 2026-07-02 |
 | [Log Levels](./practice/sql/log-levels) | SQL | Easy | 2026-07-02 |
