@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [New User Purchases](./practice/sql/new-user-purchases) | SQL | Medium | 2026-07-16 |
 | [Month With Fewest Deploys](./practice/sql/month-with-fewest-deploys) | SQL | Medium | 2026-07-16 |
 | [Closing the Books](./practice/sql/closing-the-books) | SQL | Easy | 2026-07-16 |
 | [Last Migration Record](./practice/sql/last-migration-record) | SQL | Easy | 2026-07-16 |
