@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Read the Manual](./practice/sql/read-the-manual) | SQL | Easy | 2026-07-07 |
 | [Average Node CPU by Region](./practice/sql/average-node-cpu-by-region) | SQL | Easy | 2026-07-07 |
 | [Ghost Products](./practice/sql/ghost-products) | SQL | Medium | 2026-07-07 |
 | [Never-Ordered Products](./practice/sql/never-ordered-products) | SQL | Easy | 2026-07-07 |
