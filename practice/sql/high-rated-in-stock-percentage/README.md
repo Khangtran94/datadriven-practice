@@ -4,15 +4,9 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/high_rated_in_stock_percentage)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-06-10 |
-| Accepted | on the first submission |
-| Time | 2 min |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Query Basics, Sums & Averages |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
