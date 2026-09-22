@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Flag Check](./practice/sql/flag-check) | SQL | Easy | 2026-07-09 |
 | [Rollback Roulette](./practice/sql/rollback-roulette) | SQL | Easy | 2026-07-09 |
 | [Deployed Models by Framework](./practice/sql/deployed-models-by-framework) | SQL | Easy | 2026-07-09 |
 | [Data Repo Fix Commits](./practice/sql/data-repo-fix-commits) | SQL | Medium | 2026-07-09 |
