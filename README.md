@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Service With Most Critical Alerts](./practice/sql/service-with-most-critical-alerts) | SQL | Hard | 2026-08-31 |
 | [User Spend Audit](./practice/sql/user-spend-audit) | SQL | Medium | 2026-08-31 |
 | [Top Regions by Critical Alerts](./practice/sql/top-regions-by-critical-alerts) | SQL | Medium | 2026-08-31 |
 | [Top Product Category by Transactions](./practice/sql/top-product-category-by-transactions) | SQL | Medium | 2026-08-31 |
