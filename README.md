@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Response Buckets](./practice/sql/response-buckets) | SQL | Medium | 2026-08-26 |
 | [Quiet Failures](./practice/sql/quiet-failures) | SQL | Medium | 2026-08-26 |
 | [The Notification Lifecycle](./practice/sql/the-notification-lifecycle) | SQL | Medium | 2026-08-26 |
 | [The Turning Tide](./practice/sql/the-turning-tide) | SQL | Medium | 2026-08-26 |
