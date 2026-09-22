@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Regions by High CPU Nodes](./practice/sql/top-regions-by-high-cpu-nodes) | SQL | Hard | 2026-08-24 |
 | [Top Pattern Matches](./practice/sql/top-pattern-matches) | SQL | Medium | 2026-08-24 |
 | [The Long Watch](./practice/sql/the-long-watch) | SQL | Medium | 2026-08-24 |
 | [Top 2 Ad Campaigns by Spend](./practice/sql/top-2-ad-campaigns-by-spend) | SQL | Medium | 2026-08-24 |
