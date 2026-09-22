@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Price Rank](./practice/sql/price-rank) | SQL | Medium | 2026-08-18 |
 | [The Tally Counter](./practice/python/the-tally-counter) | Python | Easy | 2026-08-17 |
 | [Most Recent Token Usage](./practice/sql/most-recent-token-usage) | SQL | Easy | 2026-08-17 |
 | [The Transaction Breakdown](./practice/sql/the-transaction-breakdown) | SQL | Easy | 2026-08-17 |
