@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Second Highest Cloud Cost](./practice/sql/second-highest-cloud-cost) | SQL | Medium | 2026-06-22 |
 | [The Upper Rungs](./practice/sql/the-upper-rungs) | SQL | Easy | 2026-06-22 |
 | [Transform Column](./practice/python/transform-column) | Python | Easy | 2026-06-22 |
 | [Sort Descending](./practice/python/sort-descending) | Python | Easy | 2026-06-22 |
