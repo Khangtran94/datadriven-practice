@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Buried Digits](./practice/sql/buried-digits) | SQL | Medium | 2026-07-21 |
 | [API Call Distribution Fraction](./practice/sql/api-call-distribution-fraction) | SQL | Hard | 2026-07-21 |
 | [Three Peaks](./practice/sql/three-peaks) | SQL | Hard | 2026-07-21 |
 | [The Ones That Come Back](./practice/python/the-ones-that-come-back) | Python | Easy | 2026-07-21 |
