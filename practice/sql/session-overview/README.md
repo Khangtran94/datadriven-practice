@@ -4,15 +4,9 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/session_overview)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-08-24 |
-| Accepted | on the first submission |
-| Time | 14 min |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Counting, Grouping, Outer Joins, Min & Max, Query Basics |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
