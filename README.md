@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Extremely Late Resolutions](./practice/sql/extremely-late-resolutions) | SQL | Medium | 2026-08-26 |
 | [First Deploy Attribution](./practice/sql/first-deploy-attribution) | SQL | Medium | 2026-08-26 |
 | [Rating Tiers](./practice/sql/rating-tiers) | SQL | Medium | 2026-08-26 |
 | [Nth Highest Salary Per Department](./practice/sql/nth-highest-salary-per-department) | SQL | Medium | 2026-08-26 |
