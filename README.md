@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Balance of Arms](./practice/sql/balance-of-arms) | SQL | Hard | 2026-06-29 |
 | [Quarters Apart](./practice/sql/quarters-apart) | SQL | Hard | 2026-06-29 |
 | [The Quiet Alarms](./practice/sql/the-quiet-alarms) | SQL | Medium | 2026-06-29 |
 | [Who We Reached](./practice/sql/who-we-reached) | SQL | Easy | 2026-06-29 |
