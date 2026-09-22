@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Repeat Offenders of the Search Bar](./practice/sql/repeat-offenders-of-the-search-bar) | SQL | Easy | 2026-06-25 |
 | [Top 5 Slowest DNS Lookups](./practice/sql/top-5-slowest-dns-lookups) | SQL | Easy | 2026-06-25 |
 | [Mentorship User Pairs](./practice/sql/mentorship-user-pairs) | SQL | Medium | 2026-06-25 |
 | [The Final Sale](./practice/sql/the-final-sale) | SQL | Medium | 2026-06-25 |
