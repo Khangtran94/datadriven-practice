@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Highest Latency Endpoints](./practice/sql/highest-latency-endpoints) | SQL | Easy | 2026-06-25 |
 | [Models With Variable Accuracy](./practice/sql/models-with-variable-accuracy) | SQL | Medium | 2026-06-25 |
 | [Highest Cost Per Team](./practice/sql/highest-cost-per-team) | SQL | Easy | 2026-06-25 |
 | [The Vanishing Rows](./practice/sql/the-vanishing-rows) | SQL | Easy | 2026-06-25 |
