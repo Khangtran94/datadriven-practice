@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [10 Lowest Uptime Services](./practice/sql/10-lowest-uptime-services) | SQL | Medium | 2026-05-21 |
 | [Value Count](./practice/python/value-count) | Python | Easy | 2026-05-20 |
 | [Average Watch Time by Format](./practice/sql/average-watch-time-by-format) | SQL | Medium | 2026-05-20 |
 | [Alert Hotspots by Service and Severity](./practice/sql/alert-hotspots-by-service-and-severity) | SQL | Easy | 2026-05-19 |
