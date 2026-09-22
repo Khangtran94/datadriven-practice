@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Turning Tide](./practice/sql/the-turning-tide) | SQL | Medium | 2026-08-26 |
 | [The Fault Lines](./practice/sql/the-fault-lines) | SQL | Medium | 2026-08-26 |
 | [Repos with More Builds Than Commits](./practice/sql/repos-with-more-builds-than-commits) | SQL | Medium | 2026-08-26 |
 | [Unsold Product Categories](./practice/sql/unsold-product-categories) | SQL | Medium | 2026-08-26 |
