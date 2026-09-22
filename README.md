@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Heavy Ad Exposure](./practice/sql/heavy-ad-exposure) | SQL | Medium | 2026-08-27 |
 | [The Ones We Watch](./practice/sql/the-ones-we-watch) | SQL | Medium | 2026-08-27 |
 | [The Chunked Reader](./practice/python/the-chunked-reader) | Python | Medium | 2026-08-27 |
 | [Kings for a Day](./practice/sql/kings-for-a-day) | SQL | Medium | 2026-08-26 |
