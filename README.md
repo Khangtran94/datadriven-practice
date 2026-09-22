@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Subscription Ghost](./practice/sql/the-subscription-ghost) | SQL | Medium | 2026-09-17 |
 | [Retried Failed API Calls](./practice/sql/retried-failed-api-calls) | SQL | Medium | 2026-09-17 |
 | [Beyond the Pacific](./practice/sql/beyond-the-pacific) | SQL | Medium | 2026-09-16 |
 | [Minimum Parallel Workers](./practice/sql/minimum-parallel-workers) | SQL | Hard | 2026-09-16 |
