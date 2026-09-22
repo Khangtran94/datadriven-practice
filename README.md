@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Errors With Service Health](./practice/sql/errors-with-service-health) | SQL | Easy | 2026-06-25 |
 | [Last Server Activity](./practice/sql/last-server-activity) | SQL | Easy | 2026-06-25 |
 | [Highest Latency Endpoints](./practice/sql/highest-latency-endpoints) | SQL | Easy | 2026-06-25 |
 | [Models With Variable Accuracy](./practice/sql/models-with-variable-accuracy) | SQL | Medium | 2026-06-25 |
