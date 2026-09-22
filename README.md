@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Weight of Things](./practice/sql/the-weight-of-things) | SQL | Medium | 2026-06-10 |
 | [Alert Response Breakdown](./practice/sql/alert-response-breakdown) | SQL | Medium | 2026-06-10 |
 | [Build Success Rate by Trigger](./practice/sql/build-success-rate-by-trigger) | SQL | Medium | 2026-06-10 |
 | [High-Rated In-Stock Percentage](./practice/sql/high-rated-in-stock-percentage) | SQL | Easy | 2026-06-10 |
