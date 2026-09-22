@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unique Stream Topics](./practice/sql/unique-stream-topics) | SQL | Easy | 2026-06-22 |
 | [Top Metric Values](./practice/sql/top-metric-values) | SQL | Easy | 2026-06-22 |
 | [Second Highest Cloud Cost](./practice/sql/second-highest-cloud-cost) | SQL | Medium | 2026-06-22 |
 | [The Upper Rungs](./practice/sql/the-upper-rungs) | SQL | Easy | 2026-06-22 |
