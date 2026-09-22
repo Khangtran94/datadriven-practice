@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Cart Sizes](./practice/sql/cart-sizes) | SQL | Easy | 2026-07-02 |
 | [Average Latency by Status](./practice/sql/average-latency-by-status) | SQL | Easy | 2026-07-02 |
 | [Top Average By Region](./practice/sql/top-average-by-region) | SQL | Easy | 2026-07-02 |
 | [Largest Group](./practice/sql/largest-group) | SQL | Easy | 2026-07-02 |
