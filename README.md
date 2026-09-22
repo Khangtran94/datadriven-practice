@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Noisiest Tables by DQ Failures](./practice/sql/noisiest-tables-by-dq-failures) | SQL | Medium | 2026-06-30 |
 | [Parallel Traces](./practice/sql/parallel-traces) | SQL | Medium | 2026-06-30 |
 | [The Sweet Spot](./practice/sql/the-sweet-spot) | SQL | Medium | 2026-06-30 |
 | [Most Popular Signup Day](./practice/sql/most-popular-signup-day) | SQL | Medium | 2026-06-30 |
