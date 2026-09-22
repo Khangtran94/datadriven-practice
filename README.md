@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Budget Line](./practice/sql/the-budget-line) | SQL | Easy | 2026-06-22 |
 | [The Podium Finish](./practice/sql/the-podium-finish) | SQL | Medium | 2026-06-22 |
 | [Repository Commit Ranking](./practice/sql/repository-commit-ranking) | SQL | Medium | 2026-06-22 |
 | [Most Active Chat Users](./practice/sql/most-active-chat-users) | SQL | Medium | 2026-06-22 |
