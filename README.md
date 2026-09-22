@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Weight of Between](./practice/sql/the-weight-of-between) | SQL | Easy | 2026-07-02 |
 | [The February Cohort](./practice/sql/the-february-cohort) | SQL | Easy | 2026-07-02 |
 | [Priciest Item in Each Category](./practice/sql/priciest-item-in-each-category) | SQL | Medium | 2026-07-02 |
 | [Long Searches Containing 'er'](./practice/sql/long-searches-containing-er) | SQL | Easy | 2026-07-02 |
