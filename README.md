@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Deploy Cadence](./practice/sql/deploy-cadence) | SQL | Easy | 2026-06-20 |
 | [Push Opens by Platform and Campaign](./practice/sql/push-opens-by-platform-and-campaign) | SQL | Medium | 2026-06-20 |
 | [First Contact](./practice/sql/first-contact) | SQL | Medium | 2026-06-20 |
 | [The Loudest Voice](./practice/python/the-loudest-voice) | Python | Medium | 2026-06-20 |
