@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Spending Tiers](./practice/sql/spending-tiers) | SQL | Medium | 2026-08-26 |
 | [Where the Year Leans](./practice/sql/where-the-year-leans) | SQL | Medium | 2026-08-26 |
 | [When It Rains](./practice/sql/when-it-rains) | SQL | Medium | 2026-08-26 |
 | [Response Buckets](./practice/sql/response-buckets) | SQL | Medium | 2026-08-26 |
