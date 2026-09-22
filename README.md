@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Weight of Everything Before](./practice/sql/the-weight-of-everything-before) | SQL | Medium | 2026-08-31 |
 | [The Biggest Fish](./practice/sql/the-biggest-fish) | SQL | Medium | 2026-08-31 |
 | [Top 2 Callers per Endpoint](./practice/sql/top-2-callers-per-endpoint) | SQL | Medium | 2026-08-31 |
 | [Top Earner Per Campaign](./practice/sql/top-earner-per-campaign) | SQL | Medium | 2026-08-31 |
