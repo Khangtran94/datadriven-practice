@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Average Session Duration](./practice/sql/average-session-duration) | SQL | Medium | 2026-07-07 |
 | [The Silent Probe](./practice/sql/the-silent-probe) | SQL | Easy | 2026-07-07 |
 | [Cost Efficiency Ratio](./practice/sql/cost-efficiency-ratio) | SQL | Easy | 2026-07-07 |
 | [Endpoint Latency Spread](./practice/sql/endpoint-latency-spread) | SQL | Medium | 2026-07-07 |
