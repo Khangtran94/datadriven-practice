@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Engagement Gap](./practice/sql/engagement-gap) | SQL | Medium | 2026-08-24 |
 | [Profit Tiers](./practice/sql/profit-tiers) | SQL | Medium | 2026-08-24 |
 | [Service Budget per Head](./practice/sql/service-budget-per-head) | SQL | Medium | 2026-08-24 |
 | [Still Climbing](./practice/sql/still-climbing) | SQL | Easy | 2026-08-24 |
