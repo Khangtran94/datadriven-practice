@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Even Filter](./practice/python/even-filter) | Python | Easy | 2026-06-22 |
 | [Top 10 Model Accuracies](./practice/sql/top-10-model-accuracies) | SQL | Easy | 2026-06-22 |
 | [Top 10 CPU-Heavy Nodes](./practice/sql/top-10-cpu-heavy-nodes) | SQL | Medium | 2026-06-22 |
 | [The Heaviest Hitters](./practice/sql/the-heaviest-hitters) | SQL | Easy | 2026-06-22 |
