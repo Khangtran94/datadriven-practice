@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Messages From Specific Users](./practice/sql/messages-from-specific-users) | SQL | Easy | 2026-07-14 |
 | [Messages Containing Keyword](./practice/sql/messages-containing-keyword) | SQL | Easy | 2026-07-14 |
 | [March Revenue by Customer](./practice/sql/march-revenue-by-customer) | SQL | Medium | 2026-07-14 |
 | [Low Severity DQ Checks](./practice/sql/low-severity-dq-checks) | SQL | Easy | 2026-07-14 |
