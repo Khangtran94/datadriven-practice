@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Yesterday's Crown](./practice/sql/yesterday-s-crown) | SQL | Hard | 2026-06-11 |
 | [The Fallback Layer](./practice/python/the-fallback-layer) | Python | Easy | 2026-06-11 |
 | [The Named Transaction](./practice/sql/the-named-transaction) | SQL | Easy | 2026-06-11 |
 | [The Weight of Things](./practice/sql/the-weight-of-things) | SQL | Medium | 2026-06-10 |
