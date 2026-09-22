@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Performing Models](./practice/sql/top-performing-models) | SQL | Easy | 2026-07-07 |
 | [Total Compute Cloud Cost](./practice/sql/total-compute-cloud-cost) | SQL | Easy | 2026-07-07 |
 | [Where the Data Breaks](./practice/sql/where-the-data-breaks) | SQL | Medium | 2026-07-07 |
 | [Searches by Users With Email](./practice/sql/searches-by-users-with-email) | SQL | Easy | 2026-07-07 |
