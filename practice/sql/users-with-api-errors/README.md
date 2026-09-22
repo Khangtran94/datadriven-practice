@@ -4,15 +4,9 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/users_with_api_errors)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-07-16 |
-| Accepted | on the first submission |
-| Time | 14 min |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Counting, Distinct Counting, Deduplication, Query Basics, Filtering |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
