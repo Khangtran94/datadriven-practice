@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Pipeline Overhead by Environment](./practice/sql/pipeline-overhead-by-environment) | SQL | Medium | 2026-06-25 |
 | [Metric Trend by Department](./practice/sql/metric-trend-by-department) | SQL | Easy | 2026-06-25 |
 | [Fastest Regions by Latency](./practice/sql/fastest-regions-by-latency) | SQL | Medium | 2026-06-25 |
 | [The High and the Low](./practice/sql/the-high-and-the-low) | SQL | Hard | 2026-06-25 |
