@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Log Priority](./practice/sql/log-priority) | SQL | Easy | 2026-07-16 |
 | [Email Census](./practice/sql/email-census) | SQL | Easy | 2026-07-16 |
 | [Disabled-Flag Share by Owner](./practice/sql/disabled-flag-share-by-owner) | SQL | Medium | 2026-07-16 |
 | [Content Mix](./practice/sql/content-mix) | SQL | Easy | 2026-07-16 |
