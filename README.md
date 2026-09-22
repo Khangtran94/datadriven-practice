@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Still Standing](./practice/sql/still-standing) | SQL | Medium | 2026-07-16 |
 | [Slow Production Deploys](./practice/sql/slow-production-deploys) | SQL | Easy | 2026-07-16 |
 | [Sirens and Smoke](./practice/sql/sirens-and-smoke) | SQL | Easy | 2026-07-16 |
 | [Welcome Wagon](./practice/sql/welcome-wagon) | SQL | Easy | 2026-07-16 |
