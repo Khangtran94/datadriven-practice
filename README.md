@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Users Without Purchases](./practice/sql/users-without-purchases) | SQL | Medium | 2026-06-25 |
 | [Nobody Was Watching](./practice/sql/nobody-was-watching) | SQL | Easy | 2026-06-25 |
 | [Break Through](./practice/sql/break-through) | SQL | Medium | 2026-06-25 |
 | [The Quiet Outlier](./practice/sql/the-quiet-outlier) | SQL | Hard | 2026-06-25 |
