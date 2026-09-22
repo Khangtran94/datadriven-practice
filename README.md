@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unbroken](./practice/python/unbroken) | Python | Easy | 2026-09-07 |
 | [Latest Commit Build Cost](./practice/sql/latest-commit-build-cost) | SQL | Medium | 2026-09-07 |
 | [Top Percentile API Tokens](./practice/sql/top-percentile-api-tokens) | SQL | Hard | 2026-09-07 |
 | [Most Efficient Region by Token Usage](./practice/sql/most-efficient-region-by-token-usage) | SQL | Hard | 2026-09-07 |
