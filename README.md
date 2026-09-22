@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Error Hall of Fame](./practice/sql/error-hall-of-fame) | SQL | Medium | 2026-07-14 |
 | [The Fast Lane](./practice/sql/the-fast-lane) | SQL | Medium | 2026-07-14 |
 | [Bargain Bin](./practice/sql/bargain-bin) | SQL | Easy | 2026-07-14 |
 | [Under the Same Name](./practice/sql/under-the-same-name) | SQL | Easy | 2026-07-14 |
