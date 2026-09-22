@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Keys That Never Die](./practice/sql/keys-that-never-die) | SQL | Medium | 2026-06-26 |
 | [The Blind Multiplier](./practice/python/the-blind-multiplier) | Python | Medium | 2026-06-26 |
 | [Errors With Service Health](./practice/sql/errors-with-service-health) | SQL | Easy | 2026-06-25 |
 | [Last Server Activity](./practice/sql/last-server-activity) | SQL | Easy | 2026-06-25 |
