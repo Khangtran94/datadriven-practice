@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Holiday Promo Campaign Click Year](./practice/sql/holiday-promo-campaign-click-year) | SQL | Easy | 2026-07-14 |
 | [First and Last Timeout Per Service](./practice/sql/first-and-last-timeout-per-service) | SQL | Medium | 2026-07-14 |
 | [Error Hall of Fame](./practice/sql/error-hall-of-fame) | SQL | Medium | 2026-07-14 |
 | [The Fast Lane](./practice/sql/the-fast-lane) | SQL | Medium | 2026-07-14 |
