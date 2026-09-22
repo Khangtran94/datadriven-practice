@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Where You Stand](./practice/sql/where-you-stand) | SQL | Easy | 2026-06-25 |
 | [Spending Velocity](./practice/sql/spending-velocity) | SQL | Medium | 2026-06-25 |
 | [Department Running Totals](./practice/sql/department-running-totals) | SQL | Medium | 2026-06-25 |
 | [The Long Climb](./practice/sql/the-long-climb) | SQL | Medium | 2026-06-25 |
