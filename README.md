@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Storage Node Lookup](./practice/sql/storage-node-lookup) | SQL | Easy | 2026-07-07 |
 | [Timeout Warning Logs](./practice/sql/timeout-warning-logs) | SQL | Easy | 2026-07-07 |
 | [Total Engineering Cost Allocation](./practice/sql/total-engineering-cost-allocation) | SQL | Easy | 2026-07-07 |
 | [Read the Manual](./practice/sql/read-the-manual) | SQL | Easy | 2026-07-07 |
