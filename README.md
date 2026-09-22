@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Product Transaction Counts](./practice/sql/product-transaction-counts) | SQL | Medium | 2026-07-14 |
 | [Ghosts in the Scheduler](./practice/sql/ghosts-in-the-scheduler) | SQL | Easy | 2026-07-14 |
 | [Peak Satisfaction](./practice/sql/peak-satisfaction) | SQL | Easy | 2026-07-14 |
 | [Seen or Ignored](./practice/sql/seen-or-ignored) | SQL | Medium | 2026-07-14 |
