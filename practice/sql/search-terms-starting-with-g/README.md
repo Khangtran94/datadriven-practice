@@ -4,15 +4,9 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/search_terms_starting_with_g)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-07-07 |
-| Accepted | on the first submission |
-| Time | 4 min |
-| Hints | none |
-| Query complexity | O(n), optimal |
-| Concepts | Pattern Matching, Query Basics, Filtering |
+| Query complexity | O(n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
