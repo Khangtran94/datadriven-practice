@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Retargeting Revenue Month](./practice/sql/peak-retargeting-revenue-month) | SQL | Medium | 2026-08-27 |
 | [Top Error-Service Pair](./practice/sql/top-error-service-pair) | SQL | Medium | 2026-08-27 |
 | [The Open Question](./practice/sql/the-open-question) | SQL | Medium | 2026-08-27 |
 | [Cost Density Extremes](./practice/sql/cost-density-extremes) | SQL | Medium | 2026-08-27 |
