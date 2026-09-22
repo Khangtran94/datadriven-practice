@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Beyond the Pacific](./practice/sql/beyond-the-pacific) | SQL | Medium | 2026-09-16 |
 | [Minimum Parallel Workers](./practice/sql/minimum-parallel-workers) | SQL | Hard | 2026-09-16 |
 | [Services With Most Checks in 2025](./practice/sql/services-with-most-checks-in-year-1) | SQL | Hard | 2026-09-16 |
 | [The Zero Propagator](./practice/python/the-zero-propagator) | Python | Medium | 2026-09-16 |
