@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [US-East KV Store Entries](./practice/sql/us-east-kv-store-entries) | SQL | Easy | 2026-06-30 |
 | [Users Without Sessions](./practice/sql/users-without-sessions) | SQL | Medium | 2026-06-30 |
 | [Total User Spend](./practice/sql/total-user-spend) | SQL | Easy | 2026-06-30 |
 | [In the Shadow of the Peak](./practice/sql/in-the-shadow-of-the-peak) | SQL | Medium | 2026-06-30 |
