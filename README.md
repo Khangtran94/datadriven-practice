@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Most Recent Token Usage](./practice/sql/most-recent-token-usage) | SQL | Easy | 2026-08-17 |
 | [The Transaction Breakdown](./practice/sql/the-transaction-breakdown) | SQL | Easy | 2026-08-17 |
 | [This Year's Class](./practice/sql/this-year-s-class) | SQL | Easy | 2026-08-17 |
 | [Return on a Glance](./practice/sql/return-on-a-glance) | SQL | Easy | 2026-08-17 |
