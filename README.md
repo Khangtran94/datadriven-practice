@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top-Heavy](./practice/python/top-heavy) | Python | Medium | 2026-09-14 |
 | [Birds of a Feather](./practice/python/birds-of-a-feather) | Python | Medium | 2026-09-13 |
 | [Never Walk Alone](./practice/python/never-walk-alone) | Python | Easy | 2026-09-11 |
 | [Left on Read](./practice/sql/left-on-read) | SQL | Medium | 2026-09-10 |
