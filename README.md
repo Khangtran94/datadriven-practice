@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Comfortable Middle](./practice/sql/the-comfortable-middle) | SQL | Hard | 2026-09-07 |
 | [Quarterly Peak Cloud Costs](./practice/sql/quarterly-peak-cloud-costs) | SQL | Hard | 2026-09-07 |
 | [Ebb and Flow](./practice/sql/ebb-and-flow) | SQL | Hard | 2026-09-07 |
 | [Yesterday's Weather](./practice/sql/yesterday-s-weather) | SQL | Hard | 2026-09-07 |
