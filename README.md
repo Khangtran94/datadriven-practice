@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [First Among Many](./practice/sql/first-among-many) | SQL | Medium | 2026-08-31 |
 | [Customers Without Orders](./practice/sql/customers-without-orders) | SQL | Medium | 2026-08-31 |
 | [Active Duo](./practice/sql/active-duo) | SQL | Medium | 2026-08-31 |
 | [Find the Fifth Largest Cost](./practice/sql/find-the-fifth-largest-cost) | SQL | Medium | 2026-08-31 |
