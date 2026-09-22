@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [First Impressions](./practice/sql/first-impressions) | SQL | Easy | 2026-06-22 |
 | [Product Name Letter Replace](./practice/sql/product-name-letter-replace) | SQL | Easy | 2026-06-22 |
 | [Customer Full Name Concat](./practice/sql/customer-full-name-concat) | SQL | Easy | 2026-06-22 |
 | [Unique Stream Topics](./practice/sql/unique-stream-topics) | SQL | Easy | 2026-06-22 |
