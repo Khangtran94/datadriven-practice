@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Usual Suspects](./practice/sql/the-usual-suspects) | SQL | Hard | 2026-09-07 |
 | [The Odd Digits](./practice/python/the-odd-digits) | Python | Easy | 2026-09-05 |
 | [Top CPU Pods per Namespace](./practice/sql/top-cpu-pods-per-namespace) | SQL | Hard | 2026-09-03 |
 | [The Top Reviewer](./practice/python/the-top-reviewer) | Python | Easy | 2026-09-03 |
