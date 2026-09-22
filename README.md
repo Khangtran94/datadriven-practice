@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Footprint](./practice/sql/the-footprint) | SQL | Medium | 2026-07-14 |
 | [Regions by Alert Volume](./practice/sql/regions-by-alert-volume) | SQL | Medium | 2026-07-14 |
 | [Regional Profits](./practice/sql/regional-profits) | SQL | Easy | 2026-07-14 |
 | [Q2 Search Volume](./practice/sql/q2-search-volume) | SQL | Easy | 2026-07-14 |
