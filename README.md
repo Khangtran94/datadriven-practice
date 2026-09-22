@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Two Names on the Ledger](./practice/sql/two-names-on-the-ledger) | SQL | Easy | 2026-06-30 |
 | [First Migration Record](./practice/sql/first-migration-record) | SQL | Easy | 2026-06-30 |
 | [Device Type Serving Most Users](./practice/sql/device-type-serving-most-users) | SQL | Medium | 2026-06-30 |
 | [The Spending Floor](./practice/sql/the-spending-floor) | SQL | Easy | 2026-06-30 |
