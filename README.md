@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Where the Exports Land](./practice/sql/where-the-exports-land) | SQL | Easy | 2026-07-09 |
 | [Mobile Event Counts](./practice/sql/mobile-event-counts) | SQL | Easy | 2026-07-09 |
 | [iOS Sessions by Device Type](./practice/sql/ios-sessions-by-device-type) | SQL | Medium | 2026-07-09 |
 | [Actually Available](./practice/sql/actually-available) | SQL | Easy | 2026-07-09 |
