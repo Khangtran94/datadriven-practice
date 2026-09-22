@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Auth Service Health Checks](./practice/sql/auth-service-health-checks) | SQL | Easy | 2026-07-07 |
 | [No Gaps](./practice/sql/no-gaps) | SQL | Easy | 2026-07-07 |
 | [Slow Failures](./practice/sql/slow-failures) | SQL | Easy | 2026-07-07 |
 | [The Ad Ledger](./practice/sql/the-ad-ledger) | SQL | Easy | 2026-07-07 |
