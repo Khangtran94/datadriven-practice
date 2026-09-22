@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [API Calls With and Without Errors](./practice/sql/api-calls-with-and-without-errors) | SQL | Medium | 2026-07-16 |
 | [Presence vs. Participation](./practice/sql/presence-vs-participation) | SQL | Medium | 2026-07-16 |
 | [Transaction Source Features](./practice/sql/transaction-source-features) | SQL | Easy | 2026-07-16 |
 | [Top 2 Active Push Days](./practice/sql/top-2-active-push-days) | SQL | Medium | 2026-07-16 |
