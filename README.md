@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Deploy Outcomes by Service](./practice/sql/deploy-outcomes-by-service) | SQL | Hard | 2026-07-17 |
 | [The Engagement Gap](./practice/sql/the-engagement-gap) | SQL | Medium | 2026-07-17 |
 | [Feature Name Intersection](./practice/sql/feature-name-intersection) | SQL | Hard | 2026-07-17 |
 | [The Weak Link](./practice/sql/the-weak-link) | SQL | Medium | 2026-07-17 |
