@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Not From Around Here](./practice/sql/not-from-around-here) | SQL | Easy | 2026-07-07 |
 | [Three Clouds](./practice/sql/three-clouds) | SQL | Easy | 2026-07-07 |
 | [Non-Draft Content](./practice/sql/non-draft-content) | SQL | Easy | 2026-07-07 |
 | [Platform Team Mobile Flags](./practice/sql/platform-team-mobile-flags) | SQL | Easy | 2026-07-07 |
