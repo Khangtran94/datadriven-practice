@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Campaigns With Most Clicks](./practice/sql/campaigns-with-most-clicks) | SQL | Medium | 2026-06-30 |
 | [Active Users With April Transactions](./practice/sql/active-users-with-april-transactions) | SQL | Easy | 2026-06-29 |
 | [Model Training Completion Rate](./practice/sql/model-training-completion-rate) | SQL | Medium | 2026-06-29 |
 | [Balance of Arms](./practice/sql/balance-of-arms) | SQL | Hard | 2026-06-29 |
