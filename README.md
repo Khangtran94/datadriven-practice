@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Fastest Regions by Latency](./practice/sql/fastest-regions-by-latency) | SQL | Medium | 2026-06-25 |
 | [The High and the Low](./practice/sql/the-high-and-the-low) | SQL | Hard | 2026-06-25 |
 | [Unmatched Categories](./practice/sql/unmatched-categories) | SQL | Easy | 2026-06-25 |
 | [Higher Than Supervisor](./practice/sql/higher-than-supervisor) | SQL | Easy | 2026-06-25 |
