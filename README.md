@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Slow Lane](./practice/sql/the-slow-lane) | SQL | Medium | 2026-07-21 |
 | [Top Recent Sellers](./practice/sql/top-recent-sellers) | SQL | Easy | 2026-07-21 |
 | [Servers Returning to Origin](./practice/sql/servers-returning-to-origin) | SQL | Medium | 2026-07-21 |
 | [Revoked Tokens by Scope](./practice/sql/revoked-tokens-by-scope) | SQL | Medium | 2026-07-21 |
