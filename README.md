@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Clean Exit](./practice/sql/clean-exit) | SQL | Easy | 2026-07-07 |
 | [Broken Promises Between Tables](./practice/sql/broken-promises-between-tables) | SQL | Medium | 2026-07-07 |
 | [Not From Around Here](./practice/sql/not-from-around-here) | SQL | Easy | 2026-07-07 |
 | [Three Clouds](./practice/sql/three-clouds) | SQL | Easy | 2026-07-07 |
