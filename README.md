@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Disabled-Flag Share by Owner](./practice/sql/disabled-flag-share-by-owner) | SQL | Medium | 2026-07-16 |
 | [Content Mix](./practice/sql/content-mix) | SQL | Easy | 2026-07-16 |
 | [Average Results for Python Searches](./practice/sql/average-results-for-python-searches) | SQL | Medium | 2026-07-16 |
 | [API Calls With and Without Errors](./practice/sql/api-calls-with-and-without-errors) | SQL | Medium | 2026-07-16 |
