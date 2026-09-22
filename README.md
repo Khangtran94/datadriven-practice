@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Left on Read](./practice/sql/left-on-read) | SQL | Medium | 2026-09-10 |
 | [Beyond the Signup](./practice/sql/beyond-the-signup) | SQL | Medium | 2026-09-10 |
 | [Unbroken](./practice/python/unbroken) | Python | Easy | 2026-09-07 |
 | [Latest Commit Build Cost](./practice/sql/latest-commit-build-cost) | SQL | Medium | 2026-09-07 |
