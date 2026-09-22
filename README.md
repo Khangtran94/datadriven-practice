@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [After the Cutoff](./practice/sql/after-the-cutoff) | SQL | Easy | 2026-07-02 |
 | [First Half of Page Views](./practice/sql/first-half-of-page-views) | SQL | Medium | 2026-07-02 |
 | [Character Position in Endpoint](./practice/sql/character-position-in-endpoint) | SQL | Easy | 2026-07-02 |
 | [Even-ID June Signups](./practice/sql/even-id-june-signups) | SQL | Easy | 2026-07-02 |
