@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [High-Rated In-Stock Percentage](./practice/sql/high-rated-in-stock-percentage) | SQL | Easy | 2026-06-10 |
 | [Present and Accounted For](./practice/sql/present-and-accounted-for) | SQL | Easy | 2026-06-10 |
 | [Latency Gap to 10th Fastest](./practice/sql/latency-gap-to-10th-fastest) | SQL | Medium | 2026-06-10 |
 | [The Token Census](./practice/sql/the-token-census) | SQL | Easy | 2026-06-09 |
