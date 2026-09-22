@@ -1,0 +1,6 @@
+SELECT reviewer, COUNT(*)
+FROM code_reviews
+WHERE reviewer IS NOT NULL
+GROUP BY 1 
+HAVING COUNT(*) >= 7
+ORDER BY 2 DESC

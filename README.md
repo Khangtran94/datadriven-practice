@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Super Reviewers](./practice/sql/super-reviewers) | SQL | Medium | 2026-06-23 |
 | [Explode List](./practice/python/explode-list) | Python | Easy | 2026-06-23 |
 | [Verify Commit ID Uniqueness](./practice/sql/verify-commit-id-uniqueness) | SQL | Easy | 2026-06-23 |
 | [Who's Looking](./practice/sql/who-s-looking) | SQL | Easy | 2026-06-23 |
