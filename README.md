@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Cost Efficiency Ratio](./practice/sql/cost-efficiency-ratio) | SQL | Easy | 2026-07-07 |
 | [Endpoint Latency Spread](./practice/sql/endpoint-latency-spread) | SQL | Medium | 2026-07-07 |
 | [The Far Ends](./practice/sql/the-far-ends) | SQL | Easy | 2026-07-07 |
 | [Rush Hour API Latency](./practice/sql/rush-hour-api-latency) | SQL | Medium | 2026-07-07 |
