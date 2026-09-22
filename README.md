@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Progress Parade](./practice/python/the-progress-parade) | Python | Easy | 2026-06-01 |
 | [The Quiet Middle](./practice/sql/the-quiet-middle) | SQL | Easy | 2026-05-30 |
 | [The Bronze Medalist](./practice/python/the-bronze-medalist) | Python | Easy | 2026-05-29 |
 | [Proof of Presence](./practice/sql/proof-of-presence) | SQL | Medium | 2026-05-29 |
