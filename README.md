@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Crown Jewels](./practice/sql/the-crown-jewels) | SQL | Easy | 2026-07-02 |
 | [Log Levels](./practice/sql/log-levels) | SQL | Easy | 2026-07-02 |
 | [Category Revenue](./practice/sql/category-revenue) | SQL | Medium | 2026-07-02 |
 | [Average Rating by Category](./practice/sql/average-rating-by-category) | SQL | Easy | 2026-07-02 |
