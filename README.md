@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Last Checkout](./practice/sql/the-last-checkout) | SQL | Medium | 2026-05-21 |
 | [7-Check Rolling Average](./practice/sql/7-check-rolling-average) | SQL | Medium | 2026-05-21 |
 | [10 Lowest Uptime Services](./practice/sql/10-lowest-uptime-services) | SQL | Medium | 2026-05-21 |
 | [Value Count](./practice/python/value-count) | Python | Easy | 2026-05-20 |
