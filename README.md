@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Merit Circle](./practice/sql/the-merit-circle) | SQL | Medium | 2026-06-30 |
 | [Service Reliability Tiers](./practice/sql/service-reliability-tiers) | SQL | Medium | 2026-06-30 |
 | [Everybody Wants a Bigger Screen](./practice/sql/everybody-wants-a-bigger-screen) | SQL | Easy | 2026-06-30 |
 | [Seen and Unseen](./practice/sql/seen-and-unseen) | SQL | Medium | 2026-06-30 |
