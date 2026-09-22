@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Compute Nodes in Key Regions](./practice/sql/compute-nodes-in-key-regions) | SQL | Easy | 2026-07-07 |
 | [Content Published in 2026](./practice/sql/content-published-in-year) | SQL | Easy | 2026-07-07 |
 | [Disabled Feature Flags](./practice/sql/disabled-feature-flags) | SQL | Easy | 2026-07-07 |
 | [High-Value Electronics](./practice/sql/high-value-electronics) | SQL | Easy | 2026-07-07 |
