@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Non-Converting Month](./practice/sql/peak-non-converting-month) | SQL | Easy | 2026-08-17 |
 | [The Weight of Words](./practice/sql/the-weight-of-words) | SQL | Easy | 2026-08-17 |
 | [Profitable Categories by Price](./practice/sql/profitable-categories-by-price) | SQL | Easy | 2026-08-17 |
 | [The Provinces](./practice/sql/the-provinces) | SQL | Easy | 2026-08-17 |
