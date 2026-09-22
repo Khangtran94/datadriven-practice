@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Content Viewer Penetration](./practice/sql/content-viewer-penetration) | SQL | Easy | 2026-07-14 |
 | [Monthly Active Users per Endpoint](./practice/sql/monthly-active-users-per-endpoint) | SQL | Easy | 2026-07-14 |
 | [Missing Email for Non-Active Users](./practice/sql/missing-email-for-non-active-users) | SQL | Easy | 2026-07-14 |
 | [Messages From Specific Users](./practice/sql/messages-from-specific-users) | SQL | Easy | 2026-07-14 |
