@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Kings for a Day](./practice/sql/kings-for-a-day) | SQL | Medium | 2026-08-26 |
 | [Going Once](./practice/sql/going-once) | SQL | Medium | 2026-08-26 |
 | [Stumbling Out of the Gate](./practice/sql/stumbling-out-of-the-gate) | SQL | Medium | 2026-08-26 |
 | [Second to One](./practice/sql/second-to-one) | SQL | Medium | 2026-08-26 |
