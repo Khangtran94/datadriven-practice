@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Highest Daily Spend](./practice/sql/highest-daily-spend) | SQL | Medium | 2026-07-02 |
 | [Session-Fit Content](./practice/sql/session-fit-content) | SQL | Easy | 2026-07-02 |
 | [Repeat Buyers Across Halves](./practice/sql/repeat-buyers-across-halves) | SQL | Medium | 2026-07-02 |
 | [Filtered User Roster](./practice/sql/filtered-user-roster) | SQL | Easy | 2026-07-02 |
