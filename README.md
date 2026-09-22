@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Features With Missing Values](./practice/sql/features-with-missing-values) | SQL | Easy | 2026-06-30 |
 | [The Screens They Carry](./practice/sql/the-screens-they-carry) | SQL | Medium | 2026-06-30 |
 | [Click-Through by Campaign](./practice/sql/click-through-by-campaign) | SQL | Medium | 2026-06-30 |
 | [Campaigns With Most Clicks](./practice/sql/campaigns-with-most-clicks) | SQL | Medium | 2026-06-30 |
