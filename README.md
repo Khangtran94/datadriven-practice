@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unclicked Searches by Campaign](./practice/sql/unclicked-searches-by-campaign) | SQL | Medium | 2026-07-16 |
 | [Top Repos by Successful Builds](./practice/sql/top-repos-by-successful-builds) | SQL | Medium | 2026-07-16 |
 | [Top Region by Order Volume](./practice/sql/top-region-by-order-volume) | SQL | Medium | 2026-07-16 |
 | [Top Device by Sessions](./practice/sql/top-device-by-sessions) | SQL | Easy | 2026-07-16 |
