@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Lion's Share](./practice/sql/the-lion-s-share) | SQL | Medium | 2026-08-24 |
 | [Workers Earning Above Department Average](./practice/sql/workers-earning-above-department-average) | SQL | Medium | 2026-08-24 |
 | [Top Regions by High CPU Nodes](./practice/sql/top-regions-by-high-cpu-nodes) | SQL | Hard | 2026-08-24 |
 | [Top Pattern Matches](./practice/sql/top-pattern-matches) | SQL | Medium | 2026-08-24 |
