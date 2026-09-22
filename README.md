@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Fastest Page View to Click](./practice/sql/fastest-page-view-to-click) | SQL | Hard | 2026-09-21 |
 | [The Path Not Taken](./practice/sql/the-path-not-taken) | SQL | Hard | 2026-09-21 |
 | [Top of the Bill](./practice/sql/top-of-the-bill) | SQL | Medium | 2026-09-21 |
 | [Year-over-Year Content Launches](./practice/sql/year-over-year-content-launches) | SQL | Medium | 2026-09-21 |
