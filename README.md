@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Highest Throughput Pipelines](./practice/sql/highest-throughput-pipelines) | SQL | Medium | 2026-07-14 |
 | [The Ones That Woke Us](./practice/sql/the-ones-that-woke-us) | SQL | Easy | 2026-07-14 |
 | [February 2024 Signups](./practice/sql/february-year-2-signups) | SQL | Easy | 2026-07-14 |
 | [Annual Pipeline Failures](./practice/sql/annual-pipeline-failures) | SQL | Easy | 2026-07-14 |
