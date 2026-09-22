@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Resolved vs Unresolved Alerts](./practice/sql/resolved-vs-unresolved-alerts) | SQL | Hard | 2026-07-16 |
 | [Whale Watch](./practice/sql/whale-watch) | SQL | Easy | 2026-07-16 |
 | [Users With Purchase Events](./practice/sql/users-with-purchase-events) | SQL | Easy | 2026-07-16 |
 | [Users With API Errors](./practice/sql/users-with-api-errors) | SQL | Medium | 2026-07-16 |
