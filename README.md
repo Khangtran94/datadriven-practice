@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Faithful Few](./practice/sql/the-faithful-few) | SQL | Medium | 2026-08-27 |
 | [Monthly Running Total](./practice/sql/monthly-running-total) | SQL | Medium | 2026-08-27 |
 | [Mobile vs Desktop Session Duration](./practice/sql/mobile-vs-desktop-session-duration) | SQL | Medium | 2026-08-27 |
 | [Kings of the Aisle](./practice/sql/kings-of-the-aisle) | SQL | Medium | 2026-08-27 |
