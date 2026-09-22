@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Above Average Interactions](./practice/sql/above-average-interactions) | SQL | Easy | 2026-05-25 |
 | [Above Average](./practice/sql/above-average) | SQL | Easy | 2026-05-25 |
 | [Power Users by Session Activity](./practice/sql/power-users-by-session-activity) | SQL | Medium | 2026-05-25 |
 | [Spending by Account Status](./practice/sql/spending-by-account-status) | SQL | Medium | 2026-05-25 |
