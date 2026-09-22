@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Busiest Pipeline Month](./practice/sql/busiest-pipeline-month) | SQL | Medium | 2026-07-02 |
 | [Average API Latency by Year](./practice/sql/average-api-latency-by-year) | SQL | Medium | 2026-07-02 |
 | [Largest A/B Test by Participants](./practice/sql/largest-a-b-test-by-participants) | SQL | Medium | 2026-07-02 |
 | [Average Sessions Per User](./practice/sql/average-sessions-per-user) | SQL | Hard | 2026-07-02 |
