@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Tag Analyst](./practice/python/the-tag-analyst) | Python | Medium | 2026-06-23 |
 | [Top API Caller](./practice/sql/top-api-caller) | SQL | Medium | 2026-06-23 |
 | [The Minutes Tracker](./practice/python/the-minutes-tracker) | Python | Easy | 2026-06-22 |
 | [The Budget Line](./practice/sql/the-budget-line) | SQL | Easy | 2026-06-22 |
