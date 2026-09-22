@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Cloud Cost Breakdown by Provider](./practice/sql/cloud-cost-breakdown-by-provider) | SQL | Hard | 2026-07-17 |
 | [Batch Job Performance Tiers](./practice/sql/batch-job-performance-tiers) | SQL | Medium | 2026-07-17 |
 | [After the Handshake](./practice/sql/after-the-handshake) | SQL | Medium | 2026-07-17 |
 | [Friday Spending Analysis](./practice/sql/friday-spending-analysis) | SQL | Hard | 2026-07-17 |
