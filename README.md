@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Trim Endpoints Right](./practice/sql/trim-endpoints-right) | SQL | Easy | 2026-06-22 |
 | [The Compliance Order](./practice/sql/the-compliance-order) | SQL | Easy | 2026-06-22 |
 | [First Impressions](./practice/sql/first-impressions) | SQL | Easy | 2026-06-22 |
 | [Product Name Letter Replace](./practice/sql/product-name-letter-replace) | SQL | Easy | 2026-06-22 |
