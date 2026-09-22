@@ -845,7 +845,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [Progress Milestones](./practice/python/progress-milestones) | Python | Easy | 2026-06-06 |
 | [The Threshold](./practice/sql/the-threshold) | SQL | Medium | 2026-06-06 |
 | [The Ones Worth Paging](./practice/sql/the-ones-worth-paging) | SQL | Hard | 2026-06-05 |
-| [Suspected Bot Sessions](./practice/sql/suspected-bot-sessions) | SQL | Medium | 2026-06-05 |
+| [Suspected Bot Sessions](./practice/sql/suspected-bot-sessions) | SQL | Easy | 2026-06-05 |
 | [Gateway Connection Timeouts](./practice/sql/gateway-connection-timeouts) | SQL | Easy | 2026-06-04 |
 | [Deploy Velocity](./practice/sql/deploy-velocity) | SQL | Hard | 2026-06-01 |
 | [The Progress Parade](./practice/python/the-progress-parade) | Python | Easy | 2026-06-01 |
