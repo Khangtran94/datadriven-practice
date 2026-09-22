@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest Threads](./practice/sql/the-loudest-threads) | SQL | Medium | 2026-07-07 |
 | [Nodes in Target Regions](./practice/sql/nodes-in-target-regions) | SQL | Easy | 2026-07-07 |
 | [The Scorched Earth Reviews](./practice/sql/the-scorched-earth-reviews) | SQL | Easy | 2026-07-07 |
 | [Platform Team Feature Flags](./practice/sql/platform-team-feature-flags) | SQL | Easy | 2026-07-07 |
