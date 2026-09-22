@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Second Fiddle](./practice/sql/second-fiddle) | SQL | Hard | 2026-07-07 |
 | [Cheapest Line for Network-Heavy Teams](./practice/sql/cheapest-line-for-network-heavy-teams) | SQL | Medium | 2026-07-07 |
 | [The Silver Screen Summit](./practice/python/the-silver-screen-summit) | Python | Medium | 2026-07-06 |
 | [The Integer Sieve](./practice/python/the-integer-sieve) | Python | Easy | 2026-07-06 |
