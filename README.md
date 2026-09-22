@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [CDN Image Request Paths](./practice/sql/cdn-image-request-paths) | SQL | Easy | 2026-07-07 |
 | [Cheapest CDN Route](./practice/sql/cheapest-cdn-route) | SQL | Easy | 2026-07-07 |
 | [Clean Exit](./practice/sql/clean-exit) | SQL | Easy | 2026-07-07 |
 | [Broken Promises Between Tables](./practice/sql/broken-promises-between-tables) | SQL | Medium | 2026-07-07 |
