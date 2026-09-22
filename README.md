@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [DQ Fail Rate by Table](./practice/sql/dq-fail-rate-by-table) | SQL | Medium | 2026-06-18 |
 | [High-Output Creators](./practice/sql/high-output-creators) | SQL | Easy | 2026-06-17 |
 | [Distinct Product Categories](./practice/sql/distinct-product-categories) | SQL | Easy | 2026-06-17 |
 | [Top Products per Category](./practice/sql/top-products-per-category) | SQL | Medium | 2026-06-17 |
