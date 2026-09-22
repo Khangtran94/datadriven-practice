@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Ad Revenue by Age Bucket](./practice/sql/ad-revenue-by-age-bucket) | SQL | Medium | 2026-05-19 |
 | [Reviews Per Reviewer](./practice/sql/reviews-per-reviewer) | SQL | Easy | 2026-05-19 |
 | [Cloud Bill](./practice/sql/cloud-bill) | SQL | Easy | 2026-05-19 |
 | [Titles Ending With S](./practice/sql/titles-ending-with-s) | SQL | Easy | 2026-05-19 |
