@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Long Wait](./practice/sql/the-long-wait) | SQL | Easy | 2026-06-25 |
 | [CPU Utilization Summary](./practice/sql/cpu-utilization-summary) | SQL | Easy | 2026-06-25 |
 | [Running Tab](./practice/sql/running-tab) | SQL | Medium | 2026-06-25 |
 | [Where You Stand](./practice/sql/where-you-stand) | SQL | Easy | 2026-06-25 |
