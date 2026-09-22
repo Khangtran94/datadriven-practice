@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest Neighbor](./practice/sql/the-loudest-neighbor) | SQL | Hard | 2026-09-18 |
 | [The Traffic Director](./practice/python/the-traffic-director) | Python | Easy | 2026-09-18 |
 | [Peak Season](./practice/sql/peak-season) | SQL | Medium | 2026-09-17 |
 | [Both Ways](./practice/sql/both-ways) | SQL | Hard | 2026-09-17 |
