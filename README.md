@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Duplicated User Event Messages](./practice/sql/duplicated-user-event-messages) | SQL | Medium | 2026-08-06 |
 | [High-Traffic Endpoints in February](./practice/sql/high-traffic-endpoints-in-february) | SQL | Easy | 2026-08-05 |
 | [Did We Actually Make Money?](./practice/sql/did-we-actually-make-money) | SQL | Medium | 2026-08-05 |
 | [DQ Score Spread](./practice/sql/dq-score-spread) | SQL | Medium | 2026-08-05 |
