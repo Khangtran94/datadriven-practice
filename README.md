@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unique Searchers](./practice/sql/unique-searchers) | SQL | Easy | 2026-06-19 |
 | [Cheapest Cost Per Region](./practice/sql/cheapest-cost-per-region) | SQL | Easy | 2026-06-19 |
 | [The Legacy Hunt](./practice/sql/the-legacy-hunt) | SQL | Easy | 2026-06-19 |
 | [The Warm Edges](./practice/sql/the-warm-edges) | SQL | Medium | 2026-06-19 |
