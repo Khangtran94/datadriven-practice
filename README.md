@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Did Anyone Actually Read It?](./practice/sql/did-anyone-actually-read-it) | SQL | Easy | 2026-07-16 |
 | [Non-Bot Acknowledged Alerts](./practice/sql/non-bot-acknowledged-alerts) | SQL | Easy | 2026-07-16 |
 | [New User Purchases](./practice/sql/new-user-purchases) | SQL | Medium | 2026-07-16 |
 | [Month With Fewest Deploys](./practice/sql/month-with-fewest-deploys) | SQL | Medium | 2026-07-16 |
