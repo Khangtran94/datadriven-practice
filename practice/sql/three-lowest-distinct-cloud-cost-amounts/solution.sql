@@ -1,0 +1,4 @@
+SELECT DISTINCT amount
+FROM cloud_costs
+ORDER BY 1
+LIMIT 3

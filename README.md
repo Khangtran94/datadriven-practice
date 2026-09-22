@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Three Lowest Distinct Cloud Cost Amounts](./practice/sql/three-lowest-distinct-cloud-cost-amounts) | SQL | Easy | 2026-06-19 |
 | [Unique Visitors](./practice/sql/unique-visitors) | SQL | Easy | 2026-06-19 |
 | [The Standing Fleet](./practice/sql/the-standing-fleet) | SQL | Easy | 2026-06-19 |
 | [The Crowd Pleaser](./practice/python/the-crowd-pleaser) | Python | Easy | 2026-06-19 |
