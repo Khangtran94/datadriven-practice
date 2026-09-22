@@ -12,6 +12,12 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 |---|---:|---|---|
 | [Week 1: The Handoff](./weekly/week-01-the-handoff) | 0.5159 | #8 of 11 | [brief](https://datadriven.io/community/week-1) |
 
+## Practice
+
+| Problem | Domain | Difficulty | Solved |
+|---|---|---|---|
+| [Top Per Category](./practice/sql/top-per-category) | SQL | Hard | 2026-05-14 |
+
 <!-- datadriven:index:end -->
 
 ---
