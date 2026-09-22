@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Noise Floor](./practice/sql/the-noise-floor) | SQL | Medium | 2026-07-25 |
 | [The Carousel](./practice/python/the-carousel) | Python | Easy | 2026-07-23 |
 | [Higher Ground](./practice/python/higher-ground) | Python | Medium | 2026-07-22 |
 | [The Steady Few](./practice/sql/the-steady-few) | SQL | Medium | 2026-07-21 |
