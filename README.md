@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Behind the Fleet](./practice/sql/behind-the-fleet) | SQL | Medium | 2026-08-24 |
 | [The Loudest Voices](./practice/sql/the-loudest-voices) | SQL | Medium | 2026-08-24 |
 | [Successful Call Volume per Endpoint](./practice/sql/successful-call-volume-per-endpoint) | SQL | Medium | 2026-08-24 |
 | [Recent Price Drops](./practice/sql/recent-price-drops) | SQL | Medium | 2026-08-24 |
