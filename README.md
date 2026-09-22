@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Smooth Latency](./practice/sql/smooth-latency) | SQL | Medium | 2026-07-07 |
 | [The Elite](./practice/sql/the-elite) | SQL | Easy | 2026-07-07 |
 | [Average Search Endpoint Latency](./practice/sql/average-search-endpoint-latency) | SQL | Easy | 2026-07-07 |
 | [Clicked Ad Impressions](./practice/sql/clicked-ad-impressions) | SQL | Easy | 2026-07-07 |
