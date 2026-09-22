@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Retried Failed API Calls](./practice/sql/retried-failed-api-calls) | SQL | Medium | 2026-09-17 |
 | [Beyond the Pacific](./practice/sql/beyond-the-pacific) | SQL | Medium | 2026-09-16 |
 | [Minimum Parallel Workers](./practice/sql/minimum-parallel-workers) | SQL | Hard | 2026-09-16 |
 | [Services With Most Checks in 2025](./practice/sql/services-with-most-checks-in-year-1) | SQL | Hard | 2026-09-16 |
