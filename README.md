@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Repos by Commit Volume](./practice/sql/top-repos-by-commit-volume) | SQL | Medium | 2026-08-27 |
 | [The Heaviest Carts](./practice/sql/the-heaviest-carts) | SQL | Medium | 2026-08-27 |
 | [Heavy Ad Exposure](./practice/sql/heavy-ad-exposure) | SQL | Medium | 2026-08-27 |
 | [The Ones We Watch](./practice/sql/the-ones-we-watch) | SQL | Medium | 2026-08-27 |
