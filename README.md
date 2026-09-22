@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Percentile API Tokens](./practice/sql/top-percentile-api-tokens) | SQL | Hard | 2026-09-07 |
 | [Most Efficient Region by Token Usage](./practice/sql/most-efficient-region-by-token-usage) | SQL | Hard | 2026-09-07 |
 | [The Accumulator](./practice/sql/the-accumulator) | SQL | Hard | 2026-09-07 |
 | [Service Scorecard](./practice/sql/service-scorecard) | SQL | Hard | 2026-09-07 |
