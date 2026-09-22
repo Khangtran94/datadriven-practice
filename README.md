@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Days with More Edited Than Unedited Messages](./practice/sql/days-with-more-edited-than-unedited-messages) | SQL | Medium | 2026-08-05 |
 | [Two Names, One Campaign](./practice/sql/two-names-one-campaign) | SQL | Easy | 2026-08-05 |
 | [The Heavy Hitters](./practice/sql/the-heavy-hitters) | SQL | Easy | 2026-08-05 |
 | [Above the Curve](./practice/sql/above-the-curve) | SQL | Medium | 2026-08-05 |
