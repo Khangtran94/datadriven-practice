@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Pipeline Completion Rate](./practice/sql/pipeline-completion-rate) | SQL | Medium | 2026-07-16 |
 | [Peak Spending Month](./practice/sql/peak-spending-month) | SQL | Easy | 2026-07-16 |
 | [Peak Metric Per Department](./practice/sql/peak-metric-per-department) | SQL | Easy | 2026-07-16 |
 | [Net Lines](./practice/sql/net-lines) | SQL | Medium | 2026-07-16 |
