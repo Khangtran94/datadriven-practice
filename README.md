@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Unmatched Categories](./practice/sql/unmatched-categories) | SQL | Easy | 2026-06-25 |
 | [Higher Than Supervisor](./practice/sql/higher-than-supervisor) | SQL | Easy | 2026-06-25 |
 | [Department Spend Gap](./practice/sql/department-spend-gap) | SQL | Easy | 2026-06-25 |
 | [The Org Chart in Numbers](./practice/sql/the-org-chart-in-numbers) | SQL | Hard | 2026-06-25 |
