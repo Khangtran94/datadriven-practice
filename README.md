@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Back Again](./practice/sql/back-again) | SQL | Medium | 2026-07-03 |
 | [Low-Byte CDN Responses](./practice/sql/low-byte-cdn-responses) | SQL | Easy | 2026-07-03 |
 | [Top Lessons Each Month](./practice/sql/top-lessons-each-month) | SQL | Medium | 2026-07-03 |
 | [Deploy Velocity Swings](./practice/sql/deploy-velocity-swings) | SQL | Medium | 2026-07-03 |
