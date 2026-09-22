@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who Moved the Needle](./practice/sql/who-moved-the-needle) | SQL | Medium | 2026-08-26 |
 | [The Relentless Searchers](./practice/sql/the-relentless-searchers) | SQL | Medium | 2026-08-26 |
 | [Second Highest Latency by Method](./practice/sql/second-highest-latency-by-method) | SQL | Medium | 2026-08-26 |
 | [Session Rank](./practice/sql/session-rank) | SQL | Medium | 2026-08-26 |
