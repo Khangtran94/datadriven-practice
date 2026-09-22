@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who's Holding Up Traffic](./practice/sql/who-s-holding-up-traffic) | SQL | Medium | 2026-07-02 |
 | [Splitting the Load](./practice/sql/splitting-the-load) | SQL | Medium | 2026-07-02 |
 | [Highest Daily Spend](./practice/sql/highest-daily-spend) | SQL | Medium | 2026-07-02 |
 | [Session-Fit Content](./practice/sql/session-fit-content) | SQL | Easy | 2026-07-02 |
