@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Log Entries by Level](./practice/sql/log-entries-by-level) | SQL | Easy | 2026-07-02 |
 | [User With Most Transactions](./practice/sql/user-with-most-transactions) | SQL | Medium | 2026-07-02 |
 | [Pipeline Run History](./practice/sql/pipeline-run-history) | SQL | Easy | 2026-07-02 |
 | [Latest Metric Values](./practice/sql/latest-metric-values) | SQL | Easy | 2026-07-02 |
