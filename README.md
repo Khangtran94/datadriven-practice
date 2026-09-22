@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Latest Version Per Service](./practice/sql/latest-version-per-service) | SQL | Easy | 2026-07-13 |
 | [Morning Warning Logs](./practice/sql/morning-warning-logs) | SQL | Easy | 2026-07-13 |
 | [Most Common Monday Outcome](./practice/sql/most-common-monday-outcome) | SQL | Medium | 2026-07-13 |
 | [Allocations in Top Spending Region](./practice/sql/allocations-in-top-spending-region) | SQL | Hard | 2026-07-13 |
