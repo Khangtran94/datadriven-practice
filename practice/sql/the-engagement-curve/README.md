@@ -4,15 +4,9 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_engagement_curve)
 
-## How it went
-
 | | |
 |---|---|
 | Solved | 2026-06-30 |
-| Accepted | on the first submission |
-| Time | 4 min |
-| Hints | none |
-| Query complexity | O(n log n), optimal |
-| Concepts | Conditional Logic, Counting, Grouping, Sorting Results, Query Basics, Sums & Averages |
+| Query complexity | O(n log n) |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
