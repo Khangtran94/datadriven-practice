@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Gone to Ground](./practice/sql/gone-to-ground) | SQL | Medium | 2026-07-16 |
 | [Highest and Lowest Cloud Costs](./practice/sql/highest-and-lowest-cloud-costs) | SQL | Medium | 2026-07-16 |
 | [Department Spend Difference](./practice/sql/department-spend-difference) | SQL | Easy | 2026-07-16 |
 | [Content by Specific Users](./practice/sql/content-by-specific-users) | SQL | Easy | 2026-07-16 |
