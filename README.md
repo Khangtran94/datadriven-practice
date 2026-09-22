@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who We Reached](./practice/sql/who-we-reached) | SQL | Easy | 2026-06-29 |
 | [Where the Noise Lives](./practice/sql/where-the-noise-lives) | SQL | Easy | 2026-06-29 |
 | [Events by Month Across Years](./practice/sql/events-by-month-across-years) | SQL | Easy | 2026-06-29 |
 | [First Build per Repository](./practice/sql/first-build-per-repository) | SQL | Easy | 2026-06-29 |
