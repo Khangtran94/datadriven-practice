@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Suspected Bot Sessions](./practice/sql/suspected-bot-sessions) | SQL | Medium | 2026-06-05 |
 | [Gateway Connection Timeouts](./practice/sql/gateway-connection-timeouts) | SQL | Easy | 2026-06-04 |
 | [Deploy Velocity](./practice/sql/deploy-velocity) | SQL | Hard | 2026-06-01 |
 | [The Progress Parade](./practice/python/the-progress-parade) | Python | Easy | 2026-06-01 |
