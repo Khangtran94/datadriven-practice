@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who's Looking](./practice/sql/who-s-looking) | SQL | Easy | 2026-06-23 |
 | [Service Roll Call](./practice/sql/service-roll-call) | SQL | Easy | 2026-06-23 |
 | [The Elevator Trace](./practice/python/the-elevator-trace) | Python | Medium | 2026-06-23 |
 | [The High Mark](./practice/python/the-high-mark) | Python | Easy | 2026-06-23 |
