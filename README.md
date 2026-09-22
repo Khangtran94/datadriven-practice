@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Average Build Duration by Repo](./practice/sql/average-build-duration-by-repo) | SQL | Easy | 2026-06-14 |
 | [Device Mix](./practice/sql/device-mix) | SQL | Easy | 2026-06-12 |
 | [Department Snapshot](./practice/sql/department-snapshot) | SQL | Medium | 2026-06-12 |
 | [Heavy Namespaces](./practice/sql/heavy-namespaces) | SQL | Medium | 2026-06-12 |
