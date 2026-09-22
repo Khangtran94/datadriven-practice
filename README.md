@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Custom Message Type Counts](./practice/sql/custom-message-type-counts) | SQL | Medium | 2026-07-09 |
 | [Regional Footprint](./practice/sql/regional-footprint) | SQL | Easy | 2026-07-09 |
 | [Loyalty's Double Tap](./practice/sql/loyalty-s-double-tap) | SQL | Medium | 2026-07-09 |
 | [Threads Excluding User](./practice/sql/threads-excluding-user) | SQL | Easy | 2026-07-08 |
