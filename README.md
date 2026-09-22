@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Mentorship User Pairs](./practice/sql/mentorship-user-pairs) | SQL | Medium | 2026-06-25 |
 | [The Final Sale](./practice/sql/the-final-sale) | SQL | Medium | 2026-06-25 |
 | [The Weight of a Verdict](./practice/sql/the-weight-of-a-verdict) | SQL | Easy | 2026-06-25 |
 | [Transaction Overview](./practice/sql/transaction-overview) | SQL | Easy | 2026-06-25 |
