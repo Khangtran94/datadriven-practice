@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Idle Team Members](./practice/sql/idle-team-members) | SQL | Easy | 2026-06-26 |
 | [Service Component Classification](./practice/sql/service-component-classification) | SQL | Medium | 2026-06-26 |
 | [Name Recognition](./practice/sql/name-recognition) | SQL | Medium | 2026-06-26 |
 | [Keys That Never Die](./practice/sql/keys-that-never-die) | SQL | Medium | 2026-06-26 |
