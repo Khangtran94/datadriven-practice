@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Second Purchase](./practice/sql/second-purchase) | SQL | Hard | 2026-09-07 |
 | [The Ones Who Clicked](./practice/sql/the-ones-who-clicked) | SQL | Hard | 2026-09-07 |
 | [Age of Discovery](./practice/sql/age-of-discovery) | SQL | Hard | 2026-09-07 |
 | [Zero-Retry Job Ratio by Priority](./practice/sql/zero-retry-job-ratio-by-priority) | SQL | Hard | 2026-09-07 |
