@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top 2 Ad Campaigns by Spend](./practice/sql/top-2-ad-campaigns-by-spend) | SQL | Medium | 2026-08-24 |
 | [The Vote Tally](./practice/sql/the-vote-tally) | SQL | Hard | 2026-08-24 |
 | [Endless Scroll](./practice/sql/endless-scroll) | SQL | Medium | 2026-08-24 |
 | [Session Overview](./practice/sql/session-overview) | SQL | Medium | 2026-08-24 |
