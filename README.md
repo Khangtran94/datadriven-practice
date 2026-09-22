@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Products Without Sales](./practice/sql/products-without-sales) | SQL | Easy | 2026-07-07 |
 | [Selling Where Nobody Lives](./practice/sql/selling-where-nobody-lives) | SQL | Medium | 2026-07-07 |
 | [Silent Users](./practice/sql/silent-users) | SQL | Medium | 2026-07-07 |
 | [Top of the Line](./practice/sql/top-of-the-line) | SQL | Easy | 2026-07-07 |
