@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest in the Room](./practice/sql/the-loudest-in-the-room) | SQL | Medium | 2026-06-22 |
 | [Pod CPU to Memory Ratio](./practice/sql/pod-cpu-to-memory-ratio) | SQL | Medium | 2026-06-22 |
 | [Average Search Results Per User](./practice/sql/average-search-results-per-user) | SQL | Easy | 2026-06-22 |
 | [Higher Performing Variant](./practice/sql/higher-performing-variant) | SQL | Easy | 2026-06-22 |
