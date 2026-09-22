@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Deployed Models by Framework](./practice/sql/deployed-models-by-framework) | SQL | Easy | 2026-07-09 |
 | [Data Repo Fix Commits](./practice/sql/data-repo-fix-commits) | SQL | Medium | 2026-07-09 |
 | [Custom Message Type Counts](./practice/sql/custom-message-type-counts) | SQL | Medium | 2026-07-09 |
 | [Regional Footprint](./practice/sql/regional-footprint) | SQL | Easy | 2026-07-09 |
