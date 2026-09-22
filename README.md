@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Targeted Ad Campaigns](./practice/sql/targeted-ad-campaigns) | SQL | Easy | 2026-06-30 |
 | [Where Users Linger](./practice/sql/where-users-linger) | SQL | Easy | 2026-06-30 |
 | [The Merit Circle](./practice/sql/the-merit-circle) | SQL | Medium | 2026-06-30 |
 | [Service Reliability Tiers](./practice/sql/service-reliability-tiers) | SQL | Medium | 2026-06-30 |
