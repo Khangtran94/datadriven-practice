@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who Comes Early](./practice/sql/who-comes-early) | SQL | Easy | 2026-08-17 |
 | [Top 10 Slowest Endpoints](./practice/sql/top-10-slowest-endpoints) | SQL | Easy | 2026-08-17 |
 | [Before the Rush](./practice/sql/before-the-rush) | SQL | Easy | 2026-08-17 |
 | [What Never Arrives](./practice/sql/what-never-arrives) | SQL | Easy | 2026-08-17 |
