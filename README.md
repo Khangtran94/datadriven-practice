@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [After the Handshake](./practice/sql/after-the-handshake) | SQL | Medium | 2026-07-17 |
 | [Friday Spending Analysis](./practice/sql/friday-spending-analysis) | SQL | Hard | 2026-07-17 |
 | [Event Count on Key Days](./practice/sql/event-count-on-key-days) | SQL | Easy | 2026-07-17 |
 | [Still Breathing](./practice/sql/still-breathing) | SQL | Medium | 2026-07-17 |
