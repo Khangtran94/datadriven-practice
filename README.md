@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Ebb and Flow](./practice/sql/ebb-and-flow) | SQL | Hard | 2026-09-07 |
 | [Yesterday's Weather](./practice/sql/yesterday-s-weather) | SQL | Hard | 2026-09-07 |
 | [Tipping Points](./practice/sql/tipping-points) | SQL | Hard | 2026-09-07 |
 | [The Extremes](./practice/sql/the-extremes) | SQL | Hard | 2026-09-07 |
