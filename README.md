@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [First Build per Repository](./practice/sql/first-build-per-repository) | SQL | Easy | 2026-06-29 |
 | [The Multiplication Trail](./practice/python/the-multiplication-trail) | Python | Easy | 2026-06-28 |
 | [Build Success vs Failure by Repo](./practice/sql/build-success-vs-failure-by-repo) | SQL | Medium | 2026-06-28 |
 | [By What They Answer To](./practice/python/by-what-they-answer-to) | Python | Medium | 2026-06-26 |
