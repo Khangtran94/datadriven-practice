@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Peak Season](./practice/sql/peak-season) | SQL | Medium | 2026-09-17 |
 | [Both Ways](./practice/sql/both-ways) | SQL | Hard | 2026-09-17 |
 | [Returning Buyers](./practice/sql/returning-buyers) | SQL | Medium | 2026-09-17 |
 | [Before They Walk](./practice/sql/before-they-walk) | SQL | Medium | 2026-09-17 |
