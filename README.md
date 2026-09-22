@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Conversion Story](./practice/sql/the-conversion-story) | SQL | Medium | 2026-09-22 |
 | [Prolific Authors in Largest Service Teams](./practice/sql/prolific-authors-in-largest-service-teams) | SQL | Medium | 2026-09-22 |
 | [The Premium Shelf](./practice/sql/the-premium-shelf) | SQL | Medium | 2026-09-22 |
 | [Top Buyers of Premium Products](./practice/sql/top-buyers-of-premium-products) | SQL | Medium | 2026-09-22 |
