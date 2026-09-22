@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Higher Ground](./practice/python/higher-ground) | Python | Medium | 2026-07-22 |
 | [The Steady Few](./practice/sql/the-steady-few) | SQL | Medium | 2026-07-21 |
 | [Top Framework by Deployments](./practice/sql/top-framework-by-deployments) | SQL | Hard | 2026-07-21 |
 | [The Longest Take](./practice/sql/the-longest-take) | SQL | Easy | 2026-07-21 |
