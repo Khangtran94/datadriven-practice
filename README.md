@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Loudest Voice](./practice/python/the-loudest-voice) | Python | Medium | 2026-06-20 |
 | [Lowest Average Price Category](./practice/sql/lowest-average-price-category) | SQL | Easy | 2026-06-19 |
 | [Metric Range by Department](./practice/sql/metric-range-by-department) | SQL | Medium | 2026-06-19 |
 | [Content Type Distribution](./practice/sql/content-type-distribution) | SQL | Easy | 2026-06-19 |
