@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The A/B Verdict](./practice/sql/the-a-b-verdict) | SQL | Medium | 2026-07-17 |
 | [Endpoint Performance Report](./practice/sql/endpoint-performance-report) | SQL | Medium | 2026-07-17 |
 | [The Undone](./practice/sql/the-undone) | SQL | Hard | 2026-07-17 |
 | [Campaign Click Rate](./practice/sql/campaign-click-rate) | SQL | Medium | 2026-07-17 |
