@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Committers in 2025](./practice/sql/top-committers-in-year-1) | SQL | Medium | 2026-08-31 |
 | [Transaction Share of User Spend](./practice/sql/transaction-share-of-user-spend) | SQL | Medium | 2026-08-31 |
 | [Top Active Senders per Channel](./practice/sql/top-active-senders-per-channel) | SQL | Medium | 2026-08-31 |
 | [The Weight of Everything Before](./practice/sql/the-weight-of-everything-before) | SQL | Medium | 2026-08-31 |
