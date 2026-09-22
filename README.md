@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Shared Endpoints](./practice/sql/shared-endpoints) | SQL | Medium | 2026-07-16 |
 | [Session Pulse](./practice/sql/session-pulse) | SQL | Easy | 2026-07-16 |
 | [Second Highest Value](./practice/sql/second-highest-value) | SQL | Easy | 2026-07-16 |
 | [The Ones Who Carry Us](./practice/sql/the-ones-who-carry-us) | SQL | Easy | 2026-07-16 |
