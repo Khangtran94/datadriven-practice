@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Symmetric Reply Network](./practice/sql/symmetric-reply-network) | SQL | Medium | 2026-09-14 |
 | [First and Last Peak Accuracy Dates](./practice/sql/first-and-last-peak-accuracy-dates) | SQL | Medium | 2026-09-14 |
 | [The Ones Still Listening](./practice/sql/the-ones-still-listening) | SQL | Medium | 2026-09-14 |
 | [Session Duration by Account Status](./practice/sql/session-duration-by-account-status) | SQL | Medium | 2026-09-14 |
