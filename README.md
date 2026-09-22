@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Tenure Mentorship Match](./practice/sql/tenure-mentorship-match) | SQL | Medium | 2026-08-26 |
 | [Off Target](./practice/sql/off-target) | SQL | Medium | 2026-08-26 |
 | [Top Percentile Spenders](./practice/sql/top-percentile-spenders) | SQL | Medium | 2026-08-26 |
 | [Where the Signal Drops](./practice/sql/where-the-signal-drops) | SQL | Medium | 2026-08-26 |
