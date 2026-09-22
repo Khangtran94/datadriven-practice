@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Build Success vs Failure by Repo](./practice/sql/build-success-vs-failure-by-repo) | SQL | Medium | 2026-06-28 |
 | [By What They Answer To](./practice/python/by-what-they-answer-to) | Python | Medium | 2026-06-26 |
 | [Find Mode](./practice/python/find-mode) | Python | Medium | 2026-06-26 |
 | [The Runaway Leader](./practice/python/the-runaway-leader) | Python | Easy | 2026-06-26 |
