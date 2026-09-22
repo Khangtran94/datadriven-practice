@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Same-Day Session and Transaction Correlation](./practice/sql/same-day-session-and-transaction-correlation) | SQL | Hard | 2026-07-27 |
 | [The Noise Floor](./practice/sql/the-noise-floor) | SQL | Medium | 2026-07-25 |
 | [The Carousel](./practice/python/the-carousel) | Python | Easy | 2026-07-23 |
 | [Higher Ground](./practice/python/higher-ground) | Python | Medium | 2026-07-22 |
