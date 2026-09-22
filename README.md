@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Char Profile](./practice/python/char-profile) | Python | Medium | 2026-06-26 |
 | [Q by Q](./practice/sql/q-by-q) | SQL | Easy | 2026-06-26 |
 | [Idle Team Members](./practice/sql/idle-team-members) | SQL | Easy | 2026-06-26 |
 | [Service Component Classification](./practice/sql/service-component-classification) | SQL | Medium | 2026-06-26 |
