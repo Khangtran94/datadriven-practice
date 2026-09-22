@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Merge Counters](./practice/python/merge-counters) | Python | Medium | 2026-06-19 |
 | [The Full Picture](./practice/sql/the-full-picture) | SQL | Easy | 2026-06-19 |
 | [The Ones That Count](./practice/python/the-ones-that-count) | Python | Easy | 2026-06-19 |
 | [Latest Migration Output per Author](./practice/sql/latest-migration-output-per-author) | SQL | Medium | 2026-06-19 |
