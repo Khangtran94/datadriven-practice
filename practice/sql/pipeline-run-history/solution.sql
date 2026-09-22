@@ -1,0 +1,10 @@
+(
+  data_pipes
+  .groupBy("pipe_name")
+  .agg(
+    F.min("start_at").alias("first_run"),
+    F.max("start_at").alias("last_run"),
+    F.count("*").alias("run_count")
+  )
+  .orderBy(F.desc("last_run"))
+)
