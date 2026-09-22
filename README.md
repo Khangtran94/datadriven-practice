@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Weight of Words](./practice/sql/the-weight-of-words) | SQL | Easy | 2026-08-17 |
 | [Profitable Categories by Price](./practice/sql/profitable-categories-by-price) | SQL | Easy | 2026-08-17 |
 | [The Provinces](./practice/sql/the-provinces) | SQL | Easy | 2026-08-17 |
 | [Between Worlds](./practice/sql/between-worlds) | SQL | Easy | 2026-08-17 |
