@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Where the Money Sits](./practice/sql/where-the-money-sits) | SQL | Medium | 2026-07-02 |
 | [Frequent Message Senders](./practice/sql/frequent-message-senders) | SQL | Medium | 2026-07-02 |
 | [Nodes by Region and Type](./practice/sql/nodes-by-region-and-type) | SQL | Medium | 2026-07-02 |
 | [Third Highest Spender](./practice/sql/third-highest-spender) | SQL | Medium | 2026-07-02 |
