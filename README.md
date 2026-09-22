@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Campaign Click Rate](./practice/sql/campaign-click-rate) | SQL | Medium | 2026-07-17 |
 | [Completion Rate](./practice/sql/completion-rate) | SQL | Medium | 2026-07-17 |
 | [Cloud Cost Breakdown by Provider](./practice/sql/cloud-cost-breakdown-by-provider) | SQL | Hard | 2026-07-17 |
 | [Batch Job Performance Tiers](./practice/sql/batch-job-performance-tiers) | SQL | Medium | 2026-07-17 |
