@@ -2,7 +2,7 @@
 
 *Each user's latest token activity.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/most_recent_token_usage)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/most_recent_token_usage)
 
 | | |
 |---|---|

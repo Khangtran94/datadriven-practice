@@ -209,7 +209,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [The Overwritten Hour](./practice/python/the-overwritten-hour) | Python | Medium | 2026-08-20 |
 | [Price Rank](./practice/sql/price-rank) | SQL | Medium | 2026-08-18 |
 | [The Tally Counter](./practice/python/the-tally-counter) | Python | Easy | 2026-08-17 |
-| [Most Recent Token Usage](./practice/sql/most-recent-token-usage) | SQL | Easy | 2026-08-17 |
+| [Most Recent Token Usage](./practice/sql/most-recent-token-usage) | SQL | Medium | 2026-08-17 |
 | [The Transaction Breakdown](./practice/sql/the-transaction-breakdown) | SQL | Easy | 2026-08-17 |
 | [This Year's Class](./practice/sql/this-year-s-class) | SQL | Easy | 2026-08-17 |
 | [Return on a Glance](./practice/sql/return-on-a-glance) | SQL | Easy | 2026-08-17 |
