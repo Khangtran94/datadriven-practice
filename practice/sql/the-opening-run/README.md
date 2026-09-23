@@ -2,7 +2,7 @@
 
 *Before the tuning, before the records. What the first pass carried home.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/the_opening_run)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/the_opening_run)
 
 | | |
 |---|---|
