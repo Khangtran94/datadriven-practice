@@ -2,7 +2,7 @@
 
 *Age brackets, stacked from top to bottom.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/user_age_ranking)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/user_age_ranking)
 
 | | |
 |---|---|
