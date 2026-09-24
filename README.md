@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Forbidden Sorter](./practice/python/the-forbidden-sorter) | Python | Medium | 2026-09-24 |
 | [The Word Flipper](./practice/python/the-word-flipper) | Python | Easy | 2026-09-24 |
 | [Double Duty](./practice/python/double-duty) | Python | Medium | 2026-09-24 |
 | [Users With and Without Ad Clicks](./practice/sql/users-with-and-without-ad-clicks) | SQL | Hard | 2026-09-22 |
