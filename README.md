@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Against the House](./practice/python/against-the-house) | Python | Medium | 2026-09-24 |
 | [The Scramble Check](./practice/python/the-scramble-check) | Python | Easy | 2026-09-24 |
 | [The Bonus Round](./practice/python/the-bonus-round) | Python | Medium | 2026-09-24 |
 | [The First Encounter](./practice/python/the-first-encounter) | Python | Easy | 2026-09-24 |
