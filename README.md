@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Mirror Words](./practice/python/the-mirror-words) | Python | Easy | 2026-09-24 |
 | [The Secret Twins](./practice/python/the-secret-twins) | Python | Easy | 2026-09-24 |
 | [The Generous Ones](./practice/python/the-generous-ones) | Python | Medium | 2026-09-24 |
 | [The Forbidden Sorter](./practice/python/the-forbidden-sorter) | Python | Medium | 2026-09-24 |
