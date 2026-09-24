@@ -4,9 +4,15 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/metric_value_pairs_over_threshold)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-09-14 |
-| Query complexity | O(n log n) (optimal O(n²)) |
+| Accepted | on the first submission |
+| Time | 7 min |
+| Hints | none |
+| Query complexity | O(n log n), the optimum is O(n²) |
+| Concepts | Sorting Results, Query Basics, Self-Join, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
