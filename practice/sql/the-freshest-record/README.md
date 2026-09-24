@@ -4,9 +4,15 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_freshest_record)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-05-22 |
-| Query complexity | O(n²) (optimal O(n log n)) |
+| Accepted | on the first submission |
+| Time | 4 min |
+| Hints | none |
+| Query complexity | O(n²), the optimum is O(n log n) |
+| Concepts | Common Table Expressions, Sorting Results, Query Basics, Scalar Subquery, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
