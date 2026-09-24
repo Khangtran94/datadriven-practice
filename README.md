@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Double Duty](./practice/python/double-duty) | Python | Medium | 2026-09-24 |
 | [Users With and Without Ad Clicks](./practice/sql/users-with-and-without-ad-clicks) | SQL | Hard | 2026-09-22 |
 | [Two-Way Street](./practice/sql/two-way-street) | SQL | Medium | 2026-09-22 |
 | [The Widest Net](./practice/sql/the-widest-net) | SQL | Medium | 2026-09-22 |
