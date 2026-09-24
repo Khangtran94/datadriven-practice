@@ -4,9 +4,15 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/top_shelf)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-05-23 |
-| Query complexity | O(n log n) |
+| Accepted | on the first submission |
+| Time | 4 min |
+| Hints | none |
+| Query complexity | O(n log n), optimal |
+| Concepts | Grouping, Row Limiting, Min & Max, Sorting Results, Query Basics |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
