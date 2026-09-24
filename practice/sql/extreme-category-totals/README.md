@@ -4,9 +4,15 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/extreme_category_totals)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-08-24 |
-| Query complexity | O(n log n) (optimal O(n²)) |
+| Accepted | on the first submission |
+| Time | 12 min |
+| Hints | none |
+| Query complexity | O(n log n), the optimum is O(n²) |
+| Concepts | Date Formatting, Date Truncation, Date Parts, Grouping, Inner Joins, Min & Max, Query Basics, Sums & Averages, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
