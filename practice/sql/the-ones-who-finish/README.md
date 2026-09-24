@@ -4,9 +4,15 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_ones_who_finish)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-09-21 |
-| Query complexity | O(n log n) |
+| Accepted | on the first submission |
+| Time | 4 min |
+| Hints | 1 hint |
+| Query complexity | O(n log n), optimal |
+| Concepts | Counting, Date vs Timestamp, Date Parts, Grouping, Inner Joins, Query Basics, Sums & Averages, Timestamp Types, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
