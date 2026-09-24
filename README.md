@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Order Enforcer](./practice/python/the-order-enforcer) | Python | Easy | 2026-09-24 |
 | [The Resume Sifter](./practice/python/the-resume-sifter) | Python | Medium | 2026-09-24 |
 | [The Column Transformer](./practice/python/the-column-transformer) | Python | Easy | 2026-09-24 |
 | [The Mirror Words](./practice/python/the-mirror-words) | Python | Easy | 2026-09-24 |
