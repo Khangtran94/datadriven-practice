@@ -4,9 +4,15 @@
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/average_search_results_per_user)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-06-22 |
-| Query complexity | O(n) (optimal O(n log n)) |
+| Accepted | on the 3rd submission |
+| Time | under a minute |
+| Hints | none |
+| Query complexity | O(n), the optimum is O(n log n) |
+| Concepts | Grouping, Null Handling, Query Basics, Sums & Averages, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
