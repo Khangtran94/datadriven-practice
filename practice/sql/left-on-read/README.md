@@ -4,9 +4,15 @@
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/left_on_read)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-09-10 |
-| Query complexity | O(n²) |
+| Accepted | on the 2nd submission |
+| Time | 4 min |
+| Hints | none |
+| Query complexity | O(n²), optimal |
+| Concepts | Grouping, Group Filtering, Null Handling, Sorting Results, Query Basics, Self-Join, Scalar Subquery, Sums & Averages, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
