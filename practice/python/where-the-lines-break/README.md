@@ -4,8 +4,14 @@
 
 [Python · Easy · on DataDriven](https://datadriven.io/problems/where_the_lines_break)
 
+## How it went
+
 | | |
 |---|---|
 | Solved | 2026-08-25 |
+| Accepted | on the 3rd submission |
+| Time | 2 min |
+| Hints | none |
+| Concepts | Functions, String Methods, Splitting & Joining, Type Hints |
 
 The accepted solution is in [`solution.py`](./solution.py).
