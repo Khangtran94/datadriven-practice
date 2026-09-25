@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [First Interaction Credit](./practice/sql/first-interaction-credit) | SQL | Hard | 2026-09-25 |
 | [The Days That Line Up](./practice/sql/the-days-that-line-up) | SQL | Medium | 2026-09-25 |
 | [The First Stranger](./practice/python/the-first-stranger) | Python | Easy | 2026-09-24 |
 | [Against the House](./practice/python/against-the-house) | Python | Medium | 2026-09-24 |
