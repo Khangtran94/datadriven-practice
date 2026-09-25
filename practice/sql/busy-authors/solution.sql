@@ -1,7 +1,5 @@
-SELECT lower(author) AS author, 
-      COUNT(*) AS commit_count, 
-      COUNT(DISTINCT repo_name) AS repo_count
-FROM repo_commits
-WHERE message IS NOT NULL
-GROUP BY 1
-HAVING COUNT(*) >= 24
+repo_commits \
+  .filter(F.col('message').isNotNull()) \
+  .groupBy(F.lower(F.col('author')).alias('author')) \
+  .agg(F.count("*").alias('commit_count'),F.countDistinct('repo_name').alias('repo_count')) \
+  .filter(F.col('commit_count') >= 24)
