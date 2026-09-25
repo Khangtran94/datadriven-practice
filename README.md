@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Group Average](./practice/python/group-average) | Python | Hard | 2026-09-25 |
 | [Footprints in the Feed](./practice/python/footprints-in-the-feed) | Python | Medium | 2026-09-25 |
 | [First Interaction Credit](./practice/sql/first-interaction-credit) | SQL | Hard | 2026-09-25 |
 | [The Days That Line Up](./practice/sql/the-days-that-line-up) | SQL | Medium | 2026-09-25 |
