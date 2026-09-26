@@ -857,7 +857,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [The Opening Run](./practice/sql/the-opening-run) | SQL | Easy | 2026-06-09 |
 | [Category Sales Summary](./practice/sql/category-sales-summary) | SQL | Easy | 2026-06-09 |
 | [Weekend Warriors](./practice/sql/weekend-warriors) | SQL | Easy | 2026-06-09 |
-| [Buyers Who Never Browsed](./practice/sql/buyers-who-never-browsed) | SQL | Easy | 2026-06-09 |
+| [Buyers Who Never Browsed](./practice/sql/buyers-who-never-browsed) | SQL | Medium | 2026-06-09 |
 | [Activity Histogram](./practice/sql/activity-histogram) | SQL | Easy | 2026-06-09 |
 | [Long Messages](./practice/sql/long-messages) | SQL | Medium | 2026-06-09 |
 | [Against the Clock](./practice/sql/against-the-clock) | SQL | Easy | 2026-06-09 |

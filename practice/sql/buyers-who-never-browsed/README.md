@@ -2,7 +2,7 @@
 
 *They bought without ever loading a page.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/buyers_who_never_browsed)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/buyers_who_never_browsed)
 
 ## How it went
 
