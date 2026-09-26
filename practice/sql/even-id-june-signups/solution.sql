@@ -1,3 +1,5 @@
-SELECT * 
+SELECT *
 FROM users
-WHERE user_id % 2 = 0 AND EXTRACT(MONTH from signup_date) = '06'
+WHERE strftime('%Y-%m',signup_date) = '2026-06'
+    AND user_id % 2 = 0
+ORDER BY user_id
