@@ -16,6 +16,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Spaces Between](./practice/python/the-spaces-between) | Python | Medium | 2026-09-26 |
 | [Against the Current](./practice/python/against-the-current) | Python | Hard | 2026-09-26 |
 | [Group Average](./practice/python/group-average) | Python | Hard | 2026-09-25 |
 | [Footprints in the Feed](./practice/python/footprints-in-the-feed) | Python | Medium | 2026-09-25 |
