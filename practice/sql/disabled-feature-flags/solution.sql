@@ -1,2 +1,1 @@
-SELECT *
-FROM feat_flags where enabled = 0
+feat_flags.filter(col('enabled') == 0)
