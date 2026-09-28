@@ -10,7 +10,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Week | Score | Rank | |
 |---|---:|---|---|
-| [Week 2: The Manifest](./weekly/week-02-the-manifest) | 0.8266 | #2 of 9 | [brief](https://datadriven.io/community/week-2) |
+| [Week 2: The Manifest](./weekly/week-02-the-manifest) | 0.8266 | #3 of 9 | [brief](https://datadriven.io/community/week-2) |
 | [Week 1: The Handoff](./weekly/week-01-the-handoff) | 0.5159 | #8 of 11 | [brief](https://datadriven.io/community/week-1) |
 
 ## Practice

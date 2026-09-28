@@ -11,10 +11,10 @@ You're a data engineer at a video streaming service. Every title is encoded into
 | | |
 |---|---|
 | Score | 0.8266 |
-| Rank | #2 of 9, top 22% |
-| Points | +150 |
+| Rank | #3 of 9, top 33% |
+| Points | +120 |
 | Records recovered | 806,315 of 928,817 |
-| Work per record | 2.0x median |
+| Work per record | 2.1x median |
 | Statements | 178 |
 | Scored | 2026-09-27 |
 
