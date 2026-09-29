@@ -1,3 +1,3 @@
-select category, sum(amount)
-FROM cost_allocs
-group by 1
+cost_allocs
+  .groupBy('category')
+  .agg(F.sum('amount').alias('total_amount'))
