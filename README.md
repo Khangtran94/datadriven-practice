@@ -17,6 +17,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Open and Shut](./practice/python/open-and-shut) | Python | Easy | 2026-09-29 |
 | [Hands Apart](./practice/python/hands-apart) | Python | Easy | 2026-09-28 |
 | [The Address Surgeon](./practice/python/the-address-surgeon) | Python | Easy | 2026-09-27 |
 | [The Solo Act](./practice/python/the-solo-act) | Python | Easy | 2026-09-27 |
