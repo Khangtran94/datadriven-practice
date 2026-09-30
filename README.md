@@ -17,6 +17,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Type Sorter](./practice/python/the-type-sorter) | Python | Easy | 2026-09-30 |
 | [Read Both Ways](./practice/python/read-both-ways) | Python | Easy | 2026-09-30 |
 | [Open and Shut](./practice/python/open-and-shut) | Python | Easy | 2026-09-29 |
 | [Hands Apart](./practice/python/hands-apart) | Python | Easy | 2026-09-28 |
