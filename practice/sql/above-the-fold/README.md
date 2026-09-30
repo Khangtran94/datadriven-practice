@@ -2,7 +2,7 @@
 
 *Every click is a vote on the ranking. Score each search.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/above_the_fold)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/above_the_fold)
 
 ## How it went
 
