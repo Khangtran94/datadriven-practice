@@ -17,6 +17,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Exception Handler](./practice/python/the-exception-handler) | Python | Medium | 2026-10-01 |
 | [The Tail Trimmer](./practice/python/the-tail-trimmer) | Python | Easy | 2026-09-30 |
 | [The Type Sorter](./practice/python/the-type-sorter) | Python | Easy | 2026-09-30 |
 | [Read Both Ways](./practice/python/read-both-ways) | Python | Easy | 2026-09-30 |
