@@ -784,7 +784,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [The Compliance Order](./practice/sql/the-compliance-order) | SQL | Easy | 2026-06-22 |
 | [First Impressions](./practice/sql/first-impressions) | SQL | Easy | 2026-06-22 |
 | [Product Name Letter Replace](./practice/sql/product-name-letter-replace) | SQL | Easy | 2026-06-22 |
-| [Customer Full Name Concat](./practice/sql/customer-full-name-concat) | SQL | Medium | 2026-06-22 |
+| [Customer Full Name Concat](./practice/sql/customer-full-name-concat) | SQL | Easy | 2026-06-22 |
 | [Unique Stream Topics](./practice/sql/unique-stream-topics) | SQL | Easy | 2026-06-22 |
 | [Top Metric Values](./practice/sql/top-metric-values) | SQL | Easy | 2026-06-22 |
 | [Second Highest Cloud Cost](./practice/sql/second-highest-cloud-cost) | SQL | Medium | 2026-06-22 |
