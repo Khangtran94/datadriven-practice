@@ -1,3 +1,3 @@
-SELECT COUNT(*) AS total_count,
-      COUNT(DISTINCT(commit_id)) AS unique_count
+SELECT COUNT(*) AS total_commits,
+      COUNT(DISTINCT author) AS distinct_authors
 FROM repo_commits
