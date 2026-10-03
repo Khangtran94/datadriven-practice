@@ -1,4 +1,3 @@
-SELECT *
-FROM alert_events
-WHERE ack_by <> 'alice' OR ack_by IS NULL
-ORDER BY fired_at
+alert_events
+  .filter((F.col('ack_by') != 'alice') | (F.col('ack_by').isNull()))
+  .orderBy('fired_at')
