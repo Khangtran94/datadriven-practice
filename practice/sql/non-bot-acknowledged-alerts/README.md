@@ -12,7 +12,7 @@
 | Accepted | on the first submission |
 | Time | 17 min |
 | Hints | none |
-| Query complexity | O(n), the optimum is O(n log n) |
+| Query complexity | O(n log n), optimal |
 | Concepts | Null Handling, Query Basics, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
