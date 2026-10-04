@@ -2,7 +2,7 @@
 
 *Every word leaves a mark. Count who keeps coming back.*
 
-[Python · Medium · on DataDriven](https://datadriven.io/problems/everything_said_twice)
+[Python · Easy · on DataDriven](https://datadriven.io/problems/everything_said_twice)
 
 ## How it went
 
