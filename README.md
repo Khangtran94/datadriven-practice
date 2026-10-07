@@ -795,7 +795,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [The Upper Rungs](./practice/sql/the-upper-rungs) | SQL | Easy | 2026-06-22 |
 | [Transform Column](./practice/python/transform-column) | Python | Easy | 2026-06-22 |
 | [Sort Descending](./practice/python/sort-descending) | Python | Easy | 2026-06-22 |
-| [Quality Gate](./practice/python/quality-gate) | Python | Easy | 2026-06-22 |
+| [Quality Gate](./practice/python/quality-gate) | Python | Medium | 2026-06-22 |
 | [Null Counter](./practice/python/null-counter) | Python | Easy | 2026-06-22 |
 | [Every Trace](./practice/python/every-trace) | Python | Medium | 2026-06-22 |
 | [Carrying Forward](./practice/python/carrying-forward) | Python | Medium | 2026-06-22 |
