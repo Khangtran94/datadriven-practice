@@ -2,7 +2,7 @@
 
 *Not everything passes inspection.*
 
-[Python · Medium · on DataDriven](https://datadriven.io/problems/quality_gate)
+[Python · Easy · on DataDriven](https://datadriven.io/problems/quality_gate)
 
 ## How it went
 
