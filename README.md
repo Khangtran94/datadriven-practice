@@ -20,6 +20,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 |---|---|---|---|
 | [The Even Checkpoint](./practice/python/the-even-checkpoint) | Python | Easy | 2026-10-08 |
 | [The Tail Finder](./practice/python/the-tail-finder) | Python | Medium | 2026-10-05 |
+| [Where They Used to Live](./practice/data_modeling/where-they-used-to-live) | Data Modeling | Medium | 2026-10-05 |
 | [Greeting Formatter Class](./practice/python/greeting-formatter-class) | Python | Easy | 2026-10-02 |
 | [The Exception Handler](./practice/python/the-exception-handler) | Python | Medium | 2026-10-01 |
 | [The Tail Trimmer](./practice/python/the-tail-trimmer) | Python | Easy | 2026-09-30 |

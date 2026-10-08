@@ -1,0 +1,104 @@
+{
+  "tables": [
+    {
+      "name": "customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "address",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "street",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "history",
+      "columns": [
+        {
+          "name": "change_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "address_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "history",
+        "column": "address_id"
+      },
+      "to": {
+        "table": "address",
+        "column": "address_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "history",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
