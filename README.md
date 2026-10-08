@@ -18,6 +18,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Even Checkpoint](./practice/python/the-even-checkpoint) | Python | Easy | 2026-10-08 |
 | [The Tail Finder](./practice/python/the-tail-finder) | Python | Medium | 2026-10-05 |
 | [Greeting Formatter Class](./practice/python/greeting-formatter-class) | Python | Easy | 2026-10-02 |
 | [The Exception Handler](./practice/python/the-exception-handler) | Python | Medium | 2026-10-01 |
