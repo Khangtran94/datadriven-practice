@@ -1,0 +1,134 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "day",
+          "type": "INT"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_exercise",
+      "columns": [
+        {
+          "name": "exercise_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_log",
+      "columns": [
+        {
+          "name": "log_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "exercise_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "sets",
+          "type": "INT"
+        },
+        {
+          "name": "reps",
+          "type": "INT"
+        },
+        {
+          "name": "weight_lifted",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_log",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_log",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_log",
+        "column": "exercise_id"
+      },
+      "to": {
+        "table": "dim_exercise",
+        "column": "exercise_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
