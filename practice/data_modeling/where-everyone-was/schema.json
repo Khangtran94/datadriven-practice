@@ -1,0 +1,112 @@
+{
+  "tables": [
+    {
+      "name": "customer",
+      "columns": [
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "phone",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "name": "customer_addresses",
+      "columns": [
+        {
+          "name": "fact_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "address_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "valid_from",
+          "type": "DATE"
+        },
+        {
+          "name": "valid_to",
+          "type": "DATE"
+        },
+        {
+          "name": "is_current",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "address",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "zip",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "customer_addresses",
+        "column": "customer_sk"
+      },
+      "to": {
+        "table": "customer",
+        "column": "customer_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "customer_addresses",
+        "column": "address_id"
+      },
+      "to": {
+        "table": "address",
+        "column": "address_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

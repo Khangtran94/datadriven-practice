@@ -1,12 +1,12 @@
 # Kobe_Bryant's data engineering practice
 
-Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed here as it is scored. Each folder holds the code exactly as submitted and the report it earned.
+Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed here as it is scored. Each folder holds the work exactly as submitted and the report it earned.
 
 <!-- datadriven:index:start -->
 
 ## The Weekly
 
-A hidden stream of a million raw records, one handler, graded blind at the freeze.
+1 data engineering challenge a week on hidden production data, graded blind at the freeze.
 
 | Week | Score | Rank | |
 |---|---:|---|---|
@@ -884,6 +884,7 @@ A hidden stream of a million raw records, one handler, graded blind at the freez
 | [All Known Endpoints](./practice/sql/all-known-endpoints) | SQL | Medium | 2026-06-08 |
 | [Where the Money Burns](./practice/sql/where-the-money-burns) | SQL | Medium | 2026-06-08 |
 | [Where in the World Are Our Customers?](./practice/sql/where-in-the-world-are-our-customers) | SQL | Medium | 2026-06-07 |
+| [Where Everyone Was](./practice/data_modeling/where-everyone-was) | Data Modeling | Easy | 2026-06-07 |
 | [Bookends](./practice/sql/bookends) | SQL | Easy | 2026-06-06 |
 | [Running Node Pairs](./practice/sql/running-node-pairs) | SQL | Easy | 2026-06-06 |
 | [Progress Milestones](./practice/python/progress-milestones) | Python | Easy | 2026-06-06 |
