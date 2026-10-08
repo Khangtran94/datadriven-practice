@@ -1,10 +1,9 @@
-with total AS
-(SELECT user_id, DATE(session_start) AS first_session_date,
-      ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY session_start) AS rnk
+with new AS
+(SELECT user_id, MIN(DATE(session_start)) AS first_session_date
 FROM user_sessions
-QUALIFY rnk = 1)
+GROUP BY user_id)
 
-SELECT first_session_date, COUNT(user_id) AS new_user_count
-FROM total
+SELECT first_session_date, COUNT(*) AS new_user_count
+FROM new
 GROUP BY 1
 ORDER BY 1
