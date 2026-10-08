@@ -1,0 +1,210 @@
+{
+  "tables": [
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_application",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "loan_amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "date_applied",
+          "type": "DATE"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_segment",
+      "columns": [
+        {
+          "name": "segment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "credit_score",
+          "type": "INT"
+        },
+        {
+          "name": "segment_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "customer_segment",
+      "columns": [
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "segment_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "from_date",
+          "type": "DATE"
+        },
+        {
+          "name": "to_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "offer_application",
+      "columns": [
+        {
+          "name": "offer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_offer",
+          "type": "DATE"
+        },
+        {
+          "name": "offer_amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "loan_offer",
+      "columns": [
+        {
+          "name": "loan_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "offer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_loan",
+          "type": "DATE"
+        },
+        {
+          "name": "loan_approved",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "customer_segment",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "customer_segment",
+        "column": "segment_id"
+      },
+      "to": {
+        "table": "dim_segment",
+        "column": "segment_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application",
+        "column": "customer_sk"
+      },
+      "to": {
+        "table": "customer_segment",
+        "column": "customer_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "offer_application",
+        "column": "application_id"
+      },
+      "to": {
+        "table": "fact_application",
+        "column": "application_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "loan_offer",
+        "column": "offer_id"
+      },
+      "to": {
+        "table": "offer_application",
+        "column": "offer_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

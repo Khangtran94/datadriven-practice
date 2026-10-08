@@ -18,6 +18,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Approval and After](./practice/data_modeling/approval-and-after) | Data Modeling | Medium | 2026-10-08 |
 | [The Even Checkpoint](./practice/python/the-even-checkpoint) | Python | Easy | 2026-10-08 |
 | [The Tail Finder](./practice/python/the-tail-finder) | Python | Medium | 2026-10-05 |
 | [Where They Used to Live](./practice/data_modeling/where-they-used-to-live) | Data Modeling | Medium | 2026-10-05 |
