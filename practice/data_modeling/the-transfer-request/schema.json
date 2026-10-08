@@ -1,0 +1,104 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "day",
+          "type": "INT"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_employee",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_application",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "originating_team",
+          "type": "CHAR"
+        },
+        {
+          "name": "destination_team",
+          "type": "CHAR"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_application",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application",
+        "column": "employee_id"
+      },
+      "to": {
+        "table": "dim_employee",
+        "column": "employee_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
