@@ -1,0 +1,82 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "user_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "CHAR",
+          "key": "fk"
+        },
+        {
+          "name": "token",
+          "type": "CHAR"
+        },
+        {
+          "name": "payment_method",
+          "type": "CHAR"
+        },
+        {
+          "name": "last_four_digits",
+          "type": "CHAR"
+        },
+        {
+          "name": "plan_tier",
+          "type": "CHAR"
+        },
+        {
+          "name": "subscribed_started",
+          "type": "DATE"
+        },
+        {
+          "name": "subscribed_ended",
+          "type": "DATE"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "payment",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
