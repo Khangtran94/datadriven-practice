@@ -18,6 +18,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Balance Always Reconciles](./practice/data_modeling/the-balance-always-reconciles) | Data Modeling | Easy | 2026-10-09 |
 | [The Transfer Request](./practice/data_modeling/the-transfer-request) | Data Modeling | Medium | 2026-10-08 |
 | [Personal Best](./practice/data_modeling/personal-best) | Data Modeling | Easy | 2026-10-08 |
 | [Approval and After](./practice/data_modeling/approval-and-after) | Data Modeling | Medium | 2026-10-08 |

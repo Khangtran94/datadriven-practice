@@ -1,0 +1,146 @@
+{
+  "tables": [
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "day",
+          "type": "INT"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "fact_application",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "loan_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "loan_amount",
+          "type": "BIGINT"
+        },
+        {
+          "name": "interest_rate",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "term_length",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "amount_paid",
+          "type": "BIGINT"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        },
+        {
+          "name": "paid_date",
+          "type": "DATE"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_application",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "payment",
+        "column": "application_id"
+      },
+      "to": {
+        "table": "fact_application",
+        "column": "application_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
