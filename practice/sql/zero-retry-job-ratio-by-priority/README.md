@@ -2,7 +2,7 @@
 
 *No retries needed. First try success rate.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/zero_retry_job_ratio_by_priority)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/zero_retry_job_ratio_by_priority)
 
 ## How it went
 

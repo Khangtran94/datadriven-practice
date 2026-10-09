@@ -125,7 +125,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Second Purchase](./practice/sql/second-purchase) | SQL | Hard | 2026-09-07 |
 | [The Ones Who Clicked](./practice/sql/the-ones-who-clicked) | SQL | Hard | 2026-09-07 |
 | [Age of Discovery](./practice/sql/age-of-discovery) | SQL | Hard | 2026-09-07 |
-| [Zero-Retry Job Ratio by Priority](./practice/sql/zero-retry-job-ratio-by-priority) | SQL | Hard | 2026-09-07 |
+| [Zero-Retry Job Ratio by Priority](./practice/sql/zero-retry-job-ratio-by-priority) | SQL | Medium | 2026-09-07 |
 | [First Among Results](./practice/sql/first-among-results) | SQL | Hard | 2026-09-07 |
 | [The Comfortable Middle](./practice/sql/the-comfortable-middle) | SQL | Hard | 2026-09-07 |
 | [Quarterly Peak Cloud Costs](./practice/sql/quarterly-peak-cloud-costs) | SQL | Hard | 2026-09-07 |
