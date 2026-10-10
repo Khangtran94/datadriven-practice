@@ -4,74 +4,283 @@
 **Your file:** `handler.py`  
 **Top-1 file:** `gold_submit.py`
 
----
-
-## 1. Comparison table
-
-| Area | Your `handler.py` | Top-1 `gold_submit.py` | Impact |
-|------|-------------------|------------------------|--------|
-| **Output strategy** | `process()` emits the current best row for a key immediately; `finalize()` returns `[]` | `process()` **always returns `[]`**; all rows are emitted only in `finalize()` | Critical design difference |
-| **State** | `self.records = {(title_id, rendition): row}` | `self.held = {(title, rendition): (instant, compact_row)}` + `self.jobs` for unfinished encoding jobs | Gold keeps job context across lines |
-| **Job close lines** | Ignored / treated as normal records | Explicitly handled: incomplete outputs wait for job close, then inherit title/context | You miss “Job close lines” (2.5% of stream, almost 0% recovered) |
-| **JSON parsing** | Strict `json.loads` + simple `{…}` slice + one-level unwrap of message/data/payload | Custom `_LooseJSON` parser + `raw_decode` + recursive unwrapping of nested containers/lists | Gold recovers broken/truncated/logger lines far better |
-| **Key aliases** | Small fixed list | Very large key lists + recursive flatten of containers (`payload`, `data`, `video`, `job`…) | Gold handles nesting & exotic key names |
-| **Rendition** | Width map + simple `Np` / width regex | Width map + height + `4k`/`uhd`/`fhd` aliases + dimension parsing (`1920x1080`) + label extraction | Gold recovers more “Rung as size/name/number” |
-| **Codec** | Small alias dict | Full RFC-6381 / library names (`avc1.…`, `hev1.…`, `libx264`, …) | Gold handles more codec tags |
-| **Bitrate / Duration** | Basic number + unit | Decimal + many units (bps/Mbps/k, ms/us, ISO-8601 duration, timecode) + sentinel rejection | Gold more robust on unit drift |
-| **Dedup rule** | Keep newer `packaged_at` only | Keep newer instant; same-instant → fill nulls, mark conflicts as `None` | Slightly different conflict handling |
-| **`finalize()`** | `return []` | Drain remaining jobs → build **all** final rows and return them | This is why sample runs show no output with your code |
+This note compares your submission to the top solution. Sections are ordered by **impact** (biggest score gaps first). Each section uses a vertical layout so you can read example → your behavior → gold behavior without scanning a wide table.
 
 ---
 
-## 2. What to improve
+## Impact ranking (fix these first)
 
-1. **Change the emit model**  
-   Most top solutions (including gold) do **zero emission in `process()`** and return everything from `finalize()`.  
-   Reason: later lines can improve or complete an earlier key (job-close, late re-delivery, same-timestamp fill). Emitting early locks you into a suboptimal row and can produce the “second row for a key” penalty (14 rows / –28 points on your run).
-
-2. **Handle job-close / incomplete outputs**  
-   Gold keeps a `self.jobs` dict. Incomplete rendition lines wait for the job-close line that carries the title, then inherit context. Your code never does this → almost total loss on that 2.5% condition.
-
-3. **Stronger JSON recovery**  
-   Logger prefixes, BOM, trailing junk, unescaped quotes, truncated objects. Gold’s `_LooseJSON` + repair path recovers a large fraction of the “Broken JSON structure” / “Truncated lines” cases you currently miss.
-
-4. **Richer normalizers**  
-   Especially rendition (aliases + WxH), codec (full tags), bitrate/duration units, and null sentinels (`0`, `-1`, `NaN`).
-
-5. **Never emit twice for the same key**  
-   Keep only the latest (or best) version in memory and emit once at the end.
+| Priority | Area | Why it moves the score |
+|----------|------|------------------------|
+| 1 | When rows are emitted | Empty `finalize` + possible 2nd-row penalty (−2 each). Architectural root cause. |
+| 2 | Job-close / incomplete outputs | ~2.5% of stream; you recover almost none. |
+| 3 | JSON recovery | Broken / logger / truncated lines are a real slice of the feed. |
+| 4 | Keys & nesting | Nested fields and list-of-renditions are common; flat map misses them. |
+| 5 | Rendition / codec / bitrate / duration | Name/size forms, toolchain tags, unit drift, sentinels. |
+| 6 | Dedup / same-timestamp fill | Same-time replays can fill holes instead of being ignored. |
 
 ---
 
-## 3. Why `finalize` returns `[]` and sample shows no output
+## 1. When rows are emitted
 
+**Your code**
 ```python
-# Your code
-def process(...):
-    ...
-    self.records[key] = row
-    return [row]          # ← you emit immediately
+# process L263–282
+self.records[key] = row
+return [row]
 
+# finalize L286–287
 def finalize(self):
-    return []             # ← nothing left
+    return []
 ```
 
-On the platform the sample / grader often calls `process` on every line and then calls `finalize` once. Because you already returned the rows from `process`, `finalize` is empty → “no output” when someone only looks at the final call, or when the harness expects the complete set only at the end.
-
-Gold does the opposite:
-
+**Gold code**
 ```python
-def process(...):
-    ...  # only update self.held / self.jobs
-    return []             # never emit here
-
-def finalize(self):
-    # finish pending jobs
-    ...
-    return [dict(...) for every held key]   # all rows here
+# process → always return []
+# finalize L633–648 → return all held rows
 ```
 
-That is why gold’s sample run produces the full table and yours appears empty if you only inspect `finalize`.
+**Example input**  
+Line A: title `T-0000001`, 720p, packaged `10:00`.  
+Later line B: same key, packaged `11:00`.
+
+**Your behavior**  
+Emit row for A immediately. Later emit an updated row for B (possible second-row penalty). `finalize` is always `[]`.
+
+**Gold behavior**  
+Hold both in memory. Emit **one** final row for that key only in `finalize`.
+
+**Why it matters**  
+A sample/harness that only inspects `finalize` sees nothing from you. Early emit can also produce a second row for the same key (−2 points each). You already lost 28 points this way (14 extra rows).
+
+**What to change**  
+Never `return [row]` from `process`. Collect everything; emit once in `finalize`.
+
+---
+
+## 2. Job-close / incomplete outputs
+
+**Your code**  
+No special path — same as normal records. Incomplete lines without a title fail `check_quality` (L226–243) and drop.
+
+**Gold code**
+```python
+# L592–622 _process_record (sketch)
+if job and not complete:
+    pending.append(rec)
+elif closing:
+    for output in pending:
+        self._accept(_inherit(output, context))
+```
+
+**Example input**  
+(1) Rendition line: `job_id=J`, no title.  
+(2) Close line: `job_id=J`, `title_id=T-0000001`.
+
+**Your behavior**  
+No place to park the incomplete output → no row.
+
+**Gold behavior**  
+Park under `jobs[J]`. On close, inherit title → one row with `T-0000001`.
+
+**Why it matters**  
+“Job close lines” ≈ 2.5% of the stream; you recover almost none.
+
+**What to change**  
+Detect job id + close flag. Hold incomplete outputs until close (or until `finalize`).
+
+---
+
+## 3. JSON recovery
+
+**Your code**
+```python
+# L26–56 extract_json_payload
+json.loads(...)
+# or slice between first { and last }
+# then one-level unwrap of message/data/payload
+```
+
+**Gold code**
+```python
+# L30–152 _LooseJSON + L154–211 _parse
+# tolerates logger prefix, unescaped quotes,
+# comments, truncated objects, recursive unwrap
+```
+
+**Example input**  
+`2024-01-01 INFO {"title_id":"T-1","variant":"720p",...}`
+
+**Your behavior**  
+Strict parse fails or misses the object → no row.
+
+**Gold behavior**  
+Finds `{...}` inside the logger line and recovers the record.
+
+**Why it matters**  
+Broken / logger-wrapped / truncated lines are a real condition in the feed.
+
+**What to change**  
+Prefer repair + tolerant parse over strict `json.loads` only.
+
+---
+
+## 4. Keys & nesting
+
+**Your code**
+```python
+# L59–76 KEY_ALIASES + L79–97 normalize_keys
+# flat alias map only; no deep walk
+```
+
+**Gold code**
+```python
+# L213–248 _flatten + L250–281 _expand
+# recursive containers + list-of-renditions
+```
+
+**Example input**  
+`{"video": {"title_id": "T-1", "variant": "720p"}}`
+
+**Your behavior**  
+Nested fields ignored → no title/rendition → drop.
+
+**Gold behavior**  
+Flattens `video` and keeps the row.
+
+**Why it matters**  
+Nesting and alternate key names are common; a flat map misses them.
+
+**What to change**  
+Flatten nested objects; expand list-of-rendition payloads.
+
+---
+
+## 5. Rendition
+
+**Your code**
+```python
+# L106–142 normalize_rendition
+# Np regex or width→height map
+```
+
+**Gold code**
+```python
+# L284–338 _rendition_text / _rendition
+# + 4k/uhd/fhd, WxH, nested labels
+```
+
+**Example input**  
+`"variant": "1920x1080"` or `"4k"`
+
+**Your behavior**  
+Rendition null → row dropped.
+
+**Gold behavior**  
+Maps to `1080p` / `2160p`.
+
+**Why it matters**  
+“Rung as size/name/number” is a noticeable recovery gap.
+
+**What to change**  
+Add nickname aliases and dimension parsing.
+
+---
+
+## 6. Codec
+
+**Your code**
+```python
+# L144–154 normalize_codec
+CODEC_ALIASES = {"264": "h264", "hevc": "h265", ...}
+```
+
+**Gold code**
+```python
+# L341–360 _codec_text
+# avc1.…, hev1.…, libx264, av01.… etc.
+```
+
+**Example input**  
+`"codec": "avc1.640028"`
+
+**Your behavior**  
+Codec null.
+
+**Gold behavior**  
+`h264`.
+
+**Why it matters**  
+Codec strings vary by toolchain.
+
+**What to change**  
+Expand the alias / pattern set.
+
+---
+
+## 7. Bitrate & duration
+
+**Your code**
+```python
+# L156–185
+# simple number + min/h multipliers
+```
+
+**Gold code**
+```python
+# L393–461 _bitrate / _duration
+# Decimal, many units, sentinel rejection
+```
+
+**Example input**  
+`"bitrate": "5 Mbps"` or `"duration": -1`
+
+**Your behavior**  
+May mis-scale or keep a sentinel value.
+
+**Gold behavior**  
+5000 kbps / null.
+
+**Why it matters**  
+Unit drift and sentinels (0 / −1 / NaN) cost cells.
+
+**What to change**  
+Use Decimal + broader unit table; treat sentinels as null when appropriate.
+
+---
+
+## 8. Dedup / same-timestamp fill
+
+**Your code**
+```python
+# L275–281
+if existing and row["packaged_at"] <= existing["packaged_at"]:
+    return []
+self.records[key] = row
+return [row]
+```
+
+**Gold code**
+```python
+# L570–590 _accept
+# newer instant wins;
+# same instant → fill nulls, mark conflicts
+```
+
+**Example input**  
+Same key, same time: line1 has bitrate, line2 has codec only.
+
+**Your behavior**  
+Ignore line2 (not newer).
+
+**Gold behavior**  
+One row with both bitrate and codec.
+
+**Why it matters**  
+Same-timestamp replays can improve a row instead of being discarded.
+
+**What to change**  
+On equal time, fill missing cells instead of ignoring the new line.
 
 ---
 
@@ -80,15 +289,18 @@ That is why gold’s sample run produces the full table and yours appears empty 
 ```python
 class Handler:
     def __init__(self):
-        self.held = {}          # or whatever state you need
+        self.held = {}   # key → best row
+        self.jobs = {}   # unfinished job context (if needed)
 
     def process(self, raw: str) -> list[dict]:
-        # parse → normalize → update self.held
+        # parse → normalize → update self.held / self.jobs
         # NEVER return rows here
         return []
 
     def finalize(self) -> list[dict]:
-        # any final calculations (job inheritance, …)
+        # finish pending jobs, resolve conflicts
         # return the complete list of rows
         return list_of_all_rows
 ```
+
+This is the architecture top solutions use and what the scoring harness expects for maximum recovery.
