@@ -1,7 +1,9 @@
-SELECT username, COUNT(transaction_id) AS txn_count,
-      DENSE_RANK() OVER(order by count(transaction_id) DESC) AS rnk
-FROM users 
-INNER JOIN transactions USING (user_id)
-GROUP BY 1 
-QUALIFY rnk <= 5
-ORDER BY 1
+SELECT username, 
+    COUNT(transaction_id) AS txn_count,
+    DENSE_RANK() OVER(ORDER BY COUNT(transaction_id) DESC) AS tier
+FROM users
+INNER JOIN transactions
+USING (user_id)
+WHERE total_amount > 0
+GROUP BY 1
+QUALIFY tier <= 2
