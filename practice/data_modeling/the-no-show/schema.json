@@ -1,0 +1,232 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_member",
+      "columns": [
+        {
+          "name": "member_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "DATE"
+        },
+        {
+          "name": "phone",
+          "type": "INT"
+        },
+        {
+          "name": "email",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_tier",
+      "columns": [
+        {
+          "name": "tier_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "monthly_fee",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "number_of_class",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "member_tier",
+      "columns": [
+        {
+          "name": "member_tier_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "member_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "tier_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "from_date",
+          "type": "DATE"
+        },
+        {
+          "name": "to_date",
+          "type": "DATE"
+        },
+        {
+          "name": "is_current",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "session",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "studio_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_started",
+          "type": "DATE",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "dim_studio",
+      "columns": [
+        {
+          "name": "studio_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "booking",
+      "columns": [
+        {
+          "name": "booking_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "member_tier_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "booking_status",
+          "type": "CHAR"
+        },
+        {
+          "name": "checkin_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "member_tier",
+        "column": "member_id"
+      },
+      "to": {
+        "table": "dim_member",
+        "column": "member_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "member_tier",
+        "column": "tier_id"
+      },
+      "to": {
+        "table": "dim_tier",
+        "column": "tier_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session",
+        "column": "studio_id"
+      },
+      "to": {
+        "table": "dim_studio",
+        "column": "studio_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session",
+        "column": "date_started"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "booking",
+        "column": "session_id"
+      },
+      "to": {
+        "table": "session",
+        "column": "session_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "booking",
+        "column": "member_tier_sk"
+      },
+      "to": {
+        "table": "member_tier",
+        "column": "member_tier_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
