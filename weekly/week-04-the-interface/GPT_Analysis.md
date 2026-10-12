@@ -1,152 +1,337 @@
-# Week 4 — The Interface: handler.py vs gold_submit.py
+# Week 4 — The Interface: Code Review, Memory Failure, and Proposed Fix
 
-## Result at a glance
+## 1. Results and the real reason for the zero score
 
-- **Submitted score:** 0.0000
-- **Rank:** #6 of 6
-- **Rows recovered by the submitted run:** 0 of 749,978
-- **Work per record:** 1.8× median
-- **Run:** stopped at record 1,000,000
-- **Statements:** 355
-- **Scored:** 2026-10-11
+| Metric | Result |
+|---|---:|
+| Submitted score | 0.0000 |
+| Rank | #6 of 6 |
+| Rows recovered by submitted run | 0 of 749,978 |
+| Memory limit | 512 MB |
+| Projected memory usage | About 1,238 MB |
+| Work per record | 1.77× median |
+| Offline score | 0.7883 — would have ranked second |
+| Run | Stopped at record 1,000,000 |
 
-## Why the score was 0: memory exhaustion
+**The immediate cause of the zero score was memory exhaustion.** Your handler retained candidate records and message fingerprints throughout the input stream. The process was stopped before `finalize()` returned the output rows, so the evaluator had no completed result to score.
 
-**The primary reason for the zero score was that the run exceeded the 512 MB memory limit before `finalize()` returned any rows.** The zero score therefore does not, by itself, show that the parser's output logic was entirely wrong.
+This does not prove that every part of your parser was correct. It does explain why a potentially strong parsing solution received a zero in the submitted run.
 
-The handler retained growing state across the stream:
+### Why the sample test was misleading
 
-- `self.groups` stores candidate dictionaries for keys until final reconciliation.
-- `self.seen` stores message fingerprints used for deduplication.
-- `finalize()` builds the output only after the stream has been processed.
+Your sample used only 300 lines and reported a peak of 19 MB. That measurement mainly reflected Python's baseline memory usage and was too small to expose the growth of your data structures. The full-stream projection was approximately 1,238 MB—more than twice the 512 MB limit.
 
-Across one million records, these structures accumulated too much memory. The full-stream projection was approximately **1,238 MB against a 512 MB limit**. The sample's reported peak of **19 MB / 512 MB** came from only 300 lines, mostly reflecting Python's baseline memory usage; it was not representative of the complete stream. The run processed the millionth record but was stopped before the final output was returned, so the evaluator had no completed rows to score. The reported failure reason subsequently changed from timeout to memory.
+**Lesson:** Test correctness and resource usage at realistic input sizes. A program that works on a few hundred rows can fail on a million rows even if its per-record processing cost is competitive.
 
-### Why competitive per-record cost did not save the run
+## 2. Problem #1 — Retaining every candidate until `finalize()`
 
-| Metric | Your run | Winning run |
-|---|---:|---:|
-| Work per record | 1.77× median | 1.71× median |
-| Full stream | Read 1,000,000 records in under 2 minutes | Completed |
-| Memory | Projected at about 1,238 MB | Stayed within the limit |
+### Before: your current code
 
-Work per record measures processing effort, not retained state. A handler can do a similar amount of work per record and still fail if it keeps too much data in memory. The winner's per-record cost was close to yours, but its lower memory footprint allowed it to finish.
-
-When your output was scored offline against the same stream, it achieved **0.7883**, which would have ranked second in that offline evaluation. This is evidence that the parsing logic has real potential. It does not mean every edge case is correct or that the submitted implementation was production-ready: the actual run still must finish within the resource limits.
-
-### Memory fixes to prioritize
-
-1. **Keep only the current winning candidate per key** when the reconciliation rules make incremental replacement safe.
-2. **Use compact tuples or lightweight records** instead of allocating a full dictionary for every candidate.
-3. **Reduce or remove message fingerprints** if equivalent deduplication can be performed with less memory without changing required behavior.
-4. **Measure memory at realistic scale.** A 300-line sample cannot reliably predict a one-million-record run.
-5. **Preserve revision semantics.** Before discarding older candidates, test corrected, withdrawn, preliminary, duplicate, and out-of-order messages to ensure the final winner remains correct.
-
-Keeping only the latest winner is not automatically safe for every key: withdrawals, corrections, status ranking, timestamps, and ordering can affect resolution. Design the compact state around the actual rules, then validate it against fixtures and the offline scorer.
-
-## What the handler currently does
-
-The challenge asks for one clean output row per lab result from newline-delimited interface-engine logs containing HL7 messages. The output schema is:
-
-`accession`, `test`, `patient_id`, `value`, `observed_at`, `unit`, `status`.
-
-The submitted implementation has substantial parsing machinery, including JSON/message extraction, HL7 segment and field helpers, timestamp parsing, value and unit normalization, patient-ID extraction, and candidate reconciliation. The zero score should not be interpreted as proof that all of these pieces are wrong; the run did not return a completed result.
-
-## Highest-impact correctness and robustness risks
-
-The items below are code-review findings and priorities for the next iteration. Apart from the documented run failure, they are potential correctness gaps, not independently proven causes of the zero score.
-
-### 1. Diagnose and fix resource growth first
-
-Relevant areas: `Handler.__init__`, `Handler._parse()`, `Handler.process()`, `Handler._resolve()`, and `Handler.finalize()`.
-
-The handler retains candidates in `self.groups` and fingerprints in `self.seen`. Because the output is assembled in `finalize()`, memory can grow with the number of distinct keys and messages.
-
-**Recommended change:** design a bounded-state reducer that stores only the fields needed to compare candidates and select the winner. Add a memory test over a large synthetic stream, not only a few hundred lines. Track the number of groups, fingerprints, candidates, and peak memory during the test.
-
-### 2. Emit a row for each eligible OBX result
-
-The parser collects OBX segments but then selects the first recognized test and breaks out of the loop. A message containing multiple result OBXs can therefore lose additional results, despite the challenge requiring one row per result.
-
-Simplified pattern in the current logic:
-
-```python
-for obx in obxs:
-    # parse and recognize the test
-    if recognized:
-        candidate = ...
-        break
-```
-
-**Recommended change:** create a candidate for each eligible result OBX. Keep comments and non-result OBXs from becoming lab-result rows. Then reconcile each candidate by the intended result key rather than limiting each message to one result.
-
-### 3. Make segment splitting robust to extra segments and embedded line breaks
-
-The handler's `split_segments()` handles CR, LF, and CRLF and has a fallback for segments separated by whitespace. However, the stream includes extra segments, batch envelopes, MLLP framing, doubled escapes, and embedded line breaks. These can interfere with locating the actual message and its result segments.
-
-**Recommended change:** normalize the log/message envelope separately from HL7 parsing; preserve segment boundaries; test messages with extra segments before and between PID, OBR, and OBX. Do not assume a fixed segment order or that a message contains only one order/result.
-
-### 4. Expand test, value, and unit normalization
-
-The handler defines `TEST_CODES`, `parse_value()`, and `norm_unit()`. These provide a useful baseline but need broad fixture coverage for alternate LOINC/local codes, named tests, coded elements, SI/US unit variants, typed non-numeric values, comparators, flags embedded in values, and decimal/grouping conventions.
-
-The reference file's helpers include explicit test-name/code, unit/code, status/code, and numeric parsing maps. Compare those helper cases against the handler's supported inputs instead of assuming the current maps are exhaustive.
-
-**Important semantic issue:** `parse_value()` returns `None` for comparator-style values such as `<x` or `>x`. Confirm the challenge's expected representation for such results before discarding the comparator or bound.
-
-### 5. Validate patient identifiers and merge handling
-
-The handler extracts an MRN from PID fields with `pick_pid()`, but `APPLY_MERGES = False` disables the merge-resolution path. The stream contains multiple identifier forms, multiple issuing authorities, and merge messages.
-
-**Recommended change:** select the patient identifier using both identifier type and assigning authority, and implement merge mapping only after validating the exact event semantics. Test a result arriving before and after a chart merge, including identifiers with prefixes, leading zeros, and check digits.
-
-### 6. Use all valid sources of observation time
-
-The current candidate construction relies on OBR-7 for collection time. The stream also includes time in SPM-17 or OBX fields, multiple timestamp widths, explicit offsets, sender-local timestamps without offsets, and run time alongside draw time.
-
-The handler's `parse_ts()` and `sender_zone()` are a useful foundation, but the fallback and precedence rules need to match the challenge specification. Test timestamps from both sender zones, timestamps with and without offsets, fractional seconds, and daylight-saving transitions. Do not silently substitute the interface engine's processing time for the specimen observation time.
-
-### 7. Resolve corrections, withdrawals, duplicates, and ordering deliberately
-
-The handler defines a status ranking and deduplicates normalized message text with fingerprints. Its `_resolve()` chooses among candidates using truncation, status rank, timestamp, and sequence. These rules need explicit tests for revised results, W withdrawals, duplicate delivery, preliminary-to-final transitions, and messages arriving out of order.
-
-**Recommended change:** specify precedence in tests before optimizing the state representation. A memory optimization must preserve the final result that the complete candidate history would have selected.
-
-### 8. Make failures observable
-
-`process()` catches and suppresses all exceptions and returns an empty list. That can keep the stream running, but it also hides parser defects and makes it difficult to diagnose why particular messages were dropped.
-
-**Recommended change:** during local development, count and sample parse failures by category, and expose diagnostics outside the scored output path. Keep the required production interface unchanged and avoid logging sensitive patient data.
-
-## Notes on `gold_submit.py`
-
-The available `gold_submit.py` file contains parsing helpers for message extraction, HL7 escapes, patient identifiers, timestamps, values, units, and test codes. The checked-in file ends after `_test()`; it does **not** contain a visible `Handler`, `process()`, `finalize()`, or complete output-resolution pipeline. This review therefore compares the submitted handler to the available reference helpers and does not invent missing gold-pipeline behavior.
-
-## Suggested implementation sequence
-
-1. **Bound memory and prove the full stream completes.** This is the immediate reason the submitted run scored zero.
-2. Add multi-OBX output handling and verify one row per eligible result.
-3. Build fixtures for test codes, typed values, units, identifiers, timestamp precedence, and status transitions.
-4. Validate batch/message extraction and unusual segment boundaries.
-5. Compare the completed output against the offline scorer and monitor both memory and per-record work.
-
-## Interface contract
-
-Keep the required class interface:
+In `Handler.__init__()`:
 
 ```python
 class Handler:
+    def __init__(self):
+        self.groups = {}
+        self.seen = set()
+        self.merge = {}
+        self.n = 0
+```
+
+In `process()`:
+
+```python
+def process(self, raw):
+    try:
+        e = self._parse(raw)
+        if e is not None:
+            self.groups.setdefault(e.get("key"), []).append(e)
+    except Exception:
+        pass
+    return []
+```
+
+And in `finalize()`:
+
+```python
+def finalize(self):
+    rows = []
+    for entries in self.groups.values():
+        w = self._resolve(entries)
+        if w is None:
+            continue
+        rows.append({
+            "accession": w["acc"],
+            "test": w["test"],
+            "patient_id": self._final_pid(w["pid"]),
+            "value": w["val"],
+            "unit": w["unit"],
+            "observed_at": w["obs"],
+            "status": w["st"] if w["st"] in OUT_STATUS else None,
+        })
+    return rows
+```
+
+### Why this grows
+
+Suppose the stream contains preliminary glucose 90, final glucose 95, and final sodium 140. Your `groups` structure retains all three candidates, including both glucose versions, until the end. Each candidate is a dictionary stored inside a list inside a dictionary. The history is useful for correctness, but costly at scale.
+
+### After: a compact intermediate representation
+
+The current candidate contains:
+
+```python
+return {
+    "key": (acc, test),
+    "acc": acc,
+    "test": test,
+    "pid": pid,
+    "val": val,
+    "unit": norm_unit(g(obx, 6)),
+    "obs": fmt_ts(parse_ts(g(obr, 7).split("^")[0], zone)),
+    "st": st,
+    "ts": parse_ts(g(msh, 6), zone),
+    "trunc": trunc,
+    "seq": self.n,
+}
+```
+
+A tuple representation could reduce per-candidate overhead:
+
+```python
+# 0 accession, 1 test, 2 patient_id, 3 value,
+# 4 unit, 5 observed_at, 6 status, 7 message_time,
+# 8 truncated, 9 sequence
+candidate = (
+    acc, test, pid, val,
+    norm_unit(g(obx, 6)),
+    fmt_ts(parse_ts(g(obr, 7).split("^")[0], zone)),
+    st,
+    parse_ts(g(msh, 6), zone),
+    trunc,
+    self.n,
+)
+```
+
+This is an intermediate optimization, not a complete fix. The tuple still needs to be stored for every candidate, and `self.seen` still grows with unique message fingerprints. Changing dictionaries to tuples also requires adapting `_resolve()` and `finalize()`.
+
+## 3. Problem #2 — Reduce retained state with an incremental reducer
+
+### Current approach
+
+```text
+Read message -> parse candidate -> append to groups[key]
+             -> retain all candidates -> resolve at finalize()
+```
+
+### Proposed target
+
+```text
+Read message -> parse candidate -> identify result key
+             -> update compact state -> discard unneeded candidate details
+             -> finalize remaining state and emit rows
+```
+
+The goal is to retain the smallest state that still preserves the challenge's reconciliation rules.
+
+### Proposed code pattern (design sketch, not drop-in code)
+
+```python
+class Handler:
+    def __init__(self):
+        self.best_by_key = {}
+        self.seen = set()  # keep only if required by deduplication semantics
+        self.merge = {}
+        self.n = 0
+
     def process(self, raw: str) -> list[dict]:
-        # Consume one raw input line; normally emit no rows yet.
+        candidate = self._parse(raw)
+        if candidate is None:
+            return []
+
+        key = candidate["key"]
+        current = self.best_by_key.get(key)
+        updated = self._update_state(current, candidate)
+
+        if updated is not None:
+            self.best_by_key[key] = updated
+
         return []
 
     def finalize(self) -> list[dict]:
-        # Resolve compact retained state and return the final rows.
-        ...
+        return [
+            self._to_output(candidate)
+            for candidate in self.best_by_key.values()
+        ]
 ```
 
-`process()` returning `[]` is appropriate if the evaluator expects reconciliation at end of stream. The critical change is to ensure the state retained between calls is compact enough that `finalize()` can actually run and return the reconciled rows.
+`_update_state()` and `_to_output()` are placeholders; this sketch is not executable as written. They must be implemented to preserve the actual rules.
 
-## Conclusion
+### Why not simply keep the latest message?
 
-The first priority is clear: **the submitted run scored zero because memory growth prevented any output from being returned to the evaluator.** The offline score of 0.7883 suggests that the underlying parsing approach is promising, and the per-record work was close to the winner's. Focus next on compact, bounded-memory reconciliation, then fix the independently identified multi-OBX and edge-case risks without changing the required output semantics.
+Your current `_resolve()` sorts by timestamp and sequence, handles `U` statuses specially, considers truncation, ranks corrected/final/withdrawn/preliminary statuses, and uses timestamps and sequence numbers to break ties. A later-arriving message may have an earlier timestamp, and withdrawals or corrections can change the winner.
+
+Therefore, replacing `groups[key].append(candidate)` with `best_by_key[key] = candidate` may save memory but produce incorrect rows.
+
+**The right optimization is an incremental reducer proven equivalent to `_resolve()`, not simply overwriting the previous candidate.** Test it against the current resolver over many small histories with different statuses, timestamps, sequence orders, and truncation states.
+
+## 4. Problem #3 — The fingerprint set also grows
+
+### Before: current deduplication
+
+```python
+digest = hashlib.md5(
+    s.encode("utf-8", "ignore")
+).digest()
+
+if digest in self.seen:
+    return None
+
+self.seen.add(digest)
+```
+
+The digest is 16 bytes, but the Python set also needs space for its table and entries. Its memory grows independently of `groups`. Removing old candidates does not reduce this set.
+
+### Proposed change
+
+Before redesigning deduplication, establish whether duplicates can occur far apart in the stream and whether identical messages can represent legitimate revisions. If duplicates are guaranteed to be adjacent, a last-message fingerprint might suffice—but only if that guarantee is real. If duplicates can recur anywhere, a global set may be necessary unless an equivalent strategy exists.
+
+**Do not remove deduplication solely to lower memory.** First reduce candidate-history memory, then measure the fingerprint set's contribution, and only then redesign it if semantics allow.
+
+## 5. Problem #4 — A message can contain multiple OBX results
+
+This is a separate correctness issue, not the documented cause of the zero score.
+
+### Before: current code
+
+```python
+obx, test, code = None, None, ""
+
+for f in obxs:
+    comps = g(f, 3).split("^")
+    c0 = comps[0].strip().upper()
+    c3 = comps[3].strip().upper() if len(comps) > 3 else ""
+    t = TEST_CODES.get(c0) or TEST_CODES.get(c3)
+
+    if t:
+        obx, test, code = f, t, c0
+        break
+```
+
+The `break` exits after the first recognized test.
+
+### Example
+
+```text
+OBX|1|NM|2345-7^Glucose^LN||95|mg/dL|||N|||F
+OBX|2|NM|2951-2^Sodium^LN||140|mmol/L|||N|||F
+OBX|3|NM|2823-3^Potassium^LN||4.1|mmol/L|||N|||F
+```
+
+Your current loop selects glucose and stops; sodium and potassium are never made into candidates.
+
+### After: proposed structure
+
+```python
+candidates = []
+
+for obx in obxs:
+    candidate = self._parse_obx(
+        obx=obx,
+        obr=obr,
+        msh=msh,
+        pid=pid,
+        accession=acc,
+        truncated=trunc,
+    )
+    if candidate is not None:
+        candidates.append(candidate)
+
+return candidates
+```
+
+This is a structural example, not a drop-in patch: `_parse()` currently returns one candidate or `None`, so both it and its caller must change. Each eligible OBX needs its own key and reconciliation. Exclude comments and non-result OBXs according to the challenge rules. Test that one message with three eligible results produces three rows.
+
+## 6. Other correctness risks to address after memory
+
+### Test, value, and unit normalization
+
+Your `TEST_CODES`, `parse_value()`, and `norm_unit()` provide a foundation, but the stream includes alternate LOINC/local codes, named tests, typed values, flags, and unit variants. For example, `parse_value()` returns `None` for values starting with `<` or `>`. Confirm the expected representation before discarding comparators or bounds.
+
+### Patient identifiers and merges
+
+`APPLY_MERGES = False` disables the merge-resolution path. Test multiple identifier forms, assigning authorities, and chart merges after stabilizing memory.
+
+### Observation timestamps
+
+The current output relies on OBR-7, but relevant time can also appear in SPM-17 and OBX fields. Add timestamp-source precedence tests and verify timezone handling.
+
+### Status changes and withdrawals
+
+Your `_resolve()` contains special logic for `U` and ranks statuses. Any incremental reducer must preserve these semantics. Test preliminary-to-final transitions, corrections, withdrawals, duplicates, and out-of-order messages.
+
+### Hidden exceptions
+
+Your `process()` catches all exceptions and suppresses them:
+
+```python
+try:
+    e = self._parse(raw)
+    if e is not None:
+        self.groups.setdefault(e.get("key"), []).append(e)
+except Exception:
+    pass
+```
+
+This can hide parser defects. During local development, count exceptions and record safe diagnostic categories; avoid logging patient-identifying information.
+
+## 7. Practical validation plan
+
+### Step 1 — Establish a correctness baseline
+
+Save expected output for: one-result messages, multi-OBX messages, duplicate messages, preliminary followed by final, corrected and withdrawn results, out-of-order timestamps, truncated messages, and chart merges.
+
+### Step 2 — Measure memory at realistic sizes
+
+| Input size | What to check |
+|---|---|
+| 300 records | Small-input baseline |
+| 10,000 records | Early growth pattern |
+| 100,000 records | Large-scale growth |
+| 1,000,000 records | Whether the design stays below 512 MB |
+
+Identify which structures grow with input size; do not merely check whether one run finishes.
+
+### Step 3 — Test compact candidate storage
+
+Replace candidate dictionaries with tuples or another compact representation, adapt `_resolve()` and `finalize()`, and compare output to the baseline. Measure memory again; do not assume this alone is sufficient.
+
+### Step 4 — Prove the incremental reducer equivalent
+
+Generate many small candidate histories with different statuses, timestamps, sequence orders, and truncation states. Compare the new reducer's selected result with the current `_resolve()`. If they differ, the reducer is not yet equivalent.
+
+### Step 5 — Run the complete stream
+
+Verify that the process completes within the memory limit, returns all expected rows, and retains high row-level correctness.
+
+## 8. Recommended priority order
+
+1. **Fix the memory failure** that caused the zero score.
+2. Measure memory after each change.
+3. Preserve reconciliation behavior while reducing retained state.
+4. Fix multi-OBX handling so one message can produce multiple result rows.
+5. Expand test-code, value, unit, patient-ID, and timestamp coverage.
+6. Validate revisions, withdrawals, duplicates, and out-of-order messages.
+7. Improve diagnostics so parsing failures are visible during development.
+
+## Notes on `gold_submit.py`
+
+The checked-in `gold_submit.py` contains parsing helpers for message extraction, HL7 escapes, patient identifiers, timestamps, values, units, and test codes. The file ends after `_test()`; it does not contain a visible `Handler`, `process()`, `finalize()`, or complete output-resolution pipeline. This review compares the submitted handler with the available reference helpers and does not invent missing gold-pipeline behavior.
+
+## Final takeaway
+
+Your score of zero was primarily an execution failure: the handler accumulated too much state and did not return rows before hitting the memory limit. Your offline score of 0.7883 suggests the underlying parsing approach has potential.
+
+Do not rewrite everything at once. Start with memory measurements, compact the retained state, and then implement a carefully tested incremental reducer. A fast parser is not enough if it cannot finish the stream, and a memory-efficient parser is not enough if it changes which result wins.
+
+The target is a handler that is **correct, bounded in memory, and able to complete the entire million-record workload**.
