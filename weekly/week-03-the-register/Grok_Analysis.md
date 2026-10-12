@@ -23,22 +23,41 @@ This note compares your submission to the top solution. Sections are ordered by 
 
 ## 1. When rows are emitted
 
-**Your code**
+### Your current code (before)
+
 ```python
 # process L309–331
 self.sent[(m, b)] = sig
-return [out]
+return [out]                    # emits immediately
 
 # finalize L335–336
 def finalize(self):
-    return []
+    return []                   # never emits anything
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# process L711–727 → only _merge into held, return []
-# finalize L729–772 → sort, fill usage, return all rows
+class Handler:
+    def __init__(self):
+        self.held = {}          # meter|interval → best candidate
+
+    def process(self, raw: str) -> list[dict]:
+        # parse → normalize → _merge into self.held
+        # NEVER return rows here
+        return []
+
+    def finalize(self) -> list[dict]:
+        # group by meter, sort by interval_end
+        # fill missing usage from consecutive registers
+        # return the complete list of rows
+        return list_of_all_rows
 ```
+
+### Explanation
+
+- **Before**: rows are emitted online. A later actual can produce a second row or lock an estimate too early. A harness that only inspects `finalize` sees nothing.
+- **After**: all merging and chronological math happen in `finalize`. One clean table is emitted once.
 
 **Example input**  
 Half-hour H gets an estimate, then later an actual for the same meter + interval.
@@ -50,7 +69,7 @@ May emit on the estimate, then again on the actual (or lock early). `finalize` i
 Keep one merged row in memory; emit once in `finalize`.
 
 **Why it matters**  
-A sample that only inspects `finalize` shows no output. Online emit also makes chronological register math harder.
+Online emit fights later corrections and makes chronological register math harder.
 
 **What to change**  
 Emit nothing in `process`. Do all final work in `finalize`.
@@ -59,7 +78,8 @@ Emit nothing in `process`. Do all final work in `finalize`.
 
 ## 2. Register → usage (offline, sorted by time)
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L294–307 _usage – arrival order
 if usage is None and reg is not None and i > 0:
@@ -68,13 +88,19 @@ if usage is None and reg is not None and i > 0:
         row["usage_kwh"] = d
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L734–761 inside finalize
-items.sort(key=lambda x: x[0])  # by interval_end
+# inside finalize
+items.sort(key=lambda x: x[0])          # by interval_end
 if usage is None and reg and prev_reg and ts - prev_ts == 1800:
     rec[0] = fmt3(reg - prev_reg)
 ```
+
+### Explanation
+
+- **Before**: deltas are computed in arrival order. Out-of-order registers produce wrong, negative, or missing usage.
+- **After**: group by meter, sort by `interval_end`, then walk consecutive 30-minute pairs. The math becomes correct regardless of arrival order.
 
 **Example input**  
 Registers arrive out of order: 10:30 first, then 10:00.
@@ -95,19 +121,26 @@ Always group by meter, sort by `interval_end`, then walk consecutive 30-minute p
 
 ## 3. Interval alignment (start vs end)
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L208–221 bucket_interval + L278–281 _bucket
 # snap any timestamp to nearest half-hour END
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L343–360 align_end
+# detect start vs end fields
 if is_start:
     dt = dt + timedelta(minutes=30)
-# then snap
+# then snap to half-hour end
 ```
+
+### Explanation
+
+- **Before**: a start stamp `10:00` is snapped to the wrong half-hour.
+- **After**: start stamps are shifted +30 minutes before snapping, so they land on the correct end.
 
 **Example input**  
 Meter stamps **start** `10:00` for the 10:00–10:30 window.
@@ -128,19 +161,25 @@ Detect start vs end fields; shift start stamps by +30 minutes before snapping.
 
 ## 4. JSON / keys / CDC recovery
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L59–81 extract_json
 # L84–95 flatten (2 levels)
 # L98–109 canonical + ALIASES
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# parse_raw L444+ · iter_records L585+
 # multi-language keys, CDC unwrap,
 # HTML unescape, truncated repair, kv-fallback
 ```
+
+### Explanation
+
+- **Before**: nested CDC images and truncated / dirty lines are frequently dropped.
+- **After**: broader recovery keeps more readings.
 
 **Example input**  
 `{"after": {"meter_id": "M-1", ...}}` or a broken/truncated JSON line.
@@ -161,18 +200,24 @@ Broaden aliases; add CDC unwrap and truncated-JSON repair.
 
 ## 5. Meter ID normalization
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L112–116 norm_meter
 return v if METER_RE.fullmatch(v) else None
 # strict M-\d{7}
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L249–270 parse_meter_id
-# M-? optional, pad to 7 digits, many aliases
+# M-? optional, pad to 7 digits, many aliases (msn, serial, …)
 ```
+
+### Explanation
+
+- **Before**: missing dash, short numbers, or alternate names are rejected.
+- **After**: light normalisation recovers the meter.
 
 **Example input**  
 `"M1234567"` or `"m-123"`
@@ -187,102 +232,48 @@ Normalize to padded `M-…` form and keep.
 Padding, missing dash, and alternate names lose meters that should score.
 
 **What to change**  
-Allow optional `-`, pad to 7 digits, expand aliases (`msn`, `serial`, …).
+Allow optional `-`, pad to 7 digits, expand aliases.
 
 ---
 
-## 6. Quality merge
+## 6. Quality rank + null/units
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L269–276 _dedup + L284–292 _merge
 # RANK actual=2 > estimated=1
 # keep higher quality per exact timestamp
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L690–709 _merge
-# higher rank replaces;
+# higher rank always replaces
 # same rank only fills null cells
+# broader null set + unit / decimal parsing
 ```
+
+### Explanation
+
+- **Before**: the rank logic is mostly correct, but some null spellings and number formats are still missed.
+- **After**: explicit rank + richer null / unit handling recovers more cells without letting a later estimate overwrite a real read.
 
 **Example input**  
-Estimate at 10:30, then actual at 10:30, then another estimate.
+Estimate at 10:30, then actual at 10:30, then another estimate.  
+or `"usage": "n/a"`, `"1,234.5 kWh"`
 
 **Your behavior**  
-Should keep actual (confirm rank never regresses).
+Should keep actual (confirm rank never regresses). Some nulls / formats still lost.
 
 **Gold behavior**  
-Keeps actual; later estimate cannot overwrite.
+Keeps actual; later estimate cannot overwrite. Broader parsing recovers more cells.
 
 **Why it matters**  
-A real read must never lose to a later estimate.
+A real read must never lose to a later estimate. More recovered numeric cells on messy head-end formats.
 
 **What to change**  
-Keep an explicit rank; never let a lower rank replace a higher one.
-
----
-
-## 7. Null & units
-
-**Your code**
-```python
-# L163–196 norm_dec
-# Decimal + unit from value or key suffix
-```
-
-**Gold code**
-```python
-# L171–223 parse_number
-# broader nulls, HTML unescape, comma/decimal variants
-```
-
-**Example input**  
-`"usage": "n/a"` or `"1,234.5 kWh"`
-
-**Your behavior**  
-May miss some null spellings or comma formats.
-
-**Gold behavior**  
-Treat as null or parse `1234.5`.
-
-**Why it matters**  
-More recovered numeric cells on messy head-end formats.
-
-**What to change**  
-Expand the null set and unit / decimal parsing.
-
----
-
-## 8. `finalize` result
-
-**Your code**
-```python
-def finalize(self):
-    return []
-```
-
-**Gold code**
-```python
-# after group → sort → delta fill
-return out  # full table
-```
-
-**Example input**  
-You run the sample and inspect only the `finalize` return value.
-
-**Your behavior**  
-Always `[]`.
-
-**Gold behavior**  
-Full clean table.
-
-**Why it matters**  
-Explains “I run the sample and get no output.”
-
-**What to change**  
-Put the complete emit path in `finalize`.
+Keep an explicit rank; never let a lower rank replace a higher one. Expand the null set and unit / decimal parsing.
 
 ---
 
