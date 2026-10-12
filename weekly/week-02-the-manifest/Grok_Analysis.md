@@ -23,22 +23,41 @@ This note compares your submission to the top solution. Sections are ordered by 
 
 ## 1. When rows are emitted
 
-**Your code**
+### Your current code (before)
+
 ```python
 # process L263–282
 self.records[key] = row
-return [row]
+return [row]                    # emits immediately
 
 # finalize L286–287
 def finalize(self):
-    return []
+    return []                   # never emits anything
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# process → always return []
-# finalize L633–648 → return all held rows
+class Handler:
+    def __init__(self):
+        self.held = {}          # key → best row
+        self.jobs = {}          # unfinished job context (if needed)
+
+    def process(self, raw: str) -> list[dict]:
+        # parse → normalize → update self.held / self.jobs
+        # NEVER return rows here
+        return []
+
+    def finalize(self) -> list[dict]:
+        # finish pending jobs, resolve conflicts
+        # return the complete list of rows
+        return list(self.held.values())
 ```
+
+### Explanation
+
+- **Before**: rows are emitted online from `process`. A later update for the same key can produce a second row (penalty). A harness that only looks at `finalize` sees nothing.
+- **After**: `process` only updates state. All rows are emitted once from `finalize`. No second-row penalty and the sample works.
 
 **Example input**  
 Line A: title `T-0000001`, 720p, packaged `10:00`.  
@@ -51,7 +70,7 @@ Emit row for A immediately. Later emit an updated row for B (possible second-row
 Hold both in memory. Emit **one** final row for that key only in `finalize`.
 
 **Why it matters**  
-A sample/harness that only inspects `finalize` sees nothing from you. Early emit can also produce a second row for the same key (−2 points each). You already lost 28 points this way (14 extra rows).
+You already lost 28 points this way (14 extra rows). Early emit also fights later corrections.
 
 **What to change**  
 Never `return [row]` from `process`. Collect everything; emit once in `finalize`.
@@ -60,18 +79,28 @@ Never `return [row]` from `process`. Collect everything; emit once in `finalize`
 
 ## 2. Job-close / incomplete outputs
 
-**Your code**  
-No special path — same as normal records. Incomplete lines without a title fail `check_quality` (L226–243) and drop.
+### Your current code (before)
 
-**Gold code**
 ```python
-# L592–622 _process_record (sketch)
+# No special path — same as normal records.
+# Incomplete lines without a title fail check_quality and drop.
+```
+
+### Proposed change (after)
+
+```python
+# inside process / _process_record
 if job and not complete:
     pending.append(rec)
 elif closing:
     for output in pending:
         self._accept(_inherit(output, context))
 ```
+
+### Explanation
+
+- **Before**: an incomplete output that arrives before its title has nowhere to wait → it is dropped.
+- **After**: park incomplete outputs under the job id; on the close line (or in `finalize`) inherit the title and emit.
 
 **Example input**  
 (1) Rendition line: `job_id=J`, no title.  
@@ -93,7 +122,8 @@ Detect job id + close flag. Hold incomplete outputs until close (or until `final
 
 ## 3. JSON recovery
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L26–56 extract_json_payload
 json.loads(...)
@@ -101,12 +131,20 @@ json.loads(...)
 # then one-level unwrap of message/data/payload
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L30–152 _LooseJSON + L154–211 _parse
-# tolerates logger prefix, unescaped quotes,
-# comments, truncated objects, recursive unwrap
+# tolerant parser that:
+# - strips logger prefixes
+# - recovers truncated objects
+# - unwraps nested message/data/payload recursively
+# - tolerates unescaped quotes / comments
 ```
+
+### Explanation
+
+- **Before**: many logger-wrapped or truncated lines fail the strict path.
+- **After**: a looser extractor recovers a much larger fraction of the dirty feed.
 
 **Example input**  
 `2024-01-01 INFO {"title_id":"T-1","variant":"720p",...}`
@@ -127,17 +165,24 @@ Prefer repair + tolerant parse over strict `json.loads` only.
 
 ## 4. Keys & nesting
 
-**Your code**
+### Your current code (before)
+
 ```python
 # L59–76 KEY_ALIASES + L79–97 normalize_keys
 # flat alias map only; no deep walk
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L213–248 _flatten + L250–281 _expand
-# recursive containers + list-of-renditions
+# recursive flatten of nested objects
+# expand list-of-rendition payloads
 ```
+
+### Explanation
+
+- **Before**: nested fields are invisible to the flat alias map → row dropped.
+- **After**: a recursive flatten + list expansion recovers the title/rendition.
 
 **Example input**  
 `{"video": {"title_id": "T-1", "variant": "720p"}}`
@@ -156,102 +201,50 @@ Flatten nested objects; expand list-of-rendition payloads.
 
 ---
 
-## 5. Rendition
+## 5. Rendition / codec / bitrate / duration
 
-**Your code**
+### Your current code (before)
+
 ```python
-# L106–142 normalize_rendition
-# Np regex or width→height map
+# normalize_rendition – Np regex or width→height map
+# normalize_codec – small CODEC_ALIASES dict
+# bitrate / duration – simple number + min/h multipliers
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L284–338 _rendition_text / _rendition
-# + 4k/uhd/fhd, WxH, nested labels
+# broader nickname set (4k/uhd/fhd, WxH, nested labels)
+# toolchain tags (avc1.…, hev1.…, libx264, av01.…)
+# Decimal + richer unit table; reject sentinels (0 / −1 / NaN)
 ```
+
+### Explanation
+
+- **Before**: many real-world spellings and toolchain tags become null → cells lost.
+- **After**: expanded alias / pattern tables + sentinel rejection recover more cells.
 
 **Example input**  
-`"variant": "1920x1080"` or `"4k"`
+`"variant": "1920x1080"` or `"4k"`, `"codec": "avc1.640028"`, `"bitrate": "5 Mbps"`, `"duration": -1`
 
 **Your behavior**  
-Rendition null → row dropped.
+Rendition / codec null, possible mis-scaled bitrate, sentinel kept.
 
 **Gold behavior**  
-Maps to `1080p` / `2160p`.
+`1080p` / `2160p`, `h264`, 5000 kbps, null for sentinel.
 
 **Why it matters**  
-“Rung as size/name/number” is a noticeable recovery gap.
+Name/size forms, toolchain tags, unit drift and sentinels are noticeable recovery gaps.
 
 **What to change**  
-Add nickname aliases and dimension parsing.
+Expand the alias / pattern sets; treat sentinels as null.
 
 ---
 
-## 6. Codec
+## 6. Dedup / same-timestamp fill
 
-**Your code**
-```python
-# L144–154 normalize_codec
-CODEC_ALIASES = {"264": "h264", "hevc": "h265", ...}
-```
+### Your current code (before)
 
-**Gold code**
-```python
-# L341–360 _codec_text
-# avc1.…, hev1.…, libx264, av01.… etc.
-```
-
-**Example input**  
-`"codec": "avc1.640028"`
-
-**Your behavior**  
-Codec null.
-
-**Gold behavior**  
-`h264`.
-
-**Why it matters**  
-Codec strings vary by toolchain.
-
-**What to change**  
-Expand the alias / pattern set.
-
----
-
-## 7. Bitrate & duration
-
-**Your code**
-```python
-# L156–185
-# simple number + min/h multipliers
-```
-
-**Gold code**
-```python
-# L393–461 _bitrate / _duration
-# Decimal, many units, sentinel rejection
-```
-
-**Example input**  
-`"bitrate": "5 Mbps"` or `"duration": -1`
-
-**Your behavior**  
-May mis-scale or keep a sentinel value.
-
-**Gold behavior**  
-5000 kbps / null.
-
-**Why it matters**  
-Unit drift and sentinels (0 / −1 / NaN) cost cells.
-
-**What to change**  
-Use Decimal + broader unit table; treat sentinels as null when appropriate.
-
----
-
-## 8. Dedup / same-timestamp fill
-
-**Your code**
 ```python
 # L275–281
 if existing and row["packaged_at"] <= existing["packaged_at"]:
@@ -260,12 +253,17 @@ self.records[key] = row
 return [row]
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# L570–590 _accept
-# newer instant wins;
-# same instant → fill nulls, mark conflicts
+# newer instant wins
+# same instant → fill nulls from the new line, mark conflicts
 ```
+
+### Explanation
+
+- **Before**: a same-timestamp replay that only carries the missing field is ignored.
+- **After**: the missing cells are filled, producing a more complete row.
 
 **Example input**  
 Same key, same time: line1 has bitrate, line2 has codec only.
