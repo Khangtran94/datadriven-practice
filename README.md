@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Lateral Paths](./practice/data_modeling/lateral-paths) | Data Modeling | Medium | 2026-10-12 |
 | [The No-Show](./practice/data_modeling/the-no-show) | Data Modeling | Easy | 2026-10-12 |
 | [The Credits Roll](./practice/data_modeling/the-credits-roll) | Data Modeling | Hard | 2026-10-12 |
 | [The Quarter Turn](./practice/python/the-quarter-turn) | Python | Medium | 2026-10-12 |

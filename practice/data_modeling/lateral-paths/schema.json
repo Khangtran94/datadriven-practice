@@ -1,0 +1,324 @@
+{
+  "tables": [
+    {
+      "name": "dim_team",
+      "columns": [
+        {
+          "name": "team_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "office_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "manager_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "department_id",
+          "type": "CHAR",
+          "key": "fk"
+        },
+        {
+          "name": "floor",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "number_members",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_manager",
+      "columns": [
+        {
+          "name": "manager_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_office",
+      "columns": [
+        {
+          "name": "office_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_employee",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "joined_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "transfer_log",
+      "columns": [
+        {
+          "name": "log_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "from_team_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "to_team_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "is_current",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "day",
+          "type": "INT"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_org",
+      "columns": [
+        {
+          "name": "org_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_division",
+      "columns": [
+        {
+          "name": "division_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "org_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_department",
+      "columns": [
+        {
+          "name": "department_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "division_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_team",
+        "column": "office_id"
+      },
+      "to": {
+        "table": "dim_office",
+        "column": "office_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_team",
+        "column": "manager_id"
+      },
+      "to": {
+        "table": "dim_manager",
+        "column": "manager_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "transfer_log",
+        "column": "employee_id"
+      },
+      "to": {
+        "table": "dim_employee",
+        "column": "employee_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "transfer_log",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "transfer_log",
+        "column": "from_team_id"
+      },
+      "to": {
+        "table": "dim_team",
+        "column": "team_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "transfer_log",
+        "column": "to_team_id"
+      },
+      "to": {
+        "table": "dim_team",
+        "column": "team_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_team",
+        "column": "department_id"
+      },
+      "to": {
+        "table": "dim_department",
+        "column": "department_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_department",
+        "column": "division_id"
+      },
+      "to": {
+        "table": "dim_division",
+        "column": "division_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_division",
+        "column": "org_id"
+      },
+      "to": {
+        "table": "dim_org",
+        "column": "org_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
