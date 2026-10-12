@@ -26,55 +26,79 @@ This note compares your submission to the top solution. Sections are ordered by 
 
 ## 1. When rows are emitted
 
-**Your code**
+### Your current code (before)
+
 ```python
-# process ~L58–60
+# process
 Handler.customers[customer_id] = row
-return [row]
+return [row]                    # emits immediately
 
-# finalize L63–64
+# finalize
 def finalize(self):
-    return list(Handler.customers.values())
+    return list(Handler.customers.values())   # emits the same rows again
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# process → return [row] if row else []
-# finalize → return []
+class Handler:
+    def __init__(self):
+        self.held = {}          # customer_id → best row
+
+    def process(self, raw: str) -> list[dict]:
+        # parse + clean → update self.held[cid] = row
+        # NEVER return rows here
+        return []
+
+    def finalize(self) -> list[dict]:
+        return list(self.held.values())
 ```
+
+### Explanation
+
+- **Before**: every line is emitted from `process` **and** again from `finalize`. The harness treats the second emission as a duplicate row and applies a heavy penalty (−2 per extra row). That alone cost ~1.7 M points.
+- **After**: `process` only updates in-memory state. All rows are emitted once, at the end, from `finalize`. No second-row penalty.
 
 **Example input**  
 Two lines for the same `customer_id` (retry / duplicate export).
 
 **Your behavior**  
-`process` emits a row for each. `finalize` emits the stored row again. Harness sees two rows for the key → second-row penalty.
+`process` emits a row for each. `finalize` emits the stored row again → second-row penalty.
 
 **Gold behavior**  
-Emits the row once from `process`. `finalize` adds nothing.
+Emits the row once (either from process or from finalize, never both).
 
 **Why it matters**  
-The README explicitly calls out 854,938 second rows costing 1,709,876 points. Emitting from both `process` and `finalize` is the dominant loss.
+The README explicitly calls out 854,938 second rows. Emitting from both methods is the dominant loss.
 
 **What to change**  
-Emit **only once**. Prefer the pattern used by later weeks: `process` returns `[]`, collect in instance state, emit the full set from `finalize`. Never return a row from both methods.
+Emit **only once**. Prefer the pattern used by later weeks: `process` returns `[]`, collect in instance state, emit the full set from `finalize`.
 
 ---
 
 ## 2. Broken / truncated JSON
 
-**Your code**
+### Your current code (before)
+
 ```python
-# process L7
 record = json.loads(raw)
 # bare except → return []
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# parse_json_line
-# strip BOM, try loads, then first {...} span,
-# remove trailing commas, recover truncated objects
+def extract_json(raw: str):
+    # strip BOM, try loads
+    # if fail: find first { … } span, remove trailing commas, retry
+    # optionally unwrap message / data / payload once
+    ...
 ```
+
+### Explanation
+
+- **Before**: any malformed or truncated line is dropped completely.
+- **After**: a tolerant extractor recovers the first complete object even when the line is cut or wrapped in a logger prefix.
 
 **Example input**  
 `{"customer_id":"C-0000001", "email":"a@b.com", ...` (truncated)  
@@ -96,23 +120,34 @@ Add a tolerant parser that finds the first `{`…`}` span and cleans common brea
 
 ## 3. Key aliases + nesting
 
-**Your code**
+### Your current code (before)
+
 ```python
-# only exact keys
 record.get('customer_id')
 record.get('signup_ts')
 record.get('plan')
-record.get('seats')
-record.get('mrr')
-record.get('email')
+# only exact keys
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# clean_record uses first(...)
-cid = clean_customer_id(first(rec.get("customer_id"), rec.get("customerId"), rec.get("id")))
-# similarly for email, signup_*, plan/tier, seats, mrr
+def first(*vals):
+    for v in vals:
+        if v is not None and v != "":
+            return v
+    return None
+
+cid = clean_customer_id(first(
+    rec.get("customer_id"), rec.get("customerId"), rec.get("id")
+))
+# same pattern for email, signup_*, plan/tier, seats, mrr
 ```
+
+### Explanation
+
+- **Before**: only the exact English key names work. Localized names or nested objects are ignored → row dropped.
+- **After**: a small alias list (or `first` helper) recovers the same field under several names. One-level flatten also helps.
 
 **Example input**  
 `{"id": "C-0000001", "email_address": "a@b.com", "created_at": 1609459200}`  
@@ -122,7 +157,7 @@ or `{"customer": {"id": "C-0000001", ...}}`
 Missing exact keys → `customer_id` None → early return `[]`. Nested objects ignored.
 
 **Gold behavior**  
-Tries several aliases. (Deep nesting still limited, but aliases cover a large slice.)
+Tries several aliases and keeps the row.
 
 **Why it matters**  
 Localized key names (5%) and nesting/flattening (10%) are explicit conditions with very low recovery.
@@ -134,98 +169,112 @@ Maintain a small alias map (or `first` helper) for every column. Optionally flat
 
 ## 4. Signup timestamps
 
-**Your code**
+### Your current code (before)
+
 ```python
-# L27–37
 if isinstance(signup_ts, (int, float)):
     signup_at = datetime.fromtimestamp(signup_ts, tz=timezone.utc)...
 elif isinstance(signup_ts, str):
     dt = datetime.fromisoformat(signup_ts.replace("Z", "+00:00"))
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# clean_signup
-# seconds / ms / µs auto-detect
-# ISO_RE + US_DATE_RE + compact yyyymmdd
-# timezone handling
+# detect magnitude: seconds / ms / µs
+# also accept US dates (M/D/Y) and compact YYYYMMDD
+# always return UTC ISO string or None
 ```
+
+### Explanation
+
+- **Before**: millisecond epochs are treated as seconds → year 53000. US-style dates fail `fromisoformat`.
+- **After**: magnitude check + a couple of extra patterns recover far more `signup_at` cells.
 
 **Example input**  
 `"signup_ts": 1609459200000` (millis)  
 or `"signup_date": "01/01/2021 00:00"`
 
 **Your behavior**  
-Millis interpreted as seconds → year ~53000. US date fails `fromisoformat` → None.
+Millis → year ~53000. US date fails → None.
 
 **Gold behavior**  
 Detects magnitude, parses both ISO and US forms, returns UTC ISO string.
 
 **Why it matters**  
-`signup_at` is the weakest column (80% correct, 192k missed). Epoch ms and mixed formats are called out in the conditions.
+`signup_at` is the weakest column (80% correct, 192k missed).
 
 **What to change**  
-Add magnitude check for epoch, plus a couple of common date patterns (US `M/D/Y`, compact `YYYYMMDD`).
+Add magnitude check for epoch, plus common date patterns (US `M/D/Y`, compact `YYYYMMDD`).
 
 ---
 
 ## 5. Emails with display names
 
-**Your code**
+### Your current code (before)
+
 ```python
-# L48
-record.get("email").strip().lower() if isinstance(...) and record.get("email").count('@') == 1 else None
+record.get("email").strip().lower() if ... and record.get("email").count('@') == 1 else None
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# clean_email
-# strip mailto:, EMAIL_RE.search, lower the match
+# strip mailto:, then EMAIL_RE.search, lower the match
 ```
+
+### Explanation
+
+- **Before**: display-name forms (`Alice <alice@example.com>`) or `mailto:` prefixes produce invalid or rejected values.
+- **After**: a simple search extracts the real address.
 
 **Example input**  
 `"email": "Alice <alice@example.com>"`  
 or `"mailto:alice@example.com"`
 
 **Your behavior**  
-`count('@')` may pass but the value is not a clean address → invalid or rejected.
+May keep a non-address string or drop the cell.
 
 **Gold behavior**  
-Extracts the address with a regex and returns the clean lowercased form.
+Extracts and lower-cases the clean address.
 
 **Why it matters**  
 “Emails with display names” is 4% of the stream; recovery only 72%.
 
 **What to change**  
-Use a simple email regex that searches inside the string instead of requiring the whole field to be a bare address.
+Use a simple email regex that searches inside the string.
 
 ---
 
 ## 6. Plan aliases + numbers as strings
 
-**Your code**
+### Your current code (before)
+
 ```python
-# plan L39
 plan = record.get('plan').strip().lower() if ... else None
 # then only if plan in ['pro','free','team','enterprise']
 
-# seats / mrr L41–46 — int() / float() only
+seats = int(seats)          # fails on "1,234"
+mrr_usd = round(float(mrr),2)  # fails on "$99.50"
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# clean_plan — token split on non-letters
-# clean_seats — Decimal, strip commas, extract digits
-# clean_mrr — strip $, commas, quantize to 0.01
+# plan: take first alphabetic token
+# seats / mrr: strip $, commas, then Decimal / int
 ```
+
+### Explanation
+
+- **Before**: `"Pro Plan"` becomes `"pro plan"` → not in allow-list. Comma-formatted or currency values fail conversion.
+- **After**: token extraction + currency stripping recovers the cells.
 
 **Example input**  
-`"plan": "Pro Plan"`  
-`"seats": "1,234"`  
-`"mrr": "$99.50"`
+`"plan": "Pro Plan"`, `"seats": "1,234"`, `"mrr": "$99.50"`
 
 **Your behavior**  
-Plan becomes `"pro plan"` → not in allow-list → None. Seats/mrr fail `int`/`float`.
+Plan → None, seats/mrr → None.
 
 **Gold behavior**  
 `"pro"`, `1234`, `"99.50"`.
@@ -240,35 +289,40 @@ Take the first alphabetic token for plan. Strip currency symbols and thousands s
 
 ## 7. Customer ID strictness
 
-**Your code**
+### Your current code (before)
+
 ```python
-# L12–18
 if (customer_id.startswith('C-') and len(customer_id) == 9 and customer_id[2:].isdigit()):
     pass
 else:
     customer_id = None
 ```
 
-**Gold code**
+### Proposed change (after)
+
 ```python
-# clean_customer_id
-# accept int/float, strip spaces, upper, return any non-blank string
+# upper, strip spaces, accept optional C- prefix, keep any plausible id
 ```
+
+### Explanation
+
+- **Before**: any deviation from the exact 9-character form drops the whole row.
+- **After**: light cleaning keeps more recoverable keys.
 
 **Example input**  
 `"customer_id": "C-0000001 "` or `1234567` or `"c-0000001"`
 
 **Your behavior**  
-Fails the exact length/digit check → None → drop.
+Fails the exact check → None → drop.
 
 **Gold behavior**  
 Cleans and keeps the id.
 
 **Why it matters**  
-`customer_id` is the strongest column but still has 129k misses. Overly strict validation drops recoverable keys.
+`customer_id` still has 129k misses from over-strict validation.
 
 **What to change**  
-Upper-case, strip whitespace, accept the `C-` prefix optionally, and keep any plausible id rather than requiring exact length.
+Upper-case, strip whitespace, accept the `C-` prefix optionally, and keep any plausible id.
 
 ---
 
