@@ -575,3 +575,111 @@ My Week 1 solution handles ordinary JSON objects, normalizes common customer IDs
 The reference is more resilient because it treats transformations as explicit normalization functions and matches the expected streaming lifecycle. The first improvement should be the duplicate-emission fix because the README quantifies its penalty. After that, focus on recoverable parsing and the input variants identified by the competition brief.
 
 The goal is not to copy every line of the reference. It is to build small, testable transformations that cover the input contract while guaranteeing correct row identity and emission behavior.
+
+---
+
+# Rerun update — Week 1 — The Handoff: complete before/after code
+
+The highest-priority issue is duplicate output: process() emits each accepted row while finalize() emits the accumulated customers again. The README reports 854,938 second rows for existing keys, costing 1,709,876 points. Strict JSON parsing and narrow field normalization are additional gaps.
+
+## Code before — exact current handler.py
+
+The following is the complete handler snapshot fetched for this rerun, included verbatim as the before reference.
+
+```python
+import json
+from datetime import datetime, timezone
+
+class Handler:
+    customers = {}
+    def process(self, raw):
+        try:
+            record = json.loads(raw)
+            #### Normalize the value
+                ### customer_id
+            customer_id = record.get('customer_id')
+            if isinstance(customer_id, str):
+                customer_id = customer_id.strip().upper()
+                # parts = customer_id.split("-", 1)
+                # if (len(parts) == 2 and parts[0] == "C" and len(parts[1]) == 7 and parts[1].isdigit()):
+                if (customer_id.startswith('C-') and len(customer_id) == 9 and customer_id[2:].isdigit()):
+                    # valid customer_id
+                    pass
+                else:
+                    customer_id = None
+            else:
+                customer_id = None 
+            #### invalid customer_id
+            if customer_id is None:
+                return []             
+                ### signup_ts 
+            signup_ts = record.get('signup_ts')
+            if isinstance(signup_ts, (int,float)):
+                signup_at = datetime.fromtimestamp(signup_ts, tz = timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+            elif isinstance(signup_ts, str):
+                ### case string
+                try: 
+                    dt = datetime.fromisoformat(signup_ts.replace("Z", "+00:00"))
+                    signup_at = dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                except ValueError:
+                    signup_at = None
+            else:
+                signup_at = None
+                #### plan
+            plan = record.get('plan').strip().lower() if isinstance(record.get('plan'),str) else None
+                #### seats:
+            seats = record.get('seats')
+            try:
+                seats = int(seats) if seats is not None else None
+            except (ValueError, TypeError):
+                seats = None
+                #### mrr
+            mrr = record.get('mrr')
+            try:
+                mrr_usd = round(float(mrr),2) if mrr is not None else None
+            except (ValueError, TypeError):
+                mrr_usd = None
+                #### each row
+            row = {
+                "customer_id": customer_id,
+                "email": record.get("email").strip().lower() if isinstance(record.get("email"), str) and record.get("email").count('@') == 1 else None,
+                "signup_at": signup_at,
+                "plan": plan if plan in ['pro','free','team','enterprise'] else None,
+                "seats": seats,
+                "mrr_usd": mrr_usd
+            }
+            #### Add latest data:
+            Handler.customers[customer_id] = row
+            return [row]
+        except:
+            return []
+
+    def finalize(self):
+        return list(Handler.customers.values())
+```
+
+## Code after — proposed change
+
+```python
+class Handler:
+    def process(self, raw):
+        rec = parse_json_line(raw)  # copy helper from gold_submit.py
+        if not rec:
+            return []
+        row = clean_record(rec)    # copy its supported normalization helpers too
+        return [row] if row is not None else []
+
+    def finalize(self):
+        return []
+```
+
+This is the smallest architectural correction: emit a cleaned row once and do not retain and re-emit the same customer at finalization. It is executable only after the referenced parsing and cleaning helpers and their dependencies are copied into handler.py. Keep the output schema and identity rules unchanged.
+
+Validation: test one valid input, invalid identity, malformed JSON, epoch milliseconds, display-name email, currency-formatted MRR, and multiple records for the same ID. Compare exact values and row counts to the task contract.
+
+## Learning notes
+
+- The README's score, row counts, and named stream conditions are evidence; root-cause prioritization is an engineering assessment unless controlled tests prove it.
+- Make one architectural change at a time, then compare exact output values and row counts against the task contract.
+- Do not treat a proposal as drop-in code until all referenced helpers, constants, and dependencies are present and the full challenge test passes.
+- Keep memory, identity/deduplication, event-time ordering, status precedence, and output lifecycle as separate invariants; optimizing one must not silently break another.
