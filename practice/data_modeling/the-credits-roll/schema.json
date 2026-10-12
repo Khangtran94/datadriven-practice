@@ -1,0 +1,138 @@
+{
+  "tables": [
+    {
+      "name": "dim_film",
+      "columns": [
+        {
+          "name": "film_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "title",
+          "type": "CHAR"
+        },
+        {
+          "name": "released_year",
+          "type": "INT"
+        },
+        {
+          "name": "genre",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_person",
+      "columns": [
+        {
+          "name": "person_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "dob",
+          "type": "DATE"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "bridge_film_credit",
+      "columns": [
+        {
+          "name": "credit_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "film_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "person_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "production_role",
+          "type": "CHAR"
+        },
+        {
+          "name": "character_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "billing_order",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "bridge_film_credit",
+        "column": "film_id"
+      },
+      "to": {
+        "table": "dim_film",
+        "column": "film_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_film_credit",
+        "column": "person_id"
+      },
+      "to": {
+        "table": "dim_person",
+        "column": "person_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_film_credit",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "dim_order",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
