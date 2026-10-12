@@ -2,7 +2,7 @@ CREATE TABLE dim_team (
     team_id INT,
     office_id INT,
     manager_id INT,
-    department_id CHAR,
+    department_id INT,
     floor INT,
     name CHAR,
     number_members INT,

@@ -20,7 +20,7 @@
         },
         {
           "name": "department_id",
-          "type": "CHAR",
+          "type": "INT",
           "key": "fk"
         },
         {

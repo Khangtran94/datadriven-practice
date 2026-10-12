@@ -21,7 +21,7 @@ erDiagram
         INT team_id PK
         INT office_id FK
         INT manager_id FK
-        CHAR department_id FK
+        INT department_id FK
         INT floor
         CHAR name
         INT number_members
