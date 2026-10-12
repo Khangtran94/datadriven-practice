@@ -30,33 +30,65 @@ Work per record was actually strong (1.77× median vs the winner’s 1.71×). Of
 
 ## 1. Memory / state retention (the score-zero cause)
 
-**Your code**
+### Your current code (before)
+
 ```python
-# __init__
-self.groups = {}          # key → list of every candidate
-self.seen = set()         # md5 of every unique message body
-self.merge = {}
-self.n = 0
+class Handler:
+    def __init__(self):
+        self.groups = {}          # key → list of EVERY candidate ever seen
+        self.seen = set()         # md5 of every unique message body
+        self.merge = {}
+        self.n = 0
 
-# process
-e = self._parse(raw)
-if e is not None:
-    self.groups.setdefault(e.get("key"), []).append(e)
-return []
+    def process(self, raw):
+        try:
+            e = self._parse(raw)
+            if e is not None:
+                # always append — never discard older candidates
+                self.groups.setdefault(e.get("key"), []).append(e)
+        except Exception:
+            pass
+        return []                 # correct: never emit here
 
-# finalize – never reached on the full stream
-for entries in self.groups.values():
-    w = self._resolve(entries)
-    ...
+    def finalize(self):
+        rows = []
+        for entries in self.groups.values():
+            w = self._resolve(entries)   # only here do we pick the winner
+            if w is None:
+                continue
+            rows.append({...})
+        return rows
 ```
 
-**Gold pattern (typical top solution)**
+### Proposed change (after)
+
 ```python
-# keep only the single best row (or a tiny tuple) per key
-self.held = {}            # key → best candidate (tuple or compact object)
-# no permanent “seen” set of every line
-# process updates the single winner; finalize just emits the dict values
+class Handler:
+    def __init__(self):
+        self.held = {}            # key → ONLY the current best candidate
+        self.merge = {}           # keep if you still need MRG remapping
+        # NO self.seen
+        # NO list of history
+
+    def process(self, raw):
+        cand = self._parse(raw)   # return a compact candidate or None
+        if cand is None:
+            return []
+        key = cand["key"]         # or a tuple key
+        prev = self.held.get(key)
+        if prev is None or self._better(cand, prev):
+            self.held[key] = cand   # replace, never accumulate
+        return []
+
+    def finalize(self):
+        return [self._to_row(c) for c in self.held.values()]
 ```
+
+### Explanation
+
+- **Before**: every revision, duplicate, or preliminary stays in memory until the very end. On a 1 M-line stream with hundreds of thousands of keys this easily exceeds 512 MB.
+- **After**: only one object per key lives in memory. As soon as a better candidate arrives, the old one is discarded. Memory stays roughly proportional to the number of unique `(accession, test)` pairs, not to the number of lines.
+- This single change is the difference between “0 because OOM” and “0.7883 offline”.
 
 **Example input**  
 1 000 000 lines, many keys that receive 2–5 revisions or duplicates.
@@ -77,35 +109,63 @@ This is the sole reason the official score is 0. Offline the same logic scores 0
 
 ---
 
-## 2. Keep only the current winner
+## 2. Keep only the current winner (detailed)
 
-**Your code**
+### Your current code (before)
+
 ```python
 # process always appends
 self.groups.setdefault(e.get("key"), []).append(e)
 
 # resolve only at the very end
+@staticmethod
 def _resolve(entries):
     entries = sorted(entries, key=lambda e: (e["ts"] or MIN_TS, e["seq"]))
-    ...
-    return max(cands, key=lambda c: (not c["trunc"], RANK.get(c["st"], 0), ...))
+    cands, last = [], None
+    for e in entries:
+        if e["st"] == "U":
+            ...
+        cands.append(e)
+        if e["val"] is not None and e["st"] != "W":
+            last = e
+    if not cands:
+        return None
+    return max(cands, key=lambda c: (
+        not c["trunc"],
+        RANK.get(c["st"], 0),
+        c["ts"] or MIN_TS,
+        c["seq"]
+    ))
 ```
 
-**Gold / recommended**
+### Proposed change (after)
+
 ```python
-def process(...):
-    cand = parse(...)
+def _better(self, new, old) -> bool:
+    """Return True if `new` should replace `old`."""
+    # same ranking logic you already have, just applied online
+    new_rank = (not new["trunc"], RANK.get(new["st"], 0),
+                new["ts"] or MIN_TS, new["seq"])
+    old_rank = (not old["trunc"], RANK.get(old["st"], 0),
+                old["ts"] or MIN_TS, old["seq"])
+    return new_rank > old_rank
+
+def process(self, raw):
+    cand = self._parse(raw)
     if cand is None:
         return []
-    key = cand.key
+    key = cand["key"]
     prev = self.held.get(key)
-    if prev is None or better(cand, prev):
-        self.held[key] = cand          # replace, never accumulate
+    if prev is None or self._better(cand, prev):
+        self.held[key] = cand
     return []
-
-def finalize(self):
-    return [to_row(c) for c in self.held.values()]
 ```
+
+### Explanation
+
+- You already have a good ranking function (`_resolve`).
+- The only change needed is to run that ranking **every time** a new candidate arrives, instead of collecting the whole history and ranking once at the end.
+- Result: memory stays flat; the final answer is identical.
 
 **Example input**  
 Same accession + test receives a preliminary, then a final, then a duplicate final.
@@ -126,7 +186,8 @@ Update-in-place. Never keep history once a better candidate has been seen.
 
 ## 3. Fingerprint / seen set
 
-**Your code**
+### Your current code (before)
+
 ```python
 digest = hashlib.md5(s.encode("utf-8", "ignore")).digest()
 if digest in self.seen:
@@ -134,8 +195,18 @@ if digest in self.seen:
 self.seen.add(digest)
 ```
 
-**Gold / recommended**  
-Most top solutions either skip permanent fingerprints or use a very short-lived / bounded structure. Deduplication is usually achieved by the “keep-best” logic itself (identical content produces an identical or worse candidate).
+### Proposed change (after)
+
+```python
+# simply delete the three lines above
+# (or keep a very small LRU if you really need exact-duplicate suppression)
+```
+
+### Explanation
+
+- Once you keep only the best candidate per key, an exact duplicate produces a candidate that is equal or worse → it is automatically ignored.
+- The global `seen` set therefore becomes pure overhead. On a stream with many exact replays it alone can consume hundreds of megabytes.
+- Removing it is safe and immediately lowers peak memory.
 
 **Why it matters**  
 On a stream with many exact replays the set alone can consume hundreds of megabytes.
@@ -147,11 +218,44 @@ Remove `self.seen` (or make it a small LRU / bloom filter) once you keep only th
 
 ## 4. Compact representation
 
-**Your code**  
-Each candidate is a full Python dict with string keys and string values.
+### Your current code (before)
 
-**Gold pattern**  
-Integer codes for test / unit / status, microsecond timestamps as int, patient_id as int or None, etc. A 7–8 element tuple is dramatically cheaper than a dict.
+```python
+return {
+    "key": (acc, test),
+    "acc": acc, "test": test, "pid": pid, "val": val,
+    "unit": norm_unit(...),
+    "obs": fmt_ts(...),
+    "st": st, "ts": parse_ts(...),
+    "trunc": trunc, "seq": self.n,
+}
+# → full Python dict with string keys
+```
+
+### Proposed change (after)
+
+```python
+# store a compact tuple (or a tiny __slots__ object)
+# example order: (acc, test_idx, pid, val_scaled, unit_idx, obs_us, status_idx, trunc, seq)
+return (
+    acc,
+    TEST_CODES.get(code, -1),          # int
+    pid,                               # int or None
+    val_scaled,                        # int (e.g. cents) or None
+    unit_idx,                          # int
+    obs_us,                            # int microseconds or None
+    STATUS_MAP.get(tok, 0),            # int
+    trunc,                             # bool
+    self.n,
+)
+```
+
+### Explanation
+
+- A Python dict has significant per-object overhead (hash table, string keys, etc.).
+- A 9-element tuple of mostly integers is dramatically cheaper.
+- When you hold hundreds of thousands of candidates the difference is hundreds of MB.
+- You only expand back to the final dict shape inside `finalize` / `_to_row`.
 
 **Why it matters**  
 Dicts have high per-object overhead. On hundreds of thousands of keys the difference is hundreds of MB.
@@ -163,14 +267,16 @@ Store the minimal fields needed for ranking and emission as a tuple (or a tiny `
 
 ## 5. Status / revision ranking (already strong)
 
-**Your code**
+### Your current code
+
 ```python
 RANK = {"corrected": 4, "final": 3, "W": 2, "preliminary": 1}
 # _resolve prefers non-truncated, higher RANK, later timestamp, later seq
 # special handling for status "U"
 ```
 
-This logic is already close to what a top solution needs. Once memory is fixed it will contribute to the 0.7883 offline score.
+This logic is already close to what a top solution needs. Once memory is fixed it will contribute to the 0.7883 offline score.  
+Just move the same comparison into the online `_better` helper shown in section 2.
 
 ---
 
@@ -184,28 +290,44 @@ After the memory rewrite, re-run offline and measure which of the high-frequency
 
 ---
 
-## Recommended pattern
+## Recommended pattern (complete skeleton)
 
 ```python
 class Handler:
     def __init__(self):
-        self.held = {}          # key → single best candidate (tuple / compact)
-        # optional: self.merge = {} for MRG → PID remapping
+        self.held = {}            # key → single best candidate (tuple / compact)
+        self.merge = {}           # optional: MRG → PID remapping
         # NO permanent set of every line fingerprint
 
     def process(self, raw: str) -> list[dict]:
-        cand = self._parse(raw)          # returns None or a compact candidate
+        cand = self._parse(raw)   # returns None or a compact candidate
         if cand is None:
             return []
-        key = cand.key
+        key = cand[0]             # or whatever you use as key
         prev = self.held.get(key)
         if prev is None or self._better(cand, prev):
             self.held[key] = cand
-        return []                        # never emit here
+        return []                 # never emit here
 
     def finalize(self) -> list[dict]:
         # optional: apply merges, resolve any remaining status edge-cases
         return [self._to_row(c) for c in self.held.values()]
+
+    def _better(self, new, old) -> bool:
+        # reuse the ranking you already wrote
+        ...
+
+    def _to_row(self, c) -> dict:
+        # expand the compact candidate into the final schema
+        return {
+            "accession": ...,
+            "test": ...,
+            "patient_id": ...,
+            "value": ...,
+            "unit": ...,
+            "observed_at": ...,
+            "status": ...,
+        }
 ```
 
 Keep only the current winner, store small tuples, drop the global fingerprint set, and the same logic that scored 0.7883 offline will finish under the 512 MB limit and produce a real ranking.
