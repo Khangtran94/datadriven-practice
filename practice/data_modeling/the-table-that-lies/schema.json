@@ -1,0 +1,206 @@
+{
+  "tables": [
+    {
+      "name": "dim_stylist",
+      "columns": [
+        {
+          "name": "stylist_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_client",
+      "columns": [
+        {
+          "name": "client_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "session_log",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "stylist_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "client_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        },
+        {
+          "name": "start_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_item",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "item_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "session_item",
+      "columns": [
+        {
+          "name": "session_item_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "session_log",
+        "column": "stylist_id"
+      },
+      "to": {
+        "table": "dim_stylist",
+        "column": "stylist_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session_log",
+        "column": "client_id"
+      },
+      "to": {
+        "table": "dim_client",
+        "column": "client_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session_log",
+        "column": "session_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session_item",
+        "column": "item_id"
+      },
+      "to": {
+        "table": "dim_item",
+        "column": "item_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "session_item",
+        "column": "session_id"
+      },
+      "to": {
+        "table": "session_log",
+        "column": "session_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

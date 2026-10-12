@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Table That Lies](./practice/data_modeling/the-table-that-lies) | Data Modeling | Medium | 2026-10-12 |
 | [Every Line Counts](./practice/data_modeling/every-line-counts) | Data Modeling | Medium | 2026-10-12 |
 | [Lateral Paths](./practice/data_modeling/lateral-paths) | Data Modeling | Medium | 2026-10-12 |
 | [The No-Show](./practice/data_modeling/the-no-show) | Data Modeling | Easy | 2026-10-12 |
