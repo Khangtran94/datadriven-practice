@@ -1,0 +1,228 @@
+{
+  "tables": [
+    {
+      "name": "fact_receipt_line",
+      "columns": [
+        {
+          "name": "receipt_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_scanned",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "store_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "promotion_product_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_store",
+      "columns": [
+        {
+          "name": "store_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_region",
+      "columns": [
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "department_name",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_promotion",
+      "columns": [
+        {
+          "name": "promotion_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "type",
+          "type": "CHAR"
+        },
+        {
+          "name": "campaign_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "bridge_promotion_product",
+      "columns": [
+        {
+          "name": "promotion_product_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "promotion_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "discount_rate",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_store",
+        "column": "region_id"
+      },
+      "to": {
+        "table": "dim_region",
+        "column": "region_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_receipt_line",
+        "column": "date_scanned"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_promotion_product",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_promotion_product",
+        "column": "promotion_id"
+      },
+      "to": {
+        "table": "dim_promotion",
+        "column": "promotion_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_receipt_line",
+        "column": "store_id"
+      },
+      "to": {
+        "table": "dim_store",
+        "column": "store_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_receipt_line",
+        "column": "promotion_product_sk"
+      },
+      "to": {
+        "table": "bridge_promotion_product",
+        "column": "promotion_product_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
