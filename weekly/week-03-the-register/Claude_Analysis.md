@@ -80,6 +80,7 @@ Stream-loss figures are rough: share of stream × share not recovered, per the R
 ```python
 RANK = {"actual": 2, "estimated": 1, None: 0}
 
+class Handler:                                           # excerpt: the process() method
     def process(self, raw):
         try:
             rec = parse_raw(raw)
@@ -147,6 +148,7 @@ RANK = {"actual": 2, "estimated": 1, None: 0}
 
 **After**
 ```python
+class Handler:                                           # excerpt: the finalize() method
     def finalize(self):
         out, by_meter = [], {}
         for (meter, end), cell in self.held.items():
@@ -555,7 +557,7 @@ def clean_energy(v, key, sibling_unit):                  # -> Decimal kWh with 3
 
 **Example input**: `" m0000017 "`; `"M0000018"` (no dash); `{"meter":{"id":"M-0000019"}}`.
 
-**Your behavior**: the first two are dropped (a missing dash fails the full match; lowercase with spaces is rejected by the key lookup path). The nested id is found by `flatten`.
+**Your behavior**: the first two are dropped (neither id has the dash, so the full match fails; trimming and uppercasing alone would have handled a dashed id). The nested id is found by `flatten`.
 
 **Gold behavior**: all three resolve.
 
