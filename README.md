@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Endless Thread](./practice/data_modeling/the-endless-thread) | Data Modeling | Medium | 2026-10-13 |
 | [The Vanishing State](./practice/data_modeling/the-vanishing-state) | Data Modeling | Easy | 2026-10-13 |
 | [Open Threads](./practice/data_modeling/open-threads) | Data Modeling | Medium | 2026-10-13 |
 | [The Hourly Bucket](./practice/python/the-hourly-bucket) | Python | Medium | 2026-10-13 |

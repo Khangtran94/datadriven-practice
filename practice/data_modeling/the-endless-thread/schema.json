@@ -1,0 +1,305 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_creator",
+      "columns": [
+        {
+          "name": "creator_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "bridge_follow",
+      "columns": [
+        {
+          "name": "follow_date",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "create_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        }
+      ]
+    },
+    {
+      "name": "dim_post",
+      "columns": [
+        {
+          "name": "post_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "creator_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "post_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "content",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "like_post",
+      "columns": [
+        {
+          "name": "like_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "post_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "like_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "name": "comment_table",
+      "columns": [
+        {
+          "name": "comment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "post_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "content",
+          "type": "CHAR"
+        },
+        {
+          "name": "comment_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "name": "reply_table",
+      "columns": [
+        {
+          "name": "reply_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "reply_from_comment_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "content",
+          "type": "CHAR"
+        },
+        {
+          "name": "reply_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "bridge_follow",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_follow",
+        "column": "create_id"
+      },
+      "to": {
+        "table": "dim_creator",
+        "column": "creator_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_follow",
+        "column": "follow_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_post",
+        "column": "creator_id"
+      },
+      "to": {
+        "table": "dim_creator",
+        "column": "creator_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "like_post",
+        "column": "post_id"
+      },
+      "to": {
+        "table": "dim_post",
+        "column": "post_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "like_post",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "comment_table",
+        "column": "post_id"
+      },
+      "to": {
+        "table": "dim_post",
+        "column": "post_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "comment_table",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "reply_table",
+        "column": "reply_from_comment_id"
+      },
+      "to": {
+        "table": "comment_table",
+        "column": "comment_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "reply_table",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
