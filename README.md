@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Long Route](./practice/data_modeling/the-long-route) | Data Modeling | Hard | 2026-10-13 |
 | [The Endless Thread](./practice/data_modeling/the-endless-thread) | Data Modeling | Medium | 2026-10-13 |
 | [The Vanishing State](./practice/data_modeling/the-vanishing-state) | Data Modeling | Easy | 2026-10-13 |
 | [Open Threads](./practice/data_modeling/open-threads) | Data Modeling | Medium | 2026-10-13 |

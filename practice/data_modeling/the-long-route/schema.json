@@ -1,0 +1,268 @@
+{
+  "tables": [
+    {
+      "name": "order_item",
+      "columns": [
+        {
+          "name": "order_item_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "amount",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_item",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_shipment_cycle",
+      "columns": [
+        {
+          "name": "shipment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "picking_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "packing_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "loading_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "current_status",
+          "type": "CHAR"
+        },
+        {
+          "name": "center_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_item_id",
+          "type": "INT",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "dim_center",
+      "columns": [
+        {
+          "name": "center_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_order",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_item",
+        "column": "item_id"
+      },
+      "to": {
+        "table": "dim_item",
+        "column": "item_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_item",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "dim_order",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_shipment_cycle",
+        "column": "center_id"
+      },
+      "to": {
+        "table": "dim_center",
+        "column": "center_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_shipment_cycle",
+        "column": "order_item_id"
+      },
+      "to": {
+        "table": "order_item",
+        "column": "order_item_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_shipment_cycle",
+        "column": "picking_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_shipment_cycle",
+        "column": "packing_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_shipment_cycle",
+        "column": "loading_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
