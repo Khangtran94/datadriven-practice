@@ -1,7 +1,6 @@
 SELECT repo_name,
-    SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) AS success_count,
-    SUM(CASE WHEN status = 'failure' THEN 1 ELSE 0 END) AS failure_count,
-    AVG(dur_secs) AS avg_duration
+    COUNT(*) FILTER(WHERE status = 'success') AS success_count,
+    COUNT(*) FILTER(WHERE status = 'failure') AS failure_count,
+    ROUND(AVG(dur_secs),3) AS avg_duration
 FROM ci_builds
-GROUP BY repo_name
-ORDER BY repo_name
+GROUP BY 1
