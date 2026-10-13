@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Hourly Bucket](./practice/python/the-hourly-bucket) | Python | Medium | 2026-10-13 |
 | [The Weight of the Cloud](./practice/sql/the-weight-of-the-cloud) | SQL | Medium | 2026-10-12 |
 | [The Table That Lies](./practice/data_modeling/the-table-that-lies) | Data Modeling | Medium | 2026-10-12 |
 | [Every Line Counts](./practice/data_modeling/every-line-counts) | Data Modeling | Medium | 2026-10-12 |
