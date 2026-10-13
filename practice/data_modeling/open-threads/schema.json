@@ -1,0 +1,129 @@
+{
+  "tables": [
+    {
+      "name": "dim_employee",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_application",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "name": "daily_app_sessions",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "duration",
+          "type": "INT"
+        },
+        {
+          "name": "start_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_ts",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "session_incomplete",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "flag_overdue",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "daily_app_sessions",
+        "column": "employee_id"
+      },
+      "to": {
+        "table": "dim_employee",
+        "column": "employee_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "daily_app_sessions",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "daily_app_sessions",
+        "column": "application_id"
+      },
+      "to": {
+        "table": "dim_application",
+        "column": "application_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
