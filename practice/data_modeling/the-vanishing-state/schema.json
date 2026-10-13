@@ -1,0 +1,206 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "ticket_lifecycle",
+      "columns": [
+        {
+          "name": "ticket_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "agent_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "ticket_type_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_created",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "created_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "opened_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "processed_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "resolved_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "current_status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_ticket_type",
+      "columns": [
+        {
+          "name": "ticket_type_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "time_to_solve",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_agent",
+      "columns": [
+        {
+          "name": "agent_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "description",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "status_log",
+      "columns": [
+        {
+          "name": "log_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "ticket_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        },
+        {
+          "name": "changed_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "ticket_lifecycle",
+        "column": "date_created"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "ticket_lifecycle",
+        "column": "ticket_type_id"
+      },
+      "to": {
+        "table": "dim_ticket_type",
+        "column": "ticket_type_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "ticket_lifecycle",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "ticket_lifecycle",
+        "column": "agent_id"
+      },
+      "to": {
+        "table": "dim_agent",
+        "column": "agent_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "status_log",
+        "column": "ticket_id"
+      },
+      "to": {
+        "table": "ticket_lifecycle",
+        "column": "ticket_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
