@@ -9,7 +9,7 @@ CREATE TABLE order_item (
 
 CREATE TABLE dim_order (
     order_id INT,
-    order_date DATE,
+    order_date INT,
     customer_id INT,
     PRIMARY KEY (order_id)
 );
@@ -36,11 +36,8 @@ CREATE TABLE dim_item (
     PRIMARY KEY (item_id)
 );
 
-CREATE TABLE fact_shipment_cycle (
+CREATE TABLE shipment (
     shipment_id INT,
-    picking_date DATE,
-    packing_date DATE,
-    loading_date DATE,
     current_status CHAR,
     center_id INT,
     order_item_id INT,
@@ -52,6 +49,14 @@ CREATE TABLE dim_center (
     name CHAR,
     address CHAR,
     PRIMARY KEY (center_id)
+);
+
+CREATE TABLE shipment_event (
+    event_id INT,
+    shipment_id INT,
+    event_type CHAR,
+    event_ts TIMESTAMP,
+    PRIMARY KEY (event_id)
 );
 
 ALTER TABLE dim_order
@@ -66,17 +71,11 @@ ALTER TABLE order_item
 ALTER TABLE order_item
     ADD FOREIGN KEY (order_id) REFERENCES dim_order (order_id);
 
-ALTER TABLE fact_shipment_cycle
+ALTER TABLE shipment
     ADD FOREIGN KEY (center_id) REFERENCES dim_center (center_id);
 
-ALTER TABLE fact_shipment_cycle
+ALTER TABLE shipment
     ADD FOREIGN KEY (order_item_id) REFERENCES order_item (order_item_id);
 
-ALTER TABLE fact_shipment_cycle
-    ADD FOREIGN KEY (picking_date) REFERENCES dim_date (date_sk);
-
-ALTER TABLE fact_shipment_cycle
-    ADD FOREIGN KEY (packing_date) REFERENCES dim_date (date_sk);
-
-ALTER TABLE fact_shipment_cycle
-    ADD FOREIGN KEY (loading_date) REFERENCES dim_date (date_sk);
+ALTER TABLE shipment_event
+    ADD FOREIGN KEY (shipment_id) REFERENCES shipment (shipment_id);

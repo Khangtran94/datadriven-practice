@@ -38,7 +38,7 @@
         },
         {
           "name": "order_date",
-          "type": "DATE",
+          "type": "INT",
           "key": "fk"
         },
         {
@@ -107,27 +107,12 @@
       ]
     },
     {
-      "name": "fact_shipment_cycle",
+      "name": "shipment",
       "columns": [
         {
           "name": "shipment_id",
           "type": "INT",
           "key": "pk"
-        },
-        {
-          "name": "picking_date",
-          "type": "DATE",
-          "key": "fk"
-        },
-        {
-          "name": "packing_date",
-          "type": "DATE",
-          "key": "fk"
-        },
-        {
-          "name": "loading_date",
-          "type": "DATE",
-          "key": "fk"
         },
         {
           "name": "current_status",
@@ -160,6 +145,29 @@
         {
           "name": "address",
           "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "shipment_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "shipment_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "event_ts",
+          "type": "TIMESTAMP"
         }
       ]
     }
@@ -211,7 +219,7 @@
     },
     {
       "from": {
-        "table": "fact_shipment_cycle",
+        "table": "shipment",
         "column": "center_id"
       },
       "to": {
@@ -222,7 +230,7 @@
     },
     {
       "from": {
-        "table": "fact_shipment_cycle",
+        "table": "shipment",
         "column": "order_item_id"
       },
       "to": {
@@ -233,34 +241,12 @@
     },
     {
       "from": {
-        "table": "fact_shipment_cycle",
-        "column": "picking_date"
+        "table": "shipment_event",
+        "column": "shipment_id"
       },
       "to": {
-        "table": "dim_date",
-        "column": "date_sk"
-      },
-      "foreign_key": true
-    },
-    {
-      "from": {
-        "table": "fact_shipment_cycle",
-        "column": "packing_date"
-      },
-      "to": {
-        "table": "dim_date",
-        "column": "date_sk"
-      },
-      "foreign_key": true
-    },
-    {
-      "from": {
-        "table": "fact_shipment_cycle",
-        "column": "loading_date"
-      },
-      "to": {
-        "table": "dim_date",
-        "column": "date_sk"
+        "table": "shipment",
+        "column": "shipment_id"
       },
       "foreign_key": true
     }
