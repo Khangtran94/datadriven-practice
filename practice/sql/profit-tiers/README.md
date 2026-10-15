@@ -2,7 +2,7 @@
 
 *High, moderate, or in the red. Every order gets a label.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/profit_tiers)
+[SQL · Easy · on DataDriven](https://datadriven.io/problems/profit_tiers)
 
 ## How it went
 
