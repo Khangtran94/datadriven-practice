@@ -104,7 +104,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Returning Buyers](./practice/sql/returning-buyers) | SQL | Medium | 2026-09-17 |
 | [Before They Walk](./practice/sql/before-they-walk) | SQL | Medium | 2026-09-17 |
 | [Reviewer Performance Metrics](./practice/sql/reviewer-performance-metrics) | SQL | Medium | 2026-09-17 |
-| [Above the Fold](./practice/sql/above-the-fold) | SQL | Hard | 2026-09-17 |
+| [Above the Fold](./practice/sql/above-the-fold) | SQL | Easy | 2026-09-17 |
 | [The Weekly Pulse](./practice/sql/the-weekly-pulse) | SQL | Medium | 2026-09-17 |
 | [App Stability by Region](./practice/sql/app-stability-by-region) | SQL | Medium | 2026-09-17 |
 | [The Subscription Ghost](./practice/sql/the-subscription-ghost) | SQL | Medium | 2026-09-17 |
