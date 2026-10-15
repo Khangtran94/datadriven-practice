@@ -1,9 +1,14 @@
-SELECT category, product_name, 
+with total AS
+(SELECT category, 
+    product_name, 
     SUM(total_amount) AS total_revenue
 FROM products
-INNER JOIN transactions 
+INNER JOIN transactions
 USING (product_id)
-where extract(year from transaction_date) = 2026
-GROUP BY 1,2 
-QUALIFY DENSE_RANK() OVER(PARTITION BY category ORDER BY total_revenue DESC) = 1
-order by 3 desc
+WHERE extract(year FROM transaction_date) = 2026
+GROUP BY 1,2)
+
+SELECT category, product_name, total_revenue
+FROM total
+QUALIFY RANK() OVER(PARTITION BY category ORDER BY total_revenue DESC, product_name) = 1
+ORDER BY total_revenue desc
