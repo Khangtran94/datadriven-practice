@@ -2,7 +2,7 @@
 
 *Session length, device by device.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/average_session_duration_by_device)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/average_session_duration_by_device)
 
 ## How it went
 
