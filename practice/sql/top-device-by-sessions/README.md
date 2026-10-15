@@ -2,7 +2,7 @@
 
 *One device type generates the most sessions.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/top_device_by_sessions)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/top_device_by_sessions)
 
 ## How it went
 

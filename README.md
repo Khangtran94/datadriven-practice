@@ -373,7 +373,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Unclicked Searches by Campaign](./practice/sql/unclicked-searches-by-campaign) | SQL | Medium | 2026-07-16 |
 | [Top Repos by Successful Builds](./practice/sql/top-repos-by-successful-builds) | SQL | Medium | 2026-07-16 |
 | [Top Region by Order Volume](./practice/sql/top-region-by-order-volume) | SQL | Medium | 2026-07-16 |
-| [Top Device by Sessions](./practice/sql/top-device-by-sessions) | SQL | Easy | 2026-07-16 |
+| [Top Device by Sessions](./practice/sql/top-device-by-sessions) | SQL | Medium | 2026-07-16 |
 | [Tables With Most DQ Failures](./practice/sql/tables-with-most-dq-failures) | SQL | Medium | 2026-07-16 |
 | [The First Half](./practice/sql/the-first-half) | SQL | Easy | 2026-07-16 |
 | [Between Two Extremes](./practice/sql/between-two-extremes) | SQL | Medium | 2026-07-16 |
