@@ -1,0 +1,238 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_account",
+      "columns": [
+        {
+          "name": "account_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "account_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "region",
+          "type": "CHAR"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE"
+        },
+        {
+          "name": "is_current",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "category_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_category",
+      "columns": [
+        {
+          "name": "category_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "parent_category_id",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "fact_order_line",
+      "columns": [
+        {
+          "name": "order_line_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "unit_price",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "order_date",
+          "type": "INT"
+        },
+        {
+          "name": "commission_rate",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "order_table",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "buyer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "estimated_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_product",
+        "column": "category_id"
+      },
+      "to": {
+        "table": "dim_category",
+        "column": "category_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_table",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order_line",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "order_table",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order_line",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_table",
+        "column": "buyer_id"
+      },
+      "to": {
+        "table": "dim_account",
+        "column": "account_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order_line",
+        "column": "seller_id"
+      },
+      "to": {
+        "table": "dim_account",
+        "column": "account_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
