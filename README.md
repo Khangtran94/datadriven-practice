@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Who Came First](./practice/python/who-came-first) | Python | Easy | 2026-10-16 |
 | [Crossing Over](./practice/data_modeling/crossing-over) | Data Modeling | Medium | 2026-10-16 |
 | [The Gift Economy](./practice/data_modeling/the-gift-economy) | Data Modeling | Medium | 2026-10-16 |
 | [Marketplace Sales Warehouse](./practice/data_modeling/marketplace-sales-warehouse) | Data Modeling | Hard | 2026-10-16 |
