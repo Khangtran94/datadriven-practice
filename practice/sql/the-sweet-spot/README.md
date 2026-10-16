@@ -2,7 +2,7 @@
 
 *Cheap and highly rated. A rare combination.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/the_sweet_spot)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/the_sweet_spot)
 
 ## How it went
 

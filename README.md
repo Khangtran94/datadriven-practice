@@ -696,7 +696,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Engagement Curve](./practice/sql/the-engagement-curve) | SQL | Medium | 2026-06-30 |
 | [Noisiest Tables by DQ Failures](./practice/sql/noisiest-tables-by-dq-failures) | SQL | Medium | 2026-06-30 |
 | [Parallel Traces](./practice/sql/parallel-traces) | SQL | Medium | 2026-06-30 |
-| [The Sweet Spot](./practice/sql/the-sweet-spot) | SQL | Easy | 2026-06-30 |
+| [The Sweet Spot](./practice/sql/the-sweet-spot) | SQL | Medium | 2026-06-30 |
 | [Most Popular Signup Day](./practice/sql/most-popular-signup-day) | SQL | Medium | 2026-06-30 |
 | [The Vital Signs](./practice/sql/the-vital-signs) | SQL | Easy | 2026-06-30 |
 | [Features With Missing Values](./practice/sql/features-with-missing-values) | SQL | Easy | 2026-06-30 |
