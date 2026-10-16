@@ -758,7 +758,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Spending Velocity](./practice/sql/spending-velocity) | SQL | Medium | 2026-06-25 |
 | [Department Running Totals](./practice/sql/department-running-totals) | SQL | Medium | 2026-06-25 |
 | [The Long Climb](./practice/sql/the-long-climb) | SQL | Medium | 2026-06-25 |
-| [Average Session Duration by Device](./practice/sql/average-session-duration-by-device) | SQL | Medium | 2026-06-25 |
+| [Average Session Duration by Device](./practice/sql/average-session-duration-by-device) | SQL | Easy | 2026-06-25 |
 | [Low Latency API Calls](./practice/sql/low-latency-api-calls) | SQL | Easy | 2026-06-25 |
 | [Hottest Regions by CPU](./practice/sql/hottest-regions-by-cpu) | SQL | Medium | 2026-06-23 |
 | [Satisfaction by Platform](./practice/sql/satisfaction-by-platform) | SQL | Medium | 2026-06-23 |
