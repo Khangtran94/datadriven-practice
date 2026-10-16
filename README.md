@@ -19,6 +19,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Gift Economy](./practice/data_modeling/the-gift-economy) | Data Modeling | Medium | 2026-10-16 |
 | [Marketplace Sales Warehouse](./practice/data_modeling/marketplace-sales-warehouse) | Data Modeling | Hard | 2026-10-16 |
 | [The Long Route](./practice/data_modeling/the-long-route) | Data Modeling | Hard | 2026-10-13 |
 | [The Endless Thread](./practice/data_modeling/the-endless-thread) | Data Modeling | Medium | 2026-10-13 |

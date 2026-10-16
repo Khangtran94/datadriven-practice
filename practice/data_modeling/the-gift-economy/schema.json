@@ -1,0 +1,282 @@
+{
+  "tables": [
+    {
+      "name": "dim_creator",
+      "columns": [
+        {
+          "name": "creator_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_viewer",
+      "columns": [
+        {
+          "name": "viewer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "chat_message",
+      "columns": [
+        {
+          "name": "chat_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "message_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "message",
+          "type": "VARCHAR"
+        }
+      ]
+    },
+    {
+      "name": "stream",
+      "columns": [
+        {
+          "name": "stream_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_stream",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "category_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "creator_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "start_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "name": "viewer_session",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "stream_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "viewer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "join_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "leave_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "name": "gift",
+      "columns": [
+        {
+          "name": "gift_event",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "dollar_amount",
+          "type": "FLOAT"
+        },
+        {
+          "name": "send_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "gift_name",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "gift_purchase",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "stream_category",
+      "columns": [
+        {
+          "name": "category_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "genre",
+          "type": "CHAR"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "viewer_session",
+        "column": "stream_id"
+      },
+      "to": {
+        "table": "stream",
+        "column": "stream_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "stream",
+        "column": "date_stream"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "viewer_session",
+        "column": "viewer_id"
+      },
+      "to": {
+        "table": "dim_viewer",
+        "column": "viewer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "chat_message",
+        "column": "session_id"
+      },
+      "to": {
+        "table": "viewer_session",
+        "column": "session_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "stream",
+        "column": "creator_id"
+      },
+      "to": {
+        "table": "dim_creator",
+        "column": "creator_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "stream",
+        "column": "category_id"
+      },
+      "to": {
+        "table": "stream_category",
+        "column": "category_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "gift",
+        "column": "session_id"
+      },
+      "to": {
+        "table": "viewer_session",
+        "column": "session_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
