@@ -1,0 +1,142 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_patient",
+      "columns": [
+        {
+          "name": "patient_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_adverse_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "patient_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "adverse_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "patient_arm",
+      "columns": [
+        {
+          "name": "arm_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "treatment_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "patient_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "dose",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_adverse_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_adverse_event",
+        "column": "patient_id"
+      },
+      "to": {
+        "table": "dim_patient",
+        "column": "patient_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "patient_arm",
+        "column": "treatment_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "patient_arm",
+        "column": "patient_id"
+      },
+      "to": {
+        "table": "dim_patient",
+        "column": "patient_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
