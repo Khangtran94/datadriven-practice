@@ -713,7 +713,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Events by Month Across Years](./practice/sql/events-by-month-across-years) | SQL | Easy | 2026-06-29 |
 | [First Build per Repository](./practice/sql/first-build-per-repository) | SQL | Easy | 2026-06-29 |
 | [The Multiplication Trail](./practice/python/the-multiplication-trail) | Python | Easy | 2026-06-28 |
-| [Build Success vs Failure by Repo](./practice/sql/build-success-vs-failure-by-repo) | SQL | Easy | 2026-06-28 |
+| [Build Success vs Failure by Repo](./practice/sql/build-success-vs-failure-by-repo) | SQL | Medium | 2026-06-28 |
 | [By What They Answer To](./practice/python/by-what-they-answer-to) | Python | Medium | 2026-06-26 |
 | [Find Mode](./practice/python/find-mode) | Python | Medium | 2026-06-26 |
 | [The Runaway Leader](./practice/python/the-runaway-leader) | Python | Easy | 2026-06-26 |
