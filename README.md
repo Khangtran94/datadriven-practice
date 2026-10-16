@@ -729,7 +729,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Highest Latency Endpoints](./practice/sql/highest-latency-endpoints) | SQL | Easy | 2026-06-25 |
 | [Models With Variable Accuracy](./practice/sql/models-with-variable-accuracy) | SQL | Medium | 2026-06-25 |
 | [Highest Cost Per Team](./practice/sql/highest-cost-per-team) | SQL | Easy | 2026-06-25 |
-| [The Vanishing Rows](./practice/sql/the-vanishing-rows) | SQL | Medium | 2026-06-25 |
+| [The Vanishing Rows](./practice/sql/the-vanishing-rows) | SQL | Easy | 2026-06-25 |
 | [Metric Volatility Gap](./practice/sql/metric-volatility-gap) | SQL | Easy | 2026-06-25 |
 | [Metric Range Per Group](./practice/sql/metric-range-per-group) | SQL | Easy | 2026-06-25 |
 | [The Weight of Giants](./practice/sql/the-weight-of-giants) | SQL | Medium | 2026-06-25 |

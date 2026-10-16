@@ -2,7 +2,7 @@
 
 *Some records disappear when the tables meet. Figure out why.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/the_vanishing_rows)
+[SQL · Easy · on DataDriven](https://datadriven.io/problems/the_vanishing_rows)
 
 ## How it went
 
