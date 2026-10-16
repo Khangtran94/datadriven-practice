@@ -253,7 +253,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Endless Scroll](./practice/sql/endless-scroll) | SQL | Medium | 2026-08-24 |
 | [Session Overview](./practice/sql/session-overview) | SQL | Medium | 2026-08-24 |
 | [Engagement Gap](./practice/sql/engagement-gap) | SQL | Medium | 2026-08-24 |
-| [Profit Tiers](./practice/sql/profit-tiers) | SQL | Easy | 2026-08-24 |
+| [Profit Tiers](./practice/sql/profit-tiers) | SQL | Medium | 2026-08-24 |
 | [Service Budget per Head](./practice/sql/service-budget-per-head) | SQL | Medium | 2026-08-24 |
 | [Still Climbing](./practice/sql/still-climbing) | SQL | Easy | 2026-08-24 |
 | [The Loudest Caller](./practice/sql/the-loudest-caller) | SQL | Easy | 2026-08-24 |
