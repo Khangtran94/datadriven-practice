@@ -12,7 +12,7 @@
 | Accepted | on the first submission |
 | Time | 8 min |
 | Hints | none |
-| Query complexity | O(n log n), optimal |
+| Query complexity | O(n), optimal |
 | Concepts | Counting, Distinct Counting, Deduplication, Date Parts, Grouping, Group Filtering, Sorting Results, Query Basics, Sums & Averages, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
