@@ -751,7 +751,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Department Spend Gap](./practice/sql/department-spend-gap) | SQL | Easy | 2026-06-25 |
 | [The Org Chart in Numbers](./practice/sql/the-org-chart-in-numbers) | SQL | Hard | 2026-06-25 |
 | [Repeat Offenders of the Search Bar](./practice/sql/repeat-offenders-of-the-search-bar) | SQL | Easy | 2026-06-25 |
-| [Top 5 Slowest DNS Lookups](./practice/sql/top-5-slowest-dns-lookups) | SQL | Easy | 2026-06-25 |
+| [Top 5 Slowest DNS Lookups](./practice/sql/top-5-slowest-dns-lookups) | SQL | Medium | 2026-06-25 |
 | [Mentorship User Pairs](./practice/sql/mentorship-user-pairs) | SQL | Medium | 2026-06-25 |
 | [The Final Sale](./practice/sql/the-final-sale) | SQL | Medium | 2026-06-25 |
 | [The Weight of a Verdict](./practice/sql/the-weight-of-a-verdict) | SQL | Easy | 2026-06-25 |

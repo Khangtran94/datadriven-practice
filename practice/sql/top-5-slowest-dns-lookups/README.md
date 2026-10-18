@@ -2,7 +2,7 @@
 
 *Five DNS lookups that took too long.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/top_5_slowest_dns_lookups)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/top_5_slowest_dns_lookups)
 
 ## How it went
 
