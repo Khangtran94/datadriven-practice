@@ -185,7 +185,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Top 2 Callers per Endpoint](./practice/sql/top-2-callers-per-endpoint) | SQL | Medium | 2026-08-31 |
 | [Top Earner Per Campaign](./practice/sql/top-earner-per-campaign) | SQL | Medium | 2026-08-31 |
 | [Below the Line](./practice/sql/below-the-line) | SQL | Medium | 2026-08-27 |
-| [Peak Retargeting Revenue Month](./practice/sql/peak-retargeting-revenue-month) | SQL | Medium | 2026-08-27 |
+| [Peak Retargeting Revenue Month](./practice/sql/peak-retargeting-revenue-month) | SQL | Easy | 2026-08-27 |
 | [Top Error-Service Pair](./practice/sql/top-error-service-pair) | SQL | Medium | 2026-08-27 |
 | [The Open Question](./practice/sql/the-open-question) | SQL | Medium | 2026-08-27 |
 | [Cost Density Extremes](./practice/sql/cost-density-extremes) | SQL | Medium | 2026-08-27 |
