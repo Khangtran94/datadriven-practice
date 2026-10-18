@@ -748,7 +748,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The High and the Low](./practice/sql/the-high-and-the-low) | SQL | Hard | 2026-06-25 |
 | [Unmatched Categories](./practice/sql/unmatched-categories) | SQL | Easy | 2026-06-25 |
 | [Higher Than Supervisor](./practice/sql/higher-than-supervisor) | SQL | Easy | 2026-06-25 |
-| [Department Spend Gap](./practice/sql/department-spend-gap) | SQL | Easy | 2026-06-25 |
+| [Department Spend Gap](./practice/sql/department-spend-gap) | SQL | Medium | 2026-06-25 |
 | [The Org Chart in Numbers](./practice/sql/the-org-chart-in-numbers) | SQL | Hard | 2026-06-25 |
 | [Repeat Offenders of the Search Bar](./practice/sql/repeat-offenders-of-the-search-bar) | SQL | Easy | 2026-06-25 |
 | [Top 5 Slowest DNS Lookups](./practice/sql/top-5-slowest-dns-lookups) | SQL | Medium | 2026-06-25 |
