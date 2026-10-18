@@ -2,7 +2,7 @@
 
 *Days between deploys. Some services ship fast, others crawl.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/deploy_velocity)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/deploy_velocity)
 
 ## How it went
 

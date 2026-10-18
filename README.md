@@ -916,7 +916,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Ones Worth Paging](./practice/sql/the-ones-worth-paging) | SQL | Hard | 2026-06-05 |
 | [Suspected Bot Sessions](./practice/sql/suspected-bot-sessions) | SQL | Easy | 2026-06-05 |
 | [Gateway Connection Timeouts](./practice/sql/gateway-connection-timeouts) | SQL | Easy | 2026-06-04 |
-| [Deploy Velocity](./practice/sql/deploy-velocity) | SQL | Hard | 2026-06-01 |
+| [Deploy Velocity](./practice/sql/deploy-velocity) | SQL | Medium | 2026-06-01 |
 | [The Progress Parade](./practice/python/the-progress-parade) | Python | Easy | 2026-06-01 |
 | [The Quiet Middle](./practice/sql/the-quiet-middle) | SQL | Easy | 2026-05-30 |
 | [The Bronze Medalist](./practice/python/the-bronze-medalist) | Python | Easy | 2026-05-29 |
