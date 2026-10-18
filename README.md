@@ -99,7 +99,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Path Not Taken](./practice/sql/the-path-not-taken) | SQL | Hard | 2026-09-21 |
 | [Top of the Bill](./practice/sql/top-of-the-bill) | SQL | Medium | 2026-09-21 |
 | [Year-over-Year Content Launches](./practice/sql/year-over-year-content-launches) | SQL | Medium | 2026-09-21 |
-| [Latency Variance and Std Dev](./practice/sql/latency-variance-and-std-dev) | SQL | Hard | 2026-09-21 |
+| [Latency Variance and Std Dev](./practice/sql/latency-variance-and-std-dev) | SQL | Easy | 2026-09-21 |
 | [Into One Stream](./practice/python/into-one-stream) | Python | Easy | 2026-09-20 |
 | [The Horizon Scanner](./practice/python/the-horizon-scanner) | Python | Medium | 2026-09-19 |
 | [The Loudest Neighbor](./practice/sql/the-loudest-neighbor) | SQL | Hard | 2026-09-18 |
