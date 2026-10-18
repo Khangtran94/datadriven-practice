@@ -329,7 +329,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Servers Returning to Origin](./practice/sql/servers-returning-to-origin) | SQL | Medium | 2026-07-21 |
 | [Revoked Tokens by Scope](./practice/sql/revoked-tokens-by-scope) | SQL | Medium | 2026-07-21 |
 | [Buried Digits](./practice/sql/buried-digits) | SQL | Medium | 2026-07-21 |
-| [API Call Distribution Fraction](./practice/sql/api-call-distribution-fraction) | SQL | Hard | 2026-07-21 |
+| [API Call Distribution Fraction](./practice/sql/api-call-distribution-fraction) | SQL | Medium | 2026-07-21 |
 | [Three Peaks](./practice/sql/three-peaks) | SQL | Hard | 2026-07-21 |
 | [The Ones That Come Back](./practice/python/the-ones-that-come-back) | Python | Easy | 2026-07-21 |
 | [Fault Lines](./practice/sql/fault-lines) | SQL | Medium | 2026-07-17 |
