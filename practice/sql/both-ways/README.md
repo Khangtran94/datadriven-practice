@@ -2,7 +2,7 @@
 
 *Money flows in and money flows back. Reconcile the day.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/both_ways)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/both_ways)
 
 ## How it went
 
