@@ -10,6 +10,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Week | Score | Rank | |
 |---|---:|---|---|
+| [Week 5: The Close](./weekly/week-05-the-close) | 0.0000 | #13 of 13 | [brief](https://datadriven.io/community/week-5) |
 | [Week 4: The Interface](./weekly/week-04-the-interface) | 0.0000 | #6 of 6 | [brief](https://datadriven.io/community/week-4) |
 | [Week 3: The Register](./weekly/week-03-the-register) | 0.7693 | #6 of 14 | [brief](https://datadriven.io/community/week-3) |
 | [Week 2: The Manifest](./weekly/week-02-the-manifest) | 0.8266 | #3 of 9 | [brief](https://datadriven.io/community/week-2) |
