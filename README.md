@@ -297,7 +297,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Slow Build](./practice/sql/the-slow-build) | SQL | Medium | 2026-08-05 |
 | [Cost Share Within Category](./practice/sql/cost-share-within-category) | SQL | Medium | 2026-08-05 |
 | [Creator Favorite Content Type](./practice/sql/creator-favorite-content-type) | SQL | Hard | 2026-08-05 |
-| [Bottom 2% Services by Spend](./practice/sql/bottom-2-services-by-spend) | SQL | Hard | 2026-08-05 |
+| [Bottom 2% Services by Spend](./practice/sql/bottom-2-services-by-spend) | SQL | Medium | 2026-08-05 |
 | [The Space Between](./practice/sql/the-space-between) | SQL | Hard | 2026-08-05 |
 | [Mutual Channel Connections](./practice/sql/mutual-channel-connections) | SQL | Medium | 2026-08-05 |
 | [Inactive Users in Date Range](./practice/sql/inactive-users-in-date-range) | SQL | Medium | 2026-08-05 |
