@@ -2,7 +2,7 @@
 
 *Five thrones at the top of the spending leaderboard.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/spend_and_rank)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/spend_and_rank)
 
 ## How it went
 
