@@ -2,7 +2,7 @@
 
 *The latest version deployed. Each service.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/latest_version_per_service)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/latest_version_per_service)
 
 ## How it went
 
