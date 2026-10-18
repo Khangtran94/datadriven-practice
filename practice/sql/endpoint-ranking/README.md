@@ -2,7 +2,7 @@
 
 *The slowest endpoints. Called to the principal's office.*
 
-[SQL · Hard · on DataDriven](https://datadriven.io/problems/endpoint_ranking)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/endpoint_ranking)
 
 ## How it went
 
