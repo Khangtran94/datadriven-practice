@@ -142,7 +142,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Below the Peaks](./practice/sql/below-the-peaks) | SQL | Hard | 2026-09-07 |
 | [The Shape of Waiting](./practice/sql/the-shape-of-waiting) | SQL | Hard | 2026-09-07 |
 | [Lowest CPU Pods per Namespace](./practice/sql/lowest-cpu-pods-per-namespace) | SQL | Hard | 2026-09-07 |
-| [Second Purchase](./practice/sql/second-purchase) | SQL | Hard | 2026-09-07 |
+| [Second Purchase](./practice/sql/second-purchase) | SQL | Medium | 2026-09-07 |
 | [The Ones Who Clicked](./practice/sql/the-ones-who-clicked) | SQL | Hard | 2026-09-07 |
 | [Age of Discovery](./practice/sql/age-of-discovery) | SQL | Hard | 2026-09-07 |
 | [Zero-Retry Job Ratio by Priority](./practice/sql/zero-retry-job-ratio-by-priority) | SQL | Hard | 2026-09-07 |
