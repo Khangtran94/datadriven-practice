@@ -2,7 +2,7 @@
 
 *Addresses change. History must not be erased.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/the_address_that_changed)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/the_address_that_changed)
 
 ## How it went
 
