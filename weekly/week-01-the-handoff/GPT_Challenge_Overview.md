@@ -17,16 +17,56 @@ Resolve supported field aliases and nested locations; normalize customer IDs, em
 **Beginner-to-intermediate ETL, with intermediate parsing edge cases.** Individual conversions are familiar, but historical schema drift, localized keys, malformed JSON, ambiguous timestamps, and replayed records require separate explicit rules. Parsing asks whether a value can be converted; validation asks whether it is meaningful under the contract.
 
 ## 5. Estimated Experience Equivalence
-Heuristic learning estimate, not a validated hiring benchmark or a measurement of an individual's overall ability.
 
-| Skill | Approximate experience equivalent | Rationale |
-|---|---|---|
-| Python and JSON | 0–2 years | Defensive parsing and field access |
-| Schema normalization | 1–3 years | Aliases, nesting, and missing-value sentinels |
-| Timestamp and financial parsing | 1–3 years | Epoch units, time zones, decimal precision |
-| Reliable ingestion | 1–3 years | Stable identity and replay handling |
+These estimates describe the challenge's engineering demands and the patterns visible in the implementations. They are heuristic learning references, not validated hiring benchmarks or a judgment of the author's overall professional seniority.
 
-**Challenge-level estimate: roughly 1–3 years of practical data-processing experience.** The README defines scope; `handler.py` shows the interface; `gold_submit.py` illustrates one possible depth of normalization. These sources estimate task demands, not the user's skill level. The reference is not the only valid design.
+### 5.1. Overall Comparison
+
+| Evidence Source | Lens | Level | Estimated YoE | Short Rationale |
+|---|---|---|---|---|
+| Problem statement (README.md) | Challenge difficulty | Junior to Mid-level | Approximately 1–3 years of relevant data-processing experience | One row per customer sounds simple, but the feed combines schema drift, nested/localized keys, malformed/truncated JSON, timestamp variants, formatted numbers, aliases, and duplicate delivery. |
+| Your submission (handler.py) | Demonstrated implementation | Junior-level patterns with some intermediate concepts | Approximately 0–1 year equivalent for the patterns demonstrated | Validates customer IDs, converts common types, normalizes a few values, and stores rows by ID. It mainly reads top-level fields, treats numeric epochs as seconds, uses broad exception handling, and returns rows from both process and finalize. |
+| Reference solution (gold_submit.py) | Solution sophistication | Mid-level to Senior-level problem-solving patterns | Approximately 3–4 years of relevant experience | Includes tolerant JSON recovery, alias/nested-field resolution, email extraction, multiple timestamp forms, null-sentinel handling, and more explicit normalization and validation. |
+
+YoE describes rough pattern-equivalence, not a claim that a person needs exactly these years to solve the task.
+
+### 5.2. Skill-by-Skill Comparison
+
+| Skill Group | Problem Target | Submission Evidence | Reference Evidence |
+|---|---|---|---|
+| Python and JSON parsing | Junior–Mid | Basic JSON parsing; malformed records are caught by a broad exception handler | Multi-path recovery for noisy JSON records |
+| Schema drift and nested fields | Mid | Primarily reads expected top-level field names | Alias resolution and nested/flattened field recovery |
+| Timestamp normalization | Junior–Mid | ISO parsing and numeric epoch conversion; numeric units are not visibly distinguished | Multiple timestamp formats and epoch conventions |
+| Numeric and financial parsing | Junior–Mid | Basic integer/float conversion and float rounding for MRR | Decimal-based handling and defensive numeric parsing |
+| Domain validation | Junior–Mid | Customer ID format and allowed plans are checked | Broader field cleaning and contract-aware normalization |
+| Identity and deduplication | Mid | State is keyed by customer ID, but rows are returned from process as well as finalize | Accumulates state and emits the final customer set |
+| Malformed/truncated input | Mid | Invalid JSON is dropped rather than recovered | Attempts recovery from noisy JSON; truly truncated content remains inherently limited |
+
+### 5.3. Evidence Behind the Estimate
+
+- The README describes three CRM rewrites, localized keys, fields moving between nested and flat structures, mixed timestamps, and human-formatted numeric values. This exceeds simple JSON conversion.
+- The submission shows useful foundations: customer-ID validation, plan allow-listing, type conversion, and keyed state.
+- Full alias/nesting recovery is not visible in the submission. Returning rows from process and then accumulated rows from finalize also risks duplicate emission.
+- The reference demonstrates broader defensive parsing. Complexity is evidence of one approach, not proof that every heuristic is universally correct.
+
+### 5.4. What Each Level Looks Like Here
+
+| Level | Expected Demonstration |
+|---|---|
+| Beginner / Entry-level | Parses valid JSON and converts fields with known formats. |
+| Junior Data Engineer | Adds validation, null cleanup, type conversion, and simple keyed state. |
+| Mid-level Data Engineer | Designs alias/nesting resolution, robust timestamp and numeric parsing, deterministic duplicate handling, and clear process/finalize semantics. |
+| Senior-level problem-solving | Makes recovery policies explicit, separates recoverable corruption from unrecoverable truncation, and balances data quality, observability, correctness, and runtime cost. |
+
+### 5.5. Assumptions and Limitations
+
+1. README.md defines the intended difficulty; handler.py shows the submitted patterns; gold_submit.py is one reference example.
+2. “Not demonstrated” does not prove the author lacks a skill.
+3. YoE ranges are illustrative, not empirical; experience varies by project scope, mentoring, and domain exposure.
+4. The reference is not the only valid design, and parsing heuristics must follow the exact contract.
+5. This section assesses the challenge and code evidence, not the author's overall career level.
+
+**Overall conclusion:** Week 1 is a Junior-to-Mid-level data-processing challenge. The submission demonstrates basic ETL foundations; the largest learning opportunities are schema drift, tolerant parsing, timestamp-unit detection, and emitting one final row per customer.
 
 ## 6. Core Engineering Patterns
 - Separate parsing, normalization, validation, and output.
