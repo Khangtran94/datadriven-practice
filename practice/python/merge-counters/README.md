@@ -2,7 +2,7 @@
 
 *Two tallies. Combine them.*
 
-[Python · Easy · on DataDriven](https://datadriven.io/problems/merge_counters)
+[Python · Medium · on DataDriven](https://datadriven.io/problems/merge_counters)
 
 ## How it went
 
