@@ -1,11 +1,6 @@
-with mean AS
-(SELECT region, ROUND(AVG(latency),3) AS avg_region_latency
-FROM svc_health
-GROUP BY 1)
-
-SELECT svc_name, region, latency,
-    avg_region_latency
-FROM svc_health
-INNER JOIN mean
-USING (region)
-ORDER BY region, svc_name, latency
+mean = svc_health.groupBy('region')
+      .agg(F.round(F.avg('latency'),3).alias('avg_region_latency'))
+      
+svc_health.join(broadcast(mean),'region')
+  .select('svc_name','region','latency','avg_region_latency')
+  .orderBy('region','svc_name','latency')
