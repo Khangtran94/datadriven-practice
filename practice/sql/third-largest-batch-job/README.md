@@ -2,7 +2,7 @@
 
 *Bronze medal in the batch job rankings.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/third_largest_batch_job)
+[SQL · Easy · on DataDriven](https://datadriven.io/problems/third_largest_batch_job)
 
 ## How it went
 

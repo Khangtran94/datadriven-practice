@@ -482,7 +482,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Peak Satisfaction](./practice/sql/peak-satisfaction) | SQL | Easy | 2026-07-14 |
 | [Seen or Ignored](./practice/sql/seen-or-ignored) | SQL | Medium | 2026-07-14 |
 | [The Spender Leaderboard](./practice/sql/the-spender-leaderboard) | SQL | Medium | 2026-07-13 |
-| [Third Largest Batch Job](./practice/sql/third-largest-batch-job) | SQL | Medium | 2026-07-13 |
+| [Third Largest Batch Job](./practice/sql/third-largest-batch-job) | SQL | Easy | 2026-07-13 |
 | [Latest Version Per Service](./practice/sql/latest-version-per-service) | SQL | Easy | 2026-07-13 |
 | [Morning Warning Logs](./practice/sql/morning-warning-logs) | SQL | Easy | 2026-07-13 |
 | [Most Common Monday Outcome](./practice/sql/most-common-monday-outcome) | SQL | Medium | 2026-07-13 |
