@@ -317,7 +317,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Longest Take](./practice/sql/the-longest-take) | SQL | Easy | 2026-07-21 |
 | [Top Content by Views](./practice/sql/top-content-by-views) | SQL | Medium | 2026-07-21 |
 | [Top Content by Lifetime Value](./practice/sql/top-content-by-lifetime-value) | SQL | Medium | 2026-07-21 |
-| [Spend and Rank](./practice/sql/spend-and-rank) | SQL | Medium | 2026-07-21 |
+| [Spend and Rank](./practice/sql/spend-and-rank) | SQL | Hard | 2026-07-21 |
 | [Session Count Distribution](./practice/sql/session-count-distribution) | SQL | Hard | 2026-07-21 |
 | [Endpoint Ranking](./practice/sql/endpoint-ranking) | SQL | Hard | 2026-07-21 |
 | [Best Accuracy to Training Time Ratio](./practice/sql/best-accuracy-to-training-time-ratio) | SQL | Medium | 2026-07-21 |
