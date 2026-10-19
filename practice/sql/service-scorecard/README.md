@@ -2,7 +2,7 @@
 
 *Deploys vs. alerts. One row per service tells the whole story.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/service_scorecard)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/service_scorecard)
 
 ## How it went
 
