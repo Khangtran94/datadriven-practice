@@ -1,13 +1,13 @@
 ---
 name: weekly-de-challenge-review
-description: Analyze weekly DataDriven data-engineering challenge submissions by comparing the user's handler with the gold solution, explaining score impact, and teaching concrete before/after fixes, especially for score-zero memory failures.
+description: Analyze weekly DataDriven data-engineering challenges across Python streaming and SQL/DAG submissions by comparing user code with reference solutions, explaining score impact, and teaching concrete before/after fixes.
 ---
 
 # Weekly DE Challenge Review Skill
 
 ## Purpose
 
-Help Khang learn from each weekly DataDriven challenge by comparing the submitted implementation with the gold solution, identifying the highest-impact gaps, and drafting a clear, evidence-based analysis document. Prioritize understanding and reusable engineering techniques over merely proposing a replacement.
+Help the user learn from each weekly DataDriven challenge by comparing the submitted implementation with the reference solution, identifying the highest-impact gaps, and drafting a clear, evidence-based analysis document. Prioritize understanding and reusable engineering techniques over merely proposing a replacement.
 
 ## Repository and folder eligibility
 
@@ -17,77 +17,117 @@ For every folder under `weekly/`, apply case-sensitive filename checks in this o
 
 1. If the exact path `weekly/<week-folder>/GPT_Analysis.md` exists, skip that folder completely. Never rewrite or overwrite it.
 2. If the uppercase file is absent but `GPT_analysis.md` exists, do not overwrite either file or create a competing case-only duplicate. Report the naming mismatch and propose a migration/merge for approval.
-3. If neither analysis file exists, proceed only if all three files exist: `README.md`, `handler.py`, and `gold_submit.py`.
-4. If any required file is missing, skip the folder for this run and check it again on a later run.
-5. Read the three required files and relevant starter/context files before drawing conclusions.
+3. If neither analysis file exists, inspect the challenge files and determine the type from the actual repository structure and README instructions:
+   - **Python challenge:** require `README.md`, `handler.py`, and `gold_submit.py`.
+   - **SQL/DAG challenge:** require `README.md`, `dag.sql`, and `gold_submit.sql`.
+4. If both sets of files exist, follow the README and actual execution contract to determine the authoritative submission type. If unclear, flag the ambiguity instead of guessing.
+5. If required files for the identified type are missing, skip that folder for this run and check it again later.
+6. Read the required files and relevant starter, configuration, schema, and context files before drawing conclusions.
+
+Never classify a challenge from its week number alone.
 
 ## Evidence and score interpretation
 
-- Extract the score and rank from that week's README when present; state when either is absent.
+- Extract score and rank from that week's README when present; state when either is absent.
 - Separate measured facts (score, rank, explicit evaluator feedback, tests, or observed errors) from hypotheses about causes.
-- Never claim a specific penalty or runtime behavior unless the available evidence supports it.
-- Explain score 0 explicitly when evidence says the run ran out of memory: trace the relevant data structures and their lifetime, explain why retaining candidates for every key can grow without bound, and distinguish this confirmed cause from any secondary hypotheses.
-- For a memory failure, describe the state growth in plain language and, where the code supports it, give complexity in terms of total input rows (N), distinct keys (K), and retained candidates. Explain why a compact per-key aggregate or bounded state can be safer, but only propose it if it preserves the task semantics.
-- Prioritize findings by likely score impact, then correctness, memory, runtime, and maintainability. Explain uncertainty.
+- Never claim a specific penalty or runtime behavior unless available evidence supports it.
+- For a confirmed Python out-of-memory (OOM) failure, trace the relevant data structures and their lifetime. Explain why retaining candidates for every key can grow with the stream, distinguishing the confirmed cause from secondary hypotheses.
+- For memory failures, explain state growth in plain language and, where code supports it, give complexity in terms of total input rows (N), distinct keys (K), and retained candidates. Suggest compact per-key aggregates or bounded state only when this preserves task semantics.
+- For SQL/DAG failures, identify the failing task and root cause only when supported by evaluator feedback, logs, or other concrete evidence. Distinguish SQL logic defects, dependency/configuration problems, and runtime/environment failures.
+- Prioritize findings by likely score impact, then correctness, memory/runtime or query cost, and maintainability. Explain uncertainty.
 
 ## Required analysis document structure
 
 Write a proposed `weekly/<week-folder>/GPT_Analysis.md` with:
 
-1. Week title and a concise comparison of `handler.py` versus `gold_submit.py`.
-2. Score and rank from README, including explicit explanation of score 0 and the evidenced failure cause when applicable.
+1. Week title, detected challenge type, and concise comparison of the user's submission with the reference solution.
+2. Score and rank from README, plus relevant explicit evaluator feedback and the evidenced cause of score 0 when available.
 3. An impact-ranking table near the top, including issue, evidence/location, likely impact, and recommended change.
-4. Impact-ordered sections. For each important difference include:
-   - exact function and line/code anchor when available;
-   - a minimal concrete example input or stream sequence;
-   - what the user's handler does;
-   - what the gold solution does;
-   - why the difference matters to correctness, score, memory, or runtime;
-   - a specific recommended change.
-5. **Code before — my current code:** include the actual relevant code from the user's current `handler.py`, not a generic illustrative substitute. Include the full affected method/function and any helper/state definitions needed to understand its behavior. Preserve the code exactly in the before snippet, apart from optional comments that are clearly marked as explanatory. If the problem depends on the interaction among methods or state, include the complete current `Handler` class when practical. Do not use `gold_submit.py` as the "before" code.
-6. **Code after — proposed change:** provide the concrete replacement code that implements the recommendation. Include the complete modified method(s) and all changed/new helper functions and state definitions. If a full class replacement is practical, show the complete proposed `Handler` class. If unchanged sections are omitted for brevity, identify them explicitly and make the snippet's replacement boundaries unambiguous. The proposal must preserve the required interface and allowed libraries.
-7. **Explanation document, not just code:** explain the original bug, the root cause, the proposed fix step by step, a small worked example, why the new state/output behavior is safer, time and space trade-offs, edge cases, and a reusable lesson for future challenges. Explain any behavior that must remain unchanged. State which claims are proven by the provided evidence and which are hypotheses.
-8. A short validation checklist with tests derived from the task contract, including empty input, multiple keys, repeated keys, ordering/tie cases, malformed/null values when relevant, and a large-stream/memory-oriented scenario when relevant. Do not claim tests were run unless they actually were.
-9. End with a recommended pattern skeleton. Emphasize that `process()` should return `[]` and `finalize()` should emit reconciled rows when appropriate to the task; do not apply this pattern blindly if the task contract requires immediate output.
+4. Impact-ordered findings. For each important difference include:
+   - exact function, SQL section, task/configuration, and line/code anchor when available;
+   - a minimal concrete input, data example, or execution scenario;
+   - what the user's implementation does;
+   - what the reference solution does;
+   - why the difference matters to correctness, score, memory, runtime, or query cost;
+   - a specific recommended change;
+   - a clear distinction between proven facts and hypotheses.
+5. **Code before — my current implementation:** include the actual relevant code from the user's submission, not a generic substitute. For Python, include the complete affected method and relevant helper/state definitions; include the complete Handler class when practical. For SQL, quote the actual relevant query/CTE/task SQL and relevant DAG configuration.
+6. **Code after — proposed change:** provide concrete replacement code or SQL implementing the recommendation. Include all changed/new helper functions, state definitions, CTEs, task configuration, and dependencies needed to make the change understandable. Make replacement boundaries unambiguous. Preserve the task's interface, dialect, schema, and execution contract.
+7. **Explanation, not just code:** explain the original issue/root cause, proposed fix step by step, a worked example, expected state/output behavior, relevant time/space or query-performance trade-offs, edge cases, and a reusable lesson. Explain behavior that must remain unchanged.
+8. A short validation checklist with tests or queries derived from the task contract. Do not claim tests were run unless they actually were.
+9. End with reusable patterns and lessons relevant to the detected challenge type.
+
+## Python challenge review
+
+Inspect the actual task contract and compare `handler.py` with `gold_submit.py`.
+
+- Preserve the required `Handler.process()` and `Handler.finalize()` interface and allowed libraries.
+- Inspect streaming state growth, per-key retention, aggregation, final reconciliation, output timing, and whether state can safely be bounded.
+- Check schema/types, key normalization, duplicates, ordering, NULL/malformed input, timestamp parsing, tie-breaking, and exact output contract as relevant.
+- Explain lifecycle: what `process()` emits, what state it retains, and what `finalize()` emits.
+- Discuss time/space complexity, especially state proportional to all rows versus distinct keys or compact aggregates.
+- Do not recommend deduplication or any other transformation unless task semantics support it.
+- A `process()` that returns `[]` and a `finalize()` that emits reconciled rows is appropriate only when the task contract supports deferred output; do not apply it blindly.
+
+## SQL and DAG review
+
+Inspect the actual challenge contract, SQL files, DAG definitions, schemas, and available execution evidence.
+
+### SQL correctness
+
+- Identify the intended output grain: what one row represents.
+- Check primary/business keys, join cardinality, duplicate creation, missing records, and source-to-output reconciliation.
+- Review filters, aggregations, CTEs, window functions, ranking, and deduplication.
+- Check NULL handling, data types, casts, timestamps, time zones, and boundary conditions when relevant.
+- Validate counts, totals, and reconciliation when required by the task.
+- Check incremental-load behavior, idempotency, late-arriving data, and reruns when relevant.
+- Respect the SQL dialect and engine shown by the repository; do not assume unsupported syntax.
+
+### DAG and execution behavior
+
+- Identify tasks, dependencies, and intended execution order from the actual DAG.
+- Inspect materialization, task configuration, inputs, outputs, and referenced tables.
+- Use explicit evaluator feedback or execution logs to identify a failing task.
+- Explain the difference between a SQL logic defect, a dependency/configuration issue, and a runtime/environment failure.
+- Do not claim a task failed for a particular reason unless available evidence supports it.
+
+### Performance and validation
+
+- Discuss scans, joins, aggregations, partitioning, and query cost only when relevant to the known engine and available evidence.
+- Propose validation queries or test cases for correctness, duplicates, NULLs, boundary dates, and reconciliation.
+- Clearly distinguish tests that were actually executed from tests merely recommended.
+- Do not invent schemas, query plans, runtime metrics, database-engine behavior, or evaluator results.
+- Treat `gold_submit.sql` as a reference implementation, not proof that every implementation detail is mandatory.
 
 ## Special score-zero / out-of-memory teaching section
 
-When the score is 0 and evaluator evidence identifies out-of-memory (OOM), add a prominent section titled **Why the score was 0: memory exhaustion**. It must:
+When score is 0 and evaluator evidence identifies OOM in a Python challenge, add a prominent section titled **Why the score was 0: memory exhaustion**. It must:
 
-1. Quote or accurately paraphrase the available evaluator feedback and point to its source; do not invent evidence.
+1. Quote or accurately paraphrase the available evaluator feedback and identify its source.
 2. Trace exactly which dictionary/list/set or other object accumulates data, what each entry represents, and why its lifetime spans the stream.
 3. Show the relevant current code under **Before: current implementation** and the specific proposed replacement under **After: memory-safe approach**.
 4. Walk through a small example with multiple keys and candidates, showing what is retained before versus after.
-5. Explain why keeping every candidate per key can make memory scale with all rows/candidates, while storing only sufficient per-key state may scale with distinct keys—only if the task's rules allow that reduction.
-6. Discuss finalization and correctness risks: ties, duplicates, ordering, late-arriving records, and whether discarded candidates could later be needed. Never drop history unless the semantics prove it safe.
-7. Include a concise prevention checklist for future streaming challenges: identify retained state, estimate its growth, ask what information is truly necessary, and test large input behavior.
-8. Do not promise that a proposed fix guarantees a nonzero score. Explain that correctness and evaluator behavior still need validation.
+5. Explain why keeping every candidate per key can make memory scale with all rows/candidates, while storing only sufficient per-key state may scale with distinct keys—only if the task rules allow that reduction.
+6. Discuss finalization and correctness risks: ties, duplicates, ordering, late-arriving records, and whether discarded candidates could later be needed. Never drop history unless semantics prove it safe.
+7. Include a concise prevention checklist: identify retained state, estimate its growth, ask what information is necessary, and test large-input behavior.
+8. Do not promise that a proposed fix guarantees a nonzero score; correctness and evaluator behavior still need validation.
 
-## Engineering review checklist
-
-Inspect, as relevant to the actual task:
-
-- Streaming and state growth: whether data is retained per key, whether aggregation can replace full candidate history, whether state can be bounded, and whether final reconciliation is possible.
-- Correctness: schema and types, key normalization, duplicate handling, ordering, null/malformed input, timestamp parsing, tie-breaking, and exact output contract.
-- Lifecycle: what `process()` emits, what state it retains, and what `finalize()` emits.
-- Complexity: time and space costs, especially state proportional to all rows versus distinct keys or compact aggregates.
-- Constraint compliance: allowed imports, required class/method signatures, and output schema.
-- Do not recommend deduplication or any other transformation unless the specific task semantics support it.
+For SQL/DAG score-zero failures, use a similarly prominent explanation of the confirmed failing task and cause when evidence is available. Do not label a SQL failure as OOM or invent a root cause without evidence.
 
 ## Code quality and teaching style
 
-- Keep the user's existing `Handler.process()` and `Handler.finalize()` interface.
-- Prefer small helper functions where they clarify distinct transformations, without overengineering.
-- Show focused before/after snippets, not only a complete rewrite.
-- Explain the reasoning step by step and include examples that demonstrate the behavior.
-- Treat `gold_submit.py` as evidence of a reference implementation, not proof that every implementation detail is mandatory.
-- Do not invent line numbers, tests, input data, benchmark results, or evaluator feedback. If line numbers are unavailable, use function names and short code anchors.
+- Keep the user's required interfaces, schema, and execution contract intact.
+- Prefer small helper functions or clearly separated SQL CTEs when they clarify transformations, without overengineering.
+- Show focused before/after snippets and provide complete replacement boundaries.
+- Explain reasoning step by step and include examples that demonstrate behavior.
+- Treat the reference implementation as evidence, not proof that every implementation detail is mandatory.
+- Do not invent line numbers, tests, input data, benchmark results, query plans, or evaluator feedback. If line numbers are unavailable, use function names and short code anchors.
 - Make recommendations specific enough that the user can apply them and understand why they work.
-- The report must be useful as a learning document even when no score-zero/OOM issue exists: explicitly teach the main bug and prevention principle, not just present code.
+- The report must remain a learning document even when no score-zero issue exists: teach the main bug and prevention principle, not just present code.
 
 ## Approval and repository safety
 
-- Draft the complete analysis and present it to Khang for discussion, including the exact target path.
-- Do not create or edit `GPT_Analysis.md`, and do not commit or push analysis changes, until Khang explicitly approves the draft.
+- Draft the complete analysis and present it to the user for discussion, including the exact target path.
+- Do not create or edit any weekly `GPT_Analysis.md`, and do not commit or push analysis changes, until the user explicitly approves that analysis draft.
 - Creating or updating this reusable skill file does not authorize edits to weekly analysis files.
 - Never overwrite an existing analysis file, and never automatically resolve a case-only filename conflict.
