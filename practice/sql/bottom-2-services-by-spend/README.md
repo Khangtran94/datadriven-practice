@@ -2,7 +2,7 @@
 
 *The bottom 2% of spenders. Who are they?*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/bottom_2_services_by_spend)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/bottom_2_services_by_spend)
 
 ## How it went
 
