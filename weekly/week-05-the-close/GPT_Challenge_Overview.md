@@ -17,16 +17,59 @@ Normalize IDs without losing leading zeros, parse null sentinels and metadata sa
 **Advanced SQL/data engineering.** Correctness depends on grain, temporal history, financial precision, restatement semantics, and incremental recovery. A query can return one row per payment and still be wrong if it loses older fields, double-counts settlements, joins multiple FX rates, or uses current merchant attributes instead of historical ones.
 
 ## 5. Estimated Experience Equivalence
-These estimates are heuristic learning references, not validated hiring benchmarks or an assessment of the user's overall competence.
 
-| Skill | Approximate experience equivalent | Rationale |
-|---|---|---|
-| SQL transformations and modeling | 2–4 years | CTEs, window functions, aggregation, explicit grain |
-| Temporal history reconstruction | 3–5 years | Partial updates, late arrivals, restatements, as-of attributes |
-| Financial data correctness | 3–5 years | Settlement movements, reversals, currency precision, FX |
-| Incremental DAG and recovery design | 3–5 years | Scheduling, idempotency, backfills, recomputation |
+This section estimates the Week 5 challenge and compares it with patterns visible in dag.sql and gold_submit.sql. These are heuristic learning estimates, not validated hiring benchmarks or a judgment of the author's overall professional seniority.
 
-**Challenge-level estimate: roughly 3–5 years of relevant data engineering experience**, assuming competent SQL fundamentals. The README establishes scope; `dag.sql` shows the submitted DAG shape; `gold_submit.sql` demonstrates one detailed approach. These sources estimate task complexity, not the author's actual years of experience. The reference is not the only acceptable architecture.
+### 5.1. Overall Comparison
+
+| Evidence Source | Lens | Level | Estimated YoE | Short Rationale |
+|---|---|---|---|---|
+| Problem statement (README.md) | Challenge difficulty | Mid-level to Senior-level problem-solving | Approximately 3–5+ years of relevant data-engineering experience | Combines incremental history, late data, partial updates, settlement movements and reversals, currency minor units, FX selection, restatements, temporal merchant attributes, and safe recomputation. |
+| Your submission (dag.sql) | Demonstrated implementation | Junior-level SQL/DAG patterns | Approximately 0–1 year equivalent for the patterns demonstrated | Declares task dependencies and incremental materialization, but history tasks use SELECT * without visible normalization or merge-key logic. The final fact query does not demonstrate settlement aggregation, FX conversion, or an as-of merchant lookup. |
+| Reference solution (gold_submit.sql) | Solution sophistication | Senior-level problem-solving patterns | Approximately 4–6+ years of relevant experience | Uses incremental merge configuration with row keys, null/value normalization, timestamp handling, and more extensive transformations for reconstructing payment, FX, and merchant history. Each business rule still needs validation against the README. |
+
+The ranges describe rough experience-equivalent patterns, not the years required for every engineer to solve the challenge.
+
+### 5.2. Skill-by-Skill Comparison
+
+| Skill Group | Problem Target | Submission Evidence | Reference Evidence |
+|---|---|---|---|
+| SQL fundamentals and DAG structure | Junior–Mid | Defines named tasks, dependencies, and SELECT projections | Uses multiple CTE-based transformations and explicit incremental configuration |
+| Stable keys and deduplication | Mid–Senior | No explicit merge key or deduplication logic is visible in the history tasks | Defines row-key concepts and merge unique keys |
+| Incremental history and replay safety | Mid–Senior | Incremental materialization is declared, but merge behavior and replay-safe state are not demonstrated | Explicit merge configuration and normalized history processing |
+| Partial updates and temporal reconstruction | Senior-level problem-solving | Final fact query does not reconstruct field-level history | More extensive history transformations; field-level winner semantics still require verification |
+| Settlement aggregation and reversals | Mid–Senior | Selects settled directly rather than visibly aggregating movements | Must be checked against settlement and reversal rules in the complete reference |
+| FX and currency minor units | Mid–Senior | No visible FX join or currency-scale conversion in the final fact query | More extensive FX/history transformations; correctness depends on rate selection and scale rules |
+| Merchant as-of attributes | Mid–Senior | merchant_country is hard-coded as NULL | Merchant-history handling patterns; temporal correctness must be verified |
+| Dirty JSON and timestamps | Mid–Senior | Direct JSON extraction without visible malformed-metadata protection | More normalization and timestamp processing; malformed-input behavior depends on the SQL engine |
+
+### 5.3. Evidence Behind the Estimate
+
+- The README says raw tables retain only recent copies, so the pipeline must preserve history and account for data arriving after a run.
+- Payment rows can be partial updates, while settlement movements span multiple nights and include reversals. Taking the newest row or a single settled value is not equivalent to reconciling movements.
+- FX rates can be missing, revised, or late; merchant attributes can change or disappear. These require temporal selection and a policy for recomputing affected payments.
+- The submitted DAG establishes a basic task graph, but the final fact query does not visibly implement several central financial and temporal requirements.
+- The reference demonstrates more advanced incremental and normalization patterns. It should still be checked against the reporting window and business rules; sophistication alone does not prove correctness.
+
+### 5.4. What Each Level Looks Like Here
+
+| Level | Expected Demonstration |
+|---|---|
+| Beginner / Entry-level | Writes basic SELECT statements and understands simple task dependencies. |
+| Junior Data Engineer | Builds staging transformations, normalizes common nulls/types, and defines output columns. |
+| Mid-level Data Engineer | Implements stable keys, deduplication, incremental merge behavior, partial-update reconstruction, temporal joins, and financial validation. |
+| Senior-level problem-solving | Designs replay-safe historical recovery for late/restated data, handles settlement reversals and currency-specific precision, and recomputes affected outputs deterministically. |
+
+### 5.5. Assumptions and Limitations
+
+1. README.md is the source for intended requirements; dag.sql is the submission; gold_submit.sql is one reference approach.
+2. “Not demonstrated” means the SQL does not show the logic; it does not establish the author's overall capability.
+3. SQL dialect and runtime behavior matter, especially for JSON parsing, incremental materialization, and date/time conversion.
+4. Date assumptions in the reference must be reconciled with the README's stated period before being accepted as correct.
+5. Claims that a query crashes require reproducible runtime evidence; static inspection supports only a potential-failure statement.
+6. YoE ranges are illustrative, not empirical hiring thresholds.
+
+**Overall conclusion:** Week 5 targets Mid-level Data Engineering competence with several Senior-level problem-solving requirements. The current submission demonstrates basic SQL and DAG structure; the biggest visible gaps are incremental history resolution, settlement reconciliation, FX conversion, temporal merchant lookup, and robust metadata handling. This is a learning roadmap, not a verdict on the author's career seniority.
 
 ## 6. Core Engineering Patterns
 - Declare the grain of every intermediate relation.
