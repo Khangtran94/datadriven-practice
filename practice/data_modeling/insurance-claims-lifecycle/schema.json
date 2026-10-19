@@ -1,0 +1,170 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "claim_lifecycle",
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "filed_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE"
+        },
+        {
+          "name": "is_current",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "version_log",
+      "columns": [
+        {
+          "name": "log_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "claim_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_updated",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "updated_status",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "claim_lifecycle",
+        "column": "customer_sk"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "claim_lifecycle",
+        "column": "filed_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "version_log",
+        "column": "claim_id"
+      },
+      "to": {
+        "table": "claim_lifecycle",
+        "column": "claim_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "version_log",
+        "column": "date_updated"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}

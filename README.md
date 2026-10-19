@@ -20,6 +20,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Insurance Claims Lifecycle](./practice/data_modeling/insurance-claims-lifecycle) | Data Modeling | Hard | 2026-10-19 |
 | [Who Came First](./practice/python/who-came-first) | Python | Easy | 2026-10-16 |
 | [Crossing Over](./practice/data_modeling/crossing-over) | Data Modeling | Medium | 2026-10-16 |
 | [The Gift Economy](./practice/data_modeling/the-gift-economy) | Data Modeling | Medium | 2026-10-16 |
