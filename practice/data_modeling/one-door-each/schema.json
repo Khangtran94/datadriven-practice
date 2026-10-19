@@ -1,0 +1,147 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_experiment",
+      "columns": [
+        {
+          "name": "experiment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "assignment",
+      "columns": [
+        {
+          "name": "experiment_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "variant",
+          "type": "CHAR"
+        },
+        {
+          "name": "enrolled_at",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_control",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "event_log",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "assignment",
+        "column": "experiment_id"
+      },
+      "to": {
+        "table": "dim_experiment",
+        "column": "experiment_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "assignment",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "event_log",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
