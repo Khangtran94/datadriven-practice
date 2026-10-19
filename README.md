@@ -105,7 +105,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Loudest Neighbor](./practice/sql/the-loudest-neighbor) | SQL | Hard | 2026-09-18 |
 | [The Traffic Director](./practice/python/the-traffic-director) | Python | Easy | 2026-09-18 |
 | [Peak Season](./practice/sql/peak-season) | SQL | Medium | 2026-09-17 |
-| [Both Ways](./practice/sql/both-ways) | SQL | Medium | 2026-09-17 |
+| [Both Ways](./practice/sql/both-ways) | SQL | Hard | 2026-09-17 |
 | [Returning Buyers](./practice/sql/returning-buyers) | SQL | Medium | 2026-09-17 |
 | [Before They Walk](./practice/sql/before-they-walk) | SQL | Medium | 2026-09-17 |
 | [Reviewer Performance Metrics](./practice/sql/reviewer-performance-metrics) | SQL | Medium | 2026-09-17 |
