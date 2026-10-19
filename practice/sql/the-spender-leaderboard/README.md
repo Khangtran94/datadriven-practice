@@ -2,7 +2,7 @@
 
 *Spending speaks. The leaderboard does the listening.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/the_spender_leaderboard)
+[SQL · Easy · on DataDriven](https://datadriven.io/problems/the_spender_leaderboard)
 
 ## How it went
 

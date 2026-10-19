@@ -481,7 +481,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Ghosts in the Scheduler](./practice/sql/ghosts-in-the-scheduler) | SQL | Easy | 2026-07-14 |
 | [Peak Satisfaction](./practice/sql/peak-satisfaction) | SQL | Easy | 2026-07-14 |
 | [Seen or Ignored](./practice/sql/seen-or-ignored) | SQL | Medium | 2026-07-14 |
-| [The Spender Leaderboard](./practice/sql/the-spender-leaderboard) | SQL | Medium | 2026-07-13 |
+| [The Spender Leaderboard](./practice/sql/the-spender-leaderboard) | SQL | Easy | 2026-07-13 |
 | [Third Largest Batch Job](./practice/sql/third-largest-batch-job) | SQL | Easy | 2026-07-13 |
 | [Latest Version Per Service](./practice/sql/latest-version-per-service) | SQL | Easy | 2026-07-13 |
 | [Morning Warning Logs](./practice/sql/morning-warning-logs) | SQL | Easy | 2026-07-13 |
