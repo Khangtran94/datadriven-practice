@@ -2,7 +2,7 @@
 
 *Retargeting revenue. The peak month.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/peak_retargeting_revenue_month)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/peak_retargeting_revenue_month)
 
 ## How it went
 
