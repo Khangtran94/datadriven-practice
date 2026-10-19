@@ -17,16 +17,57 @@ Decode JSON and HL7 escaping in the correct layers. Handle MLLP framing and batc
 **Advanced domain-specific integration.** String operations are manageable; protocol semantics are hard. Repeated segments, identifiers from different authorities, multiple time fields, unit systems, and result lifecycle events can make a plausible-looking extraction clinically wrong.
 
 ## 5. Estimated Experience Equivalence
-These are heuristic learning references, not validated hiring benchmarks or a measure of an individual's overall competence.
 
-| Skill | Approximate experience equivalent | Rationale |
-|---|---|---|
-| Structured message parsing | 1–3 years | JSON escaping, delimiters, segments, repetitions |
-| HL7 v2 interoperability | 2–5 years | Segment semantics, codes, and identifiers |
-| Clinical data quality and time semantics | 2–5 years | Units, collection time, corrections, withdrawals |
-| Identity resolution and deduplication | 2–4 years | Assigning authorities, merges, retries |
+This section estimates the challenge's difficulty and compares the visible patterns in the submission and reference solution. The estimates are heuristic, not validated hiring benchmarks and not a judgment of the author's overall professional seniority.
 
-**Challenge-level estimate: roughly 3–5 years of relevant data integration experience**, especially if HL7 is new to the solver. The README defines requirements; `handler.py` defines the interface; `gold_submit.py` illustrates one possible approach. The estimate does not describe the user's personal level, and the reference is not a universal seniority benchmark.
+### 5.1. Overall Comparison
+
+| Evidence Source | Lens | Level | Estimated YoE | Short Rationale |
+|---|---|---|---|---|
+| Problem statement (README.md) | Challenge difficulty | Senior-level problem-solving in a specialized domain | Approximately 3–5 years of relevant data-integration experience | Correct clinical extraction requires HL7 segment semantics, multiple OBX selection, test-code normalization, MRN identity and merge handling, clinical units/values, result-status precedence, time provenance, and defensive log parsing. |
+| Your submission (handler.py) | Demonstrated implementation | Mid-level parsing logic; memory/runtime design assessed separately | Approximately 2–3 years equivalent for the patterns demonstrated | Includes HL7 unescaping, segment splitting, JSON-envelope recovery, test/status maps, timestamp and unit helpers, and merge configuration. Visible settings set APPLY_MERGES to False and EMIT_UNMAPPED_TESTS to True; those choices must be checked against the output contract. |
+| Reference solution (gold_submit.py) | Solution sophistication | Senior-level problem-solving patterns | Approximately 4–6+ years of relevant experience | Uses detailed HL7/log recovery, explicit code/unit/status tables, time-zone handling, and structured extraction from multiple message forms. State strategy and memory behavior should be assessed separately from parsing correctness. |
+
+The estimates describe the challenge and observable patterns, not the author's actual tenure or overall ability.
+
+### 5.2. Skill-by-Skill Comparison
+
+| Skill Group | Problem Target | Submission Evidence | Reference Evidence |
+|---|---|---|---|
+| HL7 segment/field parsing | Mid–Senior | Segment splitting and field helpers | More extensive message extraction and normalization |
+| JSON/log escapes and framing | Mid–Senior | Layer unescaping, HL7 escapes, and envelope recovery | More detailed recovery of escaped/truncated log messages |
+| Test-code and OBX selection | Mid–Senior | Test-code mapping; verify multiple OBX and alternate LOINC slots | Explicit test-code tables and structured observation selection |
+| Patient identity and merge events | Senior-level problem-solving | MRN parsing exists, but merge application is disabled by configuration | More comprehensive patient-identifier and result-key handling |
+| Clinical value and unit normalization | Mid–Senior | Decimal and unit helpers | Explicit unit and numeric parsing rules |
+| Status and correction precedence | Mid–Senior | Status mapping and rank tables | Explicit status tables and candidate ranking |
+| Time provenance and time zones | Mid–Senior | Timestamp and zone utilities | More extensive handling of variable-width timestamps and zone assumptions |
+| Memory-efficient streaming | Senior-level problem-solving | Must be assessed from retained state and per-key candidate strategy | State strategy must be checked for bounded memory over the full input |
+
+### 5.3. Evidence Behind the Estimate
+
+- The README describes a large clinical interface feed with multiple HL7 segments, multiple OBX records, alternate test codes, patient-number merges, varied time sources, unit variations, corrected/preliminary/withdrawn results, and log artifacts.
+- The submission demonstrates substantial parsing intent: escape normalization, segment splitting, envelope extraction, code maps, status ranks, and timestamp/unit helpers.
+- Configuration choices such as disabling merge application and allowing unmapped tests to be emitted should be compared with the output contract. They should not be called defects unless the contract confirms that.
+- The reference illustrates a more comprehensive normalization approach. Parsing sophistication and memory efficiency are separate dimensions and should be tested independently.
+
+### 5.4. What Each Level Looks Like Here
+
+| Level | Expected Demonstration |
+|---|---|
+| Beginner / Entry-level | Splits a simple HL7 message and extracts fields from a stable layout. |
+| Junior Data Engineer | Handles common segments, test codes, nulls, and basic type conversion. |
+| Mid-level Data Engineer | Selects observations, normalizes identifiers/units/times, and applies result-status rules across sender variations. |
+| Senior-level problem-solving | Resolves identity merges and time provenance, handles uncommon valid HL7/log forms, and keeps state bounded under high-volume streaming constraints. |
+
+### 5.5. Assumptions and Limitations
+
+1. README.md defines the target contract; handler.py and gold_submit.py are implementation evidence.
+2. The examples are challenge-specific, not a substitute for a hospital interface specification or clinical governance.
+3. Whether a configuration flag is wrong depends on the explicit contract and should be verified.
+4. Memory suitability depends on the full state lifecycle and input volume, not just parser complexity.
+5. YoE ranges are contextual estimates and do not establish the author's career seniority.
+
+**Overall conclusion:** Week 4 is a specialized HL7 integration challenge with Senior-level problem-solving demands. The submission demonstrates ambitious parsing logic; key review areas are contract-aligned merge/test selection, result precedence, time provenance, and bounded streaming state.
 
 ## 6. Core Engineering Patterns
 - Layered decoding: transport framing, JSON escaping, HL7 framing, segments, fields, components, and repetitions.
