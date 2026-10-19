@@ -2,7 +2,7 @@
 
 *Not all endpoints are created equal.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/api_call_distribution_fraction)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/api_call_distribution_fraction)
 
 ## How it went
 
