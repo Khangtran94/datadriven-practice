@@ -6,14 +6,6 @@ CREATE TABLE dim_user (
     PRIMARY KEY (user_id)
 );
 
-CREATE TABLE dim_date (
-    date_sk INT,
-    full_date DATE,
-    month INT,
-    year INT,
-    PRIMARY KEY (date_sk)
-);
-
 CREATE TABLE dim_experiment (
     experiment_id INT,
     name CHAR,

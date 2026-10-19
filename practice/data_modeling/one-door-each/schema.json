@@ -23,28 +23,6 @@
       ]
     },
     {
-      "name": "dim_date",
-      "columns": [
-        {
-          "name": "date_sk",
-          "type": "INT",
-          "key": "pk"
-        },
-        {
-          "name": "full_date",
-          "type": "DATE"
-        },
-        {
-          "name": "month",
-          "type": "INT"
-        },
-        {
-          "name": "year",
-          "type": "INT"
-        }
-      ]
-    },
-    {
       "name": "dim_experiment",
       "columns": [
         {

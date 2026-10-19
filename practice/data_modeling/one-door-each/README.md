@@ -23,12 +23,6 @@ erDiagram
         CHAR phone
         CHAR email
     }
-    dim_date {
-        INT date_sk PK
-        DATE full_date
-        INT month
-        INT year
-    }
     dim_experiment {
         INT experiment_id PK
         CHAR name
