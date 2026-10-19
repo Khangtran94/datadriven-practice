@@ -2,7 +2,7 @@
 
 *The first buy is curiosity. The second is commitment.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/second_purchase)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/second_purchase)
 
 ## How it went
 
