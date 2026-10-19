@@ -2,7 +2,7 @@
 
 *Every creator has a go-to format.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/creator_favorite_content_type)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/creator_favorite_content_type)
 
 ## How it went
 
