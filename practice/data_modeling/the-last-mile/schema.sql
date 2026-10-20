@@ -8,13 +8,13 @@ CREATE TABLE dim_date (
 
 CREATE TABLE dim_order (
     order_id INT,
-    order_date DATE,
-    customer_id TEXT,  /* no type on the canvas */
+    order_date INT,
+    customer_id INT,
     total_amount DECIMAL,
     PRIMARY KEY (order_id)
 );
 
-CREATE TABLE dim_date_copy (
+CREATE TABLE dim_customer (
     customer_id INT,
     name CHAR,
     phone CHAR,
@@ -65,7 +65,7 @@ ALTER TABLE dim_order
     ADD FOREIGN KEY (order_date) REFERENCES dim_date (date_sk);
 
 ALTER TABLE dim_order
-    ADD FOREIGN KEY (customer_id) REFERENCES dim_date_copy (customer_id);
+    ADD FOREIGN KEY (customer_id) REFERENCES dim_customer (customer_id);
 
 ALTER TABLE order_line_item
     ADD FOREIGN KEY (item_id) REFERENCES dim_item (item_id);

@@ -32,11 +32,12 @@
         },
         {
           "name": "order_date",
-          "type": "DATE",
+          "type": "INT",
           "key": "fk"
         },
         {
           "name": "customer_id",
+          "type": "INT",
           "key": "fk"
         },
         {
@@ -46,7 +47,7 @@
       ]
     },
     {
-      "name": "dim_date_copy",
+      "name": "dim_customer",
       "columns": [
         {
           "name": "customer_id",
@@ -196,7 +197,7 @@
         "column": "customer_id"
       },
       "to": {
-        "table": "dim_date_copy",
+        "table": "dim_customer",
         "column": "customer_id"
       },
       "foreign_key": true

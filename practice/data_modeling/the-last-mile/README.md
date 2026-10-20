@@ -25,11 +25,11 @@ erDiagram
     }
     dim_order {
         INT order_id PK
-        DATE order_date FK
-        unspecified customer_id FK
+        INT order_date FK
+        INT customer_id FK
         DECIMAL total_amount
     }
-    dim_date_copy {
+    dim_customer {
         INT customer_id PK
         CHAR name
         CHAR phone
@@ -65,7 +65,7 @@ erDiagram
         TIMESTAMP event_time
     }
     dim_date only one optionally to zero or more dim_order : "order_date = date_sk"
-    dim_date_copy only one optionally to zero or more dim_order : "customer_id"
+    dim_customer only one optionally to zero or more dim_order : "customer_id"
     dim_item only one optionally to zero or more order_line_item : "item_id"
     dim_order only one optionally to zero or more order_line_item : "order_id"
     dim_warehouse only one optionally to zero or more package : "warehouse_id"
