@@ -1,0 +1,250 @@
+{
+  "tables": [
+    {
+      "name": "dim_consultant",
+      "columns": [
+        {
+          "name": "consultant_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_client",
+      "columns": [
+        {
+          "name": "client_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_rate",
+      "columns": [
+        {
+          "name": "rate_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "consultant_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "client_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "rate_per_hour",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "from_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "to_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "log_billable",
+      "columns": [
+        {
+          "name": "bill_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "rate_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "bill_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "log_hour",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "fact_invoice",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "bill_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "invoice_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_rate",
+        "column": "client_id"
+      },
+      "to": {
+        "table": "dim_client",
+        "column": "client_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_rate",
+        "column": "consultant_id"
+      },
+      "to": {
+        "table": "dim_consultant",
+        "column": "consultant_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_rate",
+        "column": "from_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_rate",
+        "column": "to_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "log_billable",
+        "column": "rate_id"
+      },
+      "to": {
+        "table": "fact_rate",
+        "column": "rate_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "log_billable",
+        "column": "bill_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_invoice",
+        "column": "bill_id"
+      },
+      "to": {
+        "table": "log_billable",
+        "column": "bill_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_invoice",
+        "column": "invoice_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
