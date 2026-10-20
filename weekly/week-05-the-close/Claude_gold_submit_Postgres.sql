@@ -6,15 +6,17 @@
    - raw_payments, raw_fx_rates, raw_merchants exist and every column is TEXT (a text dump landed as-is).
    - PostgreSQL 16 or newer: pg_input_is_valid() is used so a bad value becomes NULL instead of an error
      (SQLite's datetime()/date()/json_valid() return NULL on bad input, Postgres casts raise).
+   - Plain SQL only: no CREATE FUNCTION. Every task is one WITH ... SELECT, built step by step:
+       b = trim text, c = "null"/"N/A" -> NULL, n = prepare text, p = cast to date/timestamp, final SELECT = clean columns.
    - Money is NUMERIC, not float, so the "+/- 1e-9" rounding nudge of the SQLite version is not needed.
    - Period dates for settled_in_period_usd are copied from the gold file (see `params` in fct_payments).
 
    SQLite -> Postgres cheat sheet
      quote(x)                        -> quote_nullable(x)
-     trim(x, chars)                  -> btrim(x, chars)        char(9,10,13) -> E'\t\n\r'
+     trim(x, chars)                  -> btrim(x, chars)        char(9,10,13) -> E' \t\n\r'
      x GLOB '[0-9][0-9]*'            -> x ~ '^[0-9]{2}'        (regex instead of glob)
      instr(a, b)                     -> strpos(a, b)
-     datetime(x) / date(x)           -> dd_ts(x) / dd_day(x)   (helpers below, never raise)
+     datetime(x) / date(x)           -> regex check + pg_input_is_valid() + ::timestamp / ::date
      datetime(n, 'unixepoch')        -> to_timestamp(n) AT TIME ZONE 'UTC'
      json_extract / json_type        -> jsonb ->, ->>, jsonb_typeof
      max(k || v) + substr trick      -> (array_agg(v ORDER BY k DESC))[1]
@@ -47,98 +49,65 @@ tasks:
 */
 
 -- ============================================================
--- setup: helper functions (run once)
--- ============================================================
-
--- Trim whitespace and turn every "spelling of nothing" into NULL.
-CREATE OR REPLACE FUNCTION dd_null(s text) RETURNS text
-LANGUAGE sql IMMUTABLE AS $$
-  SELECT CASE
-    WHEN lower(btrim(s, E' \t\n\r')) = ANY (ARRAY['', '\n', 'null', 'none', 'nil', 'n/a', 'nan', 'nat',
-         '(null)', '<null>', 'undefined', '#n/a', 'missing', '-', '--', '?'])
-    THEN NULL
-    ELSE btrim(s, E' \t\n\r')
-  END
-$$;
-
--- Merchant id: 'm000123' / '123' -> 'M000123'.
-CREATE OR REPLACE FUNCTION dd_mid(s text) RETURNS text
-LANGUAGE sql IMMUTABLE AS $$
-  SELECT CASE
-    WHEN upper(s) ~ '^M[0-9]{6}$' THEN upper(s)
-    WHEN s ~ '^[0-9]{1,6}$' THEN 'M' || lpad(s, 6, '0')
-    ELSE upper(s)
-  END
-$$;
-
--- Calendar day from 'YYYY-MM-DD...', 'YYYYMMDD' or (optionally) 'YYYY/MM/DD...'. Bad value -> NULL.
-CREATE OR REPLACE FUNCTION dd_day(s text, allow_slash boolean DEFAULT true) RETURNS date
-LANGUAGE sql STABLE AS $$
-  SELECT CASE
-    WHEN s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN
-      CASE WHEN pg_input_is_valid(left(s, 10), 'date') THEN left(s, 10)::date END
-    WHEN s ~ '^[0-9]{8}$' THEN
-      CASE WHEN pg_input_is_valid(left(s, 4) || '-' || substr(s, 5, 2) || '-' || substr(s, 7, 2), 'date')
-           THEN (left(s, 4) || '-' || substr(s, 5, 2) || '-' || substr(s, 7, 2))::date END
-    WHEN allow_slash AND s ~ '^[0-9]{4}/[0-9]{2}/[0-9]{2}' THEN
-      CASE WHEN pg_input_is_valid(replace(left(s, 10), '/', '-'), 'date')
-           THEN replace(left(s, 10), '/', '-')::date END
-  END
-$$;
-
--- Any of: epoch seconds, epoch millis, 'YYYY-MM-DD[ HH:MM[:SS[.f]]][ ][+HH|+HH:MM|+HHMM|Z]', with
--- 'T' / 'UTC' / 'GMT' noise. Result is a UTC wall-clock TIMESTAMP truncated to the second.
--- No offset = already UTC. Anything else -> NULL.
-CREATE OR REPLACE FUNCTION dd_ts(raw text) RETURNS timestamp
-LANGUAGE sql STABLE AS $$
-  WITH n AS (
-    SELECT btrim(replace(replace(replace(replace(replace(upper(raw), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' ')) AS s
-  )
-  SELECT date_trunc('second', CASE
-    WHEN s IS NULL OR s = '' THEN NULL
-    -- digits only: an epoch count. >= 1e11 is millis, >= 1e8 is seconds, anything smaller is not a time
-    WHEN s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
-      CASE WHEN s::numeric >= 1e11 AND s::numeric < 2.5e14 THEN to_timestamp((s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
-           WHEN s::numeric >= 1e8  AND s::numeric < 1e11   THEN to_timestamp(s::double precision) AT TIME ZONE 'UTC'
-      END
-    -- only accept an ISO-like shape (Postgres would also accept words like 'now' or 'today')
-    WHEN s !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?( ?([+-][0-9]{2}(:?[0-9]{2})?|Z))?)?$' THEN NULL
-    -- has an offset: convert to UTC
-    WHEN s ~ ' [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$' THEN
-      CASE WHEN pg_input_is_valid(s, 'timestamptz') THEN s::timestamptz AT TIME ZONE 'UTC' END
-    -- no offset: already UTC
-    ELSE
-      CASE WHEN pg_input_is_valid(s, 'timestamp') THEN s::timestamp END
-  END)
-  FROM n
-$$;
-
--- ============================================================
 -- task: payments_history
 -- ============================================================
-WITH c AS (
+WITH nulls AS (
+  -- every spelling of "nothing" we treat as NULL
+  SELECT ARRAY['', '\n', 'null', 'none', 'nil', 'n/a', 'nan', 'nat', '(null)', '<null>', 'undefined', '#n/a', 'missing', '-', '--', '?'] AS list
+),
+b AS (
+  -- step 1: build the row key from the raw values, and trim spaces / tabs / newlines of every column
   SELECT
     quote_nullable(payment_id) || '|' || quote_nullable(_batch_id) || '|' || quote_nullable(_correction_for) || '|' ||
     quote_nullable(_loaded_at) || '|' || quote_nullable(updated_at) || '|' || quote_nullable(status) || '|' ||
     quote_nullable(settled) || '|' || quote_nullable(captured_at) || '|' || quote_nullable(amount) || '|' ||
     quote_nullable(currency) || '|' || quote_nullable(merchant_id) AS rk,
-    dd_null(payment_id)  AS payment_id,
-    dd_null(merchant_id) AS merchant_id,
-    dd_null(amount)      AS amount,
-    dd_null(currency)    AS currency,
-    dd_null(status)      AS status,
-    dd_null(settled)     AS settled,
-    dd_null(created_at)  AS created_at,
-    dd_null(captured_at) AS captured_at,
-    dd_null(updated_at)  AS updated_at,
-    dd_null(metadata)    AS metadata,
-    dd_null(_batch_id)   AS bid,
-    dd_null(_correction_for) AS cfor,
-    dd_null(_loaded_at)  AS lat
+    btrim(payment_id, E' \t\n\r') AS payment_id,
+    btrim(merchant_id, E' \t\n\r') AS merchant_id,
+    btrim(amount, E' \t\n\r') AS amount,
+    btrim(currency, E' \t\n\r') AS currency,
+    btrim(status, E' \t\n\r') AS status,
+    btrim(settled, E' \t\n\r') AS settled,
+    btrim(created_at, E' \t\n\r') AS created_at,
+    btrim(captured_at, E' \t\n\r') AS captured_at,
+    btrim(updated_at, E' \t\n\r') AS updated_at,
+    btrim(metadata, E' \t\n\r') AS metadata,
+    btrim(_batch_id, E' \t\n\r') AS bid,
+    btrim(_correction_for, E' \t\n\r') AS cfor,
+    btrim(_loaded_at, E' \t\n\r') AS lat
   FROM raw_payments
 ),
-t AS (
+c AS (
+  -- step 2: "null", "N/A", "-" ... become real NULL
+  SELECT b.rk,
+    CASE WHEN lower(b.payment_id) = ANY (nulls.list) THEN NULL ELSE b.payment_id END AS payment_id,
+    CASE WHEN lower(b.merchant_id) = ANY (nulls.list) THEN NULL ELSE b.merchant_id END AS merchant_id,
+    CASE WHEN lower(b.amount) = ANY (nulls.list) THEN NULL ELSE b.amount END AS amount,
+    CASE WHEN lower(b.currency) = ANY (nulls.list) THEN NULL ELSE b.currency END AS currency,
+    CASE WHEN lower(b.status) = ANY (nulls.list) THEN NULL ELSE b.status END AS status,
+    CASE WHEN lower(b.settled) = ANY (nulls.list) THEN NULL ELSE b.settled END AS settled,
+    CASE WHEN lower(b.created_at) = ANY (nulls.list) THEN NULL ELSE b.created_at END AS created_at,
+    CASE WHEN lower(b.captured_at) = ANY (nulls.list) THEN NULL ELSE b.captured_at END AS captured_at,
+    CASE WHEN lower(b.updated_at) = ANY (nulls.list) THEN NULL ELSE b.updated_at END AS updated_at,
+    CASE WHEN lower(b.metadata) = ANY (nulls.list) THEN NULL ELSE b.metadata END AS metadata,
+    CASE WHEN lower(b.bid) = ANY (nulls.list) THEN NULL ELSE b.bid END AS bid,
+    CASE WHEN lower(b.cfor) = ANY (nulls.list) THEN NULL ELSE b.cfor END AS cfor,
+    CASE WHEN lower(b.lat) = ANY (nulls.list) THEN NULL ELSE b.lat END AS lat
+  FROM b CROSS JOIN nulls
+),
+n AS (
+  -- step 3: prepare text for parsing (still text, nothing is cast yet)
   SELECT c.*,
+    btrim(replace(replace(replace(replace(replace(upper(created_at), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' '))  AS cr_s,
+    btrim(replace(replace(replace(replace(replace(upper(captured_at), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' ')) AS ca_s,
+    btrim(replace(replace(replace(replace(replace(upper(updated_at), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' '))  AS up_s,
+    btrim(replace(replace(replace(replace(replace(upper(lat), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' '))         AS lo_s,
+    CASE WHEN bid ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN left(bid, 10)
+         WHEN bid ~ '^[0-9]{8}$' THEN left(bid, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2)
+         WHEN bid ~ '^[0-9]{4}/[0-9]{2}/[0-9]{2}' THEN replace(left(bid, 10), '/', '-') END AS bday_s,
+    CASE WHEN cfor ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN left(cfor, 10)
+         WHEN cfor ~ '^[0-9]{8}$' THEN left(cfor, 4) || '-' || substr(cfor, 5, 2) || '-' || substr(cfor, 7, 2)
+         WHEN cfor ~ '^[0-9]{4}/[0-9]{2}/[0-9]{2}' THEN replace(left(cfor, 10), '/', '-') END AS cday_s,
     -- metadata as jsonb; a JSON string that itself holds JSON (double encoded) is unwrapped once
     CASE WHEN pg_input_is_valid(metadata, 'jsonb') THEN
       CASE WHEN jsonb_typeof(metadata::jsonb) = 'string' AND pg_input_is_valid(metadata::jsonb #>> '{}', 'jsonb')
@@ -151,11 +120,46 @@ t AS (
   FROM c
 ),
 p AS (
-  SELECT rk, payment_id, merchant_id, amount, currency, status, settled, bid, cfor,
-    dd_ts(created_at)  AS created_ts,
-    dd_ts(captured_at) AS captured_ts,
-    dd_ts(updated_at)  AS updated_ts,
-    dd_ts(lat)         AS loaded_ts,
+  -- step 4: cast text to timestamps / dates (a bad value becomes NULL, never an error)
+  SELECT rk, payment_id, merchant_id, amount, currency, status, settled,
+    date_trunc('second', CASE
+      WHEN cr_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN cr_s::numeric >= 1e11 AND cr_s::numeric < 2.5e14 THEN to_timestamp((cr_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN cr_s::numeric >= 1e8  AND cr_s::numeric < 1e11   THEN to_timestamp(cr_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN cr_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(cr_s, 'timestamptz') THEN cr_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN cr_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(cr_s, 'timestamp') THEN cr_s::timestamp
+    END) AS created_ts,
+    date_trunc('second', CASE
+      WHEN ca_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN ca_s::numeric >= 1e11 AND ca_s::numeric < 2.5e14 THEN to_timestamp((ca_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN ca_s::numeric >= 1e8  AND ca_s::numeric < 1e11   THEN to_timestamp(ca_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN ca_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(ca_s, 'timestamptz') THEN ca_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN ca_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(ca_s, 'timestamp') THEN ca_s::timestamp
+    END) AS captured_ts,
+    date_trunc('second', CASE
+      WHEN up_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN up_s::numeric >= 1e11 AND up_s::numeric < 2.5e14 THEN to_timestamp((up_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN up_s::numeric >= 1e8  AND up_s::numeric < 1e11   THEN to_timestamp(up_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN up_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(up_s, 'timestamptz') THEN up_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN up_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(up_s, 'timestamp') THEN up_s::timestamp
+    END) AS updated_ts,
+    date_trunc('second', CASE
+      WHEN lo_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN lo_s::numeric >= 1e11 AND lo_s::numeric < 2.5e14 THEN to_timestamp((lo_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN lo_s::numeric >= 1e8  AND lo_s::numeric < 1e11   THEN to_timestamp(lo_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(lo_s, 'timestamptz') THEN lo_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(lo_s, 'timestamp') THEN lo_s::timestamp
+    END) AS loaded_ts,
+    CASE WHEN pg_input_is_valid(bday_s, 'date') THEN bday_s::date END AS batch_day,
+    CASE WHEN pg_input_is_valid(cday_s, 'date') THEN cday_s::date END AS corr_day,
     CASE
       WHEN mj IS NOT NULL THEN
         CASE WHEN jsonb_typeof(mj) = 'object' AND jsonb_typeof(mj -> 'order_ref') IN ('string', 'number')
@@ -168,17 +172,13 @@ p AS (
              WHEN strpos(mrest, '}') > 0 THEN btrim(substr(mrest, 1, strpos(mrest, '}') - 1))
         END
     END AS order_ref
-  FROM t
-),
-d AS (
-  SELECT p.*,
-    dd_day(bid)  AS batch_day,
-    dd_day(cfor) AS corr_day
-  FROM p
+  FROM n
 )
 SELECT rk,
   lower(payment_id) AS pid,
-  dd_mid(merchant_id) AS mid,
+  CASE WHEN upper(merchant_id) ~ '^M[0-9]{6}$' THEN upper(merchant_id)
+         WHEN merchant_id ~ '^[0-9]{1,6}$' THEN 'M' || lpad(merchant_id, 6, '0')
+         ELSE upper(merchant_id) END AS mid,
   CASE lower(status)
     WHEN 'authorized' THEN 'authorized' WHEN 'authorised' THEN 'authorized'
     WHEN 'captured' THEN 'captured' WHEN 'failed' THEN 'failed'
@@ -196,56 +196,120 @@ SELECT rk,
   -- the day the state belongs to: correction day, else batch day, else the day before it landed
   coalesce(corr_day, batch_day,
            (CASE WHEN loaded_ts BETWEEN '1990-01-01' AND '2100-01-01' THEN loaded_ts END - interval '1 day')::date) AS eff_day
-FROM d;
+FROM p;
 
 -- ============================================================
 -- task: fx_history
 -- ============================================================
-WITH c AS (
+WITH nulls AS (
+  -- every spelling of "nothing" we treat as NULL
+  SELECT ARRAY['', '\n', 'null', 'none', 'nil', 'n/a', 'nan', 'nat', '(null)', '<null>', 'undefined', '#n/a', 'missing', '-', '--', '?'] AS list
+),
+b AS (
   SELECT
     quote_nullable(rate_date) || '|' || quote_nullable(currency) || '|' || quote_nullable(usd_rate) || '|' ||
     quote_nullable(_batch_id) || '|' || quote_nullable(_loaded_at) AS rk,
-    dd_null(rate_date) AS rd,
-    dd_null(currency)  AS currency,
-    replace(dd_null(usd_rate), ',', '.') AS rate,      -- decimal commas from EU feeds
-    dd_null(_batch_id) AS bid,
-    dd_null(_loaded_at) AS lo
+    btrim(rate_date, E' \t\n\r') AS rd,
+    btrim(currency, E' \t\n\r') AS currency,
+    btrim(usd_rate, E' \t\n\r') AS rate,
+    btrim(_batch_id, E' \t\n\r') AS bid,
+    btrim(_loaded_at, E' \t\n\r') AS lo
   FROM raw_fx_rates
 ),
-p AS (
-  SELECT rk,
-    CASE WHEN upper(currency) ~ '^[A-Z]{3}$' THEN upper(currency) END AS cur,
-    coalesce(dd_day(rd), dd_day(bid, false)) AS rate_day,
-    CASE WHEN rate ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$'
-         THEN CASE WHEN rate::numeric > 0 THEN rate::numeric END END AS rate,
-    dd_ts(lo) AS loaded_ts
+c AS (
+  SELECT b.rk,
+    CASE WHEN lower(b.rd) = ANY (nulls.list) THEN NULL ELSE b.rd END AS rd,
+    CASE WHEN lower(b.currency) = ANY (nulls.list) THEN NULL ELSE b.currency END AS currency,
+    CASE WHEN lower(b.rate) = ANY (nulls.list) THEN NULL ELSE b.rate END AS rate,
+    CASE WHEN lower(b.bid) = ANY (nulls.list) THEN NULL ELSE b.bid END AS bid,
+    CASE WHEN lower(b.lo) = ANY (nulls.list) THEN NULL ELSE b.lo END AS lo
+  FROM b CROSS JOIN nulls
+),
+n AS (
+  SELECT rk, currency,
+    replace(rate, ',', '.') AS rate,            -- decimal commas from EU feeds
+    CASE WHEN rd ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN left(rd, 10)
+         WHEN rd ~ '^[0-9]{8}$' THEN left(rd, 4) || '-' || substr(rd, 5, 2) || '-' || substr(rd, 7, 2)
+         WHEN rd ~ '^[0-9]{4}/[0-9]{2}/[0-9]{2}' THEN replace(left(rd, 10), '/', '-') END AS rd_s,
+    CASE WHEN bid ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN left(bid, 10)
+         WHEN bid ~ '^[0-9]{8}$' THEN left(bid, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2) END AS bid_s,
+    btrim(replace(replace(replace(replace(replace(upper(lo), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' ')) AS lo_s
   FROM c
+),
+p AS (
+  SELECT rk, currency, rate,
+    coalesce(CASE WHEN pg_input_is_valid(rd_s, 'date') THEN rd_s::date END,
+             CASE WHEN pg_input_is_valid(bid_s, 'date') THEN bid_s::date END) AS rate_day,
+    date_trunc('second', CASE
+      WHEN lo_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN lo_s::numeric >= 1e11 AND lo_s::numeric < 2.5e14 THEN to_timestamp((lo_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN lo_s::numeric >= 1e8  AND lo_s::numeric < 1e11   THEN to_timestamp(lo_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(lo_s, 'timestamptz') THEN lo_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(lo_s, 'timestamp') THEN lo_s::timestamp
+    END) AS loaded_ts
+  FROM n
 )
-SELECT rk, cur, rate_day, rate, loaded_ts FROM p;
+SELECT rk,
+  CASE WHEN upper(currency) ~ '^[A-Z]{3}$' THEN upper(currency) END AS cur,
+  rate_day,
+  CASE WHEN rate ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$'
+       THEN CASE WHEN rate::numeric > 0 THEN rate::numeric END END AS rate,
+  loaded_ts
+FROM p;
 
 -- ============================================================
 -- task: merchants_history
 -- ============================================================
-WITH c AS (
+WITH nulls AS (
+  -- every spelling of "nothing" we treat as NULL
+  SELECT ARRAY['', '\n', 'null', 'none', 'nil', 'n/a', 'nan', 'nat', '(null)', '<null>', 'undefined', '#n/a', 'missing', '-', '--', '?'] AS list
+),
+b AS (
   SELECT
     quote_nullable(merchant_id) || '|' || quote_nullable(name) || '|' || quote_nullable(country) || '|' ||
     quote_nullable(is_test) || '|' || quote_nullable(_batch_id) || '|' || quote_nullable(_loaded_at) AS rk,
-    dd_null(merchant_id) AS merchant_id,
-    upper(btrim(country, E' \t\n\r')) AS country,
-    lower(btrim(is_test, E' \t\n\r')) AS is_test,
-    dd_null(_batch_id)   AS bid,
-    dd_null(_loaded_at)  AS lo
+    btrim(merchant_id, E' \t\n\r') AS merchant_id,
+    btrim(_batch_id, E' \t\n\r') AS bid,
+    btrim(_loaded_at, E' \t\n\r') AS lo,
+    upper(btrim(country, E' \t\n\r')) AS country,      -- country / is_test: only trimmed and cased, no null markers
+    lower(btrim(is_test, E' \t\n\r')) AS is_test
   FROM raw_merchants
+),
+c AS (
+  SELECT b.rk, b.country, b.is_test,
+    CASE WHEN lower(b.merchant_id) = ANY (nulls.list) THEN NULL ELSE b.merchant_id END AS merchant_id,
+    CASE WHEN lower(b.bid) = ANY (nulls.list) THEN NULL ELSE b.bid END AS bid,
+    CASE WHEN lower(b.lo) = ANY (nulls.list) THEN NULL ELSE b.lo END AS lo
+  FROM b CROSS JOIN nulls
+),
+n AS (
+  SELECT rk, merchant_id, country, is_test,
+    CASE WHEN bid ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN left(bid, 10)
+         WHEN bid ~ '^[0-9]{8}$' THEN left(bid, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2) END AS bid_s,
+    btrim(replace(replace(replace(replace(replace(upper(lo), ' UTC', ''), 'UTC', ''), ' GMT', ''), 'GMT', ''), 'T', ' ')) AS lo_s
+  FROM c
 ),
 p AS (
   SELECT rk,
-    dd_mid(merchant_id) AS mid,
+    CASE WHEN upper(merchant_id) ~ '^M[0-9]{6}$' THEN upper(merchant_id)
+         WHEN merchant_id ~ '^[0-9]{1,6}$' THEN 'M' || lpad(merchant_id, 6, '0')
+         ELSE upper(merchant_id) END AS mid,
     CASE WHEN country ~ '^[A-Z]{2}$' THEN country END AS country,
     CASE WHEN is_test IN ('t', 'true', '1', 'y', 'yes') THEN 1
          WHEN is_test IN ('f', 'false', '0', 'n', 'no') THEN 0 END AS is_test,
-    dd_day(bid, false) AS bday,
-    dd_ts(lo) AS loaded_ts
-  FROM c
+    CASE WHEN pg_input_is_valid(bid_s, 'date') THEN bid_s::date END AS bday,
+    date_trunc('second', CASE
+      WHEN lo_s ~ '^([0-9]+\.?[0-9]*|\.[0-9]+)$' THEN
+        CASE WHEN lo_s::numeric >= 1e11 AND lo_s::numeric < 2.5e14 THEN to_timestamp((lo_s::numeric / 1000.0)::double precision) AT TIME ZONE 'UTC'
+             WHEN lo_s::numeric >= 1e8  AND lo_s::numeric < 1e11   THEN to_timestamp(lo_s::double precision) AT TIME ZONE 'UTC' END
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)? ?([+-][0-9]{2}(:?[0-9]{2})?|Z)$'
+           AND pg_input_is_valid(lo_s, 'timestamptz') THEN lo_s::timestamptz AT TIME ZONE 'UTC'
+      WHEN lo_s ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}(:[0-9]{2}(\.[0-9]+)?)?)?$'
+           AND pg_input_is_valid(lo_s, 'timestamp') THEN lo_s::timestamp
+    END) AS loaded_ts
+  FROM n
 )
 SELECT rk, mid, country, is_test,
   coalesce(bday, (loaded_ts - interval '1 day')::date) AS batch_day,
