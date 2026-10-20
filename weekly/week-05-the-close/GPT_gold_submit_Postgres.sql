@@ -97,12 +97,12 @@ p AS (
 ),
 d AS (
   SELECT p.*,
-    CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CAST(substr(bid, 1, 10) AS date)
-         WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CAST(substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2) AS date)
-         WHEN (bid ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CAST(replace(substr(bid, 1, 10), '/', '-') AS date) END AS batch_day,
-    CASE WHEN (cfor ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CAST(substr(cfor, 1, 10) AS date)
-         WHEN (cfor ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CAST(substr(cfor, 1, 4) || '-' || substr(cfor, 5, 2) || '-' || substr(cfor, 7, 2) AS date)
-         WHEN (cfor ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CAST(replace(substr(cfor, 1, 10), '/', '-') AS date) END AS corr_day
+    CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 10))::text, 'date') THEN (substr(bid, 1, 10))::date END
+         WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::text, 'date') THEN (substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::date END
+         WHEN (bid ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((replace(substr(bid, 1, 10), '/', '-'))::text, 'date') THEN (replace(substr(bid, 1, 10), '/', '-'))::date END END AS batch_day,
+    CASE WHEN (cfor ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((substr(cfor, 1, 10))::text, 'date') THEN (substr(cfor, 1, 10))::date END
+         WHEN (cfor ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((substr(cfor, 1, 4) || '-' || substr(cfor, 5, 2) || '-' || substr(cfor, 7, 2))::text, 'date') THEN (substr(cfor, 1, 4) || '-' || substr(cfor, 5, 2) || '-' || substr(cfor, 7, 2))::date END
+         WHEN (cfor ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((replace(substr(cfor, 1, 10), '/', '-'))::text, 'date') THEN (replace(substr(cfor, 1, 10), '/', '-'))::date END END AS corr_day
   FROM p
 )
 SELECT rk,
@@ -143,11 +143,11 @@ p AS (
   SELECT rk,
     CASE WHEN (upper(currency) ~ '^[A-Z][A-Z][A-Z]$') THEN upper(currency) END AS cur,
     coalesce(
-      CASE WHEN (rd ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CAST(substr(rd, 1, 10) AS date)
-           WHEN (rd ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CAST(substr(rd, 1, 4) || '-' || substr(rd, 5, 2) || '-' || substr(rd, 7, 2) AS date)
-           WHEN (rd ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CAST(replace(substr(rd, 1, 10), '/', '-') AS date) END,
-      CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CAST(substr(bid, 1, 10) AS date)
-           WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CAST(substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2) AS date) END
+      CASE WHEN (rd ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((substr(rd, 1, 10))::text, 'date') THEN (substr(rd, 1, 10))::date END
+           WHEN (rd ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((substr(rd, 1, 4) || '-' || substr(rd, 5, 2) || '-' || substr(rd, 7, 2))::text, 'date') THEN (substr(rd, 1, 4) || '-' || substr(rd, 5, 2) || '-' || substr(rd, 7, 2))::date END
+           WHEN (rd ~ '^[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((replace(substr(rd, 1, 10), '/', '-'))::text, 'date') THEN (replace(substr(rd, 1, 10), '/', '-'))::date END END,
+      CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 10))::text, 'date') THEN (substr(bid, 1, 10))::date END
+           WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::text, 'date') THEN (substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::date END END
     ) AS rate_day,
     CASE WHEN (rate ~ '^.*[0-9].*$') AND (rate !~ '^.*[^0-9.].*$') AND (rate !~ '^.*\..*\..*$') AND CAST(rate AS double precision) > 0 THEN CAST(rate AS double precision) END AS rate,
     CASE WHEN lo IS NULL THEN NULL
@@ -178,8 +178,8 @@ p AS (
          ELSE upper(merchant_id) END AS mid,
     CASE WHEN (country ~ '^[A-Z][A-Z]$') THEN country END AS country,
     CASE WHEN is_test IN ('t', 'true', '1', 'y', 'yes') THEN 1 WHEN is_test IN ('f', 'false', '0', 'n', 'no') THEN 0 END AS is_test,
-    CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CAST(substr(bid, 1, 10) AS date)
-         WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CAST(substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2) AS date) END AS bday,
+    CASE WHEN (bid ~ '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 10))::text, 'date') THEN (substr(bid, 1, 10))::date END
+         WHEN (bid ~ '^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::text, 'date') THEN (substr(bid, 1, 4) || '-' || substr(bid, 5, 2) || '-' || substr(bid, 7, 2))::date END END AS bday,
     CASE WHEN lo IS NULL THEN NULL
       WHEN lo ~ '^[0-9]+([.][0-9]*)?$' THEN CASE WHEN CAST(lo AS double precision) >= 1e11 THEN to_char(to_timestamp(CAST(lo AS double precision) / 1000.0) AT TIME ZONE 'UTC', 'YYYY-MM-DD HH24:MI:SS') WHEN CAST(lo AS double precision) >= 1e8 THEN to_char(to_timestamp(CAST(lo AS double precision)) AT TIME ZONE 'UTC', 'YYYY-MM-DD HH24:MI:SS') END
       WHEN length(lo) > 10 AND (lo ~ '^.*[+-][0-9][0-9]$') THEN CASE WHEN pg_input_is_valid((lo || ':00')::text, 'timestamptz') AND ((lo || ':00')::text ~ '(Z|[+-][0-9]{2}(:?[0-9]{2})?)$') THEN to_char(((lo || ':00')::timestamptz AT TIME ZONE 'UTC'), 'YYYY-MM-DD HH24:MI:SS') WHEN pg_input_is_valid((lo || ':00')::text, 'timestamp') THEN to_char((lo || ':00')::timestamp, 'YYYY-MM-DD HH24:MI:SS') END
@@ -187,7 +187,7 @@ p AS (
       ELSE CASE WHEN pg_input_is_valid((lo)::text, 'timestamptz') AND ((lo)::text ~ '(Z|[+-][0-9]{2}(:?[0-9]{2})?)$') THEN to_char(((lo)::timestamptz AT TIME ZONE 'UTC'), 'YYYY-MM-DD HH24:MI:SS') WHEN pg_input_is_valid((lo)::text, 'timestamp') THEN to_char((lo)::timestamp, 'YYYY-MM-DD HH24:MI:SS') END END AS loaded_ts
   FROM c
 )
-SELECT rk, mid, country, is_test, coalesce(bday, (CAST(loaded_ts AS date) - 1)) AS batch_day, loaded_ts FROM p;
+SELECT rk, mid, country, is_test, coalesce(bday, (CASE WHEN pg_input_is_valid((loaded_ts)::text, 'date') THEN (loaded_ts)::date END - 1)) AS batch_day, loaded_ts FROM p;
  
 -- task: fct_payments
 WITH p AS (
@@ -221,7 +221,7 @@ gd AS (
     CASE WHEN cur IN ('BIF','CLP','DJF','GNF','ISK','JPY','KMF','KRW','PYG','RWF','UGX','UYI','VND','VUV','XAF','XOF','XPF') THEN 1.0
          WHEN cur IN ('BHD','IQD','JOD','KWD','LYD','OMR','TND') THEN 1000.0
          ELSE 100.0 END AS dv,
-    CAST(created_ts AS date) AS cday
+    CASE WHEN pg_input_is_valid((created_ts)::text, 'date') THEN (created_ts)::date END AS cday
   FROM g
 ),
 st AS (
