@@ -1,0 +1,260 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "customer_id",
+          "key": "fk"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_date_copy",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_item",
+      "columns": [
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "order_line_item",
+      "columns": [
+        {
+          "name": "order_item_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "item_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity"
+        }
+      ]
+    },
+    {
+      "name": "package",
+      "columns": [
+        {
+          "name": "package_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "warehouse_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_item_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "current_status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_warehouse",
+      "columns": [
+        {
+          "name": "warehouse_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "package_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "package_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_order",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_date_copy",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_line_item",
+        "column": "item_id"
+      },
+      "to": {
+        "table": "dim_item",
+        "column": "item_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_line_item",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "dim_order",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "package",
+        "column": "warehouse_id"
+      },
+      "to": {
+        "table": "dim_warehouse",
+        "column": "warehouse_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "package",
+        "column": "order_item_id"
+      },
+      "to": {
+        "table": "order_line_item",
+        "column": "order_item_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "package_event",
+        "column": "package_id"
+      },
+      "to": {
+        "table": "package",
+        "column": "package_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

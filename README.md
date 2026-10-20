@@ -20,6 +20,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Last Mile](./practice/data_modeling/the-last-mile) | Data Modeling | Medium | 2026-10-20 |
 | [The Rate That Was](./practice/data_modeling/the-rate-that-was) | Data Modeling | Medium | 2026-10-20 |
 | [One Door Each](./practice/data_modeling/one-door-each) | Data Modeling | Medium | 2026-10-19 |
 | [Insurance Claims Lifecycle](./practice/data_modeling/insurance-claims-lifecycle) | Data Modeling | Hard | 2026-10-19 |
