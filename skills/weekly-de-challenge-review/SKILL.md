@@ -99,6 +99,22 @@ Inspect the actual challenge contract, SQL files, DAG definitions, schemas, and 
 - Do not invent schemas, query plans, runtime metrics, database-engine behavior, or evaluator results.
 - Treat `gold_submit.sql` as a reference implementation, not proof that every implementation detail is mandatory.
 
+
+### PostgreSQL companion SQL for non-PostgreSQL challenges
+
+For every eligible **SQL/DAG challenge** that has `README.md`, `dag.sql`, and `gold_submit.sql`, identify the SQL dialect/engine actually used by `gold_submit.sql` from its syntax, functions, configuration, and README—not from the filename or week number alone.
+
+- If the reference SQL is already PostgreSQL-compatible, do not create a duplicate PostgreSQL file.
+- If the reference SQL uses a different dialect (for example SQLite, BigQuery, Snowflake, or MySQL), create a companion file at `weekly/<week-folder>/GPT_gold_submit_Postgres.sql`.
+- Preserve `gold_submit.sql` unchanged. Never rename, replace, or overwrite the original reference or an existing `GPT_gold_submit_Postgres.sql`. If the companion already exists, inspect it if useful, but do not overwrite it automatically; report whether it appears to need review.
+- Translate all task queries and relevant SQL logic to PostgreSQL, including JSON operations, date/time parsing, string/pattern matching, numeric casts/rounding, and NULL behavior as applicable. Preserve the intended output columns, grain, keys, filters, joins, and business semantics. Adapt engine-specific syntax deliberately rather than performing blind text substitutions.
+- Keep DAG orchestration/materialization configuration separate from SQL execution semantics. Explain in comments when the companion contains query SQL only and scheduling/materialization must be handled by the existing runner.
+- Prefer broadly compatible PostgreSQL syntax. If the translation requires a particular PostgreSQL version or extension, state that requirement at the top of the file.
+- Validate the result as far as the available environment permits. Check for remaining source-dialect-only functions and syntax, review each task/query, and compare against sample expectations when sample data and a PostgreSQL runtime are available. Never claim the SQL was executed or sample-validated unless it actually was.
+- If no PostgreSQL runtime is available, perform a careful static review and add a brief header comment saying execution/sample validation remains outstanding. Do not present an unexecuted translation as production-validated.
+- Commit the new companion SQL file to the repository when the user has authorized this workflow, using a descriptive commit message. This SQL-file commit is independent of the approval gate for `GPT_Analysis.md`: never create/commit an analysis report until the user approves its draft.
+- In the review response, state the source dialect, link the new file and commit when created, note PostgreSQL version requirements, and clearly distinguish static review from actual execution.
+
 ## Special score-zero / out-of-memory teaching section
 
 When score is 0 and evaluator evidence identifies OOM in a Python challenge, add a prominent section titled **Why the score was 0: memory exhaustion**. It must:
