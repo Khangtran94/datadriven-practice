@@ -86,7 +86,7 @@ Every condition in the data, ordered by what it cost. "Handled" means its record
 
 **Last row lacks older fields.** The service that records a dispute or a capture saves the columns it owns and leaves the rest empty. The payment's newest row is then missing values an older row of the same payment still holds, and taking the newest row whole throws them away.
 
-**Money that moved after.** A payment authorized in the last days of the month is captured after it, so its last state is a capture and none of that money belongs to the month being closed. A figure taken from the payment's final state instead of from the days the money moved counts it anyway.
+**Money that moved after.** A payment authorized on one of the last days being closed is captured after they close, so its last state is a capture and none of that money belongs to those days. A figure taken from the payment's final state instead of from the days the money moved counts it anyway.
 
 **NULL landed as text.** A text dump has to write NULL somehow, and each export tool picks its own marker. Loaded into a text column the marker is a value like any other, so a missing time is no longer NULL.
 
@@ -118,7 +118,7 @@ Every condition in the data, ordered by what it cost. "Handled" means its record
 
 **Country cased or padded.** Country was typed into an onboarding form for years before it became a picklist. The older merchants carry whatever was typed, in whatever case.
 
-**A night the copy never came.** The merchant copy failed 1 night and the landing stayed empty until the next. A pipeline that reads the night's copy as the state of the merchants that night finds none; one that keeps the night before, or checks the copy before it trusts it, knows better.
+**A night the copy never came.** The merchant copy failed on some nights and the landing stayed empty until the next one came. A pipeline that reads the night's copy as the state of the merchants that night finds none; one that keeps the night before, or checks the copy before it trusts it, knows better.
 
 **A day sent twice over.** The team upstream re-ran its extract for a day and sent that day again, marked for the day it belongs to. Both copies are in the table and the day's money moved once, so the restated rows are the ones that count and the day has to be replaced rather than added.
 
