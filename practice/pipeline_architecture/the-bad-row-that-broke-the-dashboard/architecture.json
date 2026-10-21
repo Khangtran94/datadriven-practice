@@ -1,0 +1,109 @@
+{
+  "components": [
+    {
+      "id": "s_1787813021600_0",
+      "name": "application event",
+      "type": "source",
+      "tech": "Kafka",
+      "position": {
+        "x": 97,
+        "y": 96
+      }
+    },
+    {
+      "id": "s_1787813034858_1",
+      "name": "streaming process",
+      "type": "transform",
+      "tech": "Flink",
+      "position": {
+        "x": 106,
+        "y": 96
+      }
+    },
+    {
+      "id": "s_1787813065035_4",
+      "name": "check validation",
+      "type": "quality_gate",
+      "position": {
+        "x": 111,
+        "y": 96
+      }
+    },
+    {
+      "id": "s_1787813069624_5",
+      "name": "Dead letter queue",
+      "type": "queue",
+      "position": {
+        "x": 115,
+        "y": 101
+      }
+    },
+    {
+      "id": "s_1787813101016_8",
+      "name": "data warehouse production table",
+      "type": "storage",
+      "tech": "Snowflake",
+      "sla": {
+        "freshness": "< 1min"
+      },
+      "position": {
+        "x": 115,
+        "y": 96
+      }
+    },
+    {
+      "id": "s_1787813139802_10",
+      "name": "dashboard",
+      "type": "consumer",
+      "tech": "Grafana",
+      "position": {
+        "x": 121,
+        "y": 96
+      }
+    },
+    {
+      "id": "s_1787813246207_12",
+      "name": "schema registry",
+      "type": "transform",
+      "tech": "AWS Glue Schema Registry",
+      "position": {
+        "x": 101,
+        "y": 96
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "s_1787813034858_1",
+      "to": "s_1787813065035_4",
+      "type": "data_flow"
+    },
+    {
+      "from": "s_1787813065035_4",
+      "to": "s_1787813069624_5",
+      "type": "error_path",
+      "label": "fail validation"
+    },
+    {
+      "from": "s_1787813065035_4",
+      "to": "s_1787813101016_8",
+      "type": "data_flow"
+    },
+    {
+      "from": "s_1787813101016_8",
+      "to": "s_1787813139802_10",
+      "type": "data_flow"
+    },
+    {
+      "from": "s_1787813021600_0",
+      "to": "s_1787813246207_12",
+      "type": "data_flow"
+    },
+    {
+      "from": "s_1787813246207_12",
+      "to": "s_1787813034858_1",
+      "type": "data_flow"
+    }
+  ],
+  "zones": []
+}

@@ -189,6 +189,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Biggest Fish](./practice/sql/the-biggest-fish) | SQL | Medium | 2026-08-31 |
 | [Top 2 Callers per Endpoint](./practice/sql/top-2-callers-per-endpoint) | SQL | Medium | 2026-08-31 |
 | [Top Earner Per Campaign](./practice/sql/top-earner-per-campaign) | SQL | Medium | 2026-08-31 |
+| [The Bad Row That Broke the Dashboard](./practice/pipeline_architecture/the-bad-row-that-broke-the-dashboard) | Pipeline Architecture | Medium | 2026-08-27 |
 | [Below the Line](./practice/sql/below-the-line) | SQL | Medium | 2026-08-27 |
 | [Peak Retargeting Revenue Month](./practice/sql/peak-retargeting-revenue-month) | SQL | Medium | 2026-08-27 |
 | [Top Error-Service Pair](./practice/sql/top-error-service-pair) | SQL | Medium | 2026-08-27 |
