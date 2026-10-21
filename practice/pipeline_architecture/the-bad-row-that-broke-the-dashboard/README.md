@@ -26,7 +26,7 @@ flowchart LR
     n6("<b>Consumer</b><br/>Grafana<br/>dashboard")
     n7["<b>Transform</b><br/>AWS Glue Schema Registry<br/>schema registry"]
     n2 --> n3
-    n3 -.->|"Error path: fail validation"| n4
+    n3 -.->|"Error Path: fail validation"| n4
     n3 --> n5
     n5 --> n6
     n1 --> n7
