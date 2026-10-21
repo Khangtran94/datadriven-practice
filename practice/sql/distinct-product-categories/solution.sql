@@ -1,3 +1,2 @@
-(products
-  .select('category')
-  .distinct())
+SELECT distinct category
+FROM products
