@@ -88,7 +88,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Prolific Authors in Largest Service Teams](./practice/sql/prolific-authors-in-largest-service-teams) | SQL | Medium | 2026-09-22 |
 | [The Premium Shelf](./practice/sql/the-premium-shelf) | SQL | Medium | 2026-09-22 |
 | [Top Buyers of Premium Products](./practice/sql/top-buyers-of-premium-products) | SQL | Medium | 2026-09-22 |
-| [The Dormant Accounts](./practice/sql/the-dormant-accounts) | SQL | Medium | 2026-09-21 |
+| [The Dormant Accounts](./practice/sql/the-dormant-accounts) | SQL | Easy | 2026-09-21 |
 | [The Loudest Rooms](./practice/sql/the-loudest-rooms) | SQL | Medium | 2026-09-21 |
 | [The Phantom Readers](./practice/sql/the-phantom-readers) | SQL | Medium | 2026-09-21 |
 | [Impressions by Search Keyword](./practice/sql/impressions-by-search-keyword) | SQL | Hard | 2026-09-21 |
