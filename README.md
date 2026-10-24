@@ -20,6 +20,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Placement Fixer](./practice/python/the-placement-fixer) | Python | Medium | 2026-10-24 |
 | [The Field Counter](./practice/python/the-field-counter) | Python | Easy | 2026-10-20 |
 | [The Last Mile](./practice/data_modeling/the-last-mile) | Data Modeling | Medium | 2026-10-20 |
 | [The Rate That Was](./practice/data_modeling/the-rate-that-was) | Data Modeling | Medium | 2026-10-20 |
