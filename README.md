@@ -46,6 +46,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Vanishing State](./practice/data_modeling/the-vanishing-state) | Data Modeling | Easy | 2026-10-13 |
 | [Open Threads](./practice/data_modeling/open-threads) | Data Modeling | Medium | 2026-10-13 |
 | [The Hourly Bucket](./practice/python/the-hourly-bucket) | Python | Medium | 2026-10-13 |
+| [Build Success vs Failure by Repo](./practice/spark/build-success-vs-failure-by-repo) | Spark | Medium | 2026-10-13 |
 | [The Weight of the Cloud](./practice/sql/the-weight-of-the-cloud) | SQL | Medium | 2026-10-12 |
 | [The Table That Lies](./practice/data_modeling/the-table-that-lies) | Data Modeling | Medium | 2026-10-12 |
 | [Every Line Counts](./practice/data_modeling/every-line-counts) | Data Modeling | Medium | 2026-10-12 |
