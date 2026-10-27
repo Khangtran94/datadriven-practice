@@ -1,10 +1,6 @@
-(
-  employee_metrics
-  .groupBy("department")
-  .agg(
-    F.min("metric_value").alias("min_metric"),
-    F.max("metric_value").alias("max_metric"),
-    F.round(F.avg("metric_value"), 3).alias("avg_metric"))
-  .withColumn("spread",F.col("max_metric") - F.col("min_metric"))
-  .orderBy(F.col("spread").desc())
-)
+SELECT department, MIN(metric_value), MAX(metric_value), AVG(metric_value),
+      MAX(metric_value) - MIN(metric_value)
+FROM employee_metrics
+GROUP BY department
+HAVING COUNT(*) > 5
+ORDER BY 5 DESC

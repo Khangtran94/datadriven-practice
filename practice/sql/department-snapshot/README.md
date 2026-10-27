@@ -12,7 +12,7 @@
 | Accepted | on the first submission |
 | Time | 2 min |
 | Hints | none |
-| Query complexity | O(n²), the optimum is O(n log n) |
+| Query complexity | O(n log n), optimal |
 | Concepts | Counting, Grouping, Group Filtering, Min & Max, Sorting Results, Query Basics, Sums & Averages, Filtering |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
