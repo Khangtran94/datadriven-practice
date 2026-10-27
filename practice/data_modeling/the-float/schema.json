@@ -1,0 +1,278 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_account",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_registered",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "due_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "card_number",
+          "type": "CHAR"
+        },
+        {
+          "name": "initial_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "fact_hold",
+      "columns": [
+        {
+          "name": "hold_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "account_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "host_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "hold_amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "tracking_dispute",
+      "columns": [
+        {
+          "name": "track_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "dispute_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "charged_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "dispute_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_charged",
+      "columns": [
+        {
+          "name": "charged_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "hold_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "charged_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "charged_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "charged_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_customer",
+        "column": "signup_at"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_account",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_account",
+        "column": "due_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_account",
+        "column": "date_registered"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_hold",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "tracking_dispute",
+        "column": "dispute_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_hold",
+        "column": "account_id"
+      },
+      "to": {
+        "table": "dim_account",
+        "column": "account_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_charged",
+        "column": "hold_id"
+      },
+      "to": {
+        "table": "fact_hold",
+        "column": "hold_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "tracking_dispute",
+        "column": "charged_id"
+      },
+      "to": {
+        "table": "fact_charged",
+        "column": "charged_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_charged",
+        "column": "charged_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
