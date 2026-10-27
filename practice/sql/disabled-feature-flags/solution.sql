@@ -1,1 +1,2 @@
-feat_flags.filter(col('enabled') == 0)
+SELECT *
+FROM feat_flags where enabled = 0
