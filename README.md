@@ -77,6 +77,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Footprints in the Feed](./practice/python/footprints-in-the-feed) | Python | Medium | 2026-09-25 |
 | [First Interaction Credit](./practice/sql/first-interaction-credit) | SQL | Hard | 2026-09-25 |
 | [The Days That Line Up](./practice/sql/the-days-that-line-up) | SQL | Medium | 2026-09-25 |
+| [Busy Authors](./practice/spark/busy-authors) | Spark | Medium | 2026-09-25 |
 | [The First Stranger](./practice/python/the-first-stranger) | Python | Easy | 2026-09-24 |
 | [Against the House](./practice/python/against-the-house) | Python | Medium | 2026-09-24 |
 | [The Scramble Check](./practice/python/the-scramble-check) | Python | Easy | 2026-09-24 |
