@@ -645,7 +645,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Cloud Cost by Team](./practice/sql/cloud-cost-by-team) | SQL | Easy | 2026-07-02 |
 | [Low-Engagement Sessions](./practice/sql/low-engagement-sessions) | SQL | Medium | 2026-07-02 |
 | [Normalization Tradeoffs in Practice](./practice/sql/normalization-tradeoffs-in-practice) | SQL | Hard | 2026-07-02 |
-| [Alert Count by Severity Tier](./practice/sql/alert-count-by-severity-tier) | SQL | Medium | 2026-07-02 |
+| [Alert Count by Severity Tier](./practice/sql/alert-count-by-severity-tier) | SQL | Easy | 2026-07-02 |
 | [Full Funnel](./practice/sql/full-funnel) | SQL | Hard | 2026-07-02 |
 | [What's in a Name](./practice/sql/what-s-in-a-name) | SQL | Easy | 2026-07-02 |
 | [Twice Over](./practice/sql/twice-over) | SQL | Medium | 2026-07-02 |

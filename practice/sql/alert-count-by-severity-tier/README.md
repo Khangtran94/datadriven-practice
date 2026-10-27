@@ -2,7 +2,7 @@
 
 *Alerts by severity. The breakdown matters.*
 
-[SQL · Medium · on DataDriven](https://datadriven.io/problems/alert_count_by_severity_tier)
+[SQL · Easy · on DataDriven](https://datadriven.io/problems/alert_count_by_severity_tier)
 
 ## How it went
 
