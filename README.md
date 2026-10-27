@@ -53,6 +53,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The No-Show](./practice/data_modeling/the-no-show) | Data Modeling | Easy | 2026-10-12 |
 | [The Credits Roll](./practice/data_modeling/the-credits-roll) | Data Modeling | Hard | 2026-10-12 |
 | [The Quarter Turn](./practice/python/the-quarter-turn) | Python | Medium | 2026-10-12 |
+| [Platform Speed](./practice/spark/platform-speed) | Spark | Medium | 2026-10-12 |
 | [Two Wallets](./practice/data_modeling/two-wallets) | Data Modeling | Medium | 2026-10-09 |
 | [The Balance Always Reconciles](./practice/data_modeling/the-balance-always-reconciles) | Data Modeling | Easy | 2026-10-09 |
 | [The Transfer Request](./practice/data_modeling/the-transfer-request) | Data Modeling | Medium | 2026-10-08 |
