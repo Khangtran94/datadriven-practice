@@ -784,6 +784,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Average Session Duration by Device](./practice/sql/average-session-duration-by-device) | SQL | Easy | 2026-06-25 |
 | [Low Latency API Calls](./practice/sql/low-latency-api-calls) | SQL | Easy | 2026-06-25 |
 | [Hottest Regions by CPU](./practice/sql/hottest-regions-by-cpu) | SQL | Medium | 2026-06-23 |
+| [Satisfaction by Platform](./practice/spark/satisfaction-by-platform) | Spark | Medium | 2026-06-23 |
 | [Satisfaction by Platform](./practice/sql/satisfaction-by-platform) | SQL | Medium | 2026-06-23 |
 | [Users Per Device Type](./practice/sql/users-per-device-type) | SQL | Easy | 2026-06-23 |
 | [Super Reviewers](./practice/sql/super-reviewers) | SQL | Medium | 2026-06-23 |
