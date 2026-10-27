@@ -1,0 +1,234 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "TEXT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "genre",
+          "type": "CHAR"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_seller",
+      "columns": [
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "dim_region",
+      "columns": [
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_transaction",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_seller",
+        "column": "region_id"
+      },
+      "to": {
+        "table": "dim_region",
+        "column": "region_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_customer",
+        "column": "region_id"
+      },
+      "to": {
+        "table": "dim_region",
+        "column": "region_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_transaction",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_transaction",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_transaction",
+        "column": "seller_id"
+      },
+      "to": {
+        "table": "dim_seller",
+        "column": "seller_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_transaction",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Sales Architecture](./practice/data_modeling/the-sales-architecture) | Data Modeling | Medium | 2026-10-27 |
 | [Between the Cameras](./practice/data_modeling/between-the-cameras) | Data Modeling | Easy | 2026-10-27 |
 | [Deal Flow](./practice/data_modeling/deal-flow) | Data Modeling | Medium | 2026-10-27 |
 | [A Number for the Seller](./practice/data_modeling/a-number-for-the-seller) | Data Modeling | Easy | 2026-10-27 |
