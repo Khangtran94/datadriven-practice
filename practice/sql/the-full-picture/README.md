@@ -12,7 +12,7 @@
 | Accepted | on the 2nd submission |
 | Time | 1 min |
 | Hints | none |
-| Query complexity | O(n²), the optimum is O(n log n) |
+| Query complexity | O(n), optimal |
 | Concepts | Null Defaulting, Grouping, Outer Joins, Query Basics, Sums & Averages |
 
 The accepted solution is in [`solution.sql`](./solution.sql).

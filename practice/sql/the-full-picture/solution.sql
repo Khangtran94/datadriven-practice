@@ -1,12 +1,5 @@
-(
-    employees
-    .join(employee_metrics, "department", "left")
-    .groupBy("employee_id", "emp_name")
-    .agg(
-        F.coalesce(
-            F.sum("metric_value"),
-            F.lit(0)
-        ).alias("total_metric_value")
-    )
-    .select("emp_name", "total_metric_value")
-)
+SELECT e.emp_name, COALESCE(SUM(m.metric_value),0) AS total_metric_value
+FROM employees AS e
+LEFT JOIN employee_metrics AS m
+ON e.department = m.department
+GROUP BY e.emp_name, e.employee_id
