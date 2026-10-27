@@ -77,6 +77,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Open and Shut](./practice/python/open-and-shut) | Python | Easy | 2026-09-29 |
 | [Total Cost by Category](./practice/spark/total-cost-by-category) | Spark | Easy | 2026-09-29 |
 | [Hands Apart](./practice/python/hands-apart) | Python | Easy | 2026-09-28 |
+| [Disabled Feature Flags](./practice/spark/disabled-feature-flags) | Spark | Easy | 2026-09-28 |
 | [The Address Surgeon](./practice/python/the-address-surgeon) | Python | Easy | 2026-09-27 |
 | [The Solo Act](./practice/python/the-solo-act) | Python | Easy | 2026-09-27 |
 | [The Pay Ladder](./practice/python/the-pay-ladder) | Python | Medium | 2026-09-26 |
