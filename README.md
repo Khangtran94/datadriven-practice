@@ -882,6 +882,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Distinct Product Categories](./practice/sql/distinct-product-categories) | SQL | Easy | 2026-06-17 |
 | [Top Products per Category](./practice/sql/top-products-per-category) | SQL | Medium | 2026-06-17 |
 | [The Quiet Drain](./practice/sql/the-quiet-drain) | SQL | Easy | 2026-06-15 |
+| [The Quiet Drain](./practice/spark/the-quiet-drain) | Spark | Easy | 2026-06-15 |
 | [Low-Volume Stream Topics](./practice/sql/low-volume-stream-topics) | SQL | Medium | 2026-06-15 |
 | [Low-Volume Stream Topics](./practice/spark/low-volume-stream-topics) | Spark | Medium | 2026-06-15 |
 | [Find Deploy Authors](./practice/sql/find-deploy-authors) | SQL | Easy | 2026-06-15 |
