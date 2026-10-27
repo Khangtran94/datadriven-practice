@@ -1,0 +1,134 @@
+{
+  "tables": [
+    {
+      "name": "dim_plate",
+      "columns": [
+        {
+          "name": "plate_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "plate_character",
+          "type": "CHAR"
+        },
+        {
+          "name": "car_brand",
+          "type": "CHAR"
+        },
+        {
+          "name": "car_color",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "plate_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "section_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "entry_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "exit_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "exit_status",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_section",
+      "columns": [
+        {
+          "name": "section_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "section_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "location",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "plate_id"
+      },
+      "to": {
+        "table": "dim_plate",
+        "column": "plate_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "section_id"
+      },
+      "to": {
+        "table": "dim_section",
+        "column": "section_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
