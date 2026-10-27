@@ -1,4 +1,5 @@
-SELECT *
-FROM ml_models
-WHERE accuracy >= 0.9
-ORDER BY accuracy DESC
+(
+  ml_models
+  .filter(F.col('accuracy') >= 0.9)
+  .orderBy(F.col('accuracy').desc())
+)
