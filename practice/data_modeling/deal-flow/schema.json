@@ -1,0 +1,164 @@
+{
+  "tables": [
+    {
+      "name": "dim_buyer",
+      "columns": [
+        {
+          "name": "buyer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_property",
+      "columns": [
+        {
+          "name": "property_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "neighborhood_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "property_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_neighborhood",
+      "columns": [
+        {
+          "name": "neighborhood_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "state",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "buyer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "property_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "action",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_property",
+        "column": "neighborhood_id"
+      },
+      "to": {
+        "table": "dim_neighborhood",
+        "column": "neighborhood_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "buyer_id"
+      },
+      "to": {
+        "table": "dim_buyer",
+        "column": "buyer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "property_id"
+      },
+      "to": {
+        "table": "dim_property",
+        "column": "property_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
