@@ -10,7 +10,7 @@
 |---|---|
 | Solved | 2026-06-15 |
 | Accepted | on the first submission |
-| Time | 2 min |
+| Time | under a minute |
 | Hints | none |
 | Query complexity | O(n), the optimum is O(n log n) |
 | Concepts | Spark Execution Model |
