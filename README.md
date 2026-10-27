@@ -148,6 +148,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Never Walk Alone](./practice/python/never-walk-alone) | Python | Easy | 2026-09-11 |
 | [Left on Read](./practice/sql/left-on-read) | SQL | Medium | 2026-09-10 |
 | [Beyond the Signup](./practice/sql/beyond-the-signup) | SQL | Medium | 2026-09-10 |
+| [Department Snapshot](./practice/spark/department-snapshot) | Spark | Medium | 2026-09-09 |
 | [Unbroken](./practice/python/unbroken) | Python | Easy | 2026-09-07 |
 | [Pipeline Run History](./practice/spark/pipeline-run-history) | Spark | Easy | 2026-09-07 |
 | [Latest Commit Build Cost](./practice/sql/latest-commit-build-cost) | SQL | Medium | 2026-09-07 |
