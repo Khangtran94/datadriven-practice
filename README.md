@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [A Number for the Seller](./practice/data_modeling/a-number-for-the-seller) | Data Modeling | Easy | 2026-10-27 |
 | [The Person They Were Then](./practice/data_modeling/the-person-they-were-then) | Data Modeling | Easy | 2026-10-27 |
 | [Error Category Breakdown](./practice/sql/error-category-breakdown) | SQL | Hard | 2026-10-26 |
 | [The Trip Aggregator](./practice/python/the-trip-aggregator) | Python | Medium | 2026-10-26 |

@@ -1,0 +1,179 @@
+{
+  "tables": [
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "date_listed",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "dim_seller",
+      "columns": [
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_date",
+          "type": "INT"
+        },
+        {
+          "name": "action",
+          "type": "CHAR"
+        },
+        {
+          "name": "units_sold",
+          "type": "INT"
+        },
+        {
+          "name": "revenue",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "daily_dashboard",
+      "columns": [
+        {
+          "name": "seller_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "active_count",
+          "type": "INT"
+        },
+        {
+          "name": "daily_revenue",
+          "type": "INT"
+        },
+        {
+          "name": "daily_unit_sales",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "day",
+          "type": "INT"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "seller_id"
+      },
+      "to": {
+        "table": "dim_seller",
+        "column": "seller_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "daily_dashboard",
+        "column": "seller_id"
+      },
+      "to": {
+        "table": "dim_seller",
+        "column": "seller_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "daily_dashboard",
+        "column": "date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
