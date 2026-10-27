@@ -818,6 +818,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Longest Running Pipeline](./practice/sql/longest-running-pipeline) | SQL | Medium | 2026-06-22 |
 | [Last Five Batch Jobs](./practice/sql/last-five-batch-jobs) | SQL | Easy | 2026-06-22 |
 | [Largest Single Cloud Cost](./practice/sql/largest-single-cloud-cost) | SQL | Medium | 2026-06-22 |
+| [Content Duration Snapshot](./practice/spark/content-duration-snapshot) | Spark | Easy | 2026-06-22 |
 | [Content Duration Snapshot](./practice/sql/content-duration-snapshot) | SQL | Easy | 2026-06-22 |
 | [User Age Ranking](./practice/sql/user-age-ranking) | SQL | Easy | 2026-06-22 |
 | [Best in Show](./practice/sql/best-in-show) | SQL | Medium | 2026-06-22 |
