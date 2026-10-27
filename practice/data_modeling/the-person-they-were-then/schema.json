@@ -1,0 +1,132 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "subscription_tier",
+          "type": "CHAR"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        },
+        {
+          "name": "from_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "to_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "full_date",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "user_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "revenue",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_user",
+        "column": "from_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "full_date"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_user",
+        "column": "to_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "full_date"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "full_date"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "user_sk"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}
