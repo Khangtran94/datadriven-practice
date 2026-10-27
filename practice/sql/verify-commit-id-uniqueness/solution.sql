@@ -1,1 +1,3 @@
-repo_commits.agg(F.count("*").alias('total_commits'),F.countDistinct('author').alias('distinct_authors'))
+SELECT COUNT(*) AS total_commits,
+      COUNT(DISTINCT author) AS distinct_authors
+FROM repo_commits
