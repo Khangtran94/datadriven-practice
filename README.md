@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Slow Yes](./practice/data_modeling/the-slow-yes) | Data Modeling | Hard | 2026-10-27 |
 | [The Other Seat](./practice/data_modeling/the-other-seat) | Data Modeling | Hard | 2026-10-27 |
 | [The Sales Architecture](./practice/data_modeling/the-sales-architecture) | Data Modeling | Medium | 2026-10-27 |
 | [Between the Cameras](./practice/data_modeling/between-the-cameras) | Data Modeling | Easy | 2026-10-27 |

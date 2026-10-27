@@ -1,0 +1,270 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_campaign",
+      "columns": [
+        {
+          "name": "campaign_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "campaign_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_device",
+      "columns": [
+        {
+          "name": "device_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "device_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_region",
+      "columns": [
+        {
+          "name": "region_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "ad_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "device_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "event_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "impression_id",
+          "type": "INT",
+          "key": "uk"
+        }
+      ]
+    },
+    {
+      "name": "report_analytic",
+      "columns": [
+        {
+          "name": "date_report",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "ad_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "impression_count",
+          "type": "INT"
+        },
+        {
+          "name": "click_count",
+          "type": "INT"
+        },
+        {
+          "name": "conversion_count",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_ad",
+      "columns": [
+        {
+          "name": "ad_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "campaign_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "ad_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_conversion",
+      "columns": [
+        {
+          "name": "conversion_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "impression_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_device",
+        "column": "region_id"
+      },
+      "to": {
+        "table": "dim_region",
+        "column": "region_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "device_id"
+      },
+      "to": {
+        "table": "dim_device",
+        "column": "device_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "report_analytic",
+        "column": "date_report"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_ad",
+        "column": "campaign_id"
+      },
+      "to": {
+        "table": "dim_campaign",
+        "column": "campaign_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "report_analytic",
+        "column": "ad_id"
+      },
+      "to": {
+        "table": "dim_ad",
+        "column": "ad_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "ad_id"
+      },
+      "to": {
+        "table": "dim_ad",
+        "column": "ad_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_conversion",
+        "column": "impression_id"
+      },
+      "to": {
+        "table": "fact_event",
+        "column": "impression_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
