@@ -67,6 +67,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Type Sorter](./practice/python/the-type-sorter) | Python | Easy | 2026-09-30 |
 | [Read Both Ways](./practice/python/read-both-ways) | Python | Easy | 2026-09-30 |
 | [Open and Shut](./practice/python/open-and-shut) | Python | Easy | 2026-09-29 |
+| [Total Cost by Category](./practice/spark/total-cost-by-category) | Spark | Easy | 2026-09-29 |
 | [Hands Apart](./practice/python/hands-apart) | Python | Easy | 2026-09-28 |
 | [The Address Surgeon](./practice/python/the-address-surgeon) | Python | Easy | 2026-09-27 |
 | [The Solo Act](./practice/python/the-solo-act) | Python | Easy | 2026-09-27 |
