@@ -1,0 +1,208 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_vehicle",
+      "columns": [
+        {
+          "name": "vehicle_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "vehicle_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "brand",
+          "type": "CHAR"
+        },
+        {
+          "name": "license_plate",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_trip",
+      "columns": [
+        {
+          "name": "trip_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "from_place",
+          "type": "CHAR"
+        },
+        {
+          "name": "to_place",
+          "type": "CHAR"
+        },
+        {
+          "name": "fare_charged",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "trip_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "driver_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "rider_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "vehicle_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "direction",
+          "type": "CHAR"
+        },
+        {
+          "name": "surge_mutliplier",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "rating",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_user",
+        "column": "signup_at"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "trip_id"
+      },
+      "to": {
+        "table": "dim_trip",
+        "column": "trip_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "driver_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "rider_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "vehicle_id"
+      },
+      "to": {
+        "table": "dim_vehicle",
+        "column": "vehicle_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
