@@ -1,4 +1,4 @@
-(dq_checks
-  .groupBy('tbl_name')
-  .agg(F.avg('fail_pct').alias('avg_fail_pct'))
-  .orderBy('avg_fail_pct'))
+SELECT tbl_name, AVG(fail_pct) AS avg_fail_pct
+FROM dq_checks
+GROUP BY tbl_name
+ORDER BY avg_fail_pct
