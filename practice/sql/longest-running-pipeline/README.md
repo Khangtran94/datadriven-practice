@@ -12,7 +12,7 @@
 | Accepted | on the 2nd submission |
 | Time | under a minute |
 | Hints | none |
-| Query complexity | O(n log n), optimal |
+| Query complexity | O(n), the optimum is O(n log n) |
 | Concepts | Query Basics |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
