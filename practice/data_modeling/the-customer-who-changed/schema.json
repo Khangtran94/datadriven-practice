@@ -1,0 +1,144 @@
+{
+  "tables": [
+    {
+      "name": "customer",
+      "columns": [
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        },
+        {
+          "name": "membership_tier",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "from_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "to_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "fact_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "customer_sk"
+      },
+      "to": {
+        "table": "customer",
+        "column": "customer_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "customer",
+        "column": "from_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "customer",
+        "column": "to_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}

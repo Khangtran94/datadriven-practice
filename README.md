@@ -942,6 +942,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Where Quality Breaks](./practice/sql/where-quality-breaks) | SQL | Easy | 2026-05-25 |
 | [Double Vision](./practice/sql/double-vision) | SQL | Easy | 2026-05-25 |
 | [Error Severity Buckets](./practice/sql/error-severity-buckets) | SQL | Easy | 2026-05-25 |
+| [The Customer Who Changed](./practice/data_modeling/the-customer-who-changed) | Data Modeling | Hard | 2026-05-25 |
 | [Top Shelf](./practice/sql/top-shelf) | SQL | Easy | 2026-05-23 |
 | [The Freshest Record](./practice/sql/the-freshest-record) | SQL | Medium | 2026-05-22 |
 | [Daily Error Count Change](./practice/sql/daily-error-count-change) | SQL | Medium | 2026-05-22 |
