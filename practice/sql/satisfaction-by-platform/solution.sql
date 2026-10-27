@@ -1,6 +1,6 @@
-(users
-  .filter(F.col('age_bucket') == '25-34')
-  .join(experiments, 'user_id')
-  .groupBy('platform')
-  .agg(F.round(F.avg('outcome')).alias('avg_satisfaction'))
-  )
+SELECT platform, ROUND(AVG(outcome)) AS avg_satisfaction
+FROM experiments AS e
+INNER JOIN users AS u 
+USING (user_id)
+WHERE age_bucket = '25-34'
+GROUP BY 1
