@@ -149,6 +149,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Left on Read](./practice/sql/left-on-read) | SQL | Medium | 2026-09-10 |
 | [Beyond the Signup](./practice/sql/beyond-the-signup) | SQL | Medium | 2026-09-10 |
 | [Unbroken](./practice/python/unbroken) | Python | Easy | 2026-09-07 |
+| [Pipeline Run History](./practice/spark/pipeline-run-history) | Spark | Easy | 2026-09-07 |
 | [Latest Commit Build Cost](./practice/sql/latest-commit-build-cost) | SQL | Medium | 2026-09-07 |
 | [Top Percentile API Tokens](./practice/sql/top-percentile-api-tokens) | SQL | Hard | 2026-09-07 |
 | [Most Efficient Region by Token Usage](./practice/sql/most-efficient-region-by-token-usage) | SQL | Hard | 2026-09-07 |
