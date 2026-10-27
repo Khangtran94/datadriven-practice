@@ -878,6 +878,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Full Picture](./practice/sql/the-full-picture) | SQL | Easy | 2026-06-19 |
 | [The Ones That Count](./practice/python/the-ones-that-count) | Python | Easy | 2026-06-19 |
 | [Latest Migration Output per Author](./practice/sql/latest-migration-output-per-author) | SQL | Medium | 2026-06-19 |
+| [DQ Fail Rate by Table](./practice/spark/dq-fail-rate-by-table) | Spark | Medium | 2026-06-18 |
 | [DQ Fail Rate by Table](./practice/sql/dq-fail-rate-by-table) | SQL | Medium | 2026-06-18 |
 | [High-Output Creators](./practice/sql/high-output-creators) | SQL | Easy | 2026-06-17 |
 | [Distinct Product Categories](./practice/spark/distinct-product-categories) | Spark | Easy | 2026-06-17 |
