@@ -1,0 +1,3 @@
+(products
+  .select('category')
+  .distinct())
