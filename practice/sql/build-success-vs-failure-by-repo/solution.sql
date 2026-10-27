@@ -1,7 +1,6 @@
-ci_builds
-  .groupBy('repo_name')
-  .agg(
-    F.count(F.when(F.col("status") == "success", 1)).alias("success_count"),
-    F.count(F.when(F.col("status") == "failure", 1)).alias("failure_count"),
-    F.round(F.avg("dur_secs"), 3).alias("avg_duration")
-  )
+SELECT repo_name,
+    COUNT(*) FILTER(WHERE status = 'success') AS success_count,
+    COUNT(*) FILTER(WHERE status = 'failure') AS failure_count,
+    ROUND(AVG(dur_secs),3) AS avg_duration
+FROM ci_builds
+GROUP BY 1
