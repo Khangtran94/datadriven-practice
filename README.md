@@ -884,6 +884,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Quiet Drain](./practice/sql/the-quiet-drain) | SQL | Easy | 2026-06-15 |
 | [Low-Volume Stream Topics](./practice/sql/low-volume-stream-topics) | SQL | Medium | 2026-06-15 |
 | [Find Deploy Authors](./practice/sql/find-deploy-authors) | SQL | Easy | 2026-06-15 |
+| [Find Deploy Authors](./practice/spark/find-deploy-authors) | Spark | Easy | 2026-06-15 |
 | [Active Campaigns](./practice/spark/active-campaigns) | Spark | Easy | 2026-06-15 |
 | [Keep Most Recent Record](./practice/sql/keep-most-recent-record) | SQL | Medium | 2026-06-15 |
 | [Both Ends of the Pipe](./practice/sql/both-ends-of-the-pipe) | SQL | Medium | 2026-06-15 |
