@@ -874,6 +874,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Standing Fleet](./practice/sql/the-standing-fleet) | SQL | Easy | 2026-06-19 |
 | [The Crowd Pleaser](./practice/python/the-crowd-pleaser) | Python | Easy | 2026-06-19 |
 | [Merge Counters](./practice/python/merge-counters) | Python | Medium | 2026-06-19 |
+| [The Full Picture](./practice/spark/the-full-picture) | Spark | Easy | 2026-06-19 |
 | [The Full Picture](./practice/sql/the-full-picture) | SQL | Easy | 2026-06-19 |
 | [The Ones That Count](./practice/python/the-ones-that-count) | Python | Easy | 2026-06-19 |
 | [Latest Migration Output per Author](./practice/sql/latest-migration-output-per-author) | SQL | Medium | 2026-06-19 |
