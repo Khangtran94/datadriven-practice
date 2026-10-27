@@ -37,3 +37,17 @@ See `examples/week5-postgres-port/`. Steps: build raw tables as all-TEXT in both
 SQLite (`CREATE TABLE <task> AS <select>` per `-- task:` block), run the port in Postgres the same way, compare each table
 (ignore `rk`, compare its distinct count), compare the final table per key and per column with zero tolerance, repeat for 3 seeds,
 and check that the final columns are not mostly NULL (otherwise the test proves nothing).
+
+## Added in Week 6 (the-dwell)
+
+- **`substring(x from 'regex')` returns the parenthesized group**, not the whole match. Use a non-capturing group `(?:...)`.
+  Symptom: a number parsed from text comes back as 0 or NULL.
+- **psycopg2 treats `%` as a placeholder** whenever args are passed, so `LIKE '%:%'` fails with "tuple index out of range".
+  Call `execute(sql, None)` when there are no parameters.
+- **Timestamps kept as text**: compare, `ORDER BY` and `max()` them with `COLLATE "C"` (SQLite compares bytes). The `max(key || value)` + `substr` trick
+  can stay as is in Postgres if the key is fixed width.
+- **`sum(bigint)` is numeric in Postgres**: cast back to bigint when the next step relies on integer division.
+- **SQLite prints REAL as `3.0`, `1.5`**: when a REAL is glued into a sort key, emulate it (`trunc(x)::bigint::text || '.0'`, `trim_scale(x)::text`) so ties break the same way.
+- **SQLite trim(x) trims spaces only**; use `btrim(x, ' ')`, not `btrim(x)` with tabs and newlines unless the gold passes them.
+- **Incremental markers** (`{% if is_incremental() %}`, `{{ this }}`) stay in the port unchanged. Postgres needs an alias on a subquery in FROM; SQLite does not.
+- **Postgres cluster may stop between tool calls in the sandbox**: `pg_ctlcluster 16 main start` before each test run.
