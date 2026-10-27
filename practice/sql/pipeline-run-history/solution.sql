@@ -1,10 +1,3 @@
-(
-  data_pipes
-  .groupBy("pipe_name")
-  .agg(
-    F.min("start_at").alias("first_run"),
-    F.max("start_at").alias("last_run"),
-    F.count("*").alias("run_count")
-  )
-  .orderBy(F.desc("last_run"))
-)
+SELECT pipe_name, MIN(start_at), MAX(start_at), COUNT(*)
+FROM data_pipes
+GROUP BY 1

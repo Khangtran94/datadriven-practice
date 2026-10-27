@@ -12,7 +12,7 @@
 | Accepted | on the first submission |
 | Time | under a minute |
 | Hints | none |
-| Query complexity | O(n²), the optimum is O(n log n) |
+| Query complexity | O(n), the optimum is O(n log n) |
 | Concepts | Counting, Date vs Timestamp, Deduplication, Grouping, Min & Max, Query Basics, Timestamp Types |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
