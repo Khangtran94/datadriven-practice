@@ -12,7 +12,7 @@
 | Accepted | on the first submission |
 | Time | 2 min |
 | Hints | none |
-| Query complexity | O(n log n), optimal |
+| Query complexity | O(n), optimal |
 | Concepts | Conditional Logic, Counting, Grouping, Pattern Matching, Query Basics |
 
 The accepted solution is in [`solution.sql`](./solution.sql).
