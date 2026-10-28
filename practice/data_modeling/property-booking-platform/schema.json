@@ -1,0 +1,246 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_property",
+      "columns": [
+        {
+          "name": "property_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "host_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_host",
+      "columns": [
+        {
+          "name": "host_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_guest",
+      "columns": [
+        {
+          "name": "guest_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "event_log",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "guest_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "property_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "number_day_booked",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "analysis",
+      "columns": [
+        {
+          "name": "analysis_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "analysis_date",
+          "type": "DATE"
+        },
+        {
+          "name": "guest_satisfaction_score",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "guest_review",
+          "type": "VARCHAR"
+        },
+        {
+          "name": "property_score",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "rating",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_host",
+        "column": "signup_at"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_guest",
+        "column": "signup_at"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_property",
+        "column": "host_id"
+      },
+      "to": {
+        "table": "dim_host",
+        "column": "host_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "event_log",
+        "column": "event_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "event_log",
+        "column": "guest_id"
+      },
+      "to": {
+        "table": "dim_guest",
+        "column": "guest_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "event_log",
+        "column": "property_id"
+      },
+      "to": {
+        "table": "dim_property",
+        "column": "property_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "analysis",
+        "column": "event_id"
+      },
+      "to": {
+        "table": "event_log",
+        "column": "event_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}

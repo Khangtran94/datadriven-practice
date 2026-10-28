@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Property Booking Platform](./practice/data_modeling/property-booking-platform) | Data Modeling | Hard | 2026-10-28 |
 | [Top 10 Model Accuracies](./practice/spark/top-10-model-accuracies) | Spark | Easy | 2026-10-28 |
 | [Stock Status](./practice/spark/stock-status) | Spark | Easy | 2026-10-28 |
 | [The Float](./practice/data_modeling/the-float) | Data Modeling | Medium | 2026-10-27 |
