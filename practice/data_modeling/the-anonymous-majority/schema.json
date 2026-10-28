@@ -1,0 +1,322 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_shopper",
+      "columns": [
+        {
+          "name": "shopper_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "shopper_account",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_device",
+      "columns": [
+        {
+          "name": "device_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "device_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "brand",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_event",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "element_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "page_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "event_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "action_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "link_URL",
+          "type": "CHAR"
+        },
+        {
+          "name": "color",
+          "type": "CHAR"
+        },
+        {
+          "name": "size",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_session",
+      "columns": [
+        {
+          "name": "session_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "session_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "shopper_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "device_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "start_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "end_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "is_purchased",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "event_count",
+          "type": "INT"
+        },
+        {
+          "name": "product_views",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "genre",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_page",
+      "columns": [
+        {
+          "name": "page_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "page_url",
+          "type": "CHAR"
+        },
+        {
+          "name": "page_type",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_element",
+      "columns": [
+        {
+          "name": "element_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "type",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_shopper",
+        "column": "signup_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_device",
+        "column": "signup_at"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_session",
+        "column": "session_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_session",
+        "column": "shopper_id"
+      },
+      "to": {
+        "table": "dim_shopper",
+        "column": "shopper_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_session",
+        "column": "device_id"
+      },
+      "to": {
+        "table": "dim_device",
+        "column": "device_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "session_id"
+      },
+      "to": {
+        "table": "fact_session",
+        "column": "session_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "page_id"
+      },
+      "to": {
+        "table": "dim_page",
+        "column": "page_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_event",
+        "column": "element_id"
+      },
+      "to": {
+        "table": "dim_element",
+        "column": "element_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
