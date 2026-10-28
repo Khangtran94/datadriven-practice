@@ -43,8 +43,8 @@ CREATE TABLE event_log (
 
 CREATE TABLE analysis (
     analysis_id INT,
-    event_id INT,
     analysis_date DATE,
+    event_id INT,
     guest_satisfaction_score DECIMAL,
     guest_review VARCHAR,
     property_score DECIMAL,
@@ -72,3 +72,6 @@ ALTER TABLE event_log
 
 ALTER TABLE analysis
     ADD FOREIGN KEY (event_id) REFERENCES event_log (event_id);
+
+ALTER TABLE analysis
+    ADD FOREIGN KEY (analysis_date) REFERENCES dim_date (date_sk);

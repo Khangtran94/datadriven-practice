@@ -137,13 +137,14 @@
           "key": "pk"
         },
         {
-          "name": "event_id",
-          "type": "INT",
+          "name": "analysis_date",
+          "type": "DATE",
           "key": "fk"
         },
         {
-          "name": "analysis_date",
-          "type": "DATE"
+          "name": "event_id",
+          "type": "INT",
+          "key": "fk"
         },
         {
           "name": "guest_satisfaction_score",
@@ -239,6 +240,17 @@
       "to": {
         "table": "event_log",
         "column": "event_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "analysis",
+        "column": "analysis_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
       },
       "foreign_key": true
     }

@@ -52,8 +52,8 @@ erDiagram
     }
     analysis {
         INT analysis_id PK
+        DATE analysis_date FK
         INT event_id FK
-        DATE analysis_date
         DECIMAL guest_satisfaction_score
         VARCHAR guest_review
         DECIMAL property_score
@@ -66,6 +66,7 @@ erDiagram
     dim_guest only one optionally to zero or more event_log : "guest_id"
     dim_property only one optionally to zero or more event_log : "property_id"
     event_log only one optionally to zero or more analysis : "event_id"
+    dim_date only one optionally to zero or more analysis : "analysis_date = date_sk"
 ```
 
 The accepted design is in [`schema.sql`](./schema.sql) as DDL and in [`schema.json`](./schema.json) as JSON.
