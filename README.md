@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Stock Status](./practice/spark/stock-status) | Spark | Easy | 2026-10-28 |
 | [The Float](./practice/data_modeling/the-float) | Data Modeling | Medium | 2026-10-27 |
 | [The Slow Yes](./practice/data_modeling/the-slow-yes) | Data Modeling | Hard | 2026-10-27 |
 | [The Other Seat](./practice/data_modeling/the-other-seat) | Data Modeling | Hard | 2026-10-27 |
