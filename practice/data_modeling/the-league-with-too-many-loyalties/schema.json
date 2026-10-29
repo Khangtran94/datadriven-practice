@@ -1,0 +1,351 @@
+{
+  "tables": [
+    {
+      "name": "dim_team",
+      "columns": [
+        {
+          "name": "team_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "league_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "team_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "player_capacity",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_player",
+      "columns": [
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "positition",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_tournament",
+      "columns": [
+        {
+          "name": "tournament_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_start",
+          "type": "DATE"
+        },
+        {
+          "name": "date_end",
+          "type": "DATE"
+        },
+        {
+          "name": "number_of_team",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "match_player_detail",
+      "columns": [
+        {
+          "name": "match_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "minutes_played",
+          "type": "INT"
+        },
+        {
+          "name": "goal",
+          "type": "INT"
+        },
+        {
+          "name": "assist",
+          "type": "INT"
+        },
+        {
+          "name": "shot",
+          "type": "INT"
+        },
+        {
+          "name": "pass_completed_percentage",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "run_distance",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "yellow_card",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "red_card",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "tournament_match",
+      "columns": [
+        {
+          "name": "match_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "match_date",
+          "type": "DATE"
+        },
+        {
+          "name": "stadium_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "home_team_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "away_team_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "home_team_score",
+          "type": "INT"
+        },
+        {
+          "name": "away_team_score",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_stadium",
+      "columns": [
+        {
+          "name": "stadium_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "seat_capacity",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "bridge_team_player",
+      "columns": [
+        {
+          "name": "player_team_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "team_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "bridge_team_tournament",
+      "columns": [
+        {
+          "name": "team_tournament_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "tournament_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "team_id",
+          "type": "INT",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "dim_league",
+      "columns": [
+        {
+          "name": "league_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "league_name",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "match_player_detail",
+        "column": "match_id"
+      },
+      "to": {
+        "table": "tournament_match",
+        "column": "match_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_team_player",
+        "column": "team_id"
+      },
+      "to": {
+        "table": "dim_team",
+        "column": "team_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_team_player",
+        "column": "player_id"
+      },
+      "to": {
+        "table": "dim_player",
+        "column": "player_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_team_tournament",
+        "column": "team_id"
+      },
+      "to": {
+        "table": "dim_team",
+        "column": "team_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "bridge_team_tournament",
+        "column": "tournament_id"
+      },
+      "to": {
+        "table": "dim_tournament",
+        "column": "tournament_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "tournament_match",
+        "column": "home_team_id"
+      },
+      "to": {
+        "table": "bridge_team_tournament",
+        "column": "team_tournament_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "tournament_match",
+        "column": "away_team_id"
+      },
+      "to": {
+        "table": "bridge_team_tournament",
+        "column": "team_tournament_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "tournament_match",
+        "column": "stadium_id"
+      },
+      "to": {
+        "table": "dim_stadium",
+        "column": "stadium_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "match_player_detail",
+        "column": "player_id"
+      },
+      "to": {
+        "table": "dim_player",
+        "column": "player_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_team",
+        "column": "league_id"
+      },
+      "to": {
+        "table": "dim_league",
+        "column": "league_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
