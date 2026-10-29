@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Food Truck Operations Data Model](./practice/data_modeling/food-truck-operations-data-model) | Data Modeling | Medium | 2026-10-29 |
 | [Metric Definition Reverse Engineering](./practice/data_modeling/metric-definition-reverse-engineering) | Data Modeling | Hard | 2026-10-29 |
 | [The League With Too Many Loyalties](./practice/data_modeling/the-league-with-too-many-loyalties) | Data Modeling | Hard | 2026-10-29 |
 | [Who Comes Back](./practice/data_modeling/who-comes-back) | Data Modeling | Medium | 2026-10-29 |

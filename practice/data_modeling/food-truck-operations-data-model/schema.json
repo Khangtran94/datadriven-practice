@@ -1,0 +1,220 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_truck",
+      "columns": [
+        {
+          "name": "truck_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "license_plate",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_food",
+      "columns": [
+        {
+          "name": "menu_food_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "menu_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "food_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "food_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "location_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "truck_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "total_revenue",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_location",
+      "columns": [
+        {
+          "name": "location_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "street",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_menu",
+      "columns": [
+        {
+          "name": "menu_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "menu_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "order_detail",
+      "columns": [
+        {
+          "name": "order_line_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "menu_food_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "food_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "food_order",
+        "column": "location_id"
+      },
+      "to": {
+        "table": "dim_location",
+        "column": "location_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "food_order",
+        "column": "truck_id"
+      },
+      "to": {
+        "table": "dim_truck",
+        "column": "truck_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_detail",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "food_order",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_food",
+        "column": "menu_id"
+      },
+      "to": {
+        "table": "dim_menu",
+        "column": "menu_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "order_detail",
+        "column": "menu_food_id"
+      },
+      "to": {
+        "table": "dim_food",
+        "column": "menu_food_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
