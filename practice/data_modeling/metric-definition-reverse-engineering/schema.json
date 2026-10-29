@@ -1,0 +1,208 @@
+{
+  "tables": [
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "signup_at",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "fact_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "order_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "delivery_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "status_completed",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "user_stat",
+      "columns": [
+        {
+          "name": "user_stat_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "tracking_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "total_revenue",
+          "type": "INT"
+        },
+        {
+          "name": "total_order",
+          "type": "INT"
+        },
+        {
+          "name": "customer_lifetime_value",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "overall_stat",
+      "columns": [
+        {
+          "name": "stat_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "DAU",
+          "type": "INT"
+        },
+        {
+          "name": "order_count",
+          "type": "INT"
+        },
+        {
+          "name": "complete_count",
+          "type": "INT"
+        },
+        {
+          "name": "order_completion_rate",
+          "type": "DECIMAL"
+        },
+        {
+          "name": "average_delivery_time",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "overall_stat",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "user_stat",
+        "column": "tracking_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "user_stat",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
