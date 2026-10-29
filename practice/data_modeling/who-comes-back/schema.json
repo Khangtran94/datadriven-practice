@@ -1,0 +1,145 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_user",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "signup_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "channel_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "username",
+          "type": "INT"
+        },
+        {
+          "name": "phone",
+          "type": "INT"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "summary_user",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "user_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "number_of_session",
+          "type": "INT"
+        },
+        {
+          "name": "number_of_video_watched",
+          "type": "INT"
+        },
+        {
+          "name": "watch_time",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_channel",
+      "columns": [
+        {
+          "name": "channel_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "type",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_user",
+        "column": "signup_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "summary_user",
+        "column": "user_id"
+      },
+      "to": {
+        "table": "dim_user",
+        "column": "user_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "summary_user",
+        "column": "date_sk"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_user",
+        "column": "channel_id"
+      },
+      "to": {
+        "table": "dim_channel",
+        "column": "channel_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
