@@ -21,6 +21,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Roster](./practice/spark/the-roster) | Spark | Easy | 2026-10-31 |
 | [Every Line Remembered](./practice/data_modeling/every-line-remembered) | Data Modeling | Medium | 2026-10-31 |
 | [Single File](./practice/python/single-file) | Python | Easy | 2026-10-30 |
 | [Food Truck Operations Data Model](./practice/data_modeling/food-truck-operations-data-model) | Data Modeling | Medium | 2026-10-29 |
