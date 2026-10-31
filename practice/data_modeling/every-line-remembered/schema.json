@@ -1,0 +1,340 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "DATE",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "type",
+          "type": "CHAR"
+        },
+        {
+          "name": "effective_from",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "effective_to",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_employee",
+      "columns": [
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "date_joined",
+          "type": "DATE",
+          "key": "fk"
+        }
+      ]
+    },
+    {
+      "name": "dim_store",
+      "columns": [
+        {
+          "name": "store_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "address",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_order",
+      "columns": [
+        {
+          "name": "order_date",
+          "type": "DATE",
+          "key": "fk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "customer_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "store_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "employee_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "fact_order_line",
+      "columns": [
+        {
+          "name": "order_line_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "product_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_customer",
+        "column": "effective_from"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_customer",
+        "column": "effective_to"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_product",
+        "column": "effective_to"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_product",
+        "column": "effective_from"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_employee",
+        "column": "date_joined"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "store_id"
+      },
+      "to": {
+        "table": "dim_store",
+        "column": "store_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order_line",
+        "column": "order_id"
+      },
+      "to": {
+        "table": "fact_order",
+        "column": "order_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "customer_sk"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order_line",
+        "column": "product_sk"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "employee_id"
+      },
+      "to": {
+        "table": "dim_employee",
+        "column": "employee_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
