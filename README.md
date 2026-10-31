@@ -992,7 +992,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Product Revenue Ranking](./practice/sql/product-revenue-ranking) | SQL | Easy | 2026-05-21 |
 | [The Last Checkout](./practice/sql/the-last-checkout) | SQL | Medium | 2026-05-21 |
 | [7-Check Rolling Average](./practice/sql/7-check-rolling-average) | SQL | Medium | 2026-05-21 |
-| [10 Lowest Uptime Services](./practice/sql/10-lowest-uptime-services) | SQL | Medium | 2026-05-21 |
+| [10 Lowest Uptime Services](./practice/sql/10-lowest-uptime-services) | SQL | Easy | 2026-05-21 |
 | [Value Count](./practice/python/value-count) | Python | Easy | 2026-05-20 |
 | [Average Watch Time by Format](./practice/sql/average-watch-time-by-format) | SQL | Medium | 2026-05-20 |
 | [Alert Hotspots by Service and Severity](./practice/sql/alert-hotspots-by-service-and-severity) | SQL | Easy | 2026-05-19 |
