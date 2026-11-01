@@ -588,7 +588,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Ghost Products](./practice/sql/ghost-products) | SQL | Medium | 2026-07-07 |
 | [Never-Ordered Products](./practice/sql/never-ordered-products) | SQL | Easy | 2026-07-07 |
 | [Products Without Sales](./practice/sql/products-without-sales) | SQL | Easy | 2026-07-07 |
-| [Selling Where Nobody Lives](./practice/sql/selling-where-nobody-lives) | SQL | Medium | 2026-07-07 |
+| [Selling Where Nobody Lives](./practice/sql/selling-where-nobody-lives) | SQL | Easy | 2026-07-07 |
 | [Silent Users](./practice/sql/silent-users) | SQL | Medium | 2026-07-07 |
 | [Top of the Line](./practice/sql/top-of-the-line) | SQL | Easy | 2026-07-07 |
 | [Unreviewed Models](./practice/sql/unreviewed-models) | SQL | Easy | 2026-07-07 |
