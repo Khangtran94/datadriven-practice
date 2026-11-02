@@ -426,6 +426,7 @@ trip_updates_history:
 
 Replace the mutable composite identity with a stable report identity, then reconcile the incoming and stored version:
 
+{% raw %}
 ```sql
 WITH incoming AS (
     SELECT
@@ -464,6 +465,7 @@ SELECT *
 FROM ranked
 WHERE rn = 1;
 ```
+{% endraw %}
 
 The fallback key is intentionally not based only on trip and service day: multiple legitimate events can exist for one trip/day. Verify the fallback identity against the source's event semantics. Preserve distinct start/end/cancel events, and do not collapse reports simply because they refer to the same trip.
 
