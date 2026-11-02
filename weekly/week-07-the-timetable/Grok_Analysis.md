@@ -16,189 +16,173 @@ This note compares your submission to the top solution. Sections are ordered by 
 
 | Priority | Area | Why it moves the score |
 |----------|------|------------------------|
-| 1 | Multi-form timestamps & dates | delay_s / scheduled_start / actual_start suffer from millis, ISO, dashed dates and Excel serials. |
-| 2 | Service-day inference & past-24:00 | Missing start_date and trips that cross midnight produce wrong or missing rows. |
-| 3 | Vehicle & status collapse | End rows lack fleet number; first valid start must supply vehicle; last event supplies status. |
-| 4 | Fleet-number & trip-id normalisation | Prefixes, leading zeros, `.0` and blanks split or drop matches. |
-| 5 | As-of timetable & unscheduled trips | Wrong version or missing extra-trip path loses route and scheduled time. |
-| 6 | Incremental key & late rail files | Insert-only + simple key is close but gold’s sensor + merge is more robust. |
+| 1 | Service-day inference + GTFS >24 h | delay_s and scheduled_start are the worst columns; blank start_date and 25:10:00 times are marked “no”. |
+| 2 | Event vocabulary & first-valid-start | status and vehicle_id suffer; relief vehicles and “cancelled then ran” need the first start, not the latest. |
+| 3 | Vehicle-id / trip-id normalisation | Fleet numbers with prefixes or leading zeros, trip_ids with `.0` or blanks. |
+| 4 | As-of timetable version + unscheduled extras | Newest file is wrong for intermediate days; extra trips must still appear with unscheduled = 1. |
+| 5 | Incremental strategy & late rail | Append-only unique key + no sensor drops or duplicates late/re-exported rows. |
 
 ---
 
-## 1. Multi-form timestamps and dates
-
-### Your current code (before)
-
-In `transform_update` you only accept pure 10-digit or 13-digit numbers:
-
-```sql
-CASE
-    WHEN event_time NOT GLOB '*[^0-9]*' AND length(event_time) = 13 THEN CAST(event_time AS INTEGER) / 1000
-    WHEN event_time NOT GLOB '*[^0-9]*' AND length(event_time) = 10 THEN CAST(event_time AS INTEGER)
-END AS event_epoch
-```
-
-Start dates are accepted only as 8-digit or simple `date()`.
-
-### Proposed change (after)
-
-Gold normalises every form before ranking:
-
-- Excel serial dates (30000–80000 → `date('1899-12-30', n || ' days')`)
-- Dashed / slashed dates
-- ISO text with optional offset (local +7 h when no zone)
-- Seconds, milliseconds, microseconds
-- Quoted / `.0` Excel artefacts stripped first
-
-Then `event_s` is a clean Unix timestamp used for all ordering and delay math.
-
-### Explanation
-
-- **Before:** ISO strings and Excel serials stay text; ranking by them is wrong, so the “first start” and “last event” are incorrect. Dashed start dates fail the GLOB and fall back to batch_id.
-- **After:** every report has a comparable epoch; delay_s = actual_s - scheduled_s is accurate.
-
-**Example input**  
-Rail unit sends `event_time = '2026-10-15T08:12:00+07:00'` and `start_date = '2026-10-15'`.
-
-**Your behavior**  
-event_epoch stays NULL; start_date may be parsed only if it matches the 8-digit path; the trip is dropped or ranked by load time.
-
-**Gold behavior**  
-ISO is converted with the +7 offset; dashed date becomes a proper date; the report participates in first-start / last-event correctly.
-
-**Why it matters**  
-“Times as millis or ISO text” (18 %) and “Start dates with dashes” (20.6 %) are the two largest unhandled conditions. They drive the low delay_s and scheduled_start scores.
-
-**What to change**  
-Add the full timestamp / date parser (Excel serial, ISO with offset, dashed/slashed) before any ranking window.
-
----
-
-## 2. Service-day inference and trips past 24:00
+## 1. Service-day inference and GTFS times past 24:00:00
 
 ### Your current code (before)
 
 ```sql
 COALESCE(
-    CASE WHEN start_date GLOB ... THEN date(...) END,
+    CASE
+        WHEN start_date GLOB '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
+        THEN date(substr(start_date,1,4) || '-' || substr(start_date,5,2) || '-' || substr(start_date,7,2))
+        ...
+    END,
     date(batch_id)
 ) AS service_day
 ```
-
-No nearest-timetable logic. Past-midnight trips are not specially handled.
+and first_departure only accepts `HH:MM:SS` with hours 00-23.
 
 ### Proposed change (after)
 
-Gold builds candidate days from the timetable, then for reports that lack a declared day it picks the candidate whose scheduled departure is nearest the event (within 12 h). Trips whose first_departure ≥ 24:00 belong to the previous service day.
+Gold builds candidate days (declared, local, local-1, local-2) and joins to the timetable, picking the match whose scheduled departure is closest to the event (within 12 h when the day is missing). Times ≥ 24 h are accepted and converted relative to the service day.
 
 ### Explanation
 
-- **Before:** rail reports after midnight with a blank start_date inherit the file’s batch day, which is the calendar day, not the service day.
-- **After:** the service day is the one whose timetable departure is closest to the report.
+- **Before:** blank start_date falls back to batch_id (often wrong after midnight); 25:10:00 is rejected so the trip has no scheduled_start and a nonsense delay.
+- **After:** the service day is the one whose timetable departure is nearest the report; >24 h times are anchored correctly.
 
 **Example input**  
-Trip scheduled 25:10:00 (01:10 next calendar day). Report arrives in the 2026-10-16 file with no start_date.
+Rail report after midnight with start_date = NULL, event_time corresponding to 01:10, timetable departure 25:10:00 on the previous day.
 
 **Your behavior**  
-service_day = 2026-10-16 (or batch day); scheduled time is wrong or missing.
+service_day = batch day → wrong scheduled_start or missing row.
 
 **Gold behavior**  
-Infers service_day = 2026-10-15; scheduled_start is the 25:10 departure on that service day.
+Candidate previous day matches the 25:10 departure → correct service_date and delay.
 
 **Why it matters**  
-“The day left off the row” (25 %) and “A trip past 24:00:00” (11.1 %) are explicitly called out. They produce the 1,223 unmatched rows and many wrong delay_s values.
+“The day left off the row” (25 %) and “A trip past 24:00:00” (11 %) are both marked “no”. delay_s is only 56 % correct.
 
 **What to change**  
-Add a timetable-driven candidate-day step for null start_date and a ≥24 h departure adjustment.
+Add candidate-day matching against the timetable and accept hours ≥ 24 in first_departure / event parsing.
 
 ---
 
-## 3. Vehicle from first start & status from last event
+## 2. Event vocabulary and first-valid-start ranking
 
 ### Your current code (before)
 
-You rank starts separately and take the earliest after 07:00, which is good, but the vehicle filter is strict (exactly 4 digits) and status is taken from the absolute latest normalized_status without the gold packing that prefers non-null vehicle.
+```sql
+WHEN lower(event_type) IN ('start','started','begin','began','departure','depart','commence') THEN 'start'
+...
+-- earliest start with event_epoch >= 07:00 of service_day
+```
 
 ### Proposed change (after)
 
-Gold packs the first valid start (event_s + vehicle) and the last event (kind) with a sortable key, then extracts:
-
-```sql
-min(CASE WHEN event_kind='start' AND event_s >= service_start THEN ... || vehicle_id END)
-max(... || last_kind)
-```
-
-Vehicle is recovered even when the end row has no fleet number.
+Gold normalises a much larger set (DEPARTED, trip_start, ARRIVED, trip_end, CANCELLED, cancelled_trip, …) and ranks the first start that is not before 07:00 on the declared day (or the inferred day for extras).
 
 ### Explanation
 
-- **Before:** many end rows lose the vehicle; status can flip to a later partial report.
-- **After:** vehicle always comes from the earliest valid start; status is the last known event kind mapped to started/completed/cancelled.
+- **Before:** many real start/end/cancel spellings become NULL; taking any start ≥ 07:00 can pick a relief vehicle.
+- **After:** vocabulary is complete; the earliest valid start supplies vehicle_id and actual_start; last non-cancel status wins.
+
+**Example input**  
+Start from vehicle 1001 at 07:05, then a relief vehicle 1002 reports another start at 08:30.
+
+**Your behavior**  
+May keep 1002 or drop the trip if vocabulary mismatches.
+
+**Gold behavior**  
+Keeps the first valid start (1001).
 
 **Why it matters**  
-vehicle_id is only 68 % correct; “End rows with no fleet number” is 21.6 % of the data.
+“Start and end, in other words” (14 %) and “A relief bus took over” (4.7 %). vehicle_id is only 68 % correct.
 
 **What to change**  
-Keep the earliest-start window but relax the vehicle pattern and take status from the last non-null event kind.
+Expand the CASE lists and rank starts by event_epoch ASC with a floor at service-day 07:00.
 
 ---
 
-## 4. Fleet-number and trip-id normalisation
+## 3. Vehicle-id and trip-id normalisation
 
 ### Your current code (before)
 
 ```sql
 CASE WHEN length(vehicle_id) = 4 AND vehicle_id NOT GLOB '*[^0-9]*'
-     THEN CAST(vehicle_id AS TEXT) END
+     THEN CAST(vehicle_id AS TEXT) END AS vehicle_id
 ```
-
-Trip ids are zero-padded only when purely numeric and length ≤ 7.
+and trip_id only accepts pure digits of length 1-7.
 
 ### Proposed change (after)
 
-Gold strips `BUS` / `RAIL` prefixes, leading zeros, spaces, and Excel `.0` before the length check, then keeps the numeric core.
+Gold strips BUS/RAIL prefixes, leading zeros, `.0` spreadsheet artefacts, and blanks; accepts more length variants.
 
 ### Explanation
 
-- **Before:** “BUS1234” or “ 0567 ” become NULL; the trip loses its vehicle or fails the join.
-- **After:** both collapse to the same canonical id.
+- **Before:** “BUS 1001”, “01001”, “7041203.0” become NULL → unscheduled or dropped.
+- **After:** canonical numeric id.
 
 **Why it matters**  
-“Fleet numbers in other forms” (14 %) and “Trip ids with .0 / blanks” (6.6 % + 5 %).
+“Fleet numbers in other forms” (14 %) and “Trip ids with .0 on the end” / “with blanks”.
 
 **What to change**  
-Add the prefix / ltrim / `.0` strip before the numeric test.
+Add prefix stripping, ltrim of zeros, and `.0` removal before the length/digit checks.
 
 ---
 
-## 5. As-of timetable and unscheduled trips
+## 4. As-of timetable version and unscheduled extras
 
 ### Your current code (before)
 
-You join the latest effective_day ≤ service_day, which is close, but you do not keep a full version history with next_day bounds, and unscheduled trips (no timetable row) are only partially recovered via feed route.
+You pick the latest effective_day ≤ service_day that matches service_id. Unscheduled trips still appear if they have a transform_update row, but route falls back to the feed only when no schedule match exists.
 
 ### Proposed change (after)
 
-Gold materialises `timetable_versions` and `timetable_entries` with effective_day / next_day, then left-joins. When no entry matches, unscheduled = 1 and route comes from the feed.
+Gold materialises timetable_versions / timetable_entries with next_day, then in resolved_events prefers the scheduled route when a match exists and sets unscheduled = 1 otherwise. Extra trips are recovered even with no timetable row.
 
 ### Explanation
 
-- **Before:** a trip retimed or moved mid-week can pick the wrong version; extra trips sometimes lose their route.
-- **After:** the version in force on that exact service day is used; extra trips still appear.
+- **Before:** intermediate days can pick the wrong version; some extras are dropped when the day inference fails.
+- **After:** the version in force on that exact service day is used; extras keep the feed route and unscheduled = 1.
 
 **Why it matters**  
-“An unplanned extra trip” recovered 0 %; “A trip retimed in a later file” and “A trip moved to a new route” are scored.
+“An unplanned extra trip” is 0 % recovered. scheduled_start is only 67 % correct.
 
 **What to change**  
-Introduce the version bounds and an explicit unscheduled path.
+Keep history of every version and select the one whose effective range covers the service day; always emit the extra-trip row.
+
+---
+
+## 5. Incremental strategy and late rail
+
+### Your current code (before)
+
+```sql
+LEFT JOIN {{ this }} AS x ON x.trip_update_key = d.trip_update_key
+WHERE x.trip_update_key IS NULL
+```
+(append-only) and no sensor.
+
+### Proposed change (after)
+
+Gold uses `incremental_strategy: merge` on a stable `event_key`, a rail_ready sensor (soft_fail, 12 h timeout), and `trigger_rule: none_failed`.
+
+### Explanation
+
+- **Before:** re-exported or corrected rows are ignored; late rail files after the run has started are skipped.
+- **After:** corrections are upserted; the sensor waits for the rail feed.
+
+**Why it matters**  
+“Rail rows after the run began”, “A file sent again, amended”, “Old rows sent in a newer file”.
+
+**What to change**  
+Switch to merge on a content-stable key and add the sensor (or a sufficient lookback).
 
 ---
 
 ## Recommended pattern (SQL / DAG)
 
-1. Keep history tasks incremental with a stable unique key (event_key / file_key) and a sensor or look-back for the late rail file.
-2. Materialise a fully-normalised event stream (canonical trip_id, vehicle_id, event_s, declared_day) and a versioned timetable (effective_day, next_day, departure_s).
-3. Resolve service day (declared or nearest), then collapse to one row per (trip_id, service_date) using first-valid-start for actual/vehicle and last-event for status.
-4. Final `trip_actuals` is a simple projection that computes delay_s = actual_s - scheduled_s and sets unscheduled = 1 when no timetable entry matched.
+1. History tasks: stable event_key / file_key, merge strategy, full null-as-text + id normalisation.
+2. Intermediate views: timetable_versions (effective ranges), resolved_events (candidate-day matching + first-valid-start).
+3. Final trip_actuals: simple aggregation of the resolved events for the scoring window, computing delay as actual_start_epoch − scheduled_s.
 
-Start with the timestamp/date parser and the service-day inference. Those two changes address the largest column gaps (`delay_s`, `scheduled_start`, `actual_start`).
+Start with service-day inference and the expanded event/vehicle normalisation. Those two changes address the largest column gaps (`delay_s`, `scheduled_start`, `vehicle_id`).
