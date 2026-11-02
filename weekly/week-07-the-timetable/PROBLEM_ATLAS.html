@@ -38,8 +38,8 @@ function testInputView(raw){
    return table(['Field','Value'],Object.entries(parsed).map(([k,v])=>[k,typeof v==='object'?JSON.stringify(v):String(v??'NULL')]));
   }
  }catch(e){}
- const lines=value.split(/\\r?\\n/).filter(Boolean);
- const pairs=lines.map(line=>line.split(/\\s+/).filter(part=>part.includes('=')).map(part=>{const i=part.indexOf('=');return [part.slice(0,i),part.slice(i+1)]}));
+ const lines=value.split(/\r?\n/).filter(Boolean);
+ const pairs=lines.map(line=>line.split(/\s+/).filter(part=>part.includes('=')).map(part=>{const i=part.indexOf('=');return [part.slice(0,i),part.slice(i+1)]}));
  if(lines.length&&pairs.every(p=>p.length>0)){
   const keys=[...new Set(pairs.flat().map(p=>p[0]))];
   return table(keys,pairs.map(p=>{const m=Object.fromEntries(p);return keys.map(k=>m[k]??'—')}));
