@@ -1,5 +1,7 @@
 # Week 6 — The Dwell
+*A container terminal bills shipping lines for every day a container sits in its yard. The raw tables keep only a few nights.*
 
+You're a data engineer at a port's container terminal. The terminal charges each shipping line for every day a container sits in its yard, and billing needs one clean row per visit, a container's stay from ship to gate. Each night, a job copies 3 raw tables out of 2 source systems. The yard system provides unit_visit, a change log with a row for every visit that changed or was charged that night, and line_operator, a nightly snapshot of the shipping lines. Billing's tariff feed provides tariff_rate, a rate table that arrives in full on the first night; after that, only the rows that changed arrive. Write the DAG that builds billing's storage charges for the period ending 2026-10-19, from the nightly loads between 2026-09-25 and 2026-10-24.
 ## 1) Raw tables
 
 Three nightly-copy tables support the container-terminal billing calculation:
