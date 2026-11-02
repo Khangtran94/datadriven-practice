@@ -1,5 +1,7 @@
 # Week 2 — The Manifest
+*A launch weekend is 10 days out and the delivery team needs to know what is ready to play. The only record is a feed nobody has read in 6 years.*
 
+You're a data engineer at a video streaming service. Every title is encoded into several quality levels, called renditions, and a feed has logged 1 JSON line per rendition since 2020. Before a launch weekend, the delivery team needs 1 clean row per rendition to decide what to cache near viewers, and the feed is the only record of what was made. Write the code that turns it into that table.
 ## 1) Raw input
 
 The source is a JSON-lines feed from a video-streaming service, with one record per rendition. The feed spans six years and records from three successive encoding tools. It contains inconsistent codec and rendition names, re-encoded titles, replayed batches, and logger-produced lines. Documented input fields include `title_id`, `variant`, `codec`, `bitrate`, `duration`, and `packaged`.
