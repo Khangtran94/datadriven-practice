@@ -1,5 +1,7 @@
 # Week 4 - The Interface
+*A hospital's lab results arrive as HL7 messages, a text format older than the web. The quality team needs 1 clean row per result.*
 
+You're a data engineer at a hospital. Every lab result reaches it as an HL7 message: 1 result per message, text segments, | between the fields, filed under the specimen's accession number. An interface engine logs each message as 1 JSON line, and the quality team needs 1 clean row per result from that log. Write the code that turns the log into that table.
 ## 1) Raw input
 
 The source is a JSON-lines log of HL7 v2.5.1 `ORU^R01` lab-result messages. Each message contains a result in HL7 segments; the log also includes multiple sender connections, acknowledgements and other non-result activity. Messages can be repeated or corrected, and some may be truncated. Documented wrapper fields include `received_at`, `connection`, and `message`.
