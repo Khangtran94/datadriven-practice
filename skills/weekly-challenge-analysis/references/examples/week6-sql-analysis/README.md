@@ -6,7 +6,7 @@ Used for `the-dwell` (3 history tasks with incremental merge + 6 table tasks). R
 - `gen.py`: synthetic raw tables (all TEXT) from the README conditions. Each row has a hidden `night`; `RATE_FMT=messy` adds shapes
   that are NOT in the README (use only to stress a port, never to judge the user's code).
 - `run.py`: runs a DAG file night by night: landing windows (unit_visit 7 nights, tariff 2, line_operator 1), renders the
-  `{% if is_incremental() %}` / `{{ this }}` markers, merges by unique key, then builds the table tasks. Engines: SQLite, Postgres.
+{% raw %}`{% if is_incremental() %}` / `{{ this }}`{% endraw %} markers, merges by unique key, then builds the table tasks. Engines: SQLite, Postgres.
   `python3 run.py gold|user|pg <file>`.
 - `ablate.py`: applies ONE fix at a time to the user's dag.sql (string patches, each asserted to match once) and counts how many
   rows match gold per column. This is how each section of the analysis gets its `[estimate]` proof.
