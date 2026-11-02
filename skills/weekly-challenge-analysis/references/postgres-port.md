@@ -49,5 +49,7 @@ and check that the final columns are not mostly NULL (otherwise the test proves 
 - **`sum(bigint)` is numeric in Postgres**: cast back to bigint when the next step relies on integer division.
 - **SQLite prints REAL as `3.0`, `1.5`**: when a REAL is glued into a sort key, emulate it (`trunc(x)::bigint::text || '.0'`, `trim_scale(x)::text`) so ties break the same way.
 - **SQLite trim(x) trims spaces only**; use `btrim(x, ' ')`, not `btrim(x)` with tabs and newlines unless the gold passes them.
+{% raw %}
 - **Incremental markers** (`{% if is_incremental() %}`, `{{ this }}`) stay in the port unchanged. Postgres needs an alias on a subquery in FROM; SQLite does not.
+{% endraw %}
 - **Postgres cluster may stop between tool calls in the sandbox**: `pg_ctlcluster 16 main start` before each test run.
