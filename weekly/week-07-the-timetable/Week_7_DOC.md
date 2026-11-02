@@ -1,4 +1,7 @@
 # Week 7 — The Timetable
+*A transit agency's buses and trains report every trip they run. The timetable they run against changes every week.*
+
+You're a data engineer at a city bus and light rail agency. Each bus and train reports its trips as it runs them, and the service planning team needs 1 clean row per trip: when it was due, when it left, and how late it was. Each night, a job copies 2 raw tables out of 2 systems. The realtime ingest provides trip_updates, a log with a row for every start, end or cancellation a vehicle reported, 1 file per day. The planning team's schedule export provides trips, the timetable with every trip's first departure, published whole as a new version about once a week. Write the DAG that builds the planners' trip table for the days from 2026-10-02 to 2026-10-31.
 
 ## 1) Raw tables
 
