@@ -1,4 +1,7 @@
 # Week 5 — The Close
+*A payments company is closing its books. The numbers come out of 30 nightly copies of its production database, and the landing does not keep them for long.*
+
+You're a data engineer at a card payments company. Every night, a job copies the day's changes from its database into 3 raw tables, which keep only recent copies. Finance is closing its books through 2026-10-12 and needs 1 clean row per payment. Write the DAG that builds that table from 2026-09-18 to 2026-10-17: it runs on the schedule you set, and each run sees only what the raw tables hold then.
 
 ## 1) Raw tables
 
