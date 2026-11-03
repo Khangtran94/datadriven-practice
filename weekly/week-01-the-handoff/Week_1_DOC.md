@@ -2,6 +2,8 @@
 *A CRM is being retired. Its nightly export is the only way the customer list gets out.*
 
 You're a data engineer migrating away from a CRM your company has used since 2019, through 3 rewrites and a change of owner. Its nightly export is the only feed left: 1 JSON object per customer, written by whoever last touched the exporter. The finance team needs 1 clean row per customer to close the fiscal year. Your CRM team all left the company, but before they did, they set up 1 final data stream that you *must* capture accurately. Write the code to turn a messy stream of questionable data into a clean table of actionable financial raw data.
+
+Treat the stream as what it is: 6 years of a product sold into several countries, rewritten 3 times, and maintained at the end by nobody in particular. Fields changed shape and were never migrated back. Free-text boxes stood in for picklists. Regional teams ran their own instance. Integrations wrote on customers' behalf, sometimes twice. And the exporter was patched under pressure, so not every line reads to the end.
 ## 1) Raw input
 
 The source is a JSON-lines customer export from a legacy CRM, with one object per customer. It covers a six-year product history and has inconsistent field formats, free-text values, region-specific instances, duplicate integrations, and occasionally truncated lines. Documented fields include `customer_id`, `email`, `signup_ts`, `plan`, `seats`, and `mrr`.
