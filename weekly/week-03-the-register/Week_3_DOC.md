@@ -2,6 +2,8 @@
 *A utility's new billing system goes live on the 1st. Every half hour of every smart meter has to move over, and the meter feed is the only copy.*
 
 You're a data engineer at an electric utility. Each half hour, every smart meter reports the energy it used and its register, the total it has counted since it was installed. A feed forwards each report as 1 JSON line, and billing needs 1 clean row per meter per half hour from it. Write the code that turns the feed into that table.
+
+The meters came from 3 makers over 12 years, and each maker's system reports in its own way. Meters that lose signal keep their reads and send them when it returns. Every line crosses a message queue on its way to you. A collector that times out sends its whole batch again. Some collectors assemble lines by hand, and a few were cut short.
 ## 1) Raw input
 
 The source is a JSON-lines smart-meter feed. Each record reports energy used and/or a cumulative register for a half-hour interval. Three meter makers have different formats; delayed readings, repeated collector batches, hand-assembled or truncated records, and change-event corrections can occur. Documented fields include `meter_id`, `interval_end`, `kwh`, `register`, and `quality`.
