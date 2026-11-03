@@ -3,6 +3,8 @@
 
 You're a data engineer at a city bus and light rail agency. Each bus and train reports its trips as it runs them, and the service planning team needs 1 clean row per trip: when it was due, when it left, and how late it was. Each night, a job copies 2 raw tables out of 2 systems. The realtime ingest provides trip_updates, a log with a row for every start, end or cancellation a vehicle reported, 1 file per day. The planning team's schedule export provides trips, the timetable with every trip's first departure, published whole as a new version about once a week. Write the DAG that builds the planners' trip table for the days from 2026-10-02 to 2026-10-31.
 
+The bus and rail units come from 2 suppliers, each with its own clock and its own words. A unit that loses its link holds its reports and sends them when it reconnects. The export stamps every file with the time its run began, and the rail file is loaded last. A new timetable comes weekly, sometimes days early, sometimes sent again with fixes. A planner opens the file in a spreadsheet first.
+
 ## 1) Raw tables
 
 Two raw tables, landed by a nightly copy job. Each column carries the type the ingest team documented for it.
