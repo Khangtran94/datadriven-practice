@@ -3,6 +3,7 @@
 
 You're a data engineer at a card payments company. Every night, a job copies the day's changes from its database into 3 raw tables, which keep only recent copies. Finance is closing its books through 2026-10-12 and needs 1 clean row per payment. Write the DAG that builds that table from 2026-09-18 to 2026-10-17: it runs on the schedule you set, and each run sees only what the raw tables hold then.
 
+3 services write to the database, each in its own format and on its own clock, and each records only what it knows. Columns changed meaning, and old rows were never updated. Support fixes stuck payments in the database. A night that fails, or a day with wrong figures, is sent again days later. A copy can still be running when a run starts, or arrive empty. Each export tool writes NULL its own way.
 ## 1) Raw tables
 
 Three nightly-copy tables feed the payments close:
