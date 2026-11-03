@@ -2,6 +2,8 @@
 *A hospital's lab results arrive as HL7 messages, a text format older than the web. The quality team needs 1 clean row per result.*
 
 You're a data engineer at a hospital. Every lab result reaches it as an HL7 message: 1 result per message, text segments, | between the fields, filed under the specimen's accession number. An interface engine logs each message as 1 JSON line, and the quality team needs 1 clean row per result from that log. Write the code that turns the log into that table.
+
+Results come from the hospital's lab and an outside reference lab, over separate links. The lab keeps its own patient index, days behind registration. A result goes out when entered and again each time it is verified or changed. The engine logs its acknowledgements, notes and test runs in the same file. A sender that hears no acknowledgement sends again. Some lines end before their message does.
 ## 1) Raw input
 
 The source is a JSON-lines log of HL7 v2.5.1 `ORU^R01` lab-result messages. Each message contains a result in HL7 segments; the log also includes multiple sender connections, acknowledgements and other non-result activity. Messages can be repeated or corrected, and some may be truncated. Documented wrapper fields include `received_at`, `connection`, and `message`.
