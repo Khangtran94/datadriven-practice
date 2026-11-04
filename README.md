@@ -299,7 +299,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Once and Only Once](./practice/sql/once-and-only-once) | SQL | Hard | 2026-08-24 |
 | [The Lion's Share](./practice/sql/the-lion-s-share) | SQL | Medium | 2026-08-24 |
 | [Workers Earning Above Department Average](./practice/sql/workers-earning-above-department-average) | SQL | Medium | 2026-08-24 |
-| [Top Regions by High CPU Nodes](./practice/sql/top-regions-by-high-cpu-nodes) | SQL | Easy | 2026-08-24 |
+| [Top Regions by High CPU Nodes](./practice/sql/top-regions-by-high-cpu-nodes) | SQL | Hard | 2026-08-24 |
 | [Top Pattern Matches](./practice/sql/top-pattern-matches) | SQL | Medium | 2026-08-24 |
 | [The Long Watch](./practice/sql/the-long-watch) | SQL | Medium | 2026-08-24 |
 | [Top 2 Ad Campaigns by Spend](./practice/sql/top-2-ad-campaigns-by-spend) | SQL | Medium | 2026-08-24 |

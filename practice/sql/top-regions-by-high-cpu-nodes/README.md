@@ -2,7 +2,7 @@
 
 *Three regions get new hardware. Find the ones running hottest.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/top_regions_by_high_cpu_nodes)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/top_regions_by_high_cpu_nodes)
 
 ## How it went
 
