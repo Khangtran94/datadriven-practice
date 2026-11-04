@@ -884,7 +884,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Forward Fill](./practice/python/the-forward-fill) | Python | Easy | 2026-06-22 |
 | [The Dominant Signal](./practice/python/the-dominant-signal) | Python | Easy | 2026-06-22 |
 | [Top Accuracy Model](./practice/sql/top-accuracy-model) | SQL | Medium | 2026-06-21 |
-| [Views by Content Type](./practice/sql/views-by-content-type) | SQL | Easy | 2026-06-21 |
+| [Views by Content Type](./practice/sql/views-by-content-type) | SQL | Medium | 2026-06-21 |
 | [30-Day Page View Counts](./practice/sql/30-day-page-view-counts) | SQL | Easy | 2026-06-20 |
 | [The Loudest Signals](./practice/sql/the-loudest-signals) | SQL | Easy | 2026-06-20 |
 | [Node Summary Per Region](./practice/sql/node-summary-per-region) | SQL | Easy | 2026-06-20 |
