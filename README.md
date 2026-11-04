@@ -271,7 +271,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Top Percentile Spenders](./practice/sql/top-percentile-spenders) | SQL | Medium | 2026-08-26 |
 | [Where the Signal Drops](./practice/sql/where-the-signal-drops) | SQL | Medium | 2026-08-26 |
 | [Top 2 Busiest API Slots](./practice/sql/top-2-busiest-api-slots) | SQL | Medium | 2026-08-26 |
-| [Tokens With Non-Read Scope Prefix](./practice/sql/tokens-with-non-read-scope-prefix) | SQL | Medium | 2026-08-26 |
+| [Tokens With Non-Read Scope Prefix](./practice/sql/tokens-with-non-read-scope-prefix) | SQL | Easy | 2026-08-26 |
 | [The Ones Who Return](./practice/sql/the-ones-who-return) | SQL | Medium | 2026-08-26 |
 | [Spending Tiers](./practice/sql/spending-tiers) | SQL | Medium | 2026-08-26 |
 | [Where the Year Leans](./practice/sql/where-the-year-leans) | SQL | Medium | 2026-08-26 |
