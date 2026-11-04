@@ -22,6 +22,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Long Way Around](./practice/python/the-long-way-around) | Python | Easy | 2026-11-04 |
 | [The Tag Order](./practice/spark/the-tag-order) | Spark | Hard | 2026-11-04 |
 | [The Lazy Unpacker](./practice/python/the-lazy-unpacker) | Python | Medium | 2026-11-02 |
 | [Reverse Field](./practice/python/reverse-field) | Python | Easy | 2026-11-01 |
