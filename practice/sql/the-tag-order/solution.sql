@@ -1,3 +1,3 @@
-SELECT event_id, LOWER(tags) AS normalized_tags
-FROM event_data
-WHERE event_type ='signup'
+SELECT log_id, LOWER(env_name) AS env_name
+FROM deploy_logs
+WHERE lower(status) = 'failed'
