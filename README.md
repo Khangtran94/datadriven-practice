@@ -22,6 +22,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [Top Metric Values](./practice/spark/top-metric-values) | Spark | Easy | 2026-11-05 |
 | [The Page Turner](./practice/python/the-page-turner) | Python | Medium | 2026-11-05 |
 | [The Long Way Around](./practice/python/the-long-way-around) | Python | Easy | 2026-11-04 |
 | [The Tag Order](./practice/spark/the-tag-order) | Spark | Hard | 2026-11-04 |
