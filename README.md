@@ -574,7 +574,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Top Revenue Products H1](./practice/sql/top-revenue-products-h1) | SQL | Medium | 2026-07-07 |
 | [Average Response Time by Hour](./practice/sql/average-response-time-by-hour) | SQL | Easy | 2026-07-07 |
 | [Turned Away](./practice/sql/turned-away) | SQL | Medium | 2026-07-07 |
-| [The Tag Order](./practice/sql/the-tag-order) | SQL | Hard | 2026-07-07 |
+| [The Tag Order](./practice/sql/the-tag-order) | SQL | Medium | 2026-07-07 |
 | [Auth Endpoints](./practice/sql/auth-endpoints) | SQL | Easy | 2026-07-07 |
 | [The Green Light](./practice/sql/the-green-light) | SQL | Easy | 2026-07-07 |
 | [CDN Image Request Paths](./practice/sql/cdn-image-request-paths) | SQL | Easy | 2026-07-07 |
