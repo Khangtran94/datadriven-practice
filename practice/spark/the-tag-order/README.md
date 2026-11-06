@@ -2,7 +2,7 @@
 
 *Tags arrived in chaos. The system needs them in line.*
 
-[Spark · Medium · on DataDriven](https://datadriven.io/problems/the_tag_order)
+[Spark · Hard · on DataDriven](https://datadriven.io/problems/the_tag_order)
 
 ## How it went
 
