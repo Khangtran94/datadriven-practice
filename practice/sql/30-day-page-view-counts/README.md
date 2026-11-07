@@ -1,6 +1,6 @@
 # 30-Day Page View Counts
 
-*Thirty days of engagement. Quick snapshot.*
+*30 days of engagement. Quick snapshot.*
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/30_day_page_view_counts)
 
