@@ -1,6 +1,6 @@
 # Metric Definition Reverse Engineering
 
-*Five numbers on a dashboard. Your job: figure out where they come from.*
+*5 numbers on a dashboard. Your job: figure out where they come from.*
 
 [Data Modeling · Hard · on DataDriven](https://datadriven.io/problems/metric_definition_reverse_engineering)
 
