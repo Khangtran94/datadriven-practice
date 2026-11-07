@@ -1,6 +1,6 @@
 # Top Active Senders per Channel
 
-*Top three messages per channel by replies.*
+*Top 3 messages per channel by replies.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/top_active_senders_per_channel)
 
