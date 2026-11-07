@@ -1,6 +1,6 @@
 # Content by Specific Users
 
-*Two creators. What did they publish?*
+*2 creators. What did they publish?*
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/content_by_specific_users)
 
