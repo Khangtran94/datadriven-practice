@@ -1,6 +1,6 @@
 # Extremely Late Resolutions
 
-*Twenty minutes past the SLA. Still unresolved.*
+*20 minutes past the SLA. Still unresolved.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/extremely_late_resolutions)
 
