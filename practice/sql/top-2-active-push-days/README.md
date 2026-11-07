@@ -1,6 +1,6 @@
 # Top 2 Active Push Days
 
-*Two days stood out from the rest. Which ones?*
+*2 days stood out from the rest. Which ones?*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/top_2_active_push_days)
 
