@@ -1,6 +1,6 @@
 # Cloud Cost Stats by Provider
 
-*Three providers. Three very different bills.*
+*3 providers. 3 very different bills.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/cloud_cost_stats_by_provider)
 
