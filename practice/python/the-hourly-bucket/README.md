@@ -2,7 +2,7 @@
 
 *Timestamps belong somewhere.*
 
-[Python · Medium · on DataDriven](https://datadriven.io/problems/the_hourly_bucket)
+[Python · Easy · on DataDriven](https://datadriven.io/problems/the_hourly_bucket)
 
 ## How it went
 
