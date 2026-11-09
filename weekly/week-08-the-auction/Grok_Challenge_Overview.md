@@ -1,72 +1,59 @@
 # Week 8 – The Auction: Challenge Overview
 
-## 1. One-sentence verdict
-This is a hard production-style incremental + as-of billing challenge for a data engineer with roughly 3–5 years of experience in ad-tech / search-auction data platforms.
+**One-sentence verdict:** High-difficulty (3–5 YoE) production-grade SQL DAG problem in ad-tech inventory: normalize multi-source event logs with messy timestamps, IDs, vocabularies and late verdicts, then produce one clean billed impression row per ad under account-local calendars and month-close rules.
 
-## 2. Domain & context
-- **Simulated business**: a search engine that sells a few ad slots on every results page via real-time auction; advertisers pay only for clicks.
-- **Pipeline goal**: produce one clean row per ad shown (impression) for the window 2026-10-09 → 2026-11-07 (billing month closed 2026-10-31), with served_at / served_date (account timezone), slot, clicked flag, and billed_micros.
-- **Raw inputs**: two nightly copy tables (`ad_events` and `accounts`). `ad_events` is a multi-writer log (serve / click / fraud-verdict rows). `accounts` is a nightly snapshot of open advertiser accounts (timezone, currency). Both feeds arrive late, are re-copied, contain null-as-text, malformed IDs, and multiple vocabularies.
+## Domain & context
 
-## 3. Core data-engineering problems
-The README deliberately injects the following production realities (ordered roughly by frequency/impact):
+A search engine sells a handful of ad slots above and below organic results via real-time auction. Advertisers are charged only for clicks (CPC). The inventory team needs a single reliable row per ad that was shown: the advertiser, the slot, the exact serve instant, the local calendar day, whether it was clicked, and the billed amount in micros. Two raw sources are copied nightly:
 
-1. **Impression-id normalisation** – base64 padding (`=`), base64url (`-` `_`), and percent-encoding (`%2B` `%2F`) must be stripped/decoded so click rows join their serve.
-2. **Multi-format timestamps** – microseconds, milliseconds, seconds, ISO, California offsets, and other writer-specific forms must be reduced to a single epoch so first-click / last-verdict ranking works.
-3. **Event vocabulary & click settlement** – impression/CLICK/IVT/reinstated must map to serve/click/invalid/valid; an impression row must absorb its (up to two) clicks and the latest pre-close verdict.
-4. **Legacy slot names** – ML2, mainline-2, B1, above-1, etc. must become top-N / bottom-N.
-5. **Price units** – micros (850000), decimal dollars (0.85), yen integers, and comma formats must all become billed_micros.
-6. **As-of account timezone** – accounts open/close mid-month, move east once, and experience DST; the zone in force on the serve day decides served_date.
-7. **Late files & re-exports** – Asia files and re-copied days arrive after the run; a watermark on loaded_epoch (or sensor) is required.
-8. **Billing rules** – at most two clicks per impression, last verdict before the account’s month close, invalid = 0, duplicate-click price 0, etc.
+- `ad_events` — append-only log of serves, clicks and fraud-filter verdicts (multiple writers, different clocks, vocabularies and encodings; only last three nights retained).
+- `accounts` — nightly snapshot of open advertiser accounts (time zone + currency); only the latest copy is kept by the source system.
 
-The scoring harness penalises both missing rows and incorrect served_date / billed_micros / slot values.
+The DAG must materialize the target `ad_impressions` for the window 2026-10-09 through 2026-11-07 (billing month closed 2026-10-31). Incremental / history tables are required because late-arriving Asia files, re-copies, and verdicts that arrive days later must still be applied correctly.
 
-## 4. Concepts you must master
+## Core data-engineering problems
 
-| Concept | Why it appears in this week |
-|---------|-----------------------------|
-| Incremental history + stable event/account key | Re-copied files and late Asia rows must be merged, not dropped. |
-| Tolerant ID normalisation | Base64 padding, URL encoding, dashes, leading zeros. |
-| Multi-format epoch parsing | Writer-specific times must sort correctly for first-click / last-verdict. |
-| As-of join to account versions | Timezone (and DST) in force on the serve day. |
-| Click aggregation + verdict ranking | Up to 2 clicks; latest pre-close valid/invalid decides billed_micros. |
-| Slot & event vocabulary maps | Legacy names and free-text event words. |
-| Price → micros conversion | Decimals, commas, yen, already-micros. |
-| Month-close credit logic | Verdicts after the account’s calendar month close do not affect the invoice. |
+1. **Multi-vocabulary event typing** — three independent systems write “impression”, “CLICK”, “IVT”, “reinstated”, etc.; must map onto serve / click / invalid / valid.
+2. **Heterogeneous timestamps** — microseconds, milliseconds, seconds, ISO strings, California local with offset, packed numeric forms; must all become comparable UTC epochs.
+3. **Impression-ID normalization** — base64 with optional `=` padding, base64url (`-`/`_`), percent-encoding (`%2B`/`%2F`); same 16-byte ID must match across serve and click.
+4. **Account-ID cleaning & as-of time zone** — dashes, leading-zero loss, mid-month opens/closes, eastward zone moves; zone in force on the serve day must be recovered from historical snapshots.
+5. **Slot canonicalization** — legacy “mainline-2”, “ML2”, “B1” → `top-2` / `bottom-1`; only valid top-1..4 / bottom-1..3 survive.
+6. **Price unit conversion** — micros, decimal currency units, yen integers; first two priced clicks only, third ignored.
+7. **Fraud & month-close logic** — latest verdict before the account’s month closed wins; post-close invalidations become credits (not this month’s bill); clicked flag is independent of billability.
+8. **Late data, duplicates & retention** — same row re-copied, Asia files after watermark, verdicts after the click left the 3-night window; must keep history and re-process.
 
-## 5. Difficulty & experience estimate
+## Concepts you must master
 
-| Lens | Level | Estimated YoE | Short rationale |
-|------|-------|---------------|-----------------|
-| Problem statement (README) | Hard | 3–5 years | Dozens of realistic ad-server / fraud-filter / billing dirty-data and late-data conditions; requires incremental design, as-of timezone logic, multi-format parsing and precise click/verdict ranking. |
-| Your submission (`dag.sql`) | Mid | ~2–3 years | Solid null cleaning, basic incremental + as-of account intervals, partial event/slot maps and LPAD, but incomplete ID/time/price normalisation and simplified billing. |
-| Reference solution (`gold_submit.sql`) | Senior+ | 5+ years | Full production defensive style: comprehensive epoch parser, base64/URL ID cleaning, full vocabulary & slot maps, price-to-micros, as-of TZ with DST offsets, loaded_epoch watermark, and precise up-to-2-clicks + last-pre-close-verdict billing. |
+| Concept | Why it appears |
+|---------|----------------|
+| Incremental merge + history tables | Late-arriving files, re-copies, and post-retention verdicts |
+| Robust string / timestamp parsing | 3+ timestamp formats + NULL-as-text + URL encodings |
+| As-of / interval joins on snapshots | Account zone valid on the exact serve instant |
+| Windowed ranking & conditional aggregation | First two clicks, latest pre-close verdict |
+| Time-zone-aware date arithmetic | Account-local served_date and month boundaries |
+| Deduplication with stable keys | Exact same event under different load stamps |
+| Defensive null / sentinel cleaning | 50 % of rows have textual “null”, “n/a”, etc. |
 
-## 6. Skill map
+## Difficulty & experience estimate
 
-**Primary skills trained**
-- Designing incremental history tables with a content-stable unique key that survives re-exports
-- Normalising multi-format timestamps and impression IDs so joins and ranking work
-- As-of joins against versioned account timezones (including DST)
-- Click aggregation and fraud-verdict ranking with month-close rules
+| Artifact | Level | Estimated YoE | Rationale |
+|----------|-------|---------------|-----------|
+| Problem statement (README) | Hard | 3–5 | Multi-source vocabulary, as-of zones, month-close credits, late data, ID encodings |
+| Your submission (`dag.sql`) | Intermediate | 2–3 | Solid cleaning & history skeleton; incomplete parsers, missing URL/base64url, no month-close, weaker slot/time handling |
+| Reference solution (`gold_submit.sql`) | Expert | 5+ | Full defensive timestamp parser, zone-offset table, pre-close verdict windows, partner/adtest filters |
 
-**Secondary skills**
-- Legacy slot-name and free-text event vocabulary maps
-- Price unit conversion (micros / decimal / integer)
-- Late-file watermark or sensor
+## Skill map
 
-**Can be deferred on a first pass**
-- Perfect recovery of every exotic scientific-notation or offset spelling
-- Micro-optimisations of the ranking key
+- **Primary:** incremental DAG design, multi-format timestamp/ID normalization, as-of joins, windowed “first-N + latest-before-cutoff” logic.
+- **Secondary:** time-zone offset tables, price unit conversion, sentinel-value cleaning.
+- **Can defer:** pure analytical functions once the core join/window patterns are solid.
 
-## 7. Learning path
-1. Strengthen the history tasks: stable unique key, proper merge (not append-only), and full null-as-text + ID normalisation (padding, URL encoding, dashes, leading zeros).
-2. Replace the limited epoch parser with a multi-format one and expand the slot / event maps; then re-score served_at, served_date and slot.
-3. Isolate the click-aggregation + last-pre-close-verdict logic and the as-of timezone (with DST offsets); then re-score billed_micros and clicked.
+## Learning path
 
-## 8. How this pairs with Grok_Analysis.md
-- **Grok_Challenge_Overview.md** (this file) = understand the business problem, the intentional data-engineering difficulties, the concepts involved, and the experience bar.
-- **Grok_Analysis.md** = understand exactly what your current `dag.sql` does wrong, the concrete before/after SQL, and how to verify each fix.
+1. Extract and unit-test a single pure function that turns every timestamp shape in the README conditions into a UTC epoch.
+2. Build the impression-ID normalizer (strip padding, base64url → standard, percent-decode) and verify serve/click matching.
+3. Implement the account as-of join + zone offset, then layer the “latest verdict before month-end” billing rule on top of the first two clicks.
 
-Read the Overview first to know *what* the week is testing; use the Analysis to fix *your* code.
+## How this pairs with Grok_Analysis.md
+
+Grok_Analysis.md shows the concrete SQL gaps (padding, URL-encoded IDs, incomplete slot/time maps, missing month-close window) that cost the 0.84 score; this overview explains why those gaps exist in the domain and which concepts to master next.

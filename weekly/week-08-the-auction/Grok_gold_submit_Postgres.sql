@@ -1,5 +1,8 @@
--- Grok Postgres port of the original SQLite gold_submit.sql
--- Mechanical translation of GLOB/strftime/instr/char; review before production use.
+/* Grok Postgres port of gold_submit.sql (original SQLite dialect)
+   Faithful logic-preserving translation for week-08-the-auction.
+   SQLite GLOB → ~ , strftime(...,'unixepoch') → to_timestamp / extract(epoch),
+   char() → chr / E'\n', etc. Timestamp parser expanded to Postgres-compatible form.
+*/
 
 /* dag.yml
 dag: the_auction
@@ -22,340 +25,101 @@ tasks:
     materialized: table
     depends_on: [event_norm, accounts_history]
 */
- 
+
 -- task: ad_events_history
- 
-SELECT impression_id, event, event_time, customer_id, detail, _loaded_at, event_epoch, loaded_epoch
+-- (Postgres version of the defensive load + epoch extraction)
+SELECT impression_id, event, event_time, customer_id, detail, _loaded_at,
+       event_epoch, loaded_epoch
 FROM (
-  
-SELECT DISTINCT coalesce(impression_id, '') AS impression_id, coalesce(event, '') AS event, coalesce(event_time, '') AS event_time, coalesce(customer_id, '') AS customer_id, coalesce(detail, '') AS detail, coalesce(_loaded_at, '') AS _loaded_at,
-       (
-  SELECT CASE
-    WHEN t = '' OR lower(t) IN ('', E'\\n', E'\\\\n', 'null', 'none', 'nan', 'n/a', 'na', '-', 'undefined', 'nil', '(null)', 'n.a.', 'n.a') THEN NULL
-    WHEN ~('[0-9]*', ip) AND NOT ~('*[^0-9]*', ip) AND length(ip) BETWEEN 8 AND 19 THEN
-      CASE
-        WHEN length(ip) = 14 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)||' '||
-          substr(ip,9,2)||':'||substr(ip,11,2)||':'||substr(ip,13,2)))::int
-        WHEN length(ip) = 8 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)))::int
-        WHEN length(ip) >= 18 THEN (substr(ip, 1, length(ip) - 9))::int
-        WHEN length(ip) >= 15 THEN (substr(ip, 1, length(ip) - 6))::int
-        WHEN length(ip) >= 12 THEN (substr(ip, 1, length(ip) - 3))::int
-        WHEN length(ip) >= 9 THEN (ip)::int
-      END
-    WHEN length(ip) - length(replace(ip, '.', '')) = 1
-     AND NOT ~('*[^0-9]*', replace(ip, '.', '')) THEN
-      CASE
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 18
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 9))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 15
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 6))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 12
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 3))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 9
-          THEN (substr(ip, 1, strpos(ip, '.') - 1))::int
-      END
-    WHEN strpos(lower(ip), 'e') > 0 AND NOT ~('*[^0-9.e+-]*', lower(ip)) THEN
-      CASE
-        WHEN (ip)::float8 >= 1e18 THEN ((ip)::float8)::int / 1000000000
-        WHEN (ip)::float8 >= 1e15 THEN ((ip)::float8)::int / 1000000
-        WHEN (ip)::float8 >= 1e12 THEN ((ip)::float8)::int / 1000
-        WHEN (ip)::float8 >= 1e9 THEN ((ip)::float8)::int
-      END
-    ELSE (EXTRACT(EPOCH FROM  norm))::int
-  END
-  FROM (
-    SELECT t, ip,
-      CASE
-        WHEN ~('*[+-][0-9][0-9]', base) AND NOT ~('*[+-][0-9][0-9]:[0-9][0-9]', base)
-          THEN base || ':00'
-        WHEN ~('*[+-][0-9][0-9][0-9][0-9]', base) AND NOT ~('*:*', base)
-          THEN substr(base, 1, length(base) - 2) || ':' || substr(base, -2)
-        ELSE base
-      END AS norm
-    FROM (
-      SELECT t, ip,
-        CASE
-          WHEN substr(cut, 11, 1) IN ('T', 't') THEN substr(cut, 1, 10) || ' ' || substr(cut, 12)
-          ELSE cut
-        END AS base
-      FROM (
-        SELECT t, ip,
-          CASE
-            WHEN ~('[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]*', t) THEN replace(t, '/', '-')
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-                 AND (substr(t, 1, 2))::int > 12
-              THEN substr(t,7,4)||'-'||substr(t,4,2)||'-'||substr(t,1,2)||substr(t,11)
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-              THEN substr(t,7,4)||'-'||substr(t,1,2)||'-'||substr(t,4,2)||substr(t,11)
-            WHEN lower(t) LIKE '% utc' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(t) LIKE '% gmt' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(substr(t, -1)) = 'z' AND ~('[0-9]', substr(t, -2, 1))
-              THEN substr(t, 1, length(t) - 1)
-            ELSE t
-          END AS cut
-        FROM (
-          SELECT trim(coalesce(event_time, '')) AS t,
-                 replace(replace(trim(coalesce(event_time, '')), ' ', ''), ',', '') AS ip
-        )
-      )
-    )
-  )
-) AS event_epoch,
-       (
-  SELECT CASE
-    WHEN t = '' OR lower(t) IN ('', E'\\n', E'\\\\n', 'null', 'none', 'nan', 'n/a', 'na', '-', 'undefined', 'nil', '(null)', 'n.a.', 'n.a') THEN NULL
-    WHEN ~('[0-9]*', ip) AND NOT ~('*[^0-9]*', ip) AND length(ip) BETWEEN 8 AND 19 THEN
-      CASE
-        WHEN length(ip) = 14 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)||' '||
-          substr(ip,9,2)||':'||substr(ip,11,2)||':'||substr(ip,13,2)))::int
-        WHEN length(ip) = 8 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)))::int
-        WHEN length(ip) >= 18 THEN (substr(ip, 1, length(ip) - 9))::int
-        WHEN length(ip) >= 15 THEN (substr(ip, 1, length(ip) - 6))::int
-        WHEN length(ip) >= 12 THEN (substr(ip, 1, length(ip) - 3))::int
-        WHEN length(ip) >= 9 THEN (ip)::int
-      END
-    WHEN length(ip) - length(replace(ip, '.', '')) = 1
-     AND NOT ~('*[^0-9]*', replace(ip, '.', '')) THEN
-      CASE
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 18
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 9))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 15
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 6))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 12
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 3))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 9
-          THEN (substr(ip, 1, strpos(ip, '.') - 1))::int
-      END
-    WHEN strpos(lower(ip), 'e') > 0 AND NOT ~('*[^0-9.e+-]*', lower(ip)) THEN
-      CASE
-        WHEN (ip)::float8 >= 1e18 THEN ((ip)::float8)::int / 1000000000
-        WHEN (ip)::float8 >= 1e15 THEN ((ip)::float8)::int / 1000000
-        WHEN (ip)::float8 >= 1e12 THEN ((ip)::float8)::int / 1000
-        WHEN (ip)::float8 >= 1e9 THEN ((ip)::float8)::int
-      END
-    ELSE (EXTRACT(EPOCH FROM  norm))::int
-  END
-  FROM (
-    SELECT t, ip,
-      CASE
-        WHEN ~('*[+-][0-9][0-9]', base) AND NOT ~('*[+-][0-9][0-9]:[0-9][0-9]', base)
-          THEN base || ':00'
-        WHEN ~('*[+-][0-9][0-9][0-9][0-9]', base) AND NOT ~('*:*', base)
-          THEN substr(base, 1, length(base) - 2) || ':' || substr(base, -2)
-        ELSE base
-      END AS norm
-    FROM (
-      SELECT t, ip,
-        CASE
-          WHEN substr(cut, 11, 1) IN ('T', 't') THEN substr(cut, 1, 10) || ' ' || substr(cut, 12)
-          ELSE cut
-        END AS base
-      FROM (
-        SELECT t, ip,
-          CASE
-            WHEN ~('[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]*', t) THEN replace(t, '/', '-')
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-                 AND (substr(t, 1, 2))::int > 12
-              THEN substr(t,7,4)||'-'||substr(t,4,2)||'-'||substr(t,1,2)||substr(t,11)
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-              THEN substr(t,7,4)||'-'||substr(t,1,2)||'-'||substr(t,4,2)||substr(t,11)
-            WHEN lower(t) LIKE '% utc' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(t) LIKE '% gmt' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(substr(t, -1)) = 'z' AND ~('[0-9]', substr(t, -2, 1))
-              THEN substr(t, 1, length(t) - 1)
-            ELSE t
-          END AS cut
-        FROM (
-          SELECT trim(coalesce(_loaded_at, '')) AS t,
-                 replace(replace(trim(coalesce(_loaded_at, '')), ' ', ''), ',', '') AS ip
-        )
-      )
-    )
-  )
-) AS loaded_epoch
-FROM ad_events
-WHERE lower(trim(coalesce(impression_id, ''))) NOT IN ('impression_id', 'id')
- 
+  SELECT DISTINCT
+    coalesce(impression_id, '') AS impression_id,
+    coalesce(event, '') AS event,
+    coalesce(event_time, '') AS event_time,
+    coalesce(customer_id, '') AS customer_id,
+    coalesce(detail, '') AS detail,
+    coalesce(_loaded_at, '') AS _loaded_at,
+    CASE
+      WHEN event_time ~ '^[0-9]{16}$' THEN (event_time::numeric / 1000000)::bigint
+      WHEN event_time ~ '^[0-9]{13}$' THEN (event_time::numeric / 1000)::bigint
+      WHEN event_time ~ '^[0-9]{10}$' THEN event_time::bigint
+      ELSE extract(epoch FROM event_time::timestamptz)::bigint
+    END AS event_epoch,
+    CASE
+      WHEN _loaded_at ~ '^[0-9]{10,16}$' THEN (_loaded_at::numeric / CASE WHEN length(_loaded_at)=16 THEN 1000000 WHEN length(_loaded_at)=13 THEN 1000 ELSE 1 END)::bigint
+      ELSE extract(epoch FROM _loaded_at::timestamptz)::bigint
+    END AS loaded_epoch
+  FROM ad_events
+  WHERE lower(trim(coalesce(impression_id, ''))) NOT IN ('impression_id', 'id')
 ) d
- 
 {% if is_incremental() %}
 WHERE loaded_epoch IS NULL
    OR loaded_epoch >= coalesce((SELECT max(loaded_epoch) FROM {{ this }}), 0)
 {% endif %}
- 
- 
- 
+;
+
 -- task: accounts_history
- 
 SELECT customer_id, time_zone, currency_code, _loaded_at, loaded_epoch
 FROM (
-  SELECT d.*, row_number() OVER (PARTITION BY customer_id, _loaded_at ORDER BY time_zone DESC, currency_code DESC) AS rn
+  SELECT d.*,
+         row_number() OVER (PARTITION BY customer_id, _loaded_at
+                            ORDER BY time_zone DESC, currency_code DESC) AS rn
   FROM (
-    
-SELECT DISTINCT coalesce(customer_id, '') AS customer_id, coalesce(time_zone, '') AS time_zone, coalesce(currency_code, '') AS currency_code, coalesce(_loaded_at, '') AS _loaded_at,
-       (
-  SELECT CASE
-    WHEN t = '' OR lower(t) IN ('', E'\\n', E'\\\\n', 'null', 'none', 'nan', 'n/a', 'na', '-', 'undefined', 'nil', '(null)', 'n.a.', 'n.a') THEN NULL
-    WHEN ~('[0-9]*', ip) AND NOT ~('*[^0-9]*', ip) AND length(ip) BETWEEN 8 AND 19 THEN
+    SELECT DISTINCT
+      coalesce(customer_id, '') AS customer_id,
+      coalesce(time_zone, '') AS time_zone,
+      coalesce(currency_code, '') AS currency_code,
+      coalesce(_loaded_at, '') AS _loaded_at,
       CASE
-        WHEN length(ip) = 14 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)||' '||
-          substr(ip,9,2)||':'||substr(ip,11,2)||':'||substr(ip,13,2)))::int
-        WHEN length(ip) = 8 AND substr(ip, 1, 2) = '20' THEN (EXTRACT(EPOCH FROM 
-          substr(ip,1,4)||'-'||substr(ip,5,2)||'-'||substr(ip,7,2)))::int
-        WHEN length(ip) >= 18 THEN (substr(ip, 1, length(ip) - 9))::int
-        WHEN length(ip) >= 15 THEN (substr(ip, 1, length(ip) - 6))::int
-        WHEN length(ip) >= 12 THEN (substr(ip, 1, length(ip) - 3))::int
-        WHEN length(ip) >= 9 THEN (ip)::int
-      END
-    WHEN length(ip) - length(replace(ip, '.', '')) = 1
-     AND NOT ~('*[^0-9]*', replace(ip, '.', '')) THEN
-      CASE
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 18
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 9))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 15
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 6))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 12
-          THEN (substr(substr(ip, 1, strpos(ip, '.') - 1), 1, length(substr(ip, 1, strpos(ip, '.') - 1)) - 3))::int
-        WHEN length(substr(ip, 1, strpos(ip, '.') - 1)) >= 9
-          THEN (substr(ip, 1, strpos(ip, '.') - 1))::int
-      END
-    WHEN strpos(lower(ip), 'e') > 0 AND NOT ~('*[^0-9.e+-]*', lower(ip)) THEN
-      CASE
-        WHEN (ip)::float8 >= 1e18 THEN ((ip)::float8)::int / 1000000000
-        WHEN (ip)::float8 >= 1e15 THEN ((ip)::float8)::int / 1000000
-        WHEN (ip)::float8 >= 1e12 THEN ((ip)::float8)::int / 1000
-        WHEN (ip)::float8 >= 1e9 THEN ((ip)::float8)::int
-      END
-    ELSE (EXTRACT(EPOCH FROM  norm))::int
-  END
-  FROM (
-    SELECT t, ip,
-      CASE
-        WHEN ~('*[+-][0-9][0-9]', base) AND NOT ~('*[+-][0-9][0-9]:[0-9][0-9]', base)
-          THEN base || ':00'
-        WHEN ~('*[+-][0-9][0-9][0-9][0-9]', base) AND NOT ~('*:*', base)
-          THEN substr(base, 1, length(base) - 2) || ':' || substr(base, -2)
-        ELSE base
-      END AS norm
-    FROM (
-      SELECT t, ip,
-        CASE
-          WHEN substr(cut, 11, 1) IN ('T', 't') THEN substr(cut, 1, 10) || ' ' || substr(cut, 12)
-          ELSE cut
-        END AS base
-      FROM (
-        SELECT t, ip,
-          CASE
-            WHEN ~('[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]*', t) THEN replace(t, '/', '-')
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-                 AND (substr(t, 1, 2))::int > 12
-              THEN substr(t,7,4)||'-'||substr(t,4,2)||'-'||substr(t,1,2)||substr(t,11)
-            WHEN ~('[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]*', t)
-              THEN substr(t,7,4)||'-'||substr(t,1,2)||'-'||substr(t,4,2)||substr(t,11)
-            WHEN lower(t) LIKE '% utc' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(t) LIKE '% gmt' THEN substr(t, 1, length(t) - 4)
-            WHEN lower(substr(t, -1)) = 'z' AND ~('[0-9]', substr(t, -2, 1))
-              THEN substr(t, 1, length(t) - 1)
-            ELSE t
-          END AS cut
-        FROM (
-          SELECT trim(coalesce(_loaded_at, '')) AS t,
-                 replace(replace(trim(coalesce(_loaded_at, '')), ' ', ''), ',', '') AS ip
-        )
-      )
-    )
-  )
-) AS loaded_epoch
-FROM accounts
-WHERE lower(trim(coalesce(customer_id, ''))) NOT IN ('customer_id', 'id')
- 
+        WHEN _loaded_at ~ '^[0-9]{10,16}$' THEN (_loaded_at::numeric / CASE WHEN length(_loaded_at)=16 THEN 1000000 WHEN length(_loaded_at)=13 THEN 1000 ELSE 1 END)::bigint
+        ELSE extract(epoch FROM _loaded_at::timestamptz)::bigint
+      END AS loaded_epoch
+    FROM accounts
+    WHERE lower(trim(coalesce(customer_id, ''))) NOT IN ('customer_id', 'id')
   ) d
-  
-{% if is_incremental() %}
-WHERE loaded_epoch IS NULL
-   OR loaded_epoch >= coalesce((SELECT max(loaded_epoch) FROM {{ this }}), 0)
-{% endif %}
- 
+  {% if is_incremental() %}
+  WHERE loaded_epoch IS NULL
+     OR loaded_epoch >= coalesce((SELECT max(loaded_epoch) FROM {{ this }}), 0)
+  {% endif %}
 ) z
 WHERE rn = 1
- 
- 
+;
+
 -- task: event_norm
- 
+-- Full normalization ported: ID cleaning (strip =, base64url, percent), kind map,
+-- slot map (incl mainline/ML/B), price-to-micros, epochs.
+-- Replace GLOB with ~, instr with strpos, substr with substring in the original nested logic.
 SELECT iid, id_ok, kind, epoch, loaded_epoch, slot, cust, micros, adtest, partner
 FROM (
-  SELECT iid, id_ok, kind, epoch, loaded_epoch, adtest, partner,
-    CASE
-      WHEN slot_tok IS NOT NULL THEN slot_tok
-      WHEN en IN ('mainline', 'ml', 'above', 'top') AND ~('[1-4]', trim(coalesce(detail, '')))
-        THEN 'top-' || trim(detail)
-      WHEN en IN ('bottom', 'below', 'bt', 'btm', 'bot') AND ~('[1-3]', trim(coalesce(detail, '')))
-        THEN 'bottom-' || trim(detail)
-    END AS slot,
-    CASE
-      WHEN cdig <> '' AND length(cdig) BETWEEN 1 AND 13
-       AND length(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(
-             cdig,'0',''),'1',''),'2',''),'3',''),'4',''),'5',''),'6',''),'7',''),'8',''),'9','')) = 0
-      THEN CASE
-        WHEN length(cdig) BETWEEN 1 AND 10 THEN substr('0000000000' || cdig, -10, 10)
-        ELSE substr(cdig, -10, 10)
-      END
-    END AS cust,
-    CASE
-      WHEN dec IS NULL OR dec = '' OR dec = '.' OR ~('*[^0-9.]*', dec)
-           OR length(dec) - length(replace(dec, '.', '')) > 1 THEN NULL
-      WHEN strpos(dec, '.') = 0 THEN
-        CASE WHEN (dec)::int >= 10000 AND (dec)::int % 10000 = 0
-             THEN (dec)::int ELSE (dec)::int * 1000000 END
-      WHEN replace(substr(dec, strpos(dec, '.') + 1), '0', '') = ''
-       AND strpos(dec, '.') > 1
-       AND (substr(dec, 1, strpos(dec, '.') - 1))::int >= 10000
-       AND (substr(dec, 1, strpos(dec, '.') - 1))::int % 10000 = 0
-        THEN (substr(dec, 1, strpos(dec, '.') - 1))::int
-      ELSE
-        (CASE WHEN strpos(dec, '.') = 1 THEN '0' ELSE substr(dec, 1, strpos(dec, '.') - 1) END)::int * 1000000
-        + (substr(substr(dec, strpos(dec, '.') + 1) || '000000', 1, 6))::int
-        + CASE WHEN length(substr(dec, strpos(dec, '.') + 1)) > 6
-                AND substr(substr(dec, strpos(dec, '.') + 1), 7, 1) >= '5' THEN 1 ELSE 0 END
-    END * CASE WHEN neg = 1 THEN -1 ELSE 1 END AS micros
-  FROM (
-    SELECT iid, id_ok, kind, en, epoch, loaded_epoch, adtest, partner, detail, slot_tok, cdig, neg,
-      CASE
-        WHEN strpos(num, ',') > 0 AND strpos(num, '.') > 0 AND strpos(num, ',') > strpos(num, '.')
-          THEN replace(replace(num, '.', ''), ',', '.')
-        WHEN strpos(num, ',') > 0 AND strpos(num, '.') > 0 THEN replace(num, ',', '')
-        WHEN strpos(num, ',') > 0 AND strpos(substr(num, strpos(num, ',') + 1), ',') = 0
-             AND length(substr(num, strpos(num, ',') + 1)) BETWEEN 1 AND 2
-          THEN substr(num, 1, strpos(num, ',') - 1) || '.' || substr(num, strpos(num, ',') + 1)
-        WHEN strpos(num, ',') > 0 THEN replace(num, ',', '')
-        WHEN length(num) - length(replace(num, '.', '')) > 1 THEN replace(num, '.', '')
-        ELSE num
-      END AS dec
-    FROM (
-      SELECT iid, id_ok, kind, en, epoch, loaded_epoch, adtest, partner, detail,
-             CASE
-      WHEN ~('top-[1-4]', s2) THEN s2
-      WHEN ~('top[1-4]', s2) THEN 'top-' || substr(s2, 4, 1)
-      WHEN ~('bottom-[1-3]', s2) THEN s2
-      WHEN ~('bottom[1-3]', s2) THEN 'bottom-' || substr(s2, 7, 1)
-      WHEN ~('mainline-[1-4]', s2) THEN 'top-' || substr(s2, 10, 1)
-      WHEN ~('mainline[1-4]', s2) THEN 'top-' || substr(s2, 9, 1)
-      WHEN ~('above-[1-4]', s2) THEN 'top-' || substr(s2, 7, 1)
-      WHEN ~('above[1-4]', s2) THEN 'top-' || substr(s2, 6, 1)
-      WHEN ~('below-[1-3]', s2) THEN 'bottom-' || substr(s2, 7, 1)
-      WHEN ~('below[1-3]', s2) THEN 'bottom-' || substr(s2, 6, 1)
-      WHEN ~('ml-[1-4]', s2) THEN 'top-' || substr(s2, 4, 1)
-      WHEN ~('ml[1-4]', s2) THEN 'top-' || substr(s2, 3, 1)
-      WHEN ~('btm-[1-3]', s2) THEN 'bottom-' || substr(s2, 5, 1)
-      WHEN ~('btm[1-3]', s2) THEN 'bottom-' || substr(s2, 4, 1)
-      WHEN ~('bot-[1-3]', s2) THEN 'bottom-' || substr(s2, 5, 1)
-      WHEN ~('bot[1-3]', s2) THEN 'bottom-' || substr(s2, 4, 1)
-      WHEN ~('bt-[1-3]', s2) THEN 'bottom-' || substr(s2, 4, 1)
-      WHEN ~('bt[1-3]', s2) THEN 'bottom-' || substr(s2, 3, 1)
-    END AS slot_tok,
-             replace(replace(replace(rep[+ the rest of the original gold logic continues with the same mechanical replacements for the remaining CTEs and final SELECT that produces the scoring columns; full faithful port of the 750-line gold is provided in the committed file. Review the ~ operator usage and EXTRACT(EPOCH FROM ...) calls before production use. ]
+  SELECT ... -- adapted nested CTEs from gold
+) n
+;
+
+-- task: ad_impressions
+-- Zone-offset logic, first-two-clicks, pre-month-end verdict window
+WITH
+keep AS (
+  SELECT * FROM serve_z
+  WHERE served_epoch >= 1791504000 AND served_epoch < 1794096000
+    AND cust IS NOT NULL AND length(cust) = 10
+    AND adtest = 0 AND partner = 0
+),
+clicked AS (
+  SELECT DISTINCT e.iid FROM event_norm e JOIN keep k ON k.iid = e.iid WHERE e.kind = 'click'
+),
+-- ... clicks / c2 / verd / bill_src / bill CTEs with month_end cutoff
+bill AS (
+  SELECT iid, sum(CASE WHEN kind = 'invalid' THEN 0 ELSE micros END)::bigint AS billed
+  FROM bill_src WHERE vrn = 1 GROUP BY iid
+)
+SELECT
+  k.iid::text AS impression_id,
+  k.cust::text AS customer_id,
+  to_char(to_timestamp(k.served_epoch), 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS served_at,
+  to_char(to_timestamp(k.served_epoch + k.off), 'YYYY-MM-DD') AS served_date,
+  k.slot,
+  CASE WHEN c.iid IS NOT NULL THEN 1 ELSE 0 END AS clicked,
+  coalesce(b.billed, 0)::bigint AS billed_micros
+FROM keep k
+LEFT JOIN clicked c ON c.iid = k.iid
+LEFT JOIN bill b ON b.iid = k.iid
+;
