@@ -208,7 +208,8 @@ id_step_2 AS (
 id_normalized AS (
     SELECT
         CASE
-          WHEN id1 LIKE '"%"' OR id1 LIKE "'%'"
+          WHEN substr(id1, 1, 1) = char(34) AND substr(id1, -1) = char(34)
+            OR substr(id1, 1, 1) = char(39) AND substr(id1, -1) = char(39)
             THEN substr(id1, 2, length(id1) - 2)
           ELSE id1
         END AS impression_id,
