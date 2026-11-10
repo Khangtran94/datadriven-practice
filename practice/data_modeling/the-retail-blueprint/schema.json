@@ -1,0 +1,184 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_product",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "category",
+          "type": "CHAR"
+        },
+        {
+          "name": "price",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "dim_channel",
+      "columns": [
+        {
+          "name": "channel_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "channel_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "channel_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "membership_tier",
+          "type": "CHAR"
+        },
+        {
+          "name": "city",
+          "type": "CHAR"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_order",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "order_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "channel_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "customer_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "product_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "quantity",
+          "type": "INT"
+        },
+        {
+          "name": "total_amount",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "product_id"
+      },
+      "to": {
+        "table": "dim_product",
+        "column": "product_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "channel_id"
+      },
+      "to": {
+        "table": "dim_channel",
+        "column": "channel_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "customer_id"
+      },
+      "to": {
+        "table": "dim_customer",
+        "column": "customer_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_order",
+        "column": "order_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}

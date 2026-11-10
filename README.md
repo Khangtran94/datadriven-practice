@@ -23,6 +23,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Retail Blueprint](./practice/data_modeling/the-retail-blueprint) | Data Modeling | Medium | 2026-11-10 |
 | [Retailer Data Warehouse Design](./practice/data_modeling/retailer-data-warehouse-design) | Data Modeling | Medium | 2026-11-10 |
 | [Top Metric Values](./practice/spark/top-metric-values) | Spark | Easy | 2026-11-05 |
 | [The Page Turner](./practice/python/the-page-turner) | Python | Medium | 2026-11-05 |
