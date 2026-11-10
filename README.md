@@ -189,7 +189,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Accumulator](./practice/sql/the-accumulator) | SQL | Hard | 2026-09-07 |
 | [Service Scorecard](./practice/sql/service-scorecard) | SQL | Hard | 2026-09-07 |
 | [Node Utilization](./practice/sql/node-utilization) | SQL | Hard | 2026-09-07 |
-| [Open Wounds](./practice/sql/open-wounds) | SQL | Hard | 2026-09-07 |
+| [Open Wounds](./practice/sql/open-wounds) | SQL | Medium | 2026-09-07 |
 | [Below the Peaks](./practice/sql/below-the-peaks) | SQL | Hard | 2026-09-07 |
 | [The Shape of Waiting](./practice/sql/the-shape-of-waiting) | SQL | Hard | 2026-09-07 |
 | [Lowest CPU Pods per Namespace](./practice/sql/lowest-cpu-pods-per-namespace) | SQL | Hard | 2026-09-07 |
