@@ -1,0 +1,285 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "name": "dim_player",
+      "columns": [
+        {
+          "name": "signup_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        },
+        {
+          "name": "region",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_match",
+      "columns": [
+        {
+          "name": "match_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "match_day",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "match_time",
+          "type": "TIMESTAMP"
+        },
+        {
+          "name": "match_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "home_team_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "away_team_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "home_team_score",
+          "type": "INT"
+        },
+        {
+          "name": "away_team_score",
+          "type": "INT"
+        },
+        {
+          "name": "team_win",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "match_player_stat",
+      "columns": [
+        {
+          "name": "match_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "player_score",
+          "type": "INT"
+        },
+        {
+          "name": "minutes_played",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "summary_stat",
+      "columns": [
+        {
+          "name": "summary_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "from_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "to_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "number_of_match",
+          "type": "INT"
+        },
+        {
+          "name": "number_of_player",
+          "type": "INT"
+        },
+        {
+          "name": "avg_score_player",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "player_stat",
+      "columns": [
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "total_match",
+          "type": "INT"
+        },
+        {
+          "name": "avg_score",
+          "type": "DECIMAL"
+        }
+      ]
+    },
+    {
+      "name": "leaderboard",
+      "columns": [
+        {
+          "name": "player_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "score",
+          "type": "INT"
+        },
+        {
+          "name": "ranking",
+          "type": "INT"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "fact_match",
+        "column": "match_day"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "match_player_stat",
+        "column": "match_id"
+      },
+      "to": {
+        "table": "fact_match",
+        "column": "match_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "match_player_stat",
+        "column": "player_id"
+      },
+      "to": {
+        "table": "dim_player",
+        "column": "player_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "summary_stat",
+        "column": "from_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "summary_stat",
+        "column": "to_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_player",
+        "column": "signup_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "player_stat",
+        "column": "player_id"
+      },
+      "to": {
+        "table": "dim_player",
+        "column": "player_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "leaderboard",
+        "column": "player_id"
+      },
+      "to": {
+        "table": "player_stat",
+        "column": "player_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
