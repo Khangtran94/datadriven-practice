@@ -1,0 +1,272 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_candidate",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_of_birth",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "country",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_job",
+      "columns": [
+        {
+          "name": "job_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_listed_job",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_expired_job",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "job_title",
+          "type": "CHAR"
+        },
+        {
+          "name": "company_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "job_type",
+          "type": "CHAR"
+        },
+        {
+          "name": "location",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "fact_application_lifecycle",
+      "columns": [
+        {
+          "name": "application_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "job_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "candidate_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_view",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_apply_resume",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_interview",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "date_offer",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "channel_reach_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "current_status",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_channel",
+      "columns": [
+        {
+          "name": "channel_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "channel_name",
+          "type": "CHAR"
+        },
+        {
+          "name": "channel_type",
+          "type": "CHAR"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "dim_candidate",
+        "column": "date_of_birth"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_job",
+        "column": "date_listed_job"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "dim_job",
+        "column": "date_expired_job"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "job_id"
+      },
+      "to": {
+        "table": "dim_job",
+        "column": "job_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "candidate_id"
+      },
+      "to": {
+        "table": "dim_candidate",
+        "column": "candidate_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "date_view"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "date_apply_resume"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "date_interview"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "date_offer"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_application_lifecycle",
+        "column": "channel_reach_id"
+      },
+      "to": {
+        "table": "dim_channel",
+        "column": "channel_id"
+      },
+      "foreign_key": true
+    }
+  ]
+}
