@@ -247,7 +247,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Cost Density Extremes](./practice/sql/cost-density-extremes) | SQL | Medium | 2026-08-27 |
 | [Many Eyes](./practice/sql/many-eyes) | SQL | Medium | 2026-08-27 |
 | [The Faithful Few](./practice/sql/the-faithful-few) | SQL | Medium | 2026-08-27 |
-| [Monthly Running Total](./practice/sql/monthly-running-total) | SQL | Easy | 2026-08-27 |
+| [Monthly Running Total](./practice/sql/monthly-running-total) | SQL | Medium | 2026-08-27 |
 | [Mobile vs Desktop Session Duration](./practice/sql/mobile-vs-desktop-session-duration) | SQL | Medium | 2026-08-27 |
 | [Kings of the Aisle](./practice/sql/kings-of-the-aisle) | SQL | Medium | 2026-08-27 |
 | [Best in Class](./practice/sql/best-in-class) | SQL | Medium | 2026-08-27 |
