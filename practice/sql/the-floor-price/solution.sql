@@ -1,4 +1,5 @@
-SELECT UPPER(provider), MIN(amount)
+SELECT upper(provider) AS provider,
+     MAX(amount) AS max_amount
 FROM cloud_costs
-WHERE amount > 0 AND amount IS NOT NULL
-GROUP BY 1 
+WHERE acct_id IS NOT NULL
+GROUP BY 1
