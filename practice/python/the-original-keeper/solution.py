@@ -1,2 +1,6 @@
 def dedup_preserve_order(items: list) -> list:
-    return sorted(list(set(items)))
+  total = []
+  for i in items:
+    if i not in total:
+      total.append(i)
+  return total
