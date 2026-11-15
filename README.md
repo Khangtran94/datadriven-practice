@@ -652,7 +652,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Publishing Audit](./practice/sql/the-publishing-audit) | SQL | Easy | 2026-07-03 |
 | [Low Throughput Pipelines](./practice/sql/low-throughput-pipelines) | SQL | Easy | 2026-07-03 |
 | [Service Alert Frequency](./practice/sql/service-alert-frequency) | SQL | Easy | 2026-07-03 |
-| [The Floor Price](./practice/sql/the-floor-price) | SQL | Easy | 2026-07-02 |
+| [The Floor Price](./practice/sql/the-floor-price) | SQL | Medium | 2026-07-02 |
 | [First Among Equals](./practice/sql/first-among-equals) | SQL | Medium | 2026-07-02 |
 | [Past the Threshold](./practice/sql/past-the-threshold) | SQL | Medium | 2026-07-02 |
 | [Max Value Per Location](./practice/sql/max-value-per-location) | SQL | Easy | 2026-07-02 |
