@@ -30,7 +30,7 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 <p class="intro">Thirty operational data conditions in a grocery-order reconciliation pipeline, taught through source records, failure analysis, corrected SQL behavior, implementation steps and validation.</p>
 <section class="brief" aria-label="Week 9 challenge overview">
 <div class="brief-heading"><div><span class="brief-kicker">THE CHALLENGE · WEEK 09</span><h2>The Basket</h2></div><span class="brief-type">SQL / DAG · ORDER & CHARGE RECONCILIATION</span></div>
-<p class="brief-summary">A grocery delivery platform must reconstruct one financial row per valid placed order from short-retention order events, daily scan files and replaceable price snapshots. The pipeline must preserve source history before expiry, resolve lifecycle state and historical prices, and calculate item, subtotal and tip values for the 2026-10-16 through 2026-11-14 placement window.</p>
+<p class="brief-summary">A grocery delivery platform must reconstruct one financial row per valid placed order from short-retention order events, daily scan files and replaceable price snapshots. The pipeline must preserve source history before expiry, resolve lifecycle state and historical prices, and calculate item, subtotal and tip values for the 2026-10-16 through 2026-11-14 placement window. The documented raw sample is deliberately small (20 events, 10 scans and 28 price rows), so not every one of the 30 conditions appears in it.</p>
 <div class="brief-source"><span class="source-label">DATA SOURCE</span><strong>order_events + scans + prices → durable histories → order_charges</strong><p class="source-provenance">Each condition below identifies whether its records are copied from the documented sample or are illustrative edge-case variations.</p></div>
 <div class="brief-requirements"><div><span>1</span>Capture event, scan and price history before source expiry</div><div><span>2</span>Resolve order lifecycle, effective prices and weighted quantities</div><div><span>3</span>Produce one correctly charged row per valid placed order</div></div></section>
 <p class="objective">Challenge contract and sample records are from README.md and Week_9_DOC.md. Condition-specific records below are illustrative teaching examples, not hidden-dataset rows.</p>
@@ -96,7 +96,7 @@ let selected=1;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function table(heads,rows){return '<div class="table-wrap"><table><thead><tr>'+heads.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
-function sourceInput(c){return table(["Source","Field","Illustrative value"],c.source.map(r=>[r[0],r[1],r[2]]))}
+function sourceInput(c){return table(["Source / record","Field","Value"],c.source.map(r=>[r[0],r[1],r[2]]))}
 function render(){
  const q=$("search").value.trim().toLowerCase(),cat=$("cat").value;
  const shown=cases.filter(c=>(!cat||c.topic===cat)&&(!q||[c.title,c.topic,c.root,c.naive,c.failure,c.rule,c.sql,c.steps.join(" "),JSON.stringify(c.source),JSON.stringify(c.tests)].join(" ").toLowerCase().includes(q)));
