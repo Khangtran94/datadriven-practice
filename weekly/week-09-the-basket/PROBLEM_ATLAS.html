@@ -134,8 +134,16 @@ function sourceInput(c){
    const dictionary=known||fields.map(f=>[f,"Illustrative","Condition-specific input field; meaning is described by the accompanying source record."]);
    const dictHtml='<div class="output-label">'+esc(name)+' · COLUMN DICTIONARY</div>'+
      table(["Column","Type","Meaning"],dictionary);
+   const splitFields=(field,value)=>{
+     const fs=String(field).split(/\\s*\\/\\s*/);
+     const vs=String(value).split(/\\s*\\/\\s*/);
+     if(fs.length>1&&fs.length===vs.length)return fs.map((f,i)=>[f,vs[i]]);
+     return [[String(field),String(value)]];
+   };
+   const parsed=items.map(x=>({record:"Record "+String(x.index).padStart(2,"0"),pairs:splitFields(x.field,x.value)}));
+   const recordColumns=[...new Set([...(known?known.map(x=>x[0]):[]),...parsed.flatMap(x=>x.pairs.map(p=>p[0]))])];
    const recordsHtml='<div class="output-label">'+esc(name)+' · SOURCE RECORDS</div>'+
-     table(["Record","Field","Value"],items.map(x=>["Record "+String(x.index).padStart(2,"0"),x.field,x.value]));
+     table(["Record",...recordColumns],parsed.map(x=>[x.record,...recordColumns.map(col=>x.pairs.find(p=>p[0]===col)?.[1]??"—")]));
    return '<div class="source-table">'+dictHtml+recordsHtml+'</div>';
  }).join("");
 }
