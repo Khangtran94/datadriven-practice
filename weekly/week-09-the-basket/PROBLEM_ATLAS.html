@@ -23,6 +23,23 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 .warning{border:1px solid #a83c55;background:#321c32;color:#ffe1e5;border-radius:11px;padding:12px;margin:14px 0}.hint{color:var(--muted);font-size:12px;margin:8px 0}.actions{display:flex;gap:7px;flex-wrap:wrap}.btn{background:#101f38;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:7px 10px;cursor:pointer}.btn:disabled{opacity:.4;cursor:not-allowed}.category{color:var(--muted);font-size:12px}.tag{font-size:11px;font-weight:850;letter-spacing:.08em;margin-bottom:8px}.statement{color:#e3ecfa}.why{font-size:12px;color:#ff9aa5;margin-top:8px}.codebox{background:#071427;border:1px solid #29466d;border-radius:10px;padding:12px;overflow:auto}.code-label{font-size:10px;font-weight:850;letter-spacing:.1em;color:#91b9e7;margin-bottom:7px}.checkrow{margin:19px 0 0;display:flex;gap:10px;align-items:center;font-weight:750}.checkrow input{width:17px;height:17px;accent-color:var(--green)}.footer{color:var(--muted);font-size:12px;margin:16px 0}.tablewrap{overflow-x:auto;border:1px solid #29466d;border-radius:10px;background:#08172b;margin:8px 0}.tablewrap table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px}.tablewrap th,.tablewrap td{padding:7px 10px;text-align:left;border-right:1px solid #29466d;border-bottom:1px solid #203957;vertical-align:top}.tablewrap th{background:#172c4b;color:#c5d8f4}.tablewrap td{color:#e2ecfa}.tablewrap tr:last-child td{border-bottom:0}.tablewrap th:last-child,.tablewrap td:last-child{border-right:0}
 
 .tablewrap{overflow-x:auto;border:1px solid #29466d;border-radius:10px;background:#08172b;margin:8px 0}.tablewrap table{width:100%;border-collapse:collapse;font-size:12px;min-width:560px}.tablewrap th,.tablewrap td{padding:7px 10px;text-align:left;border-right:1px solid #29466d;border-bottom:1px solid #203957;vertical-align:top}.tablewrap th{background:#172c4b;color:#c5d8f4;font-weight:800}.tablewrap td{color:#e2ecfa}.tablewrap tr:last-child td{border-bottom:0}.tablewrap th:last-child,.tablewrap td:last-child{border-right:0}@media(max-width:560px){.brief[aria-label]{margin:14px 13px 20px!important}}
+
+/* Condition input redesign */
+.input-intro{color:#c4d5ea;font-size:13px;margin:0 0 12px;max-width:1000px}
+.input-group{margin:15px 0 0;padding:13px;border:1px solid #29466d;border-radius:12px;background:#0a192c}
+.input-group:first-child{margin-top:0}.input-group-title{display:flex;align-items:center;gap:8px;margin:0 0 10px;color:#9fd2ff;font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.input-group-title:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);flex:0 0 7px}
+.input-records{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
+.input-record{border:1px solid #29466d;border-radius:10px;background:#10213a;padding:10px;min-width:0}
+.input-record-head{font-size:11px;color:#82c7ff;font-weight:850;letter-spacing:.06em;margin-bottom:7px}
+.input-fields{display:grid;grid-template-columns:minmax(85px,.8fr) minmax(0,1.4fr);gap:5px 10px;font-size:12px}
+.input-fields .field{color:#9eb3cf}.input-fields .value{color:#edf4ff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.input-table{margin-top:10px}.input-table .table-wrap{margin:0}.input-explain{font-size:11px;color:#9eb3cf;margin:8px 0 0}
+.input-result{margin-top:12px;padding:12px;border:1px solid #237d69;background:#102c35;border-radius:11px}
+.input-result-title{font-size:10px;letter-spacing:.1em;font-weight:850;color:#6ce6bd;margin-bottom:7px}
+.input-result p{margin:0;color:#dff8ee;font-size:13px}
+.input-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:9px 0 2px;color:#b8cbe2;font-size:11px}
+.input-flow span{padding:5px 8px;border-radius:7px;background:#142b48;border:1px solid #29466d}.input-flow b{color:var(--cyan);font-size:14px}
 </style>
 </head>
 <body>
@@ -122,30 +139,46 @@ const sourceDictionaries={
  ]
 };
 function sourceInput(c){
+ const escValue=v=>esc(String(v??"NULL"));
+ const parsePairs=(field,value)=>{
+   const fs=String(field).split(/\s*\/\s*/),vs=String(value).split(/\s*\/\s*/);
+   if(fs.length>1&&fs.length===vs.length)return fs.map((f,i)=>[f,vs[i]]);
+   return [[String(field),String(value)]];
+ };
+ const actual={
+  scans:[
+   {scan_id:"sc_0df47df87f7b",order_id:"54838023",code:"3597",qty:"1",weight_lb:"2.85",_batch_id:"2026-10-17",_loaded_at:"2026-10-18 10:05:06+00"},
+   {scan_id:"sc_6a29b15ee997",order_id:"54838023",code:"3597",qty:"1",weight_lb:"2.20",_batch_id:"2026-10-17",_loaded_at:"2026-10-18 10:05:06+00"}
+  ],
+  prices:[{code:"3597",price:"0.69",sold_by:"lb",_loaded_at:"2026-10-18 03:49:35+00"}],
+  order_events:[
+   {event_id:"ev_a315e06285a9",order_id:"54838023",event:"placed",event_at:"2026-10-16T22:37:48Z",detail:"15.00",written_at:"2026-10-16 22:37:49+00"},
+   {event_id:"ev_035d4d45c956",order_id:"54838023",event:"delivered",event_at:"2026-10-17T03:25:20Z",detail:"NULL",written_at:"2026-10-17 03:25:21+00"}
+  ]
+ };
+ const isWeightExample=[1,4].includes(c.id)&&c.provenance==="DOCUMENTED SAMPLE";
+ let html='<p class="input-intro">Only the inputs needed to understand this condition are shown. Each card represents a meaningful record or fact; values are kept together instead of being split into artificial rows.</p>';
+ if(isWeightExample){
+  html+='<div class="input-group"><h4 class="input-group-title">Scans · two complete source records</h4><div class="input-table">'+table(["scan_id","order_id","code","qty","weight_lb","_batch_id","_loaded_at"],actual.scans.map(r=>Object.values(r)))+'</div><p class="input-explain">These are two separate scan rows for the same order. Each scan counts as one item, while its weight is used for pricing.</p></div>';
+  html+='<div class="input-group"><h4 class="input-group-title">Price snapshot · matching PLU</h4><div class="input-table">'+table(["code","price","sold_by","_loaded_at"],actual.prices.map(r=>Object.values(r)))+'</div><p class="input-explain">The item is sold by the pound, so the price is $0.69 per lb.</p></div>';
+  html+='<div class="input-group"><h4 class="input-group-title">Order lifecycle · same order</h4><div class="input-records">'+actual.order_events.map((r,i)=>'<article class="input-record"><div class="input-record-head">'+(i===0?'PLACED EVENT':'DELIVERED EVENT')+'</div><div class="input-fields">'+Object.entries(r).map(([k,v])=>'<span class="field">'+escValue(k)+'</span><span class="value">'+escValue(v)+'</span>').join('')+'</div></article>').join('')+'</div></div>';
+  if(c.id===1){
+   html+='<div class="input-flow"><span>2.85 lb × $0.69</span><b>+</b><span>2.20 lb × $0.69</span><b>→</b><span>2 items · $3.49 subtotal</span></div>';
+   html+='<div class="input-result"><div class="input-result-title">DOCUMENTED TARGET RESULT · order_charges</div>'+table(["order_id","status","items","subtotal","tip"],[["54838023","delivered","2","3.49","15.00"]])+'</div>';
+  }
+  return html;
+ }
  const groups=new Map();
- c.source.forEach((r,i)=>{
-   const name=String(r[0]||"Other inputs");
-   if(!groups.has(name))groups.set(name,[]);
-   groups.get(name).push({field:String(r[1]??""),value:String(r[2]??"NULL"),index:i+1});
+ (c.source||[]).forEach(r=>{
+  const name=String(r[0]||"Additional input");
+  if(!groups.has(name))groups.set(name,[]);
+  groups.get(name).push(parsePairs(r[1],r[2]));
  });
- return [...groups.entries()].map(([name,items])=>{
-   const known=sourceDictionaries[name];
-   const fields=[...new Set(items.map(x=>x.field))];
-   const dictionary=known||fields.map(f=>[f,"Illustrative","Condition-specific input field; meaning is described by the accompanying source record."]);
-   const dictHtml='<div class="output-label">'+esc(name)+' · COLUMN DICTIONARY</div>'+
-     table(["Column","Type","Meaning"],dictionary);
-   const splitFields=(field,value)=>{
-     const fs=String(field).split(/\s*\/\s*/);
-     const vs=String(value).split(/\s*\/\s*/);
-     if(fs.length>1&&fs.length===vs.length)return fs.map((f,i)=>[f,vs[i]]);
-     return [[String(field),String(value)]];
-   };
-   const parsed=items.map(x=>({record:"Record "+String(x.index).padStart(2,"0"),pairs:splitFields(x.field,x.value)}));
-   const recordColumns=[...new Set([...(known?known.map(x=>x[0]):[]),...parsed.flatMap(x=>x.pairs.map(p=>p[0]))])];
-   const recordsHtml='<div class="output-label">'+esc(name)+' · SOURCE RECORDS</div>'+
-     table(["Record",...recordColumns],parsed.map(x=>[x.record,...recordColumns.map(col=>x.pairs.find(p=>p[0]===col)?.[1]??"—")]));
-   return '<div class="source-table">'+dictHtml+recordsHtml+'</div>';
- }).join("");
+ html+=[...groups.entries()].map(([name,items])=>{
+  const cards=items.map((pairs,i)=>'<article class="input-record"><div class="input-record-head">INPUT '+String(i+1).padStart(2,"0")+'</div><div class="input-fields">'+pairs.map(([f,v])=>'<span class="field">'+escValue(f)+'</span><span class="value">'+escValue(v)+'</span>').join('')+'</div></article>').join('');
+  return '<div class="input-group"><h4 class="input-group-title">'+escValue(name)+'</h4><div class="input-records">'+cards+'</div></div>';
+ }).join('');
+ return html;
 }
 function render(){
  const q=$("search").value.trim().toLowerCase(),cat=$("cat").value;
@@ -159,7 +192,7 @@ function render(){
  const c=cases.find(x=>x.id===selected);
  $("detail").innerHTML='<div class="hero"><div><span class="pill">WEEK 09 · CONDITION '+String(c.id).padStart(2,"0")+' / 30</span><div class="counter">README condition '+c.id+' of 30 · '+esc(c.topic)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source records through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE BASKET</div></div>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>1 · Business Context · Root Cause</h3><div class="context">'+esc(c.root)+'</div><p class="note">Condition meaning is grounded in README.md. Business interpretation is explained in plain language.</p></section>'+
- '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>'+esc(c.provenance||"ILLUSTRATIVE EDGE CASE")+'</strong> · '+esc(c.sourceNote||"The dictionary describes the source fields used by this condition. Source records below show the condition-specific raw values; rows not marked DOCUMENTED SAMPLE are illustrative, not hidden-dataset records.")+'</p>'+sourceInput(c)+'</div></section>'+
+ '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>'+esc(c.provenance||"ILLUSTRATIVE EDGE CASE")+'</strong> · '+esc(c.sourceNote||"The values below are focused teaching examples, not additional documented raw rows.")+'</p>'+sourceInput(c)+'</div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>3 · Naive SQL Execution</h3><div class="compare-card bad"><div class="compare-head">✕ WHY THE SIMPLE APPROACH FAILS</div><div class="formula">'+esc(c.naive)+'</div><div class="output-label">LIKELY FAILURE</div><div class="output">'+esc(c.failure)+'</div></div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>4 · Correct SQL Execution</h3><div class="compare-card good"><div class="compare-head">✓ BUSINESS-CORRECT BEHAVIOR</div><div class="formula">'+esc(c.rule)+'</div><div class="output-label">CONDITION-SPECIFIC SQL PATTERN</div><pre class="code">'+esc(c.sql)+'</pre></div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>5 · Step-by-Step SQL Solution</h3><div class="steps">'+c.steps.map((s,i)=>'<div class="step"><span class="step-num">'+(i+1)+'</span><div class="step-text">'+esc(s)+'</div></div>').join("")+'</div></section>'+
