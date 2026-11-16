@@ -96,7 +96,49 @@ let selected=1;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function table(heads,rows){return '<div class="table-wrap"><table><thead><tr>'+heads.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
-function sourceInput(c){return table(["Source / record","Field","Value"],c.source.map(r=>[r[0],r[1],r[2]]))}
+const sourceDictionaries={
+ "order_events":[
+ ["event_id","TEXT","Unique identifier for an order-service event."],
+ ["order_id","TEXT","Eight-digit order identifier; preserve as text."],
+ ["event","TEXT","Lifecycle or tip/replacement event type."],
+ ["event_at","TEXT","UTC time when the event happened."],
+ ["detail","TEXT","Tip amount or referenced scan ID, depending on event."],
+ ["written_at","TEXT","UTC time when the source service wrote the event."]
+ ],
+ "scans":[
+ ["scan_id","TEXT","Shopper-app scan identifier; duplicate source rows can occur."],
+ ["order_id","TEXT","Order to which the item was scanned."],
+ ["code","TEXT","Item UPC or produce PLU."],
+ ["qty","TEXT","Quantity; for older pound-item scans this may contain weight."],
+ ["weight_lb","TEXT","Scale weight in pounds from the newer app; may contain text sentinels."],
+ ["_batch_id","TEXT","UTC scan-file day."],
+ ["_loaded_at","TEXT","UTC time the scan file was copied."]
+ ],
+ "prices":[
+ ["code","TEXT","Item UPC or produce PLU."],
+ ["price","TEXT","Dollars per item or per pound."],
+ ["sold_by","TEXT","Whether the item is sold by each or by the pound."],
+ ["_loaded_at","TEXT","UTC time the nightly price snapshot was copied."]
+ ]
+};
+function sourceInput(c){
+ const groups=new Map();
+ c.source.forEach((r,i)=>{
+   const name=String(r[0]||"Other inputs");
+   if(!groups.has(name))groups.set(name,[]);
+   groups.get(name).push({field:String(r[1]??""),value:String(r[2]??"NULL"),index:i+1});
+ });
+ return [...groups.entries()].map(([name,items])=>{
+   const known=sourceDictionaries[name];
+   const fields=[...new Set(items.map(x=>x.field))];
+   const dictionary=known||fields.map(f=>[f,"Illustrative","Condition-specific input field; meaning is described by the accompanying source record."]);
+   const dictHtml='<div class="output-label">'+esc(name)+' · COLUMN DICTIONARY</div>'+
+     table(["Column","Type","Meaning"],dictionary);
+   const recordsHtml='<div class="output-label">'+esc(name)+' · SOURCE RECORDS</div>'+
+     table(["Record","Field","Value"],items.map(x=>["Record "+String(x.index).padStart(2,"0"),x.field,x.value]));
+   return '<div class="source-table">'+dictHtml+recordsHtml+'</div>';
+ }).join("");
+}
 function render(){
  const q=$("search").value.trim().toLowerCase(),cat=$("cat").value;
  const shown=cases.filter(c=>(!cat||c.topic===cat)&&(!q||[c.title,c.topic,c.root,c.naive,c.failure,c.rule,c.sql,c.steps.join(" "),JSON.stringify(c.source),JSON.stringify(c.tests)].join(" ").toLowerCase().includes(q)));
@@ -109,7 +151,7 @@ function render(){
  const c=cases.find(x=>x.id===selected);
  $("detail").innerHTML='<div class="hero"><div><span class="pill">WEEK 09 · CONDITION '+String(c.id).padStart(2,"0")+' / 30</span><div class="counter">README condition '+c.id+' of 30 · '+esc(c.topic)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source records through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE BASKET</div></div>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>1 · Business Context · Root Cause</h3><div class="context">'+esc(c.root)+'</div><p class="note">Condition meaning is grounded in README.md. Business interpretation is explained in plain language.</p></section>'+
- '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>'+esc(c.provenance||"ILLUSTRATIVE EDGE CASE")+'</strong> · '+esc(c.sourceNote||"These records are constructed to isolate the condition. They are not claimed to be rows from the documented sample or hidden dataset.")+'</p>'+sourceInput(c)+'</div></section>'+
+ '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>'+esc(c.provenance||"ILLUSTRATIVE EDGE CASE")+'</strong> · '+esc(c.sourceNote||"The dictionary describes the source fields used by this condition. Source records below show the condition-specific raw values; rows not marked DOCUMENTED SAMPLE are illustrative, not hidden-dataset records.")+'</p>'+sourceInput(c)+'</div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>3 · Naive SQL Execution</h3><div class="compare-card bad"><div class="compare-head">✕ WHY THE SIMPLE APPROACH FAILS</div><div class="formula">'+esc(c.naive)+'</div><div class="output-label">LIKELY FAILURE</div><div class="output">'+esc(c.failure)+'</div></div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>4 · Correct SQL Execution</h3><div class="compare-card good"><div class="compare-head">✓ BUSINESS-CORRECT BEHAVIOR</div><div class="formula">'+esc(c.rule)+'</div><div class="output-label">CONDITION-SPECIFIC SQL PATTERN</div><pre class="code">'+esc(c.sql)+'</pre></div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>5 · Step-by-Step SQL Solution</h3><div class="steps">'+c.steps.map((s,i)=>'<div class="step"><span class="step-num">'+(i+1)+'</span><div class="step-text">'+esc(s)+'</div></div>').join("")+'</div></section>'+
