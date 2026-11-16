@@ -1,12 +1,18 @@
-with total AS
-(SELECT svc_name, SUM(amount) AS total_amount
+with top3 AS
+(SELECT svc_name, 
+  SUM(amount) AS total_amount
 FROM cloud_costs
-WHERE extract(year from bill_date) = 2025
-GROUP BY svc_name)
+WHERE amount > 0
+GROUP BY 1
+order by 2),
 
-SELECT svc_name, total_amount
-FROM total
-QUALIFY
-    ROW_NUMBER() OVER (ORDER BY total_amount) <= 5
-    OR ROW_NUMBER() OVER (ORDER BY total_amount DESC) <= 5
-ORDER BY total_amount
+rnk AS 
+(SELECT *,
+ ROW_NUMBER() OVER(ORDER BY total_amount) AS rn,
+ ROW_NUMBER() OVER(ORDER BY total_amount DESC) AS rn_desc
+FROM top3)
+
+SELECT svc_name,
+      total_amount
+FROM rnk
+WHERE rn <= 3 OR rn_desc <= 3
