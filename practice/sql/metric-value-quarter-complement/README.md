@@ -1,6 +1,6 @@
 # Metric Value Quarter Complement
 
-*Two metrics that accidentally match.*
+*2 metrics that accidentally match.*
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/metric_value_quarter_complement)
 
