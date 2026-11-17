@@ -903,7 +903,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [First Contact](./practice/sql/first-contact) | SQL | Medium | 2026-06-20 |
 | [The Loudest Voice](./practice/python/the-loudest-voice) | Python | Medium | 2026-06-20 |
 | [Lowest Average Price Category](./practice/sql/lowest-average-price-category) | SQL | Easy | 2026-06-19 |
-| [Metric Range by Department](./practice/sql/metric-range-by-department) | SQL | Medium | 2026-06-19 |
+| [Metric Range by Department](./practice/sql/metric-range-by-department) | SQL | Easy | 2026-06-19 |
 | [Content Type Distribution](./practice/sql/content-type-distribution) | SQL | Easy | 2026-06-19 |
 | [Ship It or Skip It](./practice/sql/ship-it-or-skip-it) | SQL | Easy | 2026-06-19 |
 | [Sessions by Content Type](./practice/sql/sessions-by-content-type) | SQL | Medium | 2026-06-19 |
