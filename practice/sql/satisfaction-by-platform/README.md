@@ -1,6 +1,6 @@
 # Satisfaction by Platform
 
-*Satisfaction scores, platform by platform.*
+*The rubric only pays in whole points.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/satisfaction_by_platform)
 
