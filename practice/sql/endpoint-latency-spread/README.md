@@ -1,6 +1,6 @@
 # Endpoint Latency Spread
 
-*Latency spread across endpoints.*
+*The slowest call only counts if it worked.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/endpoint_latency_spread)
 
