@@ -344,11 +344,6 @@ agg AS (
         ) AS cents
     FROM line
     GROUP BY oid
-),
-tip_values AS (
-    SELECT
-        regexp_replace(coalesce(tip_txt, ''), '[^0-9.-]', '', 'g') AS tip_num
-    FROM ord
 )
 SELECT
     o.oid AS order_id,
