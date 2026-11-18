@@ -2,7 +2,7 @@
 
 *Only the biggest and the smallest reach the executive review.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/the_extremes)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/the_extremes)
 
 ## How it went
 

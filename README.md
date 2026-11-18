@@ -209,7 +209,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Ebb and Flow](./practice/sql/ebb-and-flow) | SQL | Hard | 2026-09-07 |
 | [Yesterday's Weather](./practice/sql/yesterday-s-weather) | SQL | Hard | 2026-09-07 |
 | [Tipping Points](./practice/sql/tipping-points) | SQL | Hard | 2026-09-07 |
-| [The Extremes](./practice/sql/the-extremes) | SQL | Easy | 2026-09-07 |
+| [The Extremes](./practice/sql/the-extremes) | SQL | Hard | 2026-09-07 |
 | [The Streak Breaker](./practice/python/the-streak-breaker) | Python | Easy | 2026-09-07 |
 | [The Weight of a Click](./practice/sql/the-weight-of-a-click) | SQL | Hard | 2026-09-07 |
 | [Services With Multi-Quarter Uptime](./practice/sql/services-with-multi-quarter-uptime) | SQL | Hard | 2026-09-07 |
