@@ -1,6 +1,7 @@
-SELECT username, COUNT(session_id)
-FROM users AS u
-INNER JOIN user_sessions as us
+SELECT username, COUNT(session_id) AS session_count
+FROM users
+INNER JOIN user_sessions 
 USING (user_id)
-GROUP BY u.user_id, username
-HAVING COUNT(session_id) >= 5
+GROUP BY 1
+HAVING COUNT(session_id) >= 3
+ORDER BY 2 desc
