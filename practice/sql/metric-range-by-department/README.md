@@ -2,7 +2,7 @@
 
 *Where each team's numbers sit, low to high.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/metric_range_by_department)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/metric_range_by_department)
 
 ## How it went
 
