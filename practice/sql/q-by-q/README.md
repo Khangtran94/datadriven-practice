@@ -1,6 +1,6 @@
 # Q by Q
 
-*Thirteen weeks. This is how the team spent them.*
+*13 weeks. This is how the team spent them.*
 
 [SQL · Easy · on DataDriven](https://datadriven.io/problems/q_by_q)
 
