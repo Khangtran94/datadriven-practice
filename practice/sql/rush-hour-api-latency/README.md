@@ -2,7 +2,7 @@
 
 *Rush hour hits the API differently.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/rush_hour_api_latency)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/rush_hour_api_latency)
 
 ## How it went
 
