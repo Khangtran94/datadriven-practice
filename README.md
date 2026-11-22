@@ -10,6 +10,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Week | Score | Rank | |
 |---|---:|---|---|
+| [Week 10: The Ceiling](./weekly/week-10-the-ceiling) | 0.8185 | #4 of 6 | [brief](https://datadriven.io/community/week-10) |
 | [Week 9: The Basket](./weekly/week-09-the-basket) | 0.6682 | #2 of 5 | [brief](https://datadriven.io/community/week-9) |
 | [Week 8: The Auction](./weekly/week-08-the-auction) | 0.8416 | #3 of 8 | [brief](https://datadriven.io/community/week-8) |
 | [Week 7: The Timetable](./weekly/week-07-the-timetable) | 0.7846 | #5 of 9 | [brief](https://datadriven.io/community/week-7) |
