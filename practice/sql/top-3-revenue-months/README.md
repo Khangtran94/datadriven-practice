@@ -1,6 +1,6 @@
 # Top 3 Revenue Months
 
-*The three best months on record.*
+*The 3 best months on record.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/top_3_revenue_months)
 
