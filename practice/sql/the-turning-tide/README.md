@@ -1,6 +1,6 @@
 # The Turning Tide
 
-*Two time windows. Did the cloud bill go up or down?*
+*Half a year against half a year. Did the cloud bill go up or down?*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_turning_tide)
 
