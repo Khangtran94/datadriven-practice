@@ -991,7 +991,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Against the Grain](./practice/python/against-the-grain) | Python | Medium | 2026-05-26 |
 | [Clean Averages](./practice/sql/clean-averages) | SQL | Easy | 2026-05-25 |
 | [User Session Roster](./practice/sql/user-session-roster) | SQL | Easy | 2026-05-25 |
-| [Above Average Interactions](./practice/sql/above-average-interactions) | SQL | Medium | 2026-05-25 |
+| [Above Average Interactions](./practice/sql/above-average-interactions) | SQL | Easy | 2026-05-25 |
 | [Above Average](./practice/sql/above-average) | SQL | Easy | 2026-05-25 |
 | [Power Users by Session Activity](./practice/sql/power-users-by-session-activity) | SQL | Medium | 2026-05-25 |
 | [Spending by Account Status](./practice/sql/spending-by-account-status) | SQL | Medium | 2026-05-25 |
