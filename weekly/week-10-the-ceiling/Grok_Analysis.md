@@ -2,11 +2,11 @@
 
 **Your score:** 0.8185 (#4 of 6, top 67%)  
 **Your file:** `handler.py`  
-**Top-1 file:** `gold_submit.py`
+**Top-1 file:** `gold_submit.py`  
+**Records recovered:** 801,178 of 855,838  
+**Penalties:** 60,340 second rows for a key already emitted + 9,855 rows that matched no record
 
 This note compares your submission to the top solution. Sections are ordered by **impact** (biggest score gaps first). Each section uses a vertical layout so you can read example → your behavior → gold behavior without scanning a wide table.
-
-60 340 rows were a second row for a key already emitted and 9 855 rows matched no record. Together they cost 140 390 points. Column correctness is solid on station/observed_at (~94 %) but drops on altimeter_hpa / visibility_m / wind_kt / temp_c (78–84 %).
 
 ---
 
@@ -14,27 +14,28 @@ This note compares your submission to the top solution. Sections are ordered by 
 
 | Priority | Area | Why it moves the score |
 |----------|------|------------------------|
-| 1 | Emit-in-process + empty finalize | Emits a row as soon as it is seen; later revision for the same (station, observed_at) becomes a second row → 60 340 “already emitted” penalties. finalize() returns []. |
-| 2 | No split-line / pending recovery | Reports that wrap across two log lines are incomplete or dropped. Gold keeps a pending body and joins the continuation. |
-| 3 | Time forms without Z / hour 2400 | “A time with no Z” (2.9 % of stream) recovered 0 %. Midnight logged as 2400 is rejected. Gold accepts both. |
-| 4 | Typed units and split groups (KTS, KM, QNH, 2-part values) | 17 % of stream is a value typed in two parts; 16 % is hand-typed units. Your regexes expect glued forms. |
-| 5 | Altimeter / visibility / wind / temp extractors | Highest wrong+missed counts. Gold has broader patterns (legacy fields, QNH, mixed SM, MPS, tenths remarks, O→0). |
-| 6 | Bulletin / archive / lower-case / O-for-zero | Secondary but frequent enough to move the remaining gap. |
+| 1 | Emission timing / duplicates | 60,340 extra rows for keys already emitted. `process` returns rows immediately; corrections emit a second row. Gold holds everything and emits only once in `finalize`. |
+| 2 | Split / continued lines | 70% recovery on "Split over 2 log lines". No pending-body buffer; second line is treated as a new (usually invalid) report. |
+| 3 | Time without Z / 2400 | 0% recovery on "A time with no Z" and "Midnight as hour 2400". Time regex requires the Z; hour 24 is rejected. |
+| 4 | Hand-typed units & two-part values | 68% on KTS/KM/QNH and two-part groups. Wind/visibility/altimeter regexes miss KTS, QNH, A 3001, 180/12KT, 10 SM, etc. |
+| 5 | Bulletin headings & archive wrappers | 32% on bulletin headings. Station/time extraction does not strip SAUS70 KWBC … style headers or date-line wrappers. |
+| 6 | Wind in m/s & other units | Partial. MPS is handled, but many real-world unit variants and O-for-0 slips are missed. |
+| 7 | Robust METAR tokenization | Gold uses a large set of pre-compiled patterns that tolerate spacing, missing zeros, CB/TCU, NDV, TEMPO/BECMG cut-offs, etc. |
 
 ---
 
-## 1. Emit-in-process + empty finalize (largest single cost)
+## 1. Emission timing / duplicates (60k second-row penalty)
 
 ### Your current code (before)
 
 ```python
 class Handler:
     def __init__(self):
-        self.output_rows = None
         self.records_map = {}
 
     def process(self, raw):
-        # ... normalize + extract ...
+        …
+        extracted = extract_columns(rows)
         out = []
         for row in extracted:
             key = _record_key(row)
@@ -42,11 +43,11 @@ class Handler:
             if self.records_map.get(key) == values:
                 continue
             self.records_map[key] = values
-            out.append(row)          # emit immediately
+            out.append(row)          # ← emits every time the values change
         return out
 
     def finalize(self):
-        return []                    # never emit here
+        return []                    # ← never emits the final unique set
 ```
 
 ### Proposed change (after)
@@ -54,238 +55,161 @@ class Handler:
 ```python
 class Handler:
     def __init__(self):
-        self.held = {}               # (station, observed_at) → weather tuple
-        self.pending = None          # optional split-line state
+        self.held = {}               # key → packed values (last write wins)
 
     def process(self, raw):
-        # parse + extract; update self.held[key] = weather
-        # never return rows here
-        return []
+        …
+        for row in extracted:
+            key = _record_key(row)
+            if key is None:
+                continue
+            self.held[key] = _pack_record(row)   # overwrite, never emit yet
+        return []                                 # always empty
 
     def finalize(self):
-        # finish any pending, then emit every held key once
-        rows = []
-        for (station, observed_at), weather in self.held.items():
-            wind, vis, ceil, temp, pressure = weather
-            rows.append({
-                "station": station,
-                "observed_at": observed_at,
-                "wind_kt": wind,
-                "visibility_m": vis,
-                "ceiling_ft": ceil,
-                "temp_c": temp,
-                "altimeter_hpa": pressure,
-            })
-        self.held.clear()
-        return rows
+        return [_unpack_record(k, v) for k, v in self.held.items()]
 ```
 
 ### Explanation
 
-- **Before**: a later correction or re-send for the same station+time produces a second emitted row. The scorer counts it as “second row for a key already emitted”.
-- **After**: only one row per key is ever emitted, and it is the last (or best) version that was stored. This is exactly what gold does.
+The scorer collects every list returned by `process` **plus** the list returned by `finalize`.  
+When a later line carries a correction (or a more complete parse) for the same `(station, observed_at)`, your code emits a second row. Those 60,340 extras are scored as wrong.  
+Gold never returns anything from `process`; it only returns the final unique map from `finalize`. Last write wins, and each key appears exactly once.
 
 **Example input**  
-Same EGLL 311200Z appears twice; second copy has a corrected visibility.
+```
+{"report": "METAR EGLL 311851Z 18012KT …", "received_at": "…"}
+{"report": "METAR EGLL 311851Z 18015KT …", "received_at": "…"}   # correction
+```
 
 **Your behavior**  
-Two rows emitted for the same key → penalty.
+Emits two rows for EGLL|2026-01-31T18:51:00Z. The second is counted as a duplicate key.
 
 **Gold behavior**  
-Only the final stored version is emitted in finalize.
+Stores the second values, returns only one row in `finalize`.
 
 **Why it matters**  
-60 340 rows × penalty is the single largest score loss.
+This single architectural mismatch accounts for the bulk of the 140 k point loss mentioned in the README.
 
 **What to change**  
-Never emit from process. Keep one winner per (station, observed_at). Emit only from finalize.
+- Make `process` always return `[]`.  
+- Keep only the latest packed values per key.  
+- Emit the entire unique table from `finalize`.
 
 ---
 
-## 2. Split reports across two log lines
+## 2. Split / continued lines
 
 ### Your current code (before)
 
-No pending state. Each process call is treated as a complete report. A continuation line that starts with spaces / lacks station+time is dropped or produces a partial row.
+No state between calls. Each `raw` is parsed in isolation. A continuation line that starts with spaces and has no station/time is either dropped or produces a bad row.
 
-### Proposed change (after) — pattern from gold
+### Proposed change (after)
+
+(Keep a `self.pending` buffer exactly as gold does.)
 
 ```python
 def process(self, raw):
-    record = _record(raw)
+    record = parse_record(raw)
     if record is None:
         self._finish_pending()
         return []
     report, received, feed = record
-    report = _prepare(report)
-    header = _header(report, received)
-    if header is None:
-        if self.pending is not None:
-            # try to join continuation
-            joined = _continued_body(body, tail)
-            if joined is not None and _same_circuit(...):
-                self._store(...)
-                self.pending = None
-            else:
-                self._finish_pending()
+    header = parse_header(report, received)
+    if header is None:                       # possible continuation
+        if self.pending:
+            … join body + tail if same circuit …
         return []
     self._finish_pending()
-    # ... store or set pending if no terminator
+    … store or set pending …
     return []
 ```
 
 ### Explanation
 
-6 % of the stream is split over two lines. Gold keeps the incomplete body in `self.pending` and joins the next line when it is clearly a continuation of the same circuit.
+Collectors that wrap at 69 characters or split on line breaks produce two log lines for one METAR. The second line has no station or time of its own. Gold keeps the open body and stitches the tail when the next line arrives on the same circuit. Your code never stitches, so ~30 % of those reports are lost or corrupted.
 
-**Why it matters**  
-Incomplete bodies produce missing or wrong wind / visibility / ceiling / temp / altimeter.
+**Example input**  
+Line 1: `METAR EGLL 311851Z 18012KT 9999 BKN`  
+Line 2: `  020 15/10 Q1013=`
 
-**What to change**  
-Add a small pending state and a continuation recognizer (gold’s `_CONTINUATION` / `_continued_body`).
+**Your behavior**  
+First line may emit a partial row; second line is ignored or produces a mismatch.
+
+**Gold behavior**  
+Joins the body, stores the complete observation, emits once at the end.
 
 ---
 
-## 3. Observation time without Z and hour 2400
+## 3. Time without Z and hour 2400
 
 ### Your current code (before)
 
 ```python
 OBSERVATION_TIME_RE = re.compile(r"^\d{6}Z$")
-# extract_observed_at looks for \b(\d{2})(\d{2})(\d{2})Z\b
-# hour > 23 is rejected
+…
+timestamp_match = re.search(r"\b(\d{2})(\d{2})(\d{2})Z\b", body)
+if hour > 23 or minute > 59:
+    return None
 ```
 
 ### Proposed change (after)
 
+Accept optional Z, treat 2400 as 0000 of the next day, and prefer the candidate closest to the received timestamp (including month/year rollover).
+
 ```python
-# Accept 6 digits with optional Z / UTC
-# Accept hour 24 as 00 of the next calendar day
-# Use received_at (or archive day) as anchor to resolve day-of-month
+# gold-style head pattern already does this
+# hour == 24 → next day 00:00
 ```
 
-Gold’s `_HEAD` and `_observation_day` already do this; midnight 2400 becomes 00:00 of the following day, and a missing Z is still matched.
+### Explanation
 
-**Example input**  
-`311851` (no Z) or `312400Z`.
-
-**Your behavior**  
-No observed_at → row dropped (0 % recovery for “time with no Z”).
-
-**Gold behavior**  
-Observed_at is recovered; row is kept.
-
-**Why it matters**  
-2.9 % of the stream has no Z; another 0.2 % uses 2400. Both are free points once the pattern is widened.
+Many stations omit the Z or write 312400Z for midnight. Your strict regex and `hour > 23` check drop those reports entirely (0 % recovery). Gold’s header regex and date arithmetic recover them and correctly cross month/year boundaries when the log stamp is near midnight.
 
 ---
 
-## 4. Typed units and values split into two tokens
-
-Conditions that cost the most:
-
-- “A value typed in 2 parts” (17.2 %)
-- “KTS, KM, QNH: units by hand” (15.9 %)
-- “Minus signs and loose digits”
-- “Miles with a fraction” (already partially handled)
-- “Wind in m/s”
+## 4. Hand-typed units and two-part values
 
 ### Your current code (before)
 
-```python
-WIND_RE = re.compile(
-    r"(?:^|\s)(?:[0-9]{3}|VRB)([0-9]{2,3})"
-    r"(?:G[0-9]{2,3})?(KT|MPS|KMH)(?:\s|=|$)"
-)
-# visibility looks for glued SM / 4-digit metres
-# altimeter looks for Axxxx / Qxxxx only
-```
+Wind regex expects `KT|MPS|KMH` and a tight digit pattern. Visibility looks for `####` or `N SM` forms. Altimeter looks only for `A####` / `Q####`.
 
 ### Proposed change (after)
 
-Gold’s patterns are deliberately loose:
+Use the broader patterns from gold:
 
-- `_WIND` accepts `KTS`, optional slash, `P` (plus), and missing digits.
-- `_MILES` + previous-token logic rebuilds `1 1/2SM`.
-- `_ALTIMETER_TYPED` accepts `QNH1013`, `A30.01`, etc.
-- `_legacy_field` handles `WIND=18012KTS`, `VIS=10KM`, `QNH=1013`.
-- Tokenisation + previous-token memory recovers the two-part forms.
+```python
+_WIND = re.compile(r"(?:[0-9]{3}|VRB|///)/?P?([0-9]{1,3})(?:GP?(?:[0-9]{1,3}|//))?(KT|KTS|MPS|KMH|KPH)")
+_ALTIMETER_TYPED = re.compile(r"(A|Q|QNH)([0-9]{2,4}(?:[.,][0-9]{1,3})?)")
+# plus a token join step for "180 / 12KT", "10 SM", "A 3001", etc.
+```
 
-**Why it matters**  
-These conditions dominate the remaining wrong/missed cells on wind, visibility and altimeter.
+### Explanation
 
-**What to change**  
-Widen the regexes (or switch to token-walk + previous token) and add the legacy-field path.
+Observers type from paper forms: `18012KTS`, `CALM`, `10KM`, `QNH1013`, `A 3001`, `180/12KT`, `22 / 14`. Your regexes miss a large fraction of these. Gold’s patterns plus a small amount of token re-joining recover them.
 
 ---
 
-## 5. Column extractors (altimeter, visibility, wind, temp, ceiling)
-
-Highest wrong+missed:
-
-| Column | Correct | Wrong | Missed |
-|--------|---------|-------|--------|
-| altimeter_hpa | 78 % | 2 418 | 187 860 |
-| visibility_m | 78 % | 38 436 | 148 675 |
-| wind_kt | 80 % | 5 233 | 163 334 |
-| temp_c | 84 % | 23 168 | 112 116 |
-| ceiling_ft | 91 % | 6 846 | 73 676 |
-
-Gold improvements that matter most:
-
-- Altimeter: accept typed QNH / A with decimal; convert hundredths-of-inch correctly; range-check.
-- Visibility: CAVOK → 9999; mixed/fraction SM with previous whole number; NDV ignored; stop at TEMPO/BECMG/RMK.
-- Wind: MPS / KMH conversion with integer rounding; KTS accepted.
-- Temp: RMK T-group tenths preferred; M-prefix and free-form decimals; one decimal place always.
-- Ceiling: BKN/OVC/VV with optional CB/TCU; lowest layer wins; stop at trend groups.
-
-Also useful: letter-O → digit-0 substitution on digit-only groups (A3O01, BKNO15, 1OSM).
-
----
-
-## 6. Other frequent conditions (secondary)
-
-- Bulletin heading in front (`SAUS70 KWBC 311900`) — strip with `_BULLETIN`.
-- Archive date line / tag kept — strip with `_ARCHIVE`.
-- Lower-case line — already upper-cased in both solutions.
-- Sensors out / NIL / slashes — gold returns None for the missing field and keeps the row.
-- TEMPO / BECMG outlooks — both solutions already stop before trend groups; confirm your extractors do the same.
-- Sent late after outage — day-of-month resolved against received_at (or New-Year anchor).
-
----
-
-## Recommended pattern (complete skeleton)
+## Recommended pattern (copy-paste skeleton)
 
 ```python
 class Handler:
     def __init__(self):
-        self.held = {}          # (station, observed_at) → (wind, vis, ceil, temp, pressure)
-        self.pending = None     # (station, observed_at, body, received, feed) or None
+        self.held = {}          # (station, observed_at) → packed tuple
+        self.pending = None     # for split lines
 
-    def process(self, raw: str) -> list[dict]:
-        # 1. JSON → report / received_at / feed
-        # 2. prepare (upper, transport chars, strip =)
-        # 3. header = station + observed_at + body (handle bulletin/archive/no-Z/2400)
-        # 4. if no header: try join to pending; else finish pending
-        # 5. if terminator present: store; else set pending
-        return []               # never emit here
+    def process(self, raw):
+        # parse, stitch continuations, update self.held[key] = values
+        # never return rows
+        return []
 
-    def finalize(self) -> list[dict]:
-        self._finish_pending()
-        rows = []
-        for (station, observed_at), weather in self.held.items():
-            wind, vis, ceil, temp, pressure = weather
-            rows.append({
-                "station": station,
-                "observed_at": observed_at,
-                "wind_kt": wind,
-                "visibility_m": vis,
-                "ceiling_ft": ceil,
-                "temp_c": temp,
-                "altimeter_hpa": pressure,
-            })
-        self.held.clear()
-        return rows
+    def finalize(self):
+        # flush pending, return list of unique rows
+        return [unpack(k, v) for k, v in self.held.items()]
 ```
 
-Keep only the current winner, recover split lines, widen time and unit parsers, and the same extraction logic that already reaches 0.82 will climb further by eliminating the “second row” and “no record” penalties.
+Keep only the current (last) values for each key. Prefer compact tuples. Return `[]` from every `process` call. Emit the final table only from `finalize`.
+
+---
+
+The remaining gaps (bulletin headers, O-for-0, TEMPO/BECMG cut-off, CAVOK, CB/TCU, etc.) are real but secondary once the emission contract and the most common parsing holes are fixed. The gold file is a compact, battle-tested METAR tokenizer; studying its regex set and the pending-line logic is the fastest way to close the rest of the gap.
