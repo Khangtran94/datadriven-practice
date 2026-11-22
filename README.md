@@ -577,7 +577,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Cost Efficiency Ratio](./practice/sql/cost-efficiency-ratio) | SQL | Easy | 2026-07-07 |
 | [Endpoint Latency Spread](./practice/sql/endpoint-latency-spread) | SQL | Medium | 2026-07-07 |
 | [The Far Ends](./practice/sql/the-far-ends) | SQL | Easy | 2026-07-07 |
-| [Rush Hour API Latency](./practice/sql/rush-hour-api-latency) | SQL | Medium | 2026-07-07 |
+| [Rush Hour API Latency](./practice/sql/rush-hour-api-latency) | SQL | Easy | 2026-07-07 |
 | [Top Revenue Products H1](./practice/sql/top-revenue-products-h1) | SQL | Medium | 2026-07-07 |
 | [Average Response Time by Hour](./practice/sql/average-response-time-by-hour) | SQL | Easy | 2026-07-07 |
 | [Turned Away](./practice/sql/turned-away) | SQL | Medium | 2026-07-07 |
