@@ -1,73 +1,56 @@
 # Week 10 – The Ceiling: Challenge Overview
 
-## 1. One-sentence verdict
-This is a hard aviation-weather parsing challenge for a data engineer with roughly 3–5 years of experience in streaming text / sensor-log pipelines — with a strong requirement for last-write-wins state and tolerant METAR decoding.
+**One-sentence verdict:** A demanding production-grade streaming METAR parser (2–3+ YoE) that turns noisy airport weather reports into a clean observation table for airline delay analysis.
 
-## 2. Domain & context
-- **Simulated business**: an airline studying delay patterns around New Year.
-- **Pipeline goal**: one clean row per METAR observation (station + observed_at) containing wind, visibility, ceiling, temperature and altimeter.
-- **Raw inputs**: collector logs of METARs, each logged as one JSON line. METAR is a terse teletype code designed for pilots; collectors add their own envelope, wrap lines, replay after outages, and occasionally lower-case or re-format the report.
+## Domain & context
 
-## 3. Core data-engineering problems
-The README deliberately injects the following production realities (ordered by cost):
+You are a data engineer at an airline. Every airport on earth reports its weather roughly once an hour as a METAR — a compact, teletype-era code that pilots still read. Collectors logged each report as a JSON line (sometimes wrapped, sometimes continued across two lines, sometimes carrying bulletin headers or local-time envelopes). The dispatch team needs one clean row per observation (station + observed_at + wind, visibility, ceiling, temperature, altimeter) to study delays around New Year.
 
-1. **Value typed in two parts** – 30007 KT, 10 SM, BKN 015, 22 / 14, A 3001.
-2. **Hand-typed units** – KTS, KM, QNH1013, 1013HPA, A30.01, CALM.
-3. **Key order changes** – JSON objects are unordered; never rely on field order.
-4. **Time without Z / hour 2400** – 311851, 311851UTC, 312400Z.
-5. **Bulletin heading or archive date line in front** – SAUS70 KWBC 311900 or a date stamp above the report.
-6. **Negative temperatures** – M05, T10501106 (tenths in remarks), free-form -05 / 22.4.
-7. **CAVOK** – single word replaces visibility and cloud groups.
-8. **Trailing = and split over two log lines** – circuit wrap at 69 characters; continuation must be joined.
-9. **Wind in m/s** – MPS groups; convert to knots.
-10. **Collector bookkeeping, NDV, runway visual range, TEMPO/BECMG outlooks**.
-11. **Late replay after outage** – day-of-month must be resolved against the receipt stamp (or New-Year anchor).
-12. **Letter O typed for zero, lower-case lines, exact duplicates, sensor-out / NIL**.
+The raw stream is deliberately hostile: hand-typed units, missing Zulu designators, hour-2400 midnights, split lines, O-for-0 typos, TEMPO/BECMG forecasts that must be ignored, CAVOK, CB/TCU layers, late backlog after outages, and many collector-specific wrappers.
 
-On top of correctness the identity of a report is (station, observed_at); later copies supersede earlier ones and must not produce a second emitted row.
+## Core data-engineering problems
 
-## 4. Concepts you must master
+1. **Streaming contract** — process one line at a time, emit only in `finalize`, last-write-wins on (station, observed_at).
+2. **Line continuation / pending body** — a report can be split across two log lines; the second has no station or time of its own.
+3. **Robust METAR tokenization** — extract station, time, wind, visibility, ceiling, temperature and altimeter from a free-form string that tolerates dozens of real-world variants.
+4. **Time recovery** — day-of-month only, optional Z, hour 2400, local-time envelopes, month/year rollover near midnight, late backlog after outages.
+5. **Unit normalization** — knots, m/s, km/h, statute miles (including fractions), metres, inches of mercury, hectopascals, QNH, hand-typed forms.
+6. **Forecast / remark cut-off** — ignore TEMPO, BECMG, RMK and everything after them.
+7. **Collector noise** — bulletin headings, archive date lines, relay formats, bookkeeping fields, lower-case, trailing `=`, line wraps.
+8. **Special weather codes** — CAVOK, VV (vertical visibility as ceiling), NDV, runway visual range, missing sensors, NIL.
 
-| Concept | Why it appears in this week |
-|---------|-----------------------------|
-| METAR / SPECI grammar | Station, time group, wind, visibility, cloud layers, temp/dew, altimeter; optional remarks and trends. |
-| Last-write-wins streaming state | Same (station, observed_at) can arrive multiple times; keep only the latest (or best) version. |
-| Tolerant tokenisation | Hand-typed units, split groups, letter-O, free-form decimals, mixed SM fractions. |
-| Day-of-month anchoring | Report carries only DD; year/month come from the collector stamp or a known New-Year window. |
-| Continuation / pending state | Circuit-wrapped reports arrive as two consecutive lines that must be rejoined. |
-| Unit conversion & rounding | MPS/KMH → knots, SM → metres, inches Hg → hPa; integer / one-decimal conventions. |
-| Trend-group isolation | TEMPO / BECMG / NOSIG must not be read as the observation itself. |
+## Concepts you must master
 
-## 5. Difficulty & experience estimate
+| Concept | Why it appears |
+|---------|----------------|
+| Streaming state machine | Split lines and last-write-wins require memory across `process` calls |
+| Regular expressions (heavy) | Almost every field is extracted by a carefully tuned pattern |
+| Datetime arithmetic | Day-of-month + received stamp → full UTC timestamp, including rollovers and 2400 |
+| Last-write-wins / keying | Multiple copies and corrections of the same observation |
+| Tokenization & re-joining | Hand-typed two-part groups ("10 SM", "A 3001", "180/12KT") |
+| Defensive parsing | O-for-0, missing zeros, mixed case, extra spaces, trailing equals |
+| Domain knowledge | METAR structure, CAVOK, CB/TCU, TEMPO/BECMG, altimeter units |
 
-| Lens | Level | Estimated YoE | Short rationale |
-|------|-------|---------------|-----------------|
-| Problem statement (README) | Hard | 3–5 years | Real METAR surface + collector artefacts + strict identity semantics. |
-| Your submission (`handler.py`) | Mid–Senior | ~3 years | Score 0.8185 (4th). Strong extraction on clean reports; losses concentrated on second-row emissions, split lines, no-Z times and typed units. |
-| Reference solution (`gold_submit.py`) | Senior+ | 5+ years | Compact held state, pending-line recovery, broad header/time/unit patterns, and emission only from finalize. |
+## Difficulty & experience estimate
 
-## 6. Skill map
+| Artifact | Level | Estimated YoE | Rationale |
+|----------|-------|---------------|-----------|
+| Problem statement (README) | Hard | 2–3 years | Many intentional edge cases; requires both streaming architecture and domain-aware parsing. |
+| Your submission (`handler.py`) | Intermediate–Hard | 1–2 years | Solid JSON normalization and field extractors, but emits on every change (duplicates) and misses several high-frequency METAR variants. |
+| Reference solution (`gold_submit.py`) | Production-grade | 3–5 years | Compact state machine, pending-line buffer, large battle-tested regex set, correct last-write-wins, and careful date arithmetic. |
 
-**Primary skills trained**
-- Streaming last-write-wins design (single winner per key, emit only at finalize)
-- Robust METAR body parsing (wind / visibility / ceiling / temp / altimeter)
-- Day-of-month and time-form recovery against a receipt anchor
+## Skill map
 
-**Secondary skills**
-- Continuation-line detection and join
-- Legacy / typed-unit field recovery
-- Filtering of trend groups and collector bookkeeping
+- **Primary:** streaming handlers, regex-driven parsing, datetime recovery, last-write-wins deduplication
+- **Secondary:** unit conversion, defensive string cleaning, domain-specific aviation codes
+- **Can defer:** perfect handling of every rare bulletin format once the core contract and the top-frequency conditions are solid
 
-**Can be deferred on a first pass**
-- Exhaustive recovery of every rare remark or outside-list visibility qualifier once the main identity and unit paths are solid
+## Learning path
 
-## 7. Learning path
-1. Change architecture: store one weather tuple per (station, observed_at); never emit from process; emit the whole map from finalize.
-2. Add pending-state recovery for reports split across two log lines.
-3. Widen time patterns (optional Z, hour 2400) and unit/token patterns (KTS, QNH, two-part values, mixed SM); re-measure the high-cost columns.
+1. Change the Handler so `process` always returns `[]` and `finalize` emits the unique last-write-wins table (eliminates the 60 k duplicate-row penalty).
+2. Add a pending-body buffer for split lines and compare your recovery on the "Split over 2 log lines" condition.
+3. Study the gold regex set (`_HEAD`, `_WIND`, `_ALTIMETER_TYPED`, etc.) and incrementally port the highest-impact patterns (no-Z time, 2400, KTS/QNH, two-part values).
 
-## 8. How this pairs with Grok_Analysis.md
-- **Grok_Challenge_Overview.md** (this file) = understand the airline/METAR problem, the intentional collector and coding difficulties, and the experience bar.
-- **Grok_Analysis.md** = understand exactly why second-row emissions and missing records cost points, the concrete before/after state design, and the highest-impact extractor fixes.
+## How this pairs with Grok_Analysis.md
 
-Read the Overview first to know *what* the week is testing; use the Analysis to fix *your* code.
+This overview explains the aviation domain, the intentional hardness of the stream, and the skills required. The companion `Grok_Analysis.md` shows the concrete code differences between your `handler.py` and the gold solution, ordered by score impact, with before/after snippets you can copy.
