@@ -1,6 +1,6 @@
 # Top 2 Busiest API Slots
 
-*Two time slots per week. The busiest.*
+*2 time slots per week. The busiest.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/top_2_busiest_api_slots)
 
