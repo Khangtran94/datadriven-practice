@@ -1,6 +1,6 @@
 # The Podium Finish
 
-*Top two products per category.*
+*Every category gets a podium with room for only 2.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_podium_finish)
 
