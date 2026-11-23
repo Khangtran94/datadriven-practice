@@ -2,7 +2,7 @@
 
 *How much does latency actually vary?*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/latency_variance_and_std_dev)
+[SQL · Hard · on DataDriven](https://datadriven.io/problems/latency_variance_and_std_dev)
 
 ## How it went
 
