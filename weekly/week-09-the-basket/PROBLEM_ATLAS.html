@@ -40,6 +40,22 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 .input-result p{margin:0;color:#dff8ee;font-size:13px}
 .input-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:9px 0 2px;color:#b8cbe2;font-size:11px}
 .input-flow span{padding:5px 8px;border-radius:7px;background:#142b48;border:1px solid #29466d}.input-flow b{color:var(--cyan);font-size:14px}
+
+.assessment{margin:20px 0 22px;padding:18px 20px;border:1px solid #31577b;border-radius:16px;background:linear-gradient(145deg,#122641,#0b1c30)}
+.assessment h2{margin:0 0 7px;font-size:clamp(20px,2.5vw,27px);color:#dceeff}
+.assessment-intro{margin:0 0 12px;color:#bdcde3;max-width:1100px}
+.assessment-summary{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.assessment-summary span{padding:6px 10px;border-radius:9px;background:#0a192b;border:1px solid #29466d;font-size:12px;color:#dceaff}
+.assessment .table-wrap{max-height:620px;overflow:auto}
+.assessment table{min-width:760px}
+.assessment td:nth-child(1){width:33%;font-weight:700}
+.assessment td:nth-child(2),.assessment td:nth-child(3){white-space:nowrap;font-variant-numeric:tabular-nums}
+.status{display:inline-block;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:850;letter-spacing:.03em;white-space:nowrap}
+.status.handled{color:#78f0c5;background:#103b36;border:1px solid #247b68}
+.status.needs{color:#ffd18a;background:#3b2c1a;border:1px solid #87612e}
+.assessment-note{margin:10px 0 0;color:#aebfd5;font-size:11px}
+@media(max-width:560px){.assessment{padding:14px}}
+
 </style>
 </head>
 <body>
@@ -51,7 +67,47 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 <div class="brief-source"><span class="source-label">DATA SOURCE</span><strong>order_events + scans + prices → durable histories → order_charges</strong><p class="source-provenance">Each condition below identifies whether its records are copied from the documented sample or are illustrative edge-case variations.</p></div>
 <div class="brief-requirements"><div><span>1</span>Capture event, scan and price history before source expiry</div><div><span>2</span>Resolve order lifecycle, effective prices and weighted quantities</div><div><span>3</span>Produce one correctly charged row per valid placed order</div></div></section>
 <p class="objective">The complete documented source sample and expected target output are shown above from Week_9_DOC.md. Condition-level snippets below explain individual rules; any example not in that documented sample is illustrative.</p>
-<div class="progress"><div id="fill"></div></div><p id="count"></p></header>
+<div class="progress"><div id="fill"></div></div><p id="count"></p>
+  <section class="assessment" aria-label="Condition Handling Assessment">
+    <h2>Condition Handling Assessment · Your Submission</h2>
+    <p class="assessment-intro">This section maps all 30 conditions listed in the Week 9 README to the measured recovery of your submission. The assessment is copied directly from the README's own <em>Handled</em> classification; it is not inferred from whether a transformation or parser appears in the code. It shows which source conditions the submitted pipeline recovered about as well as the overall run, and which fell below that benchmark.</p>
+    <div class="assessment-summary"><span><strong>20</strong> · Handled (README)</span><span><strong>10</strong> · Needs work (README)</span><span><strong>30</strong> · Conditions assessed</span></div>
+    <div class="table-wrap"><table><thead><tr><th>README condition</th><th>Of tables</th><th>Recovered</th><th>Assessment</th></tr></thead><tbody>
+      <tr><td>An item sold by the pound</td><td>91.1%</td><td>82%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A price changed since ordered</td><td>78.4%</td><td>81%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Events deleted before a run</td><td>62.1%</td><td>83%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Scanned on the newer app</td><td>60.5%</td><td>84%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A 2 for $5 offer</td><td>24.8%</td><td>76%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A label printed at the deli</td><td>32.0%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>UPCs with a 0 in front</td><td>70.0%</td><td>77%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A day sent again whole</td><td>29.2%</td><td>81%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Times in 2 other forms</td><td>26.0%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Tips with $ or USD</td><td>15.0%</td><td>71%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A unit taken back out</td><td>11.5%</td><td>63%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A scale that reads in ounces</td><td>15.9%</td><td>76%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A tip changed after delivery</td><td>18.6%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>NULL written as text</td><td>45.0%</td><td>80%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Each app's own words</td><td>18.0%</td><td>75%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Order numbers typed with #</td><td>9.0%</td><td>65%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Copied after the run began</td><td>15.5%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>An item no longer sold</td><td>12.7%</td><td>80%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Saved on the phone for hours</td><td>13.3%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>The same scan twice in a file</td><td>10.0%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A replacement turned down</td><td>8.2%</td><td>81%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A scan the store took out</td><td>2.8%</td><td>64%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A tip change synced late</td><td>5.4%</td><td>81%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Ordered ahead of a new price</td><td>4.8%</td><td>79%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A shelf find priced days later</td><td>4.6%</td><td>82%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Refused, then taken after all</td><td>3.5%</td><td>81%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A day with no price list</td><td>3.2%</td><td>80%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>An order brought back</td><td>2.1%</td><td>79%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A cancelled order</td><td>5.9%</td><td>100%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Picked, then called off</td><td>3.7%</td><td>100%</td><td><span class="status handled">Handled</span></td></tr>
+    </tbody></table></div>
+    <p class="assessment-note"><strong>How to read this:</strong> “Handled” means the README judged recovery to be about as good as the rest of the run; it does not mean 100% correct. “Needs work” means the condition fell below that benchmark; it does not necessarily mean every record failed. Recovery percentages are condition-level measurements, not output-column correctness.</p>
+  </section>
+
+</header>
 <section class="brief" style="margin:18px 25px 24px"><h2>Start with the execution contract</h2><p>The task is not simply to aggregate scans. The order event feed is live and retains six hours; scan files are copied the next morning and only three nights remain; the price table exposes only its latest nightly snapshot. A correct design must retain history before those source windows expire.</p>
 <div class="schema"><article><h3><code>order_events</code></h3><p>Event and tip history. Six-hour source retention. Preserve event time and write time separately.</p></article><article><h3><code>scans</code></h3><p>Item-level daily files. Three-night source retention. Keep batch day and load timestamp.</p></article><article><h3><code>prices</code></h3><p>Whole-list nightly snapshot. Latest copy only. Build a historical, effective-dated price view.</p></article></div>
 <div class="diagram"><div class="code-label">CONCEPTUAL DATA FLOW · HISTORY BEFORE BUSINESS LOGIC</div><svg viewBox="0 0 900 190" role="img" aria-label="Three source tables flow through durable normalized history into order-level pricing and charge aggregation"><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#6b83a8"/></marker></defs><g font-family="system-ui" font-size="13" text-anchor="middle"><g fill="#edf3ff" stroke="#9bb5e5"><rect x="10" y="12" width="150" height="42" rx="8"/><rect x="10" y="74" width="150" height="42" rx="8"/><rect x="10" y="136" width="150" height="42" rx="8"/></g><g fill="#173f82" font-weight="700"><text x="85" y="38">order_events</text><text x="85" y="100">scans</text><text x="85" y="162">prices</text></g><g stroke="#6b83a8" stroke-width="2" fill="none" marker-end="url(#arr)"><path d="M160 33H235"/><path d="M160 95H235"/><path d="M160 157H235"/><path d="M420 33H500"/><path d="M420 95H500"/><path d="M420 157H500"/><path d="M690 95H760"/></g><g fill="#f4f7fb" stroke="#bdc8d8"><rect x="235" y="12" width="185" height="42" rx="8"/><rect x="235" y="74" width="185" height="42" rx="8"/><rect x="235" y="136" width="185" height="42" rx="8"/></g><g fill="#27364b" font-weight="650"><text x="327" y="38">event history</text><text x="327" y="100">scan history</text><text x="327" y="162">price history</text></g><rect x="500" y="54" width="190" height="82" rx="10" fill="#eaf6ef" stroke="#8bc4a5"/><g fill="#185b40" font-weight="700"><text x="595" y="86">resolve orders</text><text x="595" y="106">+ eligible lines</text></g><rect x="760" y="68" width="130" height="54" rx="10" fill="#173f82" stroke="#173f82"/><text x="825" y="91" fill="white" font-weight="700">order_charges</text><text x="825" y="108" fill="#dce8ff" font-size="10">one row / order</text></g></svg></div>
