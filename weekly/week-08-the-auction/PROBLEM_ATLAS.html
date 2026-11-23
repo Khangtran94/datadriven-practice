@@ -38,6 +38,11 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 .assessment-note{margin:10px 0 0;color:#aebfd5;font-size:11px}
 @media(max-width:560px){.assessment{padding:14px}}
 
+
+.condition-ribbon{position:sticky;top:8px;z-index:30;display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:6px 10px;border-radius:8px;background:#0a192b;border:1px solid #29466d;color:#dceaff;font-size:11px;font-weight:800;letter-spacing:.035em;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.condition-ribbon.handled{border-color:#247b68;color:#78f0c5}
+.condition-ribbon.needs{border-color:#87612e;color:#ffd18a}
+
 </style></head>
 <body>
 <header><div class="topline"><span class="week">WEEK 08</span><span>DATA ENGINEERING</span><span>·</span><span>THE AUCTION</span></div><h1>Problem Atlas</h1>
@@ -203,9 +208,11 @@ return tables;
 function sourceInput(c){
 return sourceTables(c).map(t=>'<div class="source-table"><div class="output-label">'+esc(t.name)+' · COLUMN DICTIONARY</div>'+table(['Column','Type','Meaning'],t.columns.map(x=>[x.name,x.type,x.meaning]))+'<div class="output-label">'+esc(t.name)+' · SOURCE RECORDS</div>'+table(t.columns.map(x=>x.name),t.rows.map(row=>t.columns.map(col=>row[col.name]??'NULL')))+'<p class="note">'+esc(t.note)+'</p></div>').join('');
 }
+const conditionHandling = ["NEEDS WORK","NEEDS WORK","NEEDS WORK","NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","NEEDS WORK","NEEDS WORK","HANDLED","NEEDS WORK","HANDLED","HANDLED","HANDLED","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","HANDLED"];
 function render(){const q=$('search').value.trim().toLowerCase(),cat=$('cat').value,shown=cases.filter(c=>(!cat||c.cat===cat)&&(!q||[c.title,c.cat,c.root,c.input,c.naive,c.wrong,c.correct,c.code,c.steps.join(' '),c.tests.map(t=>t.join(' ')).join(' ')].join(' ').toLowerCase().includes(q)));$('count').textContent=cases.length+' conditions · '+done.size+' understood · '+shown.length+' shown';$('fill').style.width=(100*done.size/cases.length)+'%';$('list').replaceChildren();if(!shown.some(c=>c.id===selected)&&shown.length)selected=shown[0].id;for(const c of shown){const b=document.createElement('button');b.type='button';b.className='item'+(c.id===selected?' active':'');b.innerHTML='<span class="index">'+String(c.id).padStart(2,'0')+'</span><span class="name">'+esc(c.title)+'</span><span class="tick">'+(done.has(c.id)?'✓':'○')+'</span>';b.addEventListener('click',()=>{selected=c.id;render()});$('list').appendChild(b)}if(!shown.length){$('detail').innerHTML='<h2>No matching conditions</h2><p>Try another search term or clear the filters.</p>';return}
 const c=cases.find(x=>x.id===selected),tests=c.tests.map(t=>[t[0],t[1],t[2]]);
-$('detail').innerHTML='<div class="hero"><div><span class="pill">WEEK 08 · CONDITION '+String(c.id).padStart(2,'0')+' / 30</span><div class="counter">README condition '+c.id+' of 30 · '+esc(c.cat)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source record through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE AUCTION</div></div>'+
+$('detail').innerHTML='<div class="condition-ribbon '+(conditionHandling[x.id-1] === "HANDLED" ? "handled" : "needs")+'">WEEK 08 · CONDITION '+String(c.id).padStart(2,"0")+' / '+cases.length+' · '+(conditionHandling[c.id-1] || "UNASSESSED")+'</div>' +
+<div class="counter">README condition '+c.id+' of 30 · '+esc(c.cat)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source record through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE AUCTION</div></div>'+
 '<section class="section"><h3 class="section-title"><span class="dot"></span>1 · Business Context · Root Cause</h3><div class="context">'+esc(c.root)+'</div><p class="note">Condition meaning is grounded in README.md. Business interpretation is explained in plain language.</p></section>'+
 '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Illustrative Source Input</h3><div class="source"><p class="source-note">Source records use the exact raw-table column names and documented TEXT types. Each condition shows only the source table(s) relevant to its failure mode.</p>'+sourceInput(c)+'</div></section>'+
 '<section class="section"><h3 class="section-title"><span class="dot"></span>3 · Naive SQL Execution</h3><div class="compare-card bad"><div class="compare-head">✕ WHY THE SIMPLE APPROACH FAILS</div><div class="formula">'+esc(c.naive)+'</div><div class="output-label">LIKELY FAILURE</div><div class="output">'+esc(c.wrong)+'</div></div></section>'+
