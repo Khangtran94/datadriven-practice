@@ -81,6 +81,21 @@ footer{max-width:1480px;margin:16px auto 30px;padding:0 25px;color:var(--muted);
 @media(max-width:850px){.layout{grid-template-columns:1fr}.list{position:static;max-height:300px;display:grid;grid-template-columns:1fr 1fr;gap:6px}.item{margin:0}.detail{padding:16px}}
 @media(max-width:720px){.brief-heading{align-items:flex-start;flex-direction:column}.brief-requirements{grid-template-columns:1fr}.brief-visual{overflow-x:auto}}
 @media(max-width:560px){header,main{padding:17px 13px}.list{grid-template-columns:1fr}.hero{display:block}.detail{padding:13px}footer{padding:0 13px}}
+
+.assessment{margin:20px 0 22px;padding:18px 20px;border:1px solid #31577b;border-radius:16px;background:linear-gradient(145deg,#122641,#0b1c30)}
+.assessment h2{margin:0 0 7px;font-size:clamp(20px,2.5vw,27px);color:#dceeff}
+.assessment-intro{margin:0 0 12px;color:#bdcde3;max-width:1100px}
+.assessment-summary{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.assessment-summary span{padding:6px 10px;border-radius:9px;background:#0a192b;border:1px solid #29466d;font-size:12px;color:#dceaff}
+.assessment .table-wrap{max-height:620px;overflow:auto}
+.assessment table{min-width:760px}
+.assessment td:nth-child(1){width:33%;font-weight:700}
+.assessment td:nth-child(2),.assessment td:nth-child(3){white-space:nowrap;font-variant-numeric:tabular-nums}
+.status{display:inline-block;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:850;letter-spacing:.03em;white-space:nowrap}
+.status.handled{color:#78f0c5;background:#103b36;border:1px solid #247b68}
+.status.needs{color:#ffd18a;background:#3b2c1a;border:1px solid #87612e}
+.assessment-note{margin:10px 0 0;color:#aebfd5;font-size:11px}
+@media(max-width:560px){.assessment{padding:14px}}
 </style>
 </head>
 <body>
@@ -121,6 +136,44 @@ footer{max-width:1480px;margin:16px auto 30px;padding:0 25px;color:var(--muted);
       <tr><td>altimeter_hpa</td><td>Altimeter setting converted to hectopascals</td><td>One-decimal string or NULL</td></tr>
     </tbody></table></div>
     <p class="note">Illustrative output row: EGLL · 2025-12-31T18:51:00Z · 5 kt · 9999 m · 1500 ft · -5.0 °C · 1013.0 hPa.</p>
+  </section>
+
+  <section class="assessment" aria-label="Condition Handling Assessment">
+    <h2>Condition Handling Assessment · Your Submission</h2>
+    <p class="assessment-intro">This section maps all 28 README conditions to the measured recovery of your Week 10 submission. The status is copied from the README's own <em>Handled</em> classification; it is not inferred from whether a parser function exists. It answers which source conditions the submitted pipeline recovered about as well as the overall run, and which still need work.</p>
+    <div class="assessment-summary"><span><strong>17</strong> · Handled (README)</span><span><strong>11</strong> · Needs work (README)</span><span><strong>28</strong> · Conditions assessed</span></div>
+    <div class="table-wrap"><table><thead><tr><th>README condition</th><th>Of stream</th><th>Recovered</th><th>Assessment</th></tr></thead><tbody>
+      <tr><td>A value typed in 2 parts</td><td>17.2%</td><td>68%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>KTS, KM, QNH: units by hand</td><td>15.9%</td><td>68%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Key order changes</td><td>30.0%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A time with no Z</td><td>2.9%</td><td>0%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>A bulletin heading in front</td><td>4.0%</td><td>32%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Readings below zero</td><td>13.8%</td><td>84%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Minus signs and loose digits</td><td>6.5%</td><td>72%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>CAVOK in place of numbers</td><td>12.6%</td><td>87%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>An = at the end</td><td>12.0%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Split over 2 log lines</td><td>6.0%</td><td>70%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Wind in m/s</td><td>7.4%</td><td>82%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Collector bookkeeping fields</td><td>10.0%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>NDV and runway range</td><td>8.0%</td><td>83%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>TEMPO and BECMG outlooks</td><td>7.4%</td><td>84%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Sent late, after an outage</td><td>4.9%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A date line or a tag kept</td><td>4.0%</td><td>80%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Local time on the envelope</td><td>5.0%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>A line break in the middle</td><td>5.0%</td><td>86%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Miles with a fraction</td><td>4.8%</td><td>87%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>CB or TCU on a layer</td><td>3.8%</td><td>84%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>An O typed for a zero</td><td>1.3%</td><td>61%</td><td><span class="status needs">Needs work</span></td></tr>
+      <tr><td>Sent again with a fix</td><td>7.5%</td><td>83%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>The relay's own line format</td><td>2.8%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>The same line sent twice</td><td>4.0%</td><td>86%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>The line in lower case</td><td>3.0%</td><td>85%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Sensors out, parts absent</td><td>3.1%</td><td>92%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>VV: a sky no one can see</td><td>1.3%</td><td>84%</td><td><span class="status handled">Handled</span></td></tr>
+      <tr><td>Midnight as hour 2400</td><td>0.2%</td><td>0%</td><td><span class="status needs">Needs work</span></td></tr>
+    </tbody></table></div>
+    <p class="assessment-note"><strong>How to read this:</strong> “Handled” means the README judged recovery to be about as good as the rest of the run. It does not mean 100% correct. “Needs work” means the condition fell below that benchmark; it does not necessarily mean every record failed. For example, hour 2400 and missing-Z timestamps both recovered 0%, while hand-entered units recovered 68%. The percentages are condition-level recovery, not output-column correctness.</p>
+    <p class="assessment-note"><strong>Highest-priority gaps confirmed by the code review:</strong> split token groups and hand-entered units; missing-Z time parsing; bulletin-header removal; cross-line report buffering; archive date/tag handling; O-versus-zero normalization; and hour-2400 rollover. The checked-in <code>gold_submit.py</code> also rejects hour 2400, so that condition needs an independent fix rather than a direct copy from the reference.</p>
   </section>
   <div class="progress"><div id="bar"></div></div><p id="count" aria-live="polite"></p>
   <div class="filters"><input id="search" type="search" placeholder="Search a condition, token, field, or root cause…" aria-label="Search Week 10 conditions"><select id="cat" aria-label="Filter by category"><option value="">All categories</option></select><button id="clear" type="button">Clear filters</button><button id="reset" type="button">Reset progress</button></div>
