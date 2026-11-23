@@ -69,6 +69,17 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 .condition-ribbon.needs::before{background:#ffc66d;box-shadow:0 0 0 3px rgba(255,198,109,.16),0 0 10px rgba(255,198,109,.38)}
 @media(max-width:560px){.condition-ribbon{top:6px;padding:7px 11px;font-size:10px;letter-spacing:.04em;gap:8px}}
 
+
+/* Problem Atlas account controls */
+.atlas-account{max-width:1180px;margin:18px auto;padding:14px 18px;border:1px solid #29466d;border-radius:14px;background:rgba(12,29,50,.92);display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:#dce9f8}
+.atlas-account .account-copy{flex:1 1 260px;min-width:220px}
+.atlas-account .account-title{font-weight:800;color:#fff;margin-bottom:4px}
+.atlas-account .account-status{font-size:12px;line-height:1.5;color:#a9bfd8}
+.atlas-account .account-actions{display:flex;gap:8px;flex-wrap:wrap}
+.atlas-account button{border:1px solid #42658b;border-radius:9px;padding:9px 12px;background:#173554;color:#eff7ff;font:600 12px inherit;cursor:pointer}
+.atlas-account button.primary{background:#245c88;border-color:#4c91c7}
+.atlas-account button[hidden]{display:none}
+@media(max-width:600px){.atlas-account{margin:14px 12px}.atlas-account .account-actions{width:100%}.atlas-account button{flex:1}}
 </style></head>
 <body>
 <header><div class="topline"><span class="week">WEEK 08</span><span>DATA ENGINEERING</span><span>·</span><span>THE AUCTION</span></div><h1>Problem Atlas</h1>
@@ -137,8 +148,22 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
   </section>
 
 </header>
+
+<section class="atlas-account" aria-label="Cloud progress account">
+  <div class="account-copy">
+    <div class="account-title">Your learning progress</div>
+    <div class="account-status" id="atlas-auth-status" aria-live="polite">Progress is saved in this browser. Sign in with GitHub to sync across devices.</div>
+  </div>
+  <div class="account-actions">
+    <button class="primary" id="atlas-login" type="button">Sign in with GitHub</button>
+    <button id="atlas-logout" type="button" hidden>Sign out</button>
+    <button id="atlas-import" type="button" hidden>Import this browser's progress</button>
+  </div>
+</section>
+
 <main><div class="filters"><input id="search" placeholder="Search conditions, fields, SQL patterns or business rules…" aria-label="Search conditions"><select id="cat"><option value="">All categories</option></select><button id="clear" type="button">Clear filters</button><button id="reset" type="button">Reset progress</button></div><div class="layout"><nav class="list" id="list" aria-label="Week 8 challenge conditions"></nav><article class="detail" id="detail" aria-live="polite"></article></div></main>
 <footer>SQL / DAG lesson based on weekly/week-08-the-auction/README.md, Week_8_DOC.md, dag.sql and gold_submit.sql. Examples are illustrative unless explicitly identified as README sample rows. The task SQL uses the challenge's supported SQL environment; confirm dialect-specific functions and timezone behavior before adapting patterns to another engine.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const cases = [
 {id:1,title:"Ids with = padding on the end",cat:"Event identity & normalization",root:"The same 16-byte impression ID can be serialized as a 22-character base64 string or a 24-character padded string ending in two equals signs. The serving build drops the padding while an older build retains it. A raw-text join treats these as different ads.",input:"ad_events\nimpression_id = A3ov7PHu5IgfPo0Zyfyqzw==\nevent = serve\nevent_time = 1791651772316560\ncustomer_id = 2598220763\ndetail = top-2",naive:"GROUP BY impression_id or join on the raw value. The padded and unpadded spellings become two keys, splitting serve, click and verdict rows.",wrong:"A click keyed by the padded form does not attach to the unpadded serve; duplicate logical impressions can be produced.",correct:"Remove only valid terminal base64 padding before grouping or joining. Preserve the 22-character canonical ID as TEXT; do not decode/re-encode arbitrary malformed values.",code:"CASE WHEN length(impression_id)=24 AND substr(impression_id,-2)='=='\n     THEN substr(impression_id,1,22)\n     ELSE impression_id END AS canonical_impression_id",steps:["Trim source whitespace and identify the exact supported padded representation.","Canonicalize the impression key before event deduplication and cross-event joins.","Keep the canonical key as TEXT and validate its expected 22-character form.","Use the same canonical key in serve, click and fraud-verdict partitions."],tests:[["Normal ID","A3ov7PHu5IgfPo0Zyfyqzw","One impression key retained"],["Padded ID","A3ov7PHu5IgfPo0Zyfyqzw==","Same canonical key as unpadded form"],["Malformed suffix","ID ending with one = or other suffix","Do not strip arbitrary characters; quarantine or reject as malformed"],["Replay","Both spellings arrive in separate copies","One logical impression, no duplicate target row"]]},
@@ -250,4 +275,211 @@ $('done').addEventListener('change',e=>{e.target.checked?done.add(c.id):done.del
 const categories=[...new Set(cases.map(c=>c.cat))];categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;$('cat').appendChild(o)});
 $('search').addEventListener('input',render);$('cat').addEventListener('change',render);$('clear').addEventListener('click',()=>{$('search').value='';$('cat').value='';render()});$('reset').addEventListener('click',()=>{if(confirm('Clear all Week 08 learning checkmarks?')){done.clear();try{localStorage.removeItem(storeKey)}catch(e){}render()}});
 render();
-</script></body></html>
+</script>
+<script>
+(function () {
+  const ATLAS_SUPABASE_URL = 'https://qctpkjuyporvahwalisc.supabase.co';
+  const ATLAS_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_BW3_Zel31w-XXtu9kZR0Bg_dgdM1I1Z';
+  const ATLAS_WEEK_SLUG = 'week-08-the-auction';
+  let atlasSupabaseClient = null;
+  let atlasCurrentUser = null;
+  let atlasCloudIsEmpty = false;
+  let atlasResetApproved = false;
+
+  const atlasStatus = document.getElementById('atlas-auth-status');
+  const atlasLogin = document.getElementById('atlas-login');
+  const atlasLogout = document.getElementById('atlas-logout');
+  const atlasImport = document.getElementById('atlas-import');
+
+  function atlasProgressSet() {
+    if (typeof done !== 'undefined' && done instanceof Set) return done;
+    if (typeof completed !== 'undefined' && completed instanceof Set) return completed;
+    return null;
+  }
+  function atlasLocalKey() {
+    if (typeof store !== 'undefined' && typeof store === 'string') return store;
+    if (typeof storeKey !== 'undefined' && typeof storeKey === 'string') return storeKey;
+    return null;
+  }
+  function atlasSetStatus(message) {
+    if (atlasStatus) atlasStatus.textContent = message;
+  }
+  function atlasRefreshButtons() {
+    const hasUser = !!atlasCurrentUser;
+    if (atlasLogin) atlasLogin.hidden = hasUser;
+    if (atlasLogout) atlasLogout.hidden = !hasUser;
+    if (atlasImport) atlasImport.hidden = !(hasUser && atlasCloudIsEmpty && atlasProgressSet() && atlasProgressSet().size > 0);
+  }
+  function atlasSaveLocal() {
+    const set = atlasProgressSet();
+    const key = atlasLocalKey();
+    if (!set || !key) return;
+    try { localStorage.setItem(key, JSON.stringify([...set])); } catch (e) {}
+  }
+  function atlasRender() {
+    if (typeof render === 'function') render();
+  }
+  async function atlasLoadCloudProgress(user) {
+    const { data, error } = await atlasSupabaseClient
+      .from('atlas_progress')
+      .select('scenario_id')
+      .eq('user_id', user.id)
+      .eq('week_slug', ATLAS_WEEK_SLUG);
+    if (error) {
+      atlasSetStatus('Could not load cloud progress: ' + error.message + '. Your browser progress is still available.');
+      return;
+    }
+    const set = atlasProgressSet();
+    if (!set) {
+      atlasSetStatus('Signed in, but this Atlas page could not connect to its progress state.');
+      return;
+    }
+    if (data && data.length) {
+      set.clear();
+      data.forEach(row => set.add(Number(row.scenario_id)));
+      atlasSaveLocal();
+      atlasCloudIsEmpty = false;
+      atlasRender();
+      atlasSetStatus('Signed in with GitHub. This week is synced with your cloud progress.');
+    } else {
+      atlasCloudIsEmpty = true;
+      atlasSetStatus(set.size
+        ? 'Signed in. No cloud progress exists for this week yet. Your browser progress is unchanged; import it if you want to copy it to the cloud.'
+        : 'Signed in with GitHub. No progress has been recorded for this week yet.');
+    }
+    atlasRefreshButtons();
+  }
+  async function atlasSyncScenario(scenarioId, understood) {
+    if (!atlasSupabaseClient || !atlasCurrentUser || !Number.isFinite(Number(scenarioId))) return;
+    let result;
+    if (understood) {
+      result = await atlasSupabaseClient.from('atlas_progress').upsert({
+        user_id: atlasCurrentUser.id,
+        week_slug: ATLAS_WEEK_SLUG,
+        scenario_id: Number(scenarioId),
+        understood: true,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id,week_slug,scenario_id' });
+    } else {
+      result = await atlasSupabaseClient.from('atlas_progress')
+        .delete()
+        .eq('user_id', atlasCurrentUser.id)
+        .eq('week_slug', ATLAS_WEEK_SLUG)
+        .eq('scenario_id', Number(scenarioId));
+    }
+    if (result.error) {
+      atlasSetStatus('Cloud sync failed: ' + result.error.message + '. Your browser progress is still saved.');
+    } else {
+      atlasCloudIsEmpty = false;
+      atlasSetStatus('Signed in with GitHub. Your progress is synced.');
+      atlasRefreshButtons();
+    }
+  }
+  async function atlasImportLocalProgress() {
+    const set = atlasProgressSet();
+    if (!atlasSupabaseClient || !atlasCurrentUser || !set || !set.size) return;
+    const rows = [...set].map(id => ({
+      user_id: atlasCurrentUser.id,
+      week_slug: ATLAS_WEEK_SLUG,
+      scenario_id: Number(id),
+      understood: true
+    }));
+    const { error } = await atlasSupabaseClient.from('atlas_progress').upsert(rows, {
+      onConflict: 'user_id,week_slug,scenario_id'
+    });
+    if (error) {
+      atlasSetStatus('Import failed: ' + error.message);
+      return;
+    }
+    atlasCloudIsEmpty = false;
+    atlasSetStatus('Imported ' + rows.length + ' understood conditions from this browser to your cloud account.');
+    atlasRefreshButtons();
+  }
+
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    try {
+      atlasSupabaseClient = window.supabase.createClient(ATLAS_SUPABASE_URL, ATLAS_SUPABASE_PUBLISHABLE_KEY);
+    } catch (error) {
+      atlasSetStatus('Supabase could not start: ' + error.message + '. Progress remains available in this browser.');
+    }
+  } else {
+    atlasSetStatus('Supabase library did not load. Learning conditions remain available; cloud sign-in is temporarily unavailable.');
+  }
+
+  if (atlasLogin) atlasLogin.addEventListener('click', async function () {
+    if (!atlasSupabaseClient) {
+      atlasSetStatus('Cloud sign-in is unavailable because the Supabase library did not load. Your progress remains saved in this browser.');
+      return;
+    }
+    const { error } = await atlasSupabaseClient.auth.signInWithOAuth({
+      provider: 'github',
+      options: { redirectTo: window.location.href.split('#')[0] }
+    });
+    if (error) atlasSetStatus('GitHub sign-in failed: ' + error.message);
+  });
+  if (atlasLogout) atlasLogout.addEventListener('click', async function () {
+    if (!atlasSupabaseClient) return;
+    const { error } = await atlasSupabaseClient.auth.signOut();
+    if (error) atlasSetStatus('Sign out failed: ' + error.message);
+  });
+  if (atlasImport) atlasImport.addEventListener('click', atlasImportLocalProgress);
+
+  // The existing Atlas checkbox handler runs first and updates its original Set.
+  document.addEventListener('change', function (event) {
+    if (event.target && event.target.id === 'done' && atlasCurrentUser) {
+      Promise.resolve().then(function () {
+        const scenarioId = typeof selected !== 'undefined' ? selected : null;
+        if (scenarioId !== null) atlasSyncScenario(scenarioId, !!event.target.checked);
+      });
+    }
+  });
+
+  // Mirror an accepted reset to the cloud; a cancelled confirmation never deletes cloud data.
+  const atlasNativeConfirm = window.confirm.bind(window);
+  window.confirm = function (message) {
+    const accepted = atlasNativeConfirm(message);
+    if (/clear all.*(checkmarks|learning)/i.test(String(message))) atlasResetApproved = accepted;
+    return accepted;
+  };
+  document.addEventListener('click', function (event) {
+    if (event.target && event.target.closest && event.target.closest('#reset')) {
+      Promise.resolve().then(async function () {
+        if (!atlasResetApproved) return;
+        atlasResetApproved = false;
+        if (!atlasSupabaseClient || !atlasCurrentUser) return;
+        const { error } = await atlasSupabaseClient.from('atlas_progress')
+          .delete()
+          .eq('user_id', atlasCurrentUser.id)
+          .eq('week_slug', ATLAS_WEEK_SLUG);
+        if (error) atlasSetStatus('Browser progress was reset, but cloud reset failed: ' + error.message);
+        else {
+          atlasCloudIsEmpty = true;
+          atlasSetStatus('This week’s progress has been reset in this browser and cloud account.');
+          atlasRefreshButtons();
+        }
+      });
+    }
+  });
+
+  if (atlasSupabaseClient) {
+    atlasSupabaseClient.auth.onAuthStateChange(function (_event, session) {
+      atlasCurrentUser = session && session.user ? session.user : null;
+      atlasCloudIsEmpty = false;
+      atlasRefreshButtons();
+      if (atlasCurrentUser) atlasLoadCloudProgress(atlasCurrentUser);
+      else atlasSetStatus('Signed out. Progress is saved in this browser only.');
+    });
+    atlasSupabaseClient.auth.getSession().then(function ({ data, error }) {
+      if (error) {
+        atlasSetStatus('Could not check sign-in status: ' + error.message);
+        return;
+      }
+      atlasCurrentUser = data.session && data.session.user ? data.session.user : null;
+      atlasRefreshButtons();
+      if (atlasCurrentUser) atlasLoadCloudProgress(atlasCurrentUser);
+      else atlasSetStatus('Progress is saved in this browser. Sign in with GitHub to sync across devices.');
+    });
+  }
+})();
+</script>
+</body></html>
