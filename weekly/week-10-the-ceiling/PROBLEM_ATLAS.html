@@ -235,7 +235,18 @@ const storeKey = 'de-atlas-week-10-the-ceiling-v1';
 const WEEK_SLUG = 'week-10-the-ceiling';
 const SUPABASE_URL = 'https://qctpkjuyporvahwalisc.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_BW3_Zel31w-XXtu9kZR0Bg_dgdM1I1Z';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+// Keep the learning Atlas usable even if the optional Supabase CDN is unavailable.
+let supabase = null;
+let supabaseInitError = '';
+try {
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  } else {
+    supabaseInitError = 'Supabase library did not load. The 28 learning conditions are still available; cloud sign-in is temporarily unavailable.';
+  }
+} catch (error) {
+  supabaseInitError = 'Supabase could not start: ' + error.message;
+}
 let completed = new Set();
 try { completed = new Set(JSON.parse(localStorage.getItem(storeKey) || '[]')); } catch (e) {}
 let currentUser = null;
@@ -322,6 +333,10 @@ async function importLocalProgress() {
 }
 document.getElementById('atlas-login').addEventListener('click', async () => {
   const button = document.getElementById('atlas-login');
+  if (!supabase) {
+    setAccountStatus(supabaseInitError || 'Cloud sign-in is unavailable. Your learning progress remains usable in this browser.');
+    return;
+  }
   button.disabled = true;
   setAccountStatus('Redirecting to GitHub…');
   const { error } = await supabase.auth.signInWithOAuth({
@@ -334,6 +349,7 @@ document.getElementById('atlas-login').addEventListener('click', async () => {
   }
 });
 document.getElementById('atlas-logout').addEventListener('click', async () => {
+  if (!supabase) return;
   const { error } = await supabase.auth.signOut();
   if (error) {
     setAccountStatus('Sign out failed: ' + error.message);
@@ -345,7 +361,7 @@ document.getElementById('atlas-logout').addEventListener('click', async () => {
   setAccountStatus('Signed out. Progress remains in this browser.');
 });
 document.getElementById('atlas-import').addEventListener('click', importLocalProgress);
-supabase.auth.onAuthStateChange((_event, session) => {
+if (supabase) supabase.auth.onAuthStateChange((_event, session) => {
   currentUser = session?.user || null;
   if (currentUser) {
     setTimeout(() => loadCloudProgress(currentUser), 0);
@@ -355,12 +371,17 @@ supabase.auth.onAuthStateChange((_event, session) => {
     setAccountStatus('Progress is saved in this browser. Sign in with GitHub to sync across devices.');
   }
 });
-supabase.auth.getSession().then(({ data, error }) => {
-  if (error) setAccountStatus('Could not check sign-in session: ' + error.message);
-  currentUser = data.session?.user || null;
-  if (currentUser) loadCloudProgress(currentUser);
-  else updateAccountControls();
-});
+if (supabase) {
+  supabase.auth.getSession().then(({ data, error }) => {
+    if (error) setAccountStatus('Could not check sign-in session: ' + error.message);
+    currentUser = data.session?.user || null;
+    if (currentUser) loadCloudProgress(currentUser);
+    else updateAccountControls();
+  }).catch(error => setAccountStatus('Could not check sign-in session: ' + error.message));
+} else {
+  setAccountStatus(supabaseInitError + ' Progress is saved locally in this browser.');
+  updateAccountControls();
+}
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 function table(headers, rows) {
