@@ -199,6 +199,7 @@ function sourceInput(c) {
 function stepList(steps) {
   return '<div class="steps">' + steps.map((s, i) => '<div class="step"><span class="step-num">' + (i + 1) + '</span><div class="step-text">' + esc(s) + '</div></div>').join('') + '</div>';
 }
+const conditionHandling = ["NEEDS WORK","NEEDS WORK","HANDLED","NEEDS WORK","NEEDS WORK","HANDLED","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","NEEDS WORK"];
 function render() {
   const query = $('search').value.trim().toLowerCase();
   const category = $('cat').value;
@@ -222,7 +223,8 @@ function render() {
   });
   const c = cases.find(x => x.id === selected);
   $('detail').innerHTML =
-    '<div class="hero"><div><span class="pill">WEEK 10 · CONDITION ' + String(c.id).padStart(2, '0') + ' / 28</span><div class="counter">README condition ' + c.id + ' of 28 · ' + esc(c.category) + '</div><h2>' + esc(c.title) + '</h2><p class="lede">Trace the complete source record through the failure mode, corrected Python behavior and a focused acceptance test.</p></div><div class="eyebrow">THE CEILING</div></div>' +
+    '<div class="condition-ribbon ' + (conditionHandling[c.id-1] === "HANDLED" ? "handled" : "needs") + '">WEEK 10 · CONDITION ' + String(c.id).padStart(2, '0') + ' / ' + cases.length + ' · ' + (conditionHandling[c.id-1] || "UNASSESSED") + '</div>' +
+    '<div class="hero"><div><div class="counter">README condition ' + c.id + ' of 28 · ' + esc(c.category) + '</div><h2>' + esc(c.title) + '</h2><p class="lede">Trace the complete source record through the failure mode, corrected Python behavior and a focused acceptance test.</p></div><div class="eyebrow">THE CEILING</div></div>' +
     '<section class="section"><h3 class="section-title"><span class="dot"></span>1 · Business Context · Root Cause</h3><div class="context"><strong>ORIGINAL README BUSINESS CONTEXT</strong><p>' + esc(c.context) + '</p></div><div class="context technical"><strong>TECHNICAL ROOT CAUSE</strong><p>' + esc(c.root) + '</p></div></section>' +
     '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>ILLUSTRATIVE SOURCE RECORDS</strong> · ' + esc(c.sourceNote) + '</p>' + sourceInput(c) + '<p class="note">The records are complete teaching fixtures. They are not claimed to be rows from the hidden dataset.</p></div></section>' +
     '<section class="section"><h3 class="section-title"><span class="dot"></span>3 · Naive Python Execution</h3><div class="compare-card bad"><div class="compare-head">✕ WHY THE SIMPLE APPROACH FAILS</div><pre class="code">' + esc(c.naive) + '</pre><div class="output-label">LIKELY FAILURE</div><div class="output">' + esc(c.failure) + '</div></div></section>' +
