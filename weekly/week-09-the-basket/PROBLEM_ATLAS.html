@@ -56,6 +56,11 @@ header,main{max-width:1480px;margin:auto;padding:22px 25px}.topline{display:flex
 .assessment-note{margin:10px 0 0;color:#aebfd5;font-size:11px}
 @media(max-width:560px){.assessment{padding:14px}}
 
+
+.condition-ribbon{position:sticky;top:8px;z-index:30;display:inline-flex;align-items:center;gap:8px;margin:0 0 12px;padding:6px 10px;border-radius:8px;background:#0a192b;border:1px solid #29466d;color:#dceaff;font-size:11px;font-weight:800;letter-spacing:.035em;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.condition-ribbon.handled{border-color:#247b68;color:#78f0c5}
+.condition-ribbon.needs{border-color:#87612e;color:#ffd18a}
+
 </style>
 </head>
 <body>
@@ -236,6 +241,7 @@ function sourceInput(c){
  }).join('');
  return html;
 }
+const conditionHandling = ["NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","HANDLED","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","NEEDS WORK","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","NEEDS WORK","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED","HANDLED"];
 function render(){
  const q=$("search").value.trim().toLowerCase(),cat=$("cat").value;
  const shown=cases.filter(c=>(!cat||c.topic===cat)&&(!q||[c.title,c.topic,c.businessContext,c.root,c.naive,c.failure,c.rule,c.sql,c.steps.join(" "),JSON.stringify(c.source),JSON.stringify(c.tests)].join(" ").toLowerCase().includes(q)));
@@ -246,7 +252,8 @@ function render(){
  for(const c of shown){const b=document.createElement("button");b.type="button";b.className="item"+(c.id===selected?" active":"");b.innerHTML='<span class="index">'+String(c.id).padStart(2,"0")+'</span><span class="name">'+esc(c.title)+'</span><span class="tick">'+(completed.has(c.id)?"✓":"○")+'</span>';b.addEventListener("click",()=>{selected=c.id;render()});$("list").appendChild(b)}
  if(!shown.length){$("detail").innerHTML="<h2>No matching conditions</h2><p>Try another search term or clear the filters.</p>";return}
  const c=cases.find(x=>x.id===selected);
- $("detail").innerHTML='<div class="hero"><div><span class="pill">WEEK 09 · CONDITION '+String(c.id).padStart(2,"0")+' / 30</span><div class="counter">README condition '+c.id+' of 30 · '+esc(c.topic)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source records through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE BASKET</div></div>'+
+ $("detail").innerHTML='<div class="condition-ribbon '+(conditionHandling[x.id-1] === "HANDLED" ? "handled" : "needs")+'">WEEK 09 · CONDITION '+String(c.id).padStart(2,"0")+' / '+cases.length+' · '+(conditionHandling[c.id-1] || "UNASSESSED")+'</div>' +
+<div class="counter">README condition '+c.id+' of 30 · '+esc(c.topic)+'</div><h2>'+esc(c.title)+'</h2><p class="lede">Follow the source records through the failure mode, corrected SQL behavior and a focused validation set.</p></div><div class="eyebrow">THE BASKET</div></div>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>1 · Business Context · Root Cause</h3><div class="context"><strong>ORIGINAL README BUSINESS CONTEXT</strong><p>'+esc(c.businessContext)+'</p></div><div class="context technical-context"><strong>TECHNICAL ROOT CAUSE</strong><p>'+esc(c.root)+'</p></div><p class="note">The business context above is copied verbatim from README.md → Why these happen. The technical root cause below is an additional teaching explanation.</p></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>2 · Condition-specific Source Input</h3><div class="source"><p class="source-note"><strong>'+esc(c.provenance||"ILLUSTRATIVE EDGE CASE")+'</strong> · '+esc(c.sourceNote||"The values below are focused teaching examples, not additional documented raw rows.")+'</p>'+sourceInput(c)+'</div></section>'+
  '<section class="section"><h3 class="section-title"><span class="dot"></span>3 · Naive SQL Execution</h3><div class="compare-card bad"><div class="compare-head">✕ WHY THE SIMPLE APPROACH FAILS</div><div class="formula">'+esc(c.naive)+'</div><div class="output-label">LIKELY FAILURE</div><div class="output">'+esc(c.failure)+'</div></div></section>'+
