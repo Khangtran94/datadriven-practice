@@ -421,9 +421,8 @@ function render() {
 $('search').addEventListener('input', render);
 $('cat').addEventListener('change', render);
 $('clear').addEventListener('click', () => { $('search').value = ''; $('cat').value = ''; render(); });
-$('reset').addEventListener('click', () => {
+$('reset').addEventListener('click', async () => {
   if (confirm('Clear all Week 10 learning checkmarks on this browser and, if signed in, in your cloud account?')) {
-    const idsToDelete = [...completed];
     completed.clear();
     try { localStorage.removeItem(storeKey); } catch (e) {}
     render();
