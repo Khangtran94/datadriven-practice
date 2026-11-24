@@ -1,6 +1,6 @@
 # The Merit Circle
 
-*Ten seats at the top, and the ratings decide who sits.*
+*10 seats at the bottom, and the ratings decide who sits.*
 
 [SQL · Medium · on DataDriven](https://datadriven.io/problems/the_merit_circle)
 
