@@ -230,7 +230,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [User Spend Audit](./practice/sql/user-spend-audit) | SQL | Medium | 2026-08-31 |
 | [Top Regions by Critical Alerts](./practice/sql/top-regions-by-critical-alerts) | SQL | Medium | 2026-08-31 |
 | [Top Product Category by Transactions](./practice/sql/top-product-category-by-transactions) | SQL | Medium | 2026-08-31 |
-| [Top Product Categories](./practice/sql/top-product-categories) | SQL | Medium | 2026-08-31 |
+| [Top Product Categories](./practice/sql/top-product-categories) | SQL | Easy | 2026-08-31 |
 | [First Among Many](./practice/sql/first-among-many) | SQL | Medium | 2026-08-31 |
 | [Customers Without Orders](./practice/sql/customers-without-orders) | SQL | Medium | 2026-08-31 |
 | [Active Duo](./practice/sql/active-duo) | SQL | Medium | 2026-08-31 |
