@@ -2,7 +2,7 @@
 
 *Top three categories by page views.*
 
-[SQL · Easy · on DataDriven](https://datadriven.io/problems/top_product_categories)
+[SQL · Medium · on DataDriven](https://datadriven.io/problems/top_product_categories)
 
 ## How it went
 
