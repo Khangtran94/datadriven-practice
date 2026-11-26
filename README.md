@@ -1003,7 +1003,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [Top Shelf](./practice/sql/top-shelf) | SQL | Easy | 2026-05-23 |
 | [The Freshest Record](./practice/sql/the-freshest-record) | SQL | Medium | 2026-05-22 |
 | [Daily Error Count Change](./practice/sql/daily-error-count-change) | SQL | Medium | 2026-05-22 |
-| [Cloud Cost Trend Analysis](./practice/sql/cloud-cost-trend-analysis) | SQL | Medium | 2026-05-22 |
+| [Cloud Cost Trend Analysis](./practice/sql/cloud-cost-trend-analysis) | SQL | Easy | 2026-05-22 |
 | [The Row Count Surprise](./practice/sql/the-row-count-surprise) | SQL | Easy | 2026-05-22 |
 | [Annual Cloud Spend Summary](./practice/sql/annual-cloud-spend-summary) | SQL | Easy | 2026-05-22 |
 | [Corner to Corner](./practice/python/corner-to-corner) | Python | Medium | 2026-05-22 |
