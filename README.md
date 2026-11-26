@@ -214,7 +214,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 | [The Streak Breaker](./practice/python/the-streak-breaker) | Python | Easy | 2026-09-07 |
 | [The Weight of a Click](./practice/sql/the-weight-of-a-click) | SQL | Hard | 2026-09-07 |
 | [Services With Multi-Quarter Uptime](./practice/sql/services-with-multi-quarter-uptime) | SQL | Hard | 2026-09-07 |
-| [Across the Aisles](./practice/sql/across-the-aisles) | SQL | Hard | 2026-09-07 |
+| [Across the Aisles](./practice/sql/across-the-aisles) | SQL | Medium | 2026-09-07 |
 | [Experiment Impact](./practice/sql/experiment-impact) | SQL | Hard | 2026-09-07 |
 | [Back From the Brink](./practice/sql/back-from-the-brink) | SQL | Hard | 2026-09-07 |
 | [Above the Line](./practice/sql/above-the-line) | SQL | Hard | 2026-09-07 |
