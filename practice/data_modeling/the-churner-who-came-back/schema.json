@@ -1,0 +1,184 @@
+{
+  "tables": [
+    {
+      "name": "dim_date",
+      "columns": [
+        {
+          "name": "date_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "full_date",
+          "type": "DATE"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "year",
+          "type": "INT"
+        }
+      ]
+    },
+    {
+      "name": "dim_subscriber",
+      "columns": [
+        {
+          "name": "subscriber_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "CHAR"
+        },
+        {
+          "name": "phone",
+          "type": "CHAR"
+        },
+        {
+          "name": "email",
+          "type": "CHAR"
+        },
+        {
+          "name": "region",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "dim_plan_tier",
+      "columns": [
+        {
+          "name": "plan_tier_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "plan_tier_name",
+          "type": "CHAR"
+        }
+      ]
+    },
+    {
+      "name": "subscriber_key",
+      "columns": [
+        {
+          "name": "subscriber_sk",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "date_applied",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "subscriber_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "plan_tier_id",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "status",
+          "type": "CHAR"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "name": "fact_monthly_invoice",
+      "columns": [
+        {
+          "name": "invoice_id",
+          "type": "INT",
+          "key": "pk"
+        },
+        {
+          "name": "invoice_date",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "subscriber_sk",
+          "type": "INT",
+          "key": "fk"
+        },
+        {
+          "name": "month",
+          "type": "INT"
+        },
+        {
+          "name": "revenue",
+          "type": "DECIMAL"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": {
+        "table": "subscriber_key",
+        "column": "date_applied"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "subscriber_key",
+        "column": "plan_tier_id"
+      },
+      "to": {
+        "table": "dim_plan_tier",
+        "column": "plan_tier_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "subscriber_key",
+        "column": "subscriber_id"
+      },
+      "to": {
+        "table": "dim_subscriber",
+        "column": "subscriber_id"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_monthly_invoice",
+        "column": "subscriber_sk"
+      },
+      "to": {
+        "table": "subscriber_key",
+        "column": "subscriber_sk"
+      },
+      "foreign_key": true
+    },
+    {
+      "from": {
+        "table": "fact_monthly_invoice",
+        "column": "invoice_date"
+      },
+      "to": {
+        "table": "dim_date",
+        "column": "date_sk"
+      },
+      "foreign_key": true
+    }
+  ]
+}

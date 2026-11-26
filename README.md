@@ -25,6 +25,7 @@ Scored work from [DataDriven](https://datadriven.io/u/kobe_bryant), committed he
 
 | Problem | Domain | Difficulty | Solved |
 |---|---|---|---|
+| [The Churner Who Came Back](./practice/data_modeling/the-churner-who-came-back) | Data Modeling | Hard | 2026-11-26 |
 | [The Floor Price](./practice/spark/the-floor-price) | Spark | Medium | 2026-11-13 |
 | [Multiplayer Game Match History](./practice/data_modeling/multiplayer-game-match-history) | Data Modeling | Medium | 2026-11-11 |
 | [The Talent Funnel](./practice/data_modeling/the-talent-funnel) | Data Modeling | Medium | 2026-11-11 |
